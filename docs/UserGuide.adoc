@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Inventory Manager - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-4`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+desktop app to manage their shop inventory. More importantly, it is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of
+a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
+management tasks such as creating sales, generating reports, creating purchase orders
+and more.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `InventoryManager.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +38,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all items
+* **`add`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
+* **`delete`**`3` : deletes the 3rd item shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -43,85 +48,124 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+**Major Features** +
+
+1. *Authentication and User management*:
+* Login for different group of users in CLI (cashier/admin/manager)
+* Feature for admin to create users
+* Feature for admin to list users
+* Feature for admin to update users
+* Feature for admin to delete users
+1. *Sales*
+* Feature for cashier to create an order
+* Feature for cashier to delete an order
+* Feature for cashier to search for an order
+* Order creation to automatically update inventory level
+3. *Reporting module*:
+* Feature for manager to export sales report to a CSV file
+* Feature for manager to export items to a CSV file
+* Feature for manager to export users to a CSV file
+* Feature for manager to manage notification alerts
+* Notification/alerts to be automatically sent according to inventory level
+4. *Inventory Management*:
+* Feature for users(cashier/manager) to list inventory
+* Feature for users(cashier/manager) to delete inventory
+* Feature for users(cashier/manager) to search inventory by field attributes
+* Feature for users (cashier/manager) to update inventory
+* Feature for users (cashier/manager) to add image to inventory
+* Feature for users (cashier/manager) to sort inventory by field attributes
+5. *Purchase Order (CRUD)*:
+* Feature for users (cashier/manager) to create purchase orders
+* Feature for users (cashier/manager) to update purchase orders
+* Feature for users (cashier/manager) to list purchase orders history
+* Feature for manager to list pending purchase orders
+* Feature for manager to delete pending purchase orders
+* Feature for manager to approve purchase orders
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/IPhone X`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/IPhone X t/Expensive` or as `n/IPhone X`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Firmware` t/ExpiryDate` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME q/QUANTITY`, `q/QUANTITY n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Login to the system : `login`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Prompt the users for their username and password. +
+Format: `login`
+
+=== Selling an item (Cashier) : `sell`
+
+Format: `sell`
+
+
+=== Adding an item : `add`
+
+Adds an item to the inventory manager +
+Format: `add n/NAME s/SERIAL_NUMBER q/QUANTITY l/LOCATION b/BATCH_NUMBER [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+An item can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/IPhone X s/SN-1234 q/1000 l/101-001A b/12-12-2012`
 
-=== Listing all persons : `list`
+=== Listing all items : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all items in the inventory manager. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing an item : `update`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `update INDEX [n/NAME] [s/SERIAL_NUMBER] [q/QUANTITY] [l/LOCATION] [b/BATCH_NUMBER] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When updating tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
+* You can remove all the item's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `update 1 l/111-123A q/999` +
+Updates the location and quantity of the 1st item to be `111-123A` and `999` respectively.
 
-=== Locating persons by name: `find`
+=== Locating items by name : `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds item whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g `iphone` will match `IPhone`
+* The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
+* Only the name of the item is searched.
+* Only full words will be matched e.g. `phone` will not match `IPhone`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find iphone` +
+Returns `IPhone X` and `IPhone 10`
 
-=== Deleting a person : `delete`
+=== Deleting an item : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified item from the inventory. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed inventory list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,19 +173,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd item in the inventory.
+* `find IPhone X` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st item in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting an item : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the item identified by the index number used in the displayed inventory. +
 Format: `select INDEX`
 
 ****
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -149,10 +193,30 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd item in the inventory.
+* `find IPhone X` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st item in the results of the `find` command.
+
+=== Export sales report : `export-sales`
+
+Format: `export-sales`
+
+=== Export list of items : `export-items`
+
+Format: `export-items`
+
+=== Export list of users : `export-users`
+
+Format: `export-users`
+
+=== Send email to users : `email`
+
+Format: `email`
+
+=== Generate purchase order : `generate-po`
+
+Format: `generate-po`
 
 === Listing entered commands : `history`
 
