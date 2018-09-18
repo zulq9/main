@@ -25,6 +25,14 @@ Role: Developer
 
 Responsibilities: Data
 
+=== Yao TengXiong
+image::yao-tx.jpg[width="150", align="left"]
+{empty} [https://github.com/yao-tx[github]] [<<yao-tx#, portfolio>>]
+
+Role: Developer
+
+Responsibilities: Deliverables and Inventory Management
+
 === Muhd Zulqarnain Bin Ramlan
 image::zulq9.jpg[width="150", align="left"]
 {empty} [https://github.com/zulq9[github]] [<<zulq9#, portfolio>>]
