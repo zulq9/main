@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Inventory Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -820,13 +820,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Small to medium enterprises to manage their inventory
+* Experienced computer user with basic knowledge on Command Line Interface (CLI)
+* Organised business owners who wish to manage multiple groups of staffs
+* Efficient user who prefers typing over mouse input
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Inventory Manager assists small to medium enterprises (SMEs) in managing their
+staff and inventory without a need to invest a huge sum in complicated and expensive inventory management systems.
+
 
 [appendix]
 == User Stories
@@ -836,17 +837,47 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |login through CLI |use the features of the app
 
-|`* * *` |user |add a new person |
+|`* * *` |user |be able to sell items |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |be able to view all the items as a list |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |new user |view all commands that I can use |learn how to use the app
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |manager |export sales report to a CSV file |better manage the inventory
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |manager |export all users to a CSV file |better manage staff under me
+
+|`* * *` |manager |send email to users |send important information to staff
+
+|`* * *` |manager |search for item |better manage items in inventory
+
+|`* * *` |manager |duplicate items |create items efficiently
+
+|`* * *` |manager |update / modify existing items |better manage items in inventory
+
+|`* * *` |manager |add items into inventory |
+
+|`* * *` |manager |generate purchase order |restock the inventories
+
+|`* * *` |manager |delete items from inventory |remove items that are out-of-stock
+
+|`* * *` |manager |be notified for low inventory |generate the purchase order
+
+|`* * *` |admin |add users to the system |better manage all the users and their accounts
+
+|`* * *` |admin |remove users from the system |
+
+|`* * *` |admin |update users in the system |update users' detail if necessary
+
+|`* * *` |admin |view all existing users in the system |
+
+|`* * *` |admin |assign roles to users |restrict their user permissions
+
+|`*` |expert user |use shortcuts for commands |use the app more efficiently
+
+|`*` |user |group items according to categories |
 |=======================================================================
 
 _{More to be added}_
@@ -854,7 +885,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Inventory Manager` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -882,16 +913,49 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+_{To be updated}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Compatible with most of the mainstream Operating Systems
+.  Able to store up to 100 products for inventory management without affecting performance of the app
+.  Generate each report within 3 seconds
 
 _{More to be added}_
+
+[appendix]
+== Project Management
+
+* Darren Ong Yun Kai
+** Authentication and User management
+*** V1.1 Develop a users management API
+*** V1.2 Support authentication of users and users management
+*** V1.3 Support encryption of data
+
+* Esmond Tan
+** Sales
+*** V1.1 Support order create, read, update, delete
+*** V1.2 Update inventory upon sales creation
+*** V1.3 Develop a order management API
+
+* Wang Chao
+** Reporting Module
+*** V1.1 Support daily sales report
+*** V1.2 Support exporting users and sales to email and excel
+*** V1.3 Support exporting inventory to email and excel
+
+* Yao TengXiong
+** Inventory Management
+*** V1.1 Support inventory create, read, update, delete
+*** V1.2 Image support for inventory items
+*** V1.3 Develop inventory management API
+
+* Zulqarnain
+** Purchase Order
+*** V1.1 Support purchase order create, read, update, delete
+*** V1.2 Integrate with Inventory API to update inventory
+*** V1.3 Develop purchase order management API
 
 [appendix]
 == Glossary
