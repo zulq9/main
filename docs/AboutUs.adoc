@@ -27,4 +27,12 @@ Role: Developer
 
 Responsibilities: Data
 
+=== Esmond Tan
+image::esmondtan.jpg[width="150", align="left"]
+{empty} [https://github.com/esmondtan[github]] [<<esmondtan#, portfolio>>]
+
+Role: Developer
+
+Responsibilities: Testing, Code Quality
+
 '''
