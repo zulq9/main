@@ -25,10 +25,6 @@ Role: Developer
 
 Responsibilities: Data
 
-<<<<<<< HEAD
-'''
-
-=======
 === Esmond Tan
 image::esmondtan.jpg[width="150", align="left"]
 {empty} [https://github.com/esmondtan[github]] [<<esmondtan#, portfolio>>]
@@ -53,5 +49,4 @@ Role: Developer
 
 Responsibilities: Deliverable and deadlines
 
-'''
->>>>>>> cabdb1b82a00d9abbee6a517775569a8d489dff8
+
