@@ -30,6 +30,12 @@ public class Password {
         this.password = hash(password);
     }
 
+    /**
+     * Hashes the password string to non-human readable.
+     *
+     * @param password the password that users defined
+     * @return hashstring
+     */
     private String hash(String password) {
         byte[] encodehash = new byte[0];
         try {
@@ -68,6 +74,12 @@ public class Password {
         return password.hashCode();
     }
 
+    /**
+     * Converts hashed bytes to Hexadecimal values.
+     *
+     * @param hash the hashed bytes
+     * @return the hexadecimal string converted from the bytes
+     */
     private static String bytesToHex(byte[] hash) {
         StringBuffer hexString = new StringBuffer();
         String hex;

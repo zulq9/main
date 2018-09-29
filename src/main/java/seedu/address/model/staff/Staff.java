@@ -14,6 +14,9 @@ public class Staff {
     private Name name;
     private Role role;
 
+    /**
+     * This is a enum for staff's role.
+     */
     public enum Role {
         admin, manager, user
     }
@@ -60,10 +63,10 @@ public class Staff {
         }
 
         Staff otherStaff = (Staff) other;
-        return otherStaff.getUsername().equals(getUsername()) &&
-                otherStaff.getPassword().equals(getPassword()) &&
-                otherStaff.getName().equals(getName()) &&
-                otherStaff.getRole().equals(getRole());
+        return otherStaff.getUsername().equals(getUsername())
+                && otherStaff.getPassword().equals(getPassword())
+                && otherStaff.getName().equals(getName())
+                && otherStaff.getRole().equals(getRole());
     }
 
     @Override
