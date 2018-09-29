@@ -24,7 +24,7 @@ public class Staff {
     /**
      * Every field must be present and not null.
      */
-    private Staff(Username username, Password password, Name name, Role role) {
+    public Staff(Username username, Password password, Name name, Role role) {
         requireAllNonNull(username, password, name, role);
         this.username = username;
         this.password = password;
