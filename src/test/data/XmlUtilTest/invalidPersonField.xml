@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Person with an invalid phone field -->
-<person>
+<!-- Item with an invalid quantity field -->
+<item>
     <name>Hans Muster</name>
-    <phone>9482asf424</phone>
-    <email>hans@example</email>
-    <address>4th street</address>
+    <quantity>9482asf424</quantity>
+    <sku>hans@example</sku>
+    <image>4th street</image>
     <tagged>friends</tagged>
-</person>
+</item>

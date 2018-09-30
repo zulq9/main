@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<person>
+<item>
     <name>Hans Muster</name>
-    <phone>9482424</phone>
-    <email>hans@example</email>
-    <address>4th street</address>
+    <quantity>9482424</quantity>
+    <sku>hans@example</sku>
+    <image>4th street</image>
     <tagged>friends</tagged>
-</person>
+</item>
