@@ -124,7 +124,7 @@ Format: `list`
 
 === Editing an item : `update`
 
-Edits an existing person in the address book. +
+Edits an existing item in the image book. +
 Format: `update INDEX [n/NAME] [s/SERIAL_NUMBER] [q/QUANTITY] [l/LOCATION] [b/BATCH_NUMBER] [t/TAG]...`
 
 ****
@@ -149,7 +149,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case insensitive. e.g `iphone` will match `IPhone`
 * The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
 * Only the name of the item is searched.
-* Only full words will be matched e.g. `phone` will not match `IPhone`
+* Only full words will be matched e.g. `quantity` will not match `IPhone`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
 ****
 
@@ -184,7 +184,7 @@ Selects the item identified by the index number used in the displayed inventory.
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the item and loads the Google search page the item at the specified `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -210,9 +210,9 @@ Format: `export-items`
 
 Format: `export-users`
 
-=== Send email to users : `email`
+=== Send sku to users : `sku`
 
-Format: `email`
+Format: `sku`
 
 === Generate purchase order : `generate-po`
 
@@ -231,12 +231,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the image book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the image book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -280,7 +280,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the image book. +
 Format: `clear`
 
 === Exiting the program : `exit`
