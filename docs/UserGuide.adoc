@@ -56,15 +56,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
-1. *Sales*
+2. *Sales*
 * Feature for cashier to create an order
 * Feature for cashier to delete an order
 * Feature for cashier to search for an order
 * Order creation to automatically update inventory level
 3. *Reporting module*:
-* Feature for manager to export sales report to a CSV file
-* Feature for manager to export items to a CSV file
-* Feature for manager to export users to a CSV file
+* Feature for manager to import/export sales report from/to a CSV file
+* Feature for manager to import/export items from/to a CSV file
+* Feature for manager to import/export users from/to a CSV file
+* Feature for manager to import/export entire data to a .im file
 * Feature for manager to manage notification alerts
 * Notification/alerts to be automatically sent according to inventory level
 4. *Inventory Management*:
@@ -198,21 +199,74 @@ Selects the 2nd item in the inventory.
 `select 1` +
 Selects the 1st item in the results of the `find` command.
 
-=== Export sales report : `export-sales`
+=== Export to CSV: `export-csv`
+****
+* Export the data to the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
 
-Format: `export-sales`
+==== Export sales report to CSV: `export-csv-sales`
 
-=== Export list of items : `export-items`
+Export the sales report in CSV format to the filepath given. +
+Format: `export-csv-sales f/FILEPATH`
 
-Format: `export-items`
+==== Export list of items to CSV : `export-csv-items`
 
-=== Export list of users : `export-users`
+Export the list of items in CSV format to the filepath given. +
+Format: `export-csv-items f/FILEPATH`
 
-Format: `export-users`
+==== Export list of users to CSV: `export-csv-users`
 
-=== Send email to users : `email`
+Export the list of users in CSV format to the filepath given. +
+Format: `export-csv-users f/FILEPATH`
 
-Format: `email`
+=== Export entire data to .im file: `export-im`
+Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `export-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
+
+=== Import from CSV: `import-csv`
+****
+* Imports the data from the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Data that already exist in *Inventory Manager* will not be imported.
+* Data in the CSV file must be recognizable by *Inventory Manager*.
+****
+==== Import sales report from CSV: `import-csv-sales`
+
+Import the sales report in CSV format from the filepath given. +
+Format: `import-csv-sales f/FILEPATH`
+
+==== Import list of items from CSV : `import-csv-items`
+
+Import the list of items in CSV format from the filepath given. +
+Format: `import-csv-items f/FILEPATH`
+
+==== Import list of users from CSV: `import-csv-users`
+
+Import the list of users in CSV format from the filepath given. +
+Format: `import-csv-users f/FILEPATH`
+
+=== Import entire data from .im file: `import-im`
+Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `import-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Data that already exist in *Inventory Manager* will not be imported.
+* Data in the .im file must be recognizable by *Inventory Manager*.
+****
 
 === Generate purchase order : `generate-po`
 
@@ -322,3 +376,28 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Export sales report to CSV* : `export-csv-sales f/FILEPATH` +
+e.g. `export-csv-sales f/C:/out/sales.csv`
+
+* *Export list of items to CSV* : `export-csv-items f/FILEPATH` +
+e.g. `export-csv-items f/C:/out/items.csv`
+
+* *Export list of users to CSV* : `export-csv-users f/FILEPATH` +
+e.g. `export-csv-users f/C:/out/users.csv`
+
+* *Export entire data to .im file* : `export-im f/FILEPATH` +
+e.g. `export-im f/C:/out/data.im`
+
+* *Import sales report from CSV* : `import-csv-sales f/FILEPATH` +
+e.g. `import-csv-sales f/C:/in/sales.csv`
+
+* *Import list of items from CSV* : `import-csv-items f/FILEPATH` +
+e.g. `import-csv-items f/C:/in/items.csv`
+
+* *Import list of users from CSV* : `import-csv-users f/FILEPATH` +
+e.g. `import-csv-users f/C:/in/users.csv`
+
+* *Import entire data from .im file* : `import-im f/FILEPATH` +
+e.g. `import-im f/C:/in/data.im`
+
+

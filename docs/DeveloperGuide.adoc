@@ -913,6 +913,62 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Export data
+
+*MSS*
+
+1.  User requests to export data with a filepath given.
+2.  Inventory Manager exports the data to the filepath given.
+3.  Inventory Manager shows a preview of the data exported
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filepath is empty or invalid.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. The exporting progress fails.
++
+[none]
+** 2a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Import data
+
+*MSS*
+
+1.  User requests to import data with a filepath given.
+2.  Inventory Manager imports the data from the filepath given.
+3.  Inventory Manager shows a preview of the data imported
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filepath is empty or invalid.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. The importing progress fails.
++
+[none]
+** 2a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
 _{To be updated}_
 
 [appendix]
