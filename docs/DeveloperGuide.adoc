@@ -244,7 +244,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+exportimport[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -913,6 +913,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+// tag::usecaseexportimport[]
 [discrete]
 === Use case: Export data
 
@@ -968,6 +969,7 @@ Use case resumes at step 1.
 ** 2a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 1.
+// end::usecaseexportimport[]
 
 _{To be updated}_
 

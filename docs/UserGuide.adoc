@@ -199,6 +199,7 @@ Selects the 2nd item in the inventory.
 `select 1` +
 Selects the 1st item in the results of the `find` command.
 
+// tag::exportimport[]
 === Export to CSV: `export-csv`
 ****
 * Export the data to the file specified by `FILEPATH`.
@@ -267,6 +268,7 @@ Format: `import-im f/FILEPATH`
 * Data that already exist in *Inventory Manager* will not be imported.
 * Data in the .im file must be recognizable by *Inventory Manager*.
 ****
+// end::exportimport[]
 
 === Generate purchase order : `generate-po`
 
