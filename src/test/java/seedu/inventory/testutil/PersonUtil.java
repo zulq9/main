@@ -9,7 +9,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.tag.Tag;
 
@@ -41,9 +41,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditItemDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditItemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getQuantity().ifPresent(phone -> sb.append(PREFIX_QUANTITY).append(phone.value).append(" "));

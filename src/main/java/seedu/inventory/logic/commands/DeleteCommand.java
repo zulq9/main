@@ -12,7 +12,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Deletes a item identified using it's displayed index from the inventory book.
+ * Deletes a item identified using it's displayed index from the inventory.
  */
 public class DeleteCommand extends Command {
 
@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
     private final Index targetIndex;
 
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Item> lastShownList = model.getFilteredPersonList();
+        List<Item> lastShownList = model.getFilteredItemList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
         Item itemToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteItem(itemToDelete);
         model.commitInventory();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, itemToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
     }
 
     @Override

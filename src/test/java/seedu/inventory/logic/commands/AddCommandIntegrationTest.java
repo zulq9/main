@@ -43,7 +43,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Item itemInList = model.getInventory().getItemList().get(0);
         assertCommandFailure(new AddCommand(itemInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
 }

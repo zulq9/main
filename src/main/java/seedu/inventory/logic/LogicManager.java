@@ -8,7 +8,7 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
-import seedu.inventory.logic.parser.AddressBookParser;
+import seedu.inventory.logic.parser.InventoryParser;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
@@ -21,19 +21,19 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final InventoryParser inventoryParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        inventoryParser = new InventoryParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = inventoryParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -42,7 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<Item> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredItemList();
     }
 
     @Override

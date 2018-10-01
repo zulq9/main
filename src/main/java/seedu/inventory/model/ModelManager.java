@@ -90,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedInventory}
      */
     @Override
-    public ObservableList<Item> getFilteredPersonList() {
+    public ObservableList<Item> getFilteredItemList() {
         return FXCollections.unmodifiableObservableList(filteredItems);
     }
 

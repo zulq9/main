@@ -7,7 +7,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 
 /**
- * Clears the inventory book.
+ * Clears the inventory.
  */
 public class ClearCommand extends Command {
 

@@ -36,9 +36,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Quantity quantity = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_QUANTITY).get());
-        Sku sku = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_SKU).get());
-        Image image = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_IMAGE).get());
+        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
+        Sku sku = ParserUtil.parseSku(argMultimap.getValue(PREFIX_SKU).get());
+        Image image = ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Item item = new Item(name, quantity, sku, image, tagList);

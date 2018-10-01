@@ -3,7 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.inventory.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
 import static seedu.inventory.testutil.TestUtil.getPerson;
@@ -33,7 +33,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         Item deletedItem = removePerson(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedItem);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last item in the list -> deleted */
@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         /* Case: filtered item list, delete index within bounds of inventory book and item list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered item list, delete index within bounds of inventory book but out of bounds of item list
@@ -82,7 +82,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         selectPerson(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedItem = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedItem);
+        expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -129,7 +129,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Item deletedItem = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedItem);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

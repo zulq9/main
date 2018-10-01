@@ -15,7 +15,7 @@ import java.util.Set;
 
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.tag.Tag;
 
@@ -42,26 +42,26 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditItemDescriptor editItemDescriptor = new EditCommand.EditItemDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editItemDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
-            editPersonDescriptor.setQuantity(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_QUANTITY).get()));
+            editItemDescriptor.setQuantity(ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get()));
         }
         if (argMultimap.getValue(PREFIX_SKU).isPresent()) {
-            editPersonDescriptor.setSku(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_SKU).get()));
+            editItemDescriptor.setSku(ParserUtil.parseSku(argMultimap.getValue(PREFIX_SKU).get()));
         }
         if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
-            editPersonDescriptor.setImage(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_IMAGE).get()));
+            editItemDescriptor.setImage(ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editItemDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editItemDescriptor);
     }
 
     /**

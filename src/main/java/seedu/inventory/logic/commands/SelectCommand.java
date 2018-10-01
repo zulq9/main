@@ -14,7 +14,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Selects a item identified using it's displayed index from the inventory book.
+ * Selects a item identified using it's displayed index from the inventory.
  */
 public class SelectCommand extends Command {
 
@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Item: %1$s";
+    public static final String MESSAGE_SELECT_ITEM_SUCCESS = "Selected Item: %1$s";
 
     private final Index targetIndex;
 
@@ -37,14 +37,14 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Item> filteredItemList = model.getFilteredPersonList();
+        List<Item> filteredItemList = model.getFilteredItemList();
 
         if (targetIndex.getZeroBased() >= filteredItemList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_ITEM_SUCCESS, targetIndex.getOneBased()));
 
     }
 
