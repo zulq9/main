@@ -20,7 +20,7 @@ import org.junit.Test;
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
-import seedu.inventory.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
@@ -40,13 +40,13 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Item editedItem = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.updateItem(model.getFilteredPersonList().get(0), editedItem);
+        expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -54,18 +54,18 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Item lastItem = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredItemList().size());
+        Item lastItem = model.getFilteredItemList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastItem);
         Item editedItem = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.updateItem(lastItem, editedItem);
@@ -76,10 +76,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Item editedItem = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditItemDescriptor());
+        Item editedItem = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.commitInventory();
@@ -91,15 +91,15 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Item itemInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Item itemInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
         Item editedItem = new PersonBuilder(itemInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.updateItem(model.getFilteredPersonList().get(0), editedItem);
+        expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -107,11 +107,11 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Item firstItem = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstItem).build();
+        Item firstItem = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(firstItem).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test
@@ -123,13 +123,13 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(itemInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -155,8 +155,8 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item editedItem = new PersonBuilder().build();
-        Item itemToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.updateItem(itemToEdit, editedItem);
@@ -176,8 +176,8 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
+        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> inventory book state not added into model
@@ -198,12 +198,12 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Item editedItem = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Item itemToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.updateItem(itemToEdit, editedItem);
         expectedModel.commitInventory();
 
@@ -214,7 +214,7 @@ public class EditCommandTest {
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), itemToEdit);
+        assertNotEquals(model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased()), itemToEdit);
         // redo -> edits same second item in unfiltered item list
         expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -225,7 +225,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        EditItemDescriptor copyDescriptor = new EditCommand.EditItemDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

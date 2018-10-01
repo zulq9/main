@@ -57,8 +57,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditItemDescriptor DESC_AMY;
+    public static final EditCommand.EditItemDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -100,7 +100,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Inventory expectedInventory = new Inventory(actualModel.getInventory());
-        List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -110,7 +110,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedInventory, actualModel.getInventory());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -120,20 +120,20 @@ public class CommandTestUtil {
      * {@code model}'s inventory book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList().size());
 
-        Item item = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Item item = model.getFilteredItemList().get(targetIndex.getZeroBased());
         final String[] splitName = item.getName().fullName.split("\\s+");
         model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredItemList().size());
     }
 
     /**
      * Deletes the first item in {@code model}'s filtered list from {@code model}'s inventory book.
      */
     public static void deleteFirstPerson(Model model) {
-        Item firstItem = model.getFilteredPersonList().get(0);
+        Item firstItem = model.getFilteredItemList().get(0);
         model.deleteItem(firstItem);
         model.commitInventory();
     }

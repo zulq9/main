@@ -71,7 +71,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updateItem(
-                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedItem);
+                getModel().getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased()), editedItem);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a item with new values same as existing values -> edited */
@@ -82,7 +82,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: edit a item with new values same as another item's values but with different name -> edited */
         assertTrue(getModel().getInventory().getItemList().contains(BOB));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedItem = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -100,7 +100,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Item itemToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Item itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
         editedItem = new PersonBuilder(itemToEdit).withTags().build();
         assertCommandSuccess(command, index, editedItem);
 
@@ -109,9 +109,9 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: filtered item list, edit index within bounds of inventory book and item list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        itemToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
         editedItem = new PersonBuilder(itemToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedItem);
 
@@ -148,7 +148,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredItemList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
@@ -184,30 +184,30 @@ public class EditCommandSystemTest extends InventorySystemTest {
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getInventory().getItemList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different inventory -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     /**
@@ -231,11 +231,11 @@ public class EditCommandSystemTest extends InventorySystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Item editedItem,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateItem(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedItem);
+        expectedModel.updateItem(expectedModel.getFilteredItemList().get(toEdit.getZeroBased()), editedItem);
         expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem), expectedSelectedCardIndex);
     }
 
     /**

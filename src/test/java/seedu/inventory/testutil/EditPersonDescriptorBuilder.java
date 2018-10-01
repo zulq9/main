@@ -4,31 +4,32 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.inventory.logic.commands.EditCommand;
+import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.model.item.*;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditItemDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditCommand.EditItemDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditItemDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditPersonDescriptorBuilder(EditItemDescriptor descriptor) {
+        this.descriptor = new EditItemDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code item}'s details
+     * Returns an {@code EditItemDescriptor} with fields containing {@code item}'s details
      */
     public EditPersonDescriptorBuilder(Item item) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditItemDescriptor();
         descriptor.setName(item.getName());
         descriptor.setQuantity(item.getQuantity());
         descriptor.setSku(item.getSku());
@@ -37,7 +38,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditItemDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -45,7 +46,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Quantity} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Quantity} of the {@code EditItemDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withPhone(String phone) {
         descriptor.setQuantity(new Quantity(phone));
@@ -53,7 +54,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Sku} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Sku} of the {@code EditItemDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withEmail(String email) {
         descriptor.setSku(new Sku(email));
@@ -61,7 +62,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Image} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Image} of the {@code EditItemDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setImage(new Image(address));
@@ -69,7 +70,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditItemDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
@@ -78,7 +79,7 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditItemDescriptor build() {
         return descriptor;
     }
 }

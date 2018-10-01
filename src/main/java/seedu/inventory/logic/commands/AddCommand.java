@@ -13,7 +13,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Adds a item to the inventory book.
+ * Adds a item to the inventory.
  */
 public class AddCommand extends Command {
 
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This item already exists in the inventory";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the inventory";
 
     private final Item toAdd;
 
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         }
 
         model.addItem(toAdd);

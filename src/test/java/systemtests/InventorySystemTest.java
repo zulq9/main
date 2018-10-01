@@ -143,7 +143,7 @@ public abstract class InventorySystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getInventory().getItemList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getInventory().getItemList().size(), getModel().getFilteredItemList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class InventorySystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getInventory().getItemList().size());
+        assertTrue(getModel().getFilteredItemList().size() < getModel().getInventory().getItemList().size());
     }
 
     /**
@@ -180,7 +180,7 @@ public abstract class InventorySystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredItemList());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class InventorySystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredItemList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

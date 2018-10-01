@@ -18,7 +18,7 @@ import seedu.inventory.logic.commands.AddCommand;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.DeleteCommand;
 import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.FindCommand;
 import seedu.inventory.logic.commands.HelpCommand;
@@ -38,7 +38,7 @@ public class InventoryParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final InventoryParser parser = new InventoryParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -63,7 +63,7 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Item item = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(item).build();
+        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(item).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

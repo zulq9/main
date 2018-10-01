@@ -166,7 +166,7 @@ public class FindCommandSystemTest extends InventorySystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_ITEMS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+                MESSAGE_ITEMS_LISTED_OVERVIEW, expectedModel.getFilteredItemList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

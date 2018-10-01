@@ -89,71 +89,71 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity((String) null));
     }
 
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
         Quantity expectedQuantity = new Quantity(VALID_PHONE);
-        assertEquals(expectedQuantity, ParserUtil.parsePhone(VALID_PHONE));
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(VALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Quantity expectedQuantity = new Quantity(VALID_PHONE);
-        assertEquals(expectedQuantity, ParserUtil.parsePhone(phoneWithWhitespace));
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(phoneWithWhitespace));
     }
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseImage((String) null));
     }
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseImage(INVALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
         Image expectedImage = new Image(VALID_ADDRESS);
-        assertEquals(expectedImage, ParserUtil.parseAddress(VALID_ADDRESS));
+        assertEquals(expectedImage, ParserUtil.parseImage(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Image expectedImage = new Image(VALID_ADDRESS);
-        assertEquals(expectedImage, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(expectedImage, ParserUtil.parseImage(addressWithWhitespace));
     }
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSku((String) null));
     }
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSku(INVALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         Sku expectedSku = new Sku(VALID_EMAIL);
-        assertEquals(expectedSku, ParserUtil.parseEmail(VALID_EMAIL));
+        assertEquals(expectedSku, ParserUtil.parseSku(VALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Sku expectedSku = new Sku(VALID_EMAIL);
-        assertEquals(expectedSku, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(expectedSku, ParserUtil.parseSku(emailWithWhitespace));
     }
 
     @Test

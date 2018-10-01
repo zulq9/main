@@ -43,7 +43,7 @@ public interface Model {
     void updateItem(Item target, Item editedItem);
 
     /** Returns an unmodifiable view of the filtered item list */
-    ObservableList<Item> getFilteredPersonList();
+    ObservableList<Item> getFilteredItemList();
 
     /**
      * Updates the filter of the filtered item list to filter by the given {@code predicate}.

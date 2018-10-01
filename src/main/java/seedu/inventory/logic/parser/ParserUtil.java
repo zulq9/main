@@ -56,13 +56,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Quantity parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Quantity.isValidQuantity(trimmedPhone)) {
+    public static Quantity parseQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
+        String trimmedQuantity = quantity.trim();
+        if (!Quantity.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
         }
-        return new Quantity(trimmedPhone);
+        return new Quantity(trimmedQuantity);
     }
 
     /**
@@ -71,13 +71,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code inventory} is invalid.
      */
-    public static Image parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Image.isValidImage(trimmedAddress)) {
+    public static Image parseImage(String image) throws ParseException {
+        requireNonNull(image);
+        String trimmedImage = image.trim();
+        if (!Image.isValidImage(trimmedImage)) {
             throw new ParseException(Image.MESSAGE_IMAGE_CONSTRAINTS);
         }
-        return new Image(trimmedAddress);
+        return new Image(trimmedImage);
     }
 
     /**
@@ -86,13 +86,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Sku parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Sku.isValidSku(trimmedEmail)) {
+    public static Sku parseSku(String sku) throws ParseException {
+        requireNonNull(sku);
+        String trimmedSku = sku.trim();
+        if (!Sku.isValidSku(trimmedSku)) {
             throw new ParseException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
-        return new Sku(trimmedEmail);
+        return new Sku(trimmedSku);
     }
 
     /**

@@ -56,7 +56,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validItem);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -119,7 +119,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Item> getFilteredPersonList() {
+        public ObservableList<Item> getFilteredItemList() {
             throw new AssertionError("This method should not be called.");
         }
 
