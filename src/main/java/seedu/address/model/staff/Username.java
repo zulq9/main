@@ -11,7 +11,7 @@ public class Username {
     public static final String MESSAGE_USERNAME_CONSTRAINTS =
             "Username should only contain alphanumberic characters only and it should not be blank.";
 
-    public static final String USERNAME_VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String USERNAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*$";
 
     public final String username;
 
@@ -26,7 +26,7 @@ public class Username {
         this.username = username;
     }
 
-    private static boolean isValidUsername(String username) {
+    public static boolean isValidUsername(String username) {
         return username.matches(USERNAME_VALIDATION_REGEX);
     }
 

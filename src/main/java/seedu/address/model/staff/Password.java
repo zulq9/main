@@ -15,7 +15,7 @@ public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
             "Password should only contain alphanumberic characters only and it should not be blank.";
 
-    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*$";
 
     public final String password;
 
