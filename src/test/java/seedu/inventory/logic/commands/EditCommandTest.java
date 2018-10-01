@@ -45,9 +45,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedItem);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.updateItem(model.getFilteredPersonList().get(0), editedItem);
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(lastItem, editedItem);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.updateItem(lastItem, editedItem);
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -98,9 +98,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedItem);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.updateItem(model.getFilteredPersonList().get(0), editedItem);
+        expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit item in filtered list into a duplicate in inventory book
-        Item itemInList = model.getAddressBook().getItemList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Item itemInList = model.getInventory().getItemList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(itemInList).build());
 
@@ -144,7 +144,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of inventory book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getItemList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,19 +158,19 @@ public class EditCommandTest {
         Item itemToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(itemToEdit, editedItem);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        expectedModel.updateItem(itemToEdit, editedItem);
+        expectedModel.commitInventory();
 
         // edit -> first item edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered item list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first item edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Item editedItem = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Item itemToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.updatePerson(itemToEdit, editedItem);
-        expectedModel.commitAddressBook();
+        expectedModel.updateItem(itemToEdit, editedItem);
+        expectedModel.commitInventory();
 
         // edit -> edits second item in unfiltered item list / first item in filtered item list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered item list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), itemToEdit);
         // redo -> edits same second item in unfiltered item list
-        expectedModel.redoAddressBook();
+        expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

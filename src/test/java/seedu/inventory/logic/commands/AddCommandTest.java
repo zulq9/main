@@ -89,7 +89,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Item item) {
+        public void addItem(Item item) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -99,22 +99,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyInventory getAddressBook() {
+        public ReadOnlyInventory getInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Item item) {
+        public boolean hasItem(Item item) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Item target) {
+        public void deleteItem(Item target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Item target, Item editedItem) {
+        public void updateItem(Item target, Item editedItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,32 +124,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Item> predicate) {
+        public void updateFilteredItemList(Predicate<Item> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitInventory() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -166,9 +166,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Item item) {
+        public boolean hasItem(Item item) {
             requireNonNull(item);
-            return this.item.isSamePerson(item);
+            return this.item.isSameItem(item);
         }
     }
 
@@ -179,24 +179,24 @@ public class AddCommandTest {
         final ArrayList<Item> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Item item) {
+        public boolean hasItem(Item item) {
             requireNonNull(item);
-            return personsAdded.stream().anyMatch(item::isSamePerson);
+            return personsAdded.stream().anyMatch(item::isSameItem);
         }
 
         @Override
-        public void addPerson(Item item) {
+        public void addItem(Item item) {
             requireNonNull(item);
             personsAdded.add(item);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitInventory() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyInventory getAddressBook() {
+        public ReadOnlyInventory getInventory() {
             return new Inventory();
         }
     }

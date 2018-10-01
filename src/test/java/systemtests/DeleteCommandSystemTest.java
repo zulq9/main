@@ -68,7 +68,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getItemList().size();
+        int invalidIndex = getModel().getInventory().getItemList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
@@ -97,7 +97,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getItemList().size() + 1);
+                getModel().getInventory().getItemList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
      */
     private Item removePerson(Model model, Index index) {
         Item targetItem = getPerson(model, index);
-        model.deletePerson(targetItem);
+        model.deleteItem(targetItem);
         return targetItem;
     }
 

@@ -13,7 +13,7 @@ import seedu.inventory.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends InventoryStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,13 +22,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getInventoryFilePath();
 
     @Override
-    Optional<ReadOnlyInventory> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyInventory> readInventory() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyInventory addressBook) throws IOException;
+    void saveInventory(ReadOnlyInventory addressBook) throws IOException;
 
     /**
      * Saves the current version of the Image Book to the hard disk.

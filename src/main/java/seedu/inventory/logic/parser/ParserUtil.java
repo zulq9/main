@@ -74,7 +74,7 @@ public class ParserUtil {
     public static Image parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Image.isValidAddress(trimmedAddress)) {
+        if (!Image.isValidImage(trimmedAddress)) {
             throw new ParseException(Image.MESSAGE_IMAGE_CONSTRAINTS);
         }
         return new Image(trimmedAddress);
@@ -89,8 +89,8 @@ public class ParserUtil {
     public static Sku parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Sku.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Sku.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Sku.isValidSku(trimmedEmail)) {
+            throw new ParseException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
         return new Sku(trimmedEmail);
     }

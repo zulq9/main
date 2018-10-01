@@ -22,7 +22,7 @@ import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.storage.XmlSerializableAddressBook;
+import seedu.inventory.storage.XmlSerializableInventory;
 
 public class ItemListPanelTest extends GuiUnitTest {
     private static final ObservableList<Item> TYPICAL_ITEMS =
@@ -81,8 +81,8 @@ public class ItemListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Item> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableInventory xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableInventory.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getItemList());
     }
 

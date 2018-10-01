@@ -143,7 +143,7 @@ public abstract class InventorySystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getItemList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getInventory().getItemList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class InventorySystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getItemList().size());
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getInventory().getItemList().size());
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class InventorySystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getItemList().size());
+        assertEquals(0, getModel().getInventory().getItemList().size());
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class InventorySystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new Inventory(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

@@ -17,7 +17,7 @@ import seedu.inventory.model.tag.Tag;
 /**
  * JAXB-friendly version of the Item.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedItem {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Item's %s field is missing!";
 
@@ -34,15 +34,15 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedItem.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedItem() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given item details.
+     * Constructs an {@code XmlAdaptedItem} with the given item details.
      */
-    public XmlAdaptedPerson(String name, String quantity, String sku, String image, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedItem(String name, String quantity, String sku, String image, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.quantity = quantity;
         this.sku = sku;
@@ -55,9 +55,9 @@ public class XmlAdaptedPerson {
     /**
      * Converts a given Item into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedItem
      */
-    public XmlAdaptedPerson(Item source) {
+    public XmlAdaptedItem(Item source) {
         name = source.getName().fullName;
         quantity = source.getQuantity().value;
         sku = source.getSku().value;
@@ -97,15 +97,15 @@ public class XmlAdaptedPerson {
         if (sku == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sku.class.getSimpleName()));
         }
-        if (!Sku.isValidEmail(sku)) {
-            throw new IllegalValueException(Sku.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Sku.isValidSku(sku)) {
+            throw new IllegalValueException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
         final Sku modelSku = new Sku(sku);
 
         if (image == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Image.class.getSimpleName()));
         }
-        if (!Image.isValidAddress(image)) {
+        if (!Image.isValidImage(image)) {
             throw new IllegalValueException(Image.MESSAGE_IMAGE_CONSTRAINTS);
         }
         final Image modelImage = new Image(image);
@@ -120,11 +120,11 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedItem)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+        XmlAdaptedItem otherPerson = (XmlAdaptedItem) other;
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(quantity, otherPerson.quantity)
                 && Objects.equals(sku, otherPerson.sku)

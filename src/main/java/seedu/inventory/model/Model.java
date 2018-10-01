@@ -16,31 +16,31 @@ public interface Model {
     void resetData(ReadOnlyInventory newData);
 
     /** Returns the Inventory */
-    ReadOnlyInventory getAddressBook();
+    ReadOnlyInventory getInventory();
 
     /**
      * Returns true if a item with the same identity as {@code item} exists in the inventory book.
      */
-    boolean hasPerson(Item item);
+    boolean hasItem(Item item);
 
     /**
      * Deletes the given item.
      * The item must exist in the inventory book.
      */
-    void deletePerson(Item target);
+    void deleteItem(Item target);
 
     /**
      * Adds the given item.
      * {@code item} must not already exist in the inventory book.
      */
-    void addPerson(Item item);
+    void addItem(Item item);
 
     /**
      * Replaces the given item {@code target} with {@code editedItem}.
      * {@code target} must exist in the inventory book.
      * The item identity of {@code editedItem} must not be the same as another existing item in the inventory book.
      */
-    void updatePerson(Item target, Item editedItem);
+    void updateItem(Item target, Item editedItem);
 
     /** Returns an unmodifiable view of the filtered item list */
     ObservableList<Item> getFilteredPersonList();
@@ -49,30 +49,30 @@ public interface Model {
      * Updates the filter of the filtered item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Item> predicate);
+    void updateFilteredItemList(Predicate<Item> predicate);
 
     /**
      * Returns true if the model has previous inventory book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoInventory();
 
     /**
      * Returns true if the model has undone inventory book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoInventory();
 
     /**
      * Restores the model's inventory book to its previous state.
      */
-    void undoAddressBook();
+    void undoInventory();
 
     /**
      * Restores the model's inventory book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoInventory();
 
     /**
      * Saves the current inventory book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitInventory();
 }

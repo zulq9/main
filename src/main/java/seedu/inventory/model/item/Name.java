@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Item's name in the inventory book.
+ * Represents a Item's name in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

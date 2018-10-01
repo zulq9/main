@@ -66,7 +66,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        model.addItem(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -163,7 +163,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Sku.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure(command, Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid inventory -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
@@ -200,7 +200,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      */
     private void assertCommandSuccess(String command, Item toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        expectedModel.addItem(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

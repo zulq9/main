@@ -23,12 +23,8 @@ import seedu.inventory.logic.LogicManager;
 import seedu.inventory.model.*;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.util.SampleDataUtil;
-import seedu.inventory.storage.AddressBookStorage;
-import seedu.inventory.storage.JsonUserPrefsStorage;
-import seedu.inventory.storage.Storage;
-import seedu.inventory.storage.StorageManager;
-import seedu.inventory.storage.UserPrefsStorage;
-import seedu.inventory.storage.XmlAddressBookStorage;
+import seedu.inventory.storage.*;
+import seedu.inventory.storage.XmlInventoryStorage;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 
@@ -59,8 +55,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath());
+        storage = new StorageManager(inventoryStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -82,7 +78,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyInventory> inventoryOptional;
         ReadOnlyInventory initialData;
         try {
-            inventoryOptional = storage.readAddressBook();
+            inventoryOptional = storage.readInventory();
             if (!inventoryOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Inventory");
             }

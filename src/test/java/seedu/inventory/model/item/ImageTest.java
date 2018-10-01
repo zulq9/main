@@ -23,15 +23,15 @@ public class ImageTest {
     @Test
     public void isValidAddress() {
         // null inventory
-        Assert.assertThrows(NullPointerException.class, () -> Image.isValidAddress(null));
+        Assert.assertThrows(NullPointerException.class, () -> Image.isValidImage(null));
 
         // invalid addresses
-        assertFalse(Image.isValidAddress("")); // empty string
-        assertFalse(Image.isValidAddress(" ")); // spaces only
+        assertFalse(Image.isValidImage("")); // empty string
+        assertFalse(Image.isValidImage(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Image.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Image.isValidAddress("-")); // one character
-        assertTrue(Image.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long inventory
+        assertTrue(Image.isValidImage("Blk 456, Den Road, #01-355"));
+        assertTrue(Image.isValidImage("-")); // one character
+        assertTrue(Image.isValidImage("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long inventory
     }
 }

@@ -41,8 +41,8 @@ public class DeleteCommand extends Command {
         }
 
         Item itemToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(itemToDelete);
-        model.commitAddressBook();
+        model.deleteItem(itemToDelete);
+        model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, itemToDelete));
     }
 
