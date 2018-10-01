@@ -21,13 +21,13 @@ import seedu.inventory.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,30 +52,30 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ Inventory methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getInventoryFilePath() {
+        return inventoryStorage.getInventoryFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyInventory> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyInventory> readInventory() throws DataConversionException, IOException {
+        return readInventory(inventoryStorage.getInventoryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyInventory> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyInventory> readInventory(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return inventoryStorage.readInventory(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyInventory addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveInventory(ReadOnlyInventory addressBook) throws IOException {
+        saveInventory(addressBook, inventoryStorage.getInventoryFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyInventory addressBook, Path filePath) throws IOException {
+    public void saveInventory(ReadOnlyInventory addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        inventoryStorage.saveInventory(addressBook, filePath);
     }
 
 
@@ -84,7 +84,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(InventoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveInventory(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

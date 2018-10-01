@@ -2,18 +2,21 @@ package seedu.inventory.model.item;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
+import java.io.File;
+import java.nio.file.Files;
+import java.io.IOException;
 
 /**
- * Represents a Item's inventory in the inventory book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a Item's inventory in the inventory.
+ * Guarantees: immutable; is valid as declared in {@link #isValidImage(String)}
  */
 public class Image {
 
     public static final String MESSAGE_IMAGE_CONSTRAINTS =
-            "Addresses can take any values, and it should not be blank";
+            "Image file path must be a valid file path and must be a valid image, and it should not be blank.";
 
     /*
-     * The first character of the inventory must not be a whitespace,
+     * The first character of the image file path must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String IMAGE_VALIDATION_REGEX = "[^\\s].*";
@@ -23,19 +26,41 @@ public class Image {
     /**
      * Constructs an {@code Image}.
      *
-     * @param address A valid inventory.
+     * @param image A valid image.
      */
-    public Image(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_IMAGE_CONSTRAINTS);
-        value = address;
+    public Image(String image) {
+        requireNonNull(image);
+        checkArgument(isValidImage(image), MESSAGE_IMAGE_CONSTRAINTS);
+        value = image;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidAddress(String test) {
-        return test.matches(IMAGE_VALIDATION_REGEX);
+    public static boolean isValidImage(String test) {
+        if (test.matches(IMAGE_VALIDATION_REGEX)) {
+            File file = new File(test);
+
+            if (file.exists()) {
+                try {
+                    String mimetype = Files.probeContentType(file.toPath());
+
+                    if (mimetype != null && mimetype.split("/")[0].equals("image")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     @Override

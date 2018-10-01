@@ -47,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyInventory getAddressBook() {
+    public ReadOnlyInventory getInventory() {
         return versionedInventory;
     }
 
@@ -57,26 +57,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Item item) {
+    public boolean hasItem(Item item) {
         requireNonNull(item);
         return versionedInventory.hasPerson(item);
     }
 
     @Override
-    public void deletePerson(Item target) {
+    public void deleteItem(Item target) {
         versionedInventory.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Item item) {
+    public void addItem(Item item) {
         versionedInventory.addPerson(item);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Item target, Item editedItem) {
+    public void updateItem(Item target, Item editedItem) {
         requireAllNonNull(target, editedItem);
 
         versionedInventory.updatePerson(target, editedItem);
@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Item> predicate) {
+    public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
         filteredItems.setPredicate(predicate);
     }
@@ -103,29 +103,29 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoInventory() {
         return versionedInventory.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoInventory() {
         return versionedInventory.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoInventory() {
         versionedInventory.undo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoInventory() {
         versionedInventory.redo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitInventory() {
         versionedInventory.commit();
     }
 

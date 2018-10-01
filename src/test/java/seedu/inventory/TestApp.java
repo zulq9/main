@@ -14,7 +14,7 @@ import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.*;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.storage.UserPrefsStorage;
-import seedu.inventory.storage.XmlSerializableAddressBook;
+import seedu.inventory.storage.XmlSerializableInventory;
 import seedu.inventory.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -42,7 +42,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableInventory(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -61,7 +61,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setInventoryFilePath(saveFileLocation);
         return userPrefs;
     }
 
@@ -70,7 +70,7 @@ public class TestApp extends MainApp {
      */
     public Inventory readStorageAddressBook() {
         try {
-            return new Inventory(storage.readAddressBook().get());
+            return new Inventory(storage.readInventory().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the Inventory format.", dce);
         } catch (IOException ioe) {
@@ -82,14 +82,14 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getInventoryFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getInventory()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * Represents a Item in the inventory book.
+ * Represents a Item in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
@@ -61,22 +61,21 @@ public class Item {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both items of the same SKU.
+     * This defines a weaker notion of equality between two items.
      */
-    public boolean isSamePerson(Item otherItem) {
+    public boolean isSameItem(Item otherItem) {
         if (otherItem == this) {
             return true;
         }
 
         return otherItem != null
-                && otherItem.getName().equals(getName())
-                && (otherItem.getQuantity().equals(getQuantity()) || otherItem.getSku().equals(getSku()));
+                && otherItem.getSku().equals(getSku());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both items have the same identity and data fields.
+     * This defines a stronger notion of equality between two items.
      */
     @Override
     public boolean equals(Object other) {

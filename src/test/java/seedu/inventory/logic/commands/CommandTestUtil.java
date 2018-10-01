@@ -99,7 +99,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        Inventory expectedInventory = new Inventory(actualModel.getAddressBook());
+        Inventory expectedInventory = new Inventory(actualModel.getInventory());
         List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -109,7 +109,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedInventory, actualModel.getAddressBook());
+            assertEquals(expectedInventory, actualModel.getInventory());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -124,7 +124,7 @@ public class CommandTestUtil {
 
         Item item = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = item.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
@@ -134,8 +134,8 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPerson(Model model) {
         Item firstItem = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstItem);
-        model.commitAddressBook();
+        model.deleteItem(firstItem);
+        model.commitInventory();
     }
 
 }

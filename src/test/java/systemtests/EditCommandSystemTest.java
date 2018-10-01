@@ -70,7 +70,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: redo editing the last item in the list -> last item edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updatePerson(
+        model.updateItem(
                 getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedItem);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -80,7 +80,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a item with new values same as another item's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getItemList().contains(BOB));
+        assertTrue(getModel().getInventory().getItemList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -119,7 +119,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getItemList().size();
+        int invalidIndex = getModel().getInventory().getItemList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
@@ -170,7 +170,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Sku.MESSAGE_EMAIL_CONSTRAINTS);
+                Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid inventory -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
@@ -182,7 +182,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
 
         /* Case: edit a item with new values same as another item's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getItemList().contains(BOB));
+        assertTrue(getModel().getInventory().getItemList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -231,8 +231,8 @@ public class EditCommandSystemTest extends InventorySystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Item editedItem,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedItem);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
+        expectedModel.updateItem(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedItem);
+        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedItem), expectedSelectedCardIndex);
@@ -263,7 +263,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
+        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

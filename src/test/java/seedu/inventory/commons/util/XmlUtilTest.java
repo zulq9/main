@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.model.Inventory;
-import seedu.inventory.storage.XmlAdaptedPerson;
+import seedu.inventory.storage.XmlAdaptedItem;
 import seedu.inventory.storage.XmlAdaptedTag;
-import seedu.inventory.storage.XmlSerializableAddressBook;
+import seedu.inventory.storage.XmlSerializableInventory;
 import seedu.inventory.testutil.AddressBookBuilder;
 import seedu.inventory.testutil.PersonBuilder;
 import seedu.inventory.testutil.TestUtil;
@@ -71,33 +71,33 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        Inventory dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        Inventory dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableInventory.class).toModelType();
         assertEquals(9, dataFromFile.getItemList().size());
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
+                MISSING_PERSON_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
+        XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
+                INVALID_PERSON_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
+        XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
+                VALID_PERSON_FILE, XmlAdaptedItemWithRootElement.class);
+        XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
@@ -123,24 +123,24 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new Inventory());
+        XmlSerializableInventory dataToWrite = new XmlSerializableInventory(new Inventory());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableInventory.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AddressBookBuilder builder = new AddressBookBuilder(new Inventory());
-        dataToWrite = new XmlSerializableAddressBook(
+        dataToWrite = new XmlSerializableInventory(
                 builder.withPerson(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableInventory.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedItem}
      * objects.
      */
     @XmlRootElement(name = "item")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    private static class XmlAdaptedItemWithRootElement extends XmlAdaptedItem {}
 }

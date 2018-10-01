@@ -36,7 +36,7 @@ public class XmlInventoryStorageTest {
     }
 
     private java.util.Optional<ReadOnlyInventory> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlInventoryStorage(Paths.get(filePath)).readInventory(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -77,24 +77,24 @@ public class XmlInventoryStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         Inventory original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlInventoryStorage xmlInventoryStorage = new XmlInventoryStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyInventory readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlInventoryStorage.saveInventory(original, filePath);
+        ReadOnlyInventory readBack = xmlInventoryStorage.readInventory(filePath).get();
         assertEquals(original, new Inventory(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlInventoryStorage.saveInventory(original, filePath);
+        readBack = xmlInventoryStorage.readInventory(filePath).get();
         assertEquals(original, new Inventory(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        xmlInventoryStorage.saveInventory(original); //file path not specified
+        readBack = xmlInventoryStorage.readInventory().get(); //file path not specified
         assertEquals(original, new Inventory(readBack));
 
     }
@@ -110,8 +110,8 @@ public class XmlInventoryStorageTest {
      */
     private void saveAddressBook(ReadOnlyInventory addressBook, String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new XmlInventoryStorage(Paths.get(filePath))
+                    .saveInventory(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
