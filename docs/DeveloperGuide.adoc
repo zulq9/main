@@ -971,6 +971,32 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 // end::usecaseexportimport[]
 
+[discrete]
+=== Use case: Generate PO
+
+*MSS*
+
+1.  User requests to list inventory
+2.  Inventory Manager shows a list of inventory
+3.  User requests to generate PO
+4.  AddressBook deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 _{To be updated}_
 
 [appendix]
@@ -992,10 +1018,10 @@ _{More to be added}_
 *** V1.3 Support encryption of data
 
 * Esmond Tan
-** Sales
-*** V1.1 Support order create, read, update, delete
-*** V1.2 Update inventory upon sales creation
-*** V1.3 Develop a order management API
+** Sale Orders
+*** V1.1 Support sale orders create, list and delete
+*** V1.2 Update inventory upon sales creation and deletion
+*** V1.3 Develop a sale orders management API
 
 * Wang Chao
 ** Reporting Module
@@ -1023,6 +1049,15 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[appendix]
+== Acronyms
+
+[[mss]] MSS::
+MSS stands for Main Success Scenario where it describes the shortest and most straightforward interaction by which the post-conditions can be achieved
+
+[[po]] PO::
+PO stands for purchase order
 
 [appendix]
 == Product Survey
