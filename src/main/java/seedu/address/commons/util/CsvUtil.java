@@ -9,9 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.UnrecognizableDataException;
@@ -39,12 +38,11 @@ public class CsvUtil {
             throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
         }
         if (!isDataHeaderRecognizable(file, dataTypeToConvert)) {
-            throw new UnrecognizableDataException("File hearder format can not be recognized");
+            throw new UnrecognizableDataException("File header format can not be recognized");
         }
+        List<List<String>> contents = getDataContentFromFile(file, dataTypeToConvert);
 
-
-
-        return (CsvAdaptedData) new Object();
+        return new CsvAdaptedData(contents);
     }
 
     /**
@@ -86,9 +84,9 @@ public class CsvUtil {
                 return false;
             }
 
-            Set<String> dataFields = Arrays.stream(reader.readLine().split(","))
+            List<String> dataFields = Arrays.stream(reader.readLine().split(","))
                     .map(s -> s.substring(1, s.length() - 1))
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.toList());
 
             if (!isDataFieldsEqual(dataFields, dataTypeToConvert)) {
                 return false;
@@ -97,6 +95,39 @@ public class CsvUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns true if header in the csv file is recognizable.
+     *
+     * @param file           Points to a valid csv file containing data that match the {@code dataTypeToConvert}.
+     *                       Cannot be null.
+     * @param dataTypeToConvert The class corresponding to the csv data.
+     *                       Cannot be null.
+     */
+    public static List<List<String>> getDataContentFromFile(Path file, CsvAdaptedData dataTypeToConvert)
+            throws UnrecognizableDataException {
+        requireNonNull(file);
+        requireNonNull(dataTypeToConvert);
+        BufferedReader reader;
+        List<List<String>> contents = new LinkedList<>();
+        try {
+            reader = new BufferedReader(new FileReader(file.toFile()));
+            long fieldsNumber = Arrays.stream(reader.readLine().split(",")).count();
+            String contentLine;
+            while ((contentLine = reader.readLine()) != null) {
+                List<String> content = Arrays.stream(contentLine.split(","))
+                        .map(s -> s.substring(1, s.length() - 1))
+                        .collect(Collectors.toList());
+                if (content.size() != fieldsNumber) {
+                    throw new UnrecognizableDataException("File content format can not be recognized");
+                }
+                contents.add(content);
+            }
+        } catch (IOException e) {
+            throw new UnrecognizableDataException("File content format can not be recognized");
+        }
+        return contents;
     }
 
     /**
@@ -115,8 +146,8 @@ public class CsvUtil {
      * @param dataFields         The fields of data indicated in the csv file.
      * @param dataTypeToConvert The class corresponding to the csv data.
      */
-    private static boolean isDataFieldsEqual(Set<String> dataFields, CsvAdaptedData dataTypeToConvert) {
-        return dataFields.equals(new HashSet<>(dataTypeToConvert.getDataFields()));
+    private static boolean isDataFieldsEqual(List<String> dataFields, CsvAdaptedData dataTypeToConvert) {
+        return dataFields.equals(new LinkedList<>(Arrays.asList(dataTypeToConvert.getDataFields())));
     }
 
 
