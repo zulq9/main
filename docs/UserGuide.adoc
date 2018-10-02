@@ -58,12 +58,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
-<<<<<<< HEAD
-2. *Sale Orders Management*
-=======
 * Feature for users to change password
-2. *Sales Entry*
->>>>>>> 899eab73bebb9adf11ba75d26fadc5281deb4de3
+2. *Sale Orders Management*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
 * Feature for listing sales
