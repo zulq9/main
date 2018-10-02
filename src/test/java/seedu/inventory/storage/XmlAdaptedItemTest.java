@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.item.Image;
-import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.testutil.Assert;
 
 public class XmlAdaptedItemTest {

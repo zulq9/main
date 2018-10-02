@@ -6,8 +6,11 @@ import java.util.stream.Stream;
 
 import seedu.inventory.logic.commands.EditCommand;
 import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 
 /**

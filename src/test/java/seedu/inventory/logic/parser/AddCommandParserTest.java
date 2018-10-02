@@ -32,8 +32,11 @@ import static seedu.inventory.testutil.TypicalPersons.BOB;
 import org.junit.Test;
 
 import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.PersonBuilder;
 

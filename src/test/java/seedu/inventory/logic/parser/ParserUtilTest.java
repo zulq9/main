@@ -17,9 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
-import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.Assert;
 

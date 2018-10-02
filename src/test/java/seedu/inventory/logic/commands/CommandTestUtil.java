@@ -3,9 +3,9 @@ package seedu.inventory.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
