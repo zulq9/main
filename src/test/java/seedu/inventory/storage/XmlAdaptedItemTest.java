@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.storage.XmlAdaptedItem.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.inventory.testutil.TypicalPersons.BENSON;
+import static seedu.inventory.testutil.TypicalItems.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.inventory.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.EditPersonDescriptorBuilder;
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,7 +39,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Item editedItem = new PersonBuilder().build();
+        Item editedItem = new ItemBuilder().build();
         EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -57,8 +57,8 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredItemList().size());
         Item lastItem = model.getFilteredItemList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastItem);
-        Item editedItem = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        ItemBuilder personInList = new ItemBuilder(lastItem);
+        Item editedItem = personInList.withName(VALID_NAME_BOB).withQuantity(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
@@ -92,7 +92,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Item itemInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Item editedItem = new PersonBuilder(itemInFilteredList).withName(VALID_NAME_BOB).build();
+        Item editedItem = new ItemBuilder(itemInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
@@ -154,7 +154,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Item editedItem = new PersonBuilder().build();
+        Item editedItem = new ItemBuilder().build();
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
@@ -197,7 +197,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Item editedItem = new PersonBuilder().build();
+        Item editedItem = new ItemBuilder().build();
         EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());

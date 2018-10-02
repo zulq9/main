@@ -21,13 +21,13 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.AMY;
-import static seedu.inventory.testutil.TypicalPersons.BOB;
-import static seedu.inventory.testutil.TypicalPersons.CARL;
-import static seedu.inventory.testutil.TypicalPersons.HOON;
-import static seedu.inventory.testutil.TypicalPersons.IDA;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
+import static seedu.inventory.testutil.TypicalItems.AMY;
+import static seedu.inventory.testutil.TypicalItems.BOB;
+import static seedu.inventory.testutil.TypicalItems.CARL;
+import static seedu.inventory.testutil.TypicalItems.HOON;
+import static seedu.inventory.testutil.TypicalItems.IDA;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -43,8 +43,8 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
-import seedu.inventory.testutil.PersonBuilder;
-import seedu.inventory.testutil.PersonUtil;
+import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.ItemUtil;
 
 public class AddCommandSystemTest extends InventorySystemTest {
 
@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a item without tags to a non-empty inventory book, command with leading spaces and trailing spaces
+        /* Case: add an item without tags to a non-empty inventory book, command with leading spaces and trailing spaces
          * -> added
          */
         Item toAdd = AMY;
@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a item with all fields same as another item in the inventory book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new ItemBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -82,8 +82,8 @@ public class AddCommandSystemTest extends InventorySystemTest {
         /* Case: add a item with all fields same as another item in the inventory book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(AMY).withQuantity(VALID_PHONE_BOB).withSku(VALID_EMAIL_BOB).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty inventory book -> added */
@@ -114,26 +114,26 @@ public class AddCommandSystemTest extends InventorySystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate item -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = ItemUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(HOON).withQuantity(VALID_PHONE_BOB).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(HOON).withSku(VALID_EMAIL_BOB).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different inventory -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(HOON).withImage(VALID_ADDRESS_BOB).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = ItemUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: missing name -> rejected */
@@ -153,7 +153,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + ItemUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -193,7 +193,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Item toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(ItemUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

@@ -3,7 +3,7 @@ package seedu.inventory.logic.commands;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.inventory.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;

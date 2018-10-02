@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.BOB;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
+import static seedu.inventory.testutil.TypicalItems.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.item.exceptions.ItemNotFoundException;
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 public class UniqueItemListTest {
     @Rule
@@ -46,7 +46,7 @@ public class UniqueItemListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueItemList.add(ALICE);
-        Item editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Item editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueItemList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueItemListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueItemList.add(ALICE);
-        Item editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Item editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueItemList.setPerson(ALICE, editedAlice);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();

@@ -7,14 +7,14 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.BOB;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
+import static seedu.inventory.testutil.TypicalItems.BOB;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 public class ItemTest {
     @Rule
@@ -22,13 +22,13 @@ public class ItemTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Item item = new PersonBuilder().build();
+        Item item = new ItemBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
         item.getTags().remove(0);
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameItem() {
         // same object -> returns true
         assertTrue(ALICE.isSameItem(ALICE));
 
@@ -36,32 +36,32 @@ public class ItemTest {
         assertFalse(ALICE.isSameItem(null));
 
         // different phone and email -> returns false
-        Item editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        Item editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).withSku(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameItem(editedAlice));
 
         // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new ItemBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameItem(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ItemBuilder(ALICE).withSku(VALID_EMAIL_BOB).withImage(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameItem(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).withImage(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameItem(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameItem(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Item aliceCopy = new PersonBuilder(ALICE).build();
+        Item aliceCopy = new ItemBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -77,23 +77,23 @@ public class ItemTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Item editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Item editedAlice = new ItemBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new ItemBuilder(ALICE).withSku(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different inventory -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ItemBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

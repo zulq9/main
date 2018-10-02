@@ -16,7 +16,7 @@ import seedu.inventory.model.tag.Tag;
 /**
  * A utility class for Item.
  */
-public class PersonUtil {
+public class ItemUtil {
 
     /**
      * Returns an add command string for adding the {@code item}.

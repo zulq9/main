@@ -20,7 +20,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 public class AddCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Item validItem = new PersonBuilder().build();
+        Item validItem = new ItemBuilder().build();
 
         CommandResult commandResult = new AddCommand(validItem).execute(modelStub, commandHistory);
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Item validItem = new PersonBuilder().build();
+        Item validItem = new ItemBuilder().build();
         AddCommand addCommand = new AddCommand(validItem);
         ModelStub modelStub = new ModelStubWithPerson(validItem);
 
@@ -62,8 +62,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Item alice = new PersonBuilder().withName("Alice").build();
-        Item bob = new PersonBuilder().withName("Bob").build();
+        Item alice = new ItemBuilder().withName("Alice").build();
+        Item bob = new ItemBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

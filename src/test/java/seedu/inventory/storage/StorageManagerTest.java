@@ -3,7 +3,7 @@ package seedu.inventory.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

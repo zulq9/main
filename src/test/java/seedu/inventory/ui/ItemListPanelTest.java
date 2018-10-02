@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.inventory.testutil.EventsUtil.postNow;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.inventory.testutil.TypicalItems.getTypicalPersons;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardEquals;
 

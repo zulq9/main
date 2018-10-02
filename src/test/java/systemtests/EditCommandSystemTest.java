@@ -27,9 +27,9 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.AMY;
-import static seedu.inventory.testutil.TypicalPersons.BOB;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.AMY;
+import static seedu.inventory.testutil.TypicalItems.BOB;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -45,8 +45,8 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
-import seedu.inventory.testutil.PersonBuilder;
-import seedu.inventory.testutil.PersonUtil;
+import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.ItemUtil;
 
 public class EditCommandSystemTest extends InventorySystemTest {
 
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Item editedItem = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Item editedItem = new ItemBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: undo editing the last item in the list -> last item restored */
@@ -88,7 +88,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedItem = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedItem = new ItemBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: edit a item with new values same as another item's values but with different phone and email
@@ -97,14 +97,14 @@ public class EditCommandSystemTest extends InventorySystemTest {
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedItem = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedItem = new ItemBuilder(BOB).withQuantity(VALID_PHONE_AMY).withSku(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Item itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
-        editedItem = new PersonBuilder(itemToEdit).withTags().build();
+        editedItem = new ItemBuilder(itemToEdit).withTags().build();
         assertCommandSuccess(command, index, editedItem);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -115,7 +115,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
-        editedItem = new PersonBuilder(itemToEdit).withName(VALID_NAME_BOB).build();
+        editedItem = new ItemBuilder(itemToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: filtered item list, edit index within bounds of inventory book but out of bounds of item list
@@ -184,7 +184,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a item with new values same as another item's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(ItemUtil.getAddCommand(BOB));
         assertTrue(getModel().getInventory().getItemList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(BOB));

@@ -3,7 +3,7 @@ package seedu.inventory.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.testutil.EventsUtil.postNow;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
 import static seedu.inventory.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.inventory.ui.UiPart.FXML_FILE_FOLDER;
 

@@ -2,10 +2,10 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.HOON;
-import static seedu.inventory.testutil.TypicalPersons.IDA;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
+import static seedu.inventory.testutil.TypicalItems.HOON;
+import static seedu.inventory.testutil.TypicalItems.IDA;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

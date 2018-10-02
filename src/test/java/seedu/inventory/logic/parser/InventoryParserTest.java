@@ -31,8 +31,8 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 import seedu.inventory.testutil.EditPersonDescriptorBuilder;
-import seedu.inventory.testutil.PersonBuilder;
-import seedu.inventory.testutil.PersonUtil;
+import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.ItemUtil;
 
 public class InventoryParserTest {
     @Rule
@@ -42,8 +42,8 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Item item = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(item));
+        Item item = new ItemBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
         assertEquals(new AddCommand(item), command);
     }
 
@@ -62,10 +62,10 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Item item = new PersonBuilder().build();
+        Item item = new ItemBuilder().build();
         EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(item).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + ItemUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

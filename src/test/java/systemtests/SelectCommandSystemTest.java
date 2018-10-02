@@ -8,7 +8,7 @@ import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_ITEM_S
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

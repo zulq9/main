@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

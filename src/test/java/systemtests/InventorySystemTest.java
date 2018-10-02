@@ -40,7 +40,7 @@ import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
-import seedu.inventory.testutil.TypicalPersons;
+import seedu.inventory.testutil.TypicalItems;
 import seedu.inventory.ui.BrowserPanel;
 import seedu.inventory.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class InventorySystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected Inventory getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalItems.getTypicalAddressBook();
     }
 
     /**

@@ -8,7 +8,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.inventory.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import org.junit.Test;
 

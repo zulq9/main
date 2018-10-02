@@ -2,7 +2,7 @@ package seedu.inventory.logic.commands;
 
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Item validItem = new PersonBuilder().build();
+        Item validItem = new ItemBuilder().build();
 
         Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
         expectedModel.addItem(validItem);

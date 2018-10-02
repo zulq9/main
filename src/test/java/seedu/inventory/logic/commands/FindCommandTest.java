@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.inventory.testutil.TypicalPersons.CARL;
-import static seedu.inventory.testutil.TypicalPersons.ELLE;
-import static seedu.inventory.testutil.TypicalPersons.FIONA;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.CARL;
+import static seedu.inventory.testutil.TypicalItems.ELLE;
+import static seedu.inventory.testutil.TypicalItems.FIONA;
+import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -3,8 +3,8 @@ package seedu.inventory.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.BENSON;
+import static seedu.inventory.testutil.TypicalItems.ALICE;
+import static seedu.inventory.testutil.TypicalItems.BENSON;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
