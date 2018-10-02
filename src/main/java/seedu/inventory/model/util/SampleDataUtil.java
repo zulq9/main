@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 
 /**

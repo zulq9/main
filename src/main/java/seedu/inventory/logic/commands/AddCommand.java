@@ -2,9 +2,9 @@ package seedu.inventory.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.inventory.logic.CommandHistory;
