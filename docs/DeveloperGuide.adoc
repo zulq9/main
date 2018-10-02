@@ -244,7 +244,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+exportimport[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -913,6 +913,64 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+// tag::usecaseexportimport[]
+[discrete]
+=== Use case: Export data
+
+*MSS*
+
+1.  User requests to export data with a filepath given.
+2.  Inventory Manager exports the data to the filepath given.
+3.  Inventory Manager shows a preview of the data exported
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filepath is empty or invalid.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. The exporting progress fails.
++
+[none]
+** 2a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Import data
+
+*MSS*
+
+1.  User requests to import data with a filepath given.
+2.  Inventory Manager imports the data from the filepath given.
+3.  Inventory Manager shows a preview of the data imported
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filepath is empty or invalid.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. The importing progress fails.
++
+[none]
+** 2a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+// end::usecaseexportimport[]
+
 _{To be updated}_
 
 [appendix]
@@ -934,10 +992,10 @@ _{More to be added}_
 *** V1.3 Support encryption of data
 
 * Esmond Tan
-** Sales
-*** V1.1 Support order create, read, update, delete
-*** V1.2 Update inventory upon sales creation
-*** V1.3 Develop a order management API
+** Sale Orders
+*** V1.1 Support sale orders create, list and delete
+*** V1.2 Update inventory upon sales creation and deletion
+*** V1.3 Develop a sale orders management API
 
 * Wang Chao
 ** Reporting Module
