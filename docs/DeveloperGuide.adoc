@@ -992,10 +992,10 @@ _{More to be added}_
 *** V1.3 Support encryption of data
 
 * Esmond Tan
-** Sales
-*** V1.1 Support order create, read, update, delete
-*** V1.2 Update inventory upon sales creation
-*** V1.3 Develop a order management API
+** Sale Orders
+*** V1.1 Support sale orders create, list and delete
+*** V1.2 Update inventory upon sales creation and deletion
+*** V1.3 Develop a sale orders management API
 
 * Wang Chao
 ** Reporting Module
