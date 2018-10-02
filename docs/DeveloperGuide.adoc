@@ -971,6 +971,85 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 // end::usecaseexportimport[]
 
+// tag::useCasePurchaseOrder[]
+[discrete]
+=== Use case: Generate PO
+
+*MSS*
+
+1.  User requests to list inventory
+2.  Inventory Manager shows a list of inventory
+3.  User requests to generate PO on the inventory with low amount
+4.  Inventory Manager generates PO
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given command is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Approve PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to approve a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Reject PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to reject a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+// end::useCasePurchaseOrder[]
+
 _{To be updated}_
 
 [appendix]
@@ -1023,6 +1102,15 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[appendix]
+== Acronyms
+
+[[mss]] MSS::
+MSS stands for Main Success Scenario where it describes the shortest and most straightforward interaction by which the post-conditions can be achieved
+
+[[po]] PO::
+PO stands for purchase order
 
 [appendix]
 == Product Survey
