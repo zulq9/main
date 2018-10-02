@@ -1,4 +1,4 @@
-package seedu.address.model.purchaseOrder;
+package seedu.address.model.purchaseorder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

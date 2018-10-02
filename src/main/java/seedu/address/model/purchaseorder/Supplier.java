@@ -1,7 +1,7 @@
-package seedu.address.model.purchaseOrder;
-
+package seedu.address.model.purchaseorder;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
