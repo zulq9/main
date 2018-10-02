@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
+* Feature for users to change password
 2. *Sales Entry*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
@@ -178,9 +179,35 @@ There is no need to save manually.
 === Users Management
 
 ==== Login to the system : `login`
+Login with users' given username and password. +
+Format: `login u/USERNAME p/PASSWORD`
 
-Prompt the users for their username and password. +
-Format: `login`
+==== Add users : `add_user`
+
+Adds an user into the system. +
+Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+==== Update users : `update_user`
+
+Updates an user information into the system with given username. +
+Format: `update_user u/USERNAME n/NAME  r/ROLE`
+
+==== Remove users : `remove_user`
+
+Removes an user from the system with given username. +
+Format: `remove_user u/USERNAME`
+
+
+==== List users : `list_user`
+
+Displays a list of existing users in the system. +
+Format: `list_user`
+
+
+==== Change user's password : `change_password`
+
+Updates an user information into the system with given username. +
+Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 
 === Sales Management
 
