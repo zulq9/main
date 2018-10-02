@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
+* Feature for users to change password
 2. *Sales Entry*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
@@ -82,7 +83,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for users (cashier/manager) to update purchase orders
 * Feature for users (cashier/manager) to list purchase orders history
 * Feature for manager to list pending purchase orders
-* Feature for manager to delete pending purchase orders
+* Feature for manager to reject pending purchase orders
 * Feature for manager to approve purchase orders
 
 ====
@@ -175,12 +176,64 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::usersManagement[]
 === Users Management
 
 ==== Login to the system : `login`
+Login with users' given username and password. +
+Format: `login u/USERNAME p/PASSWORD`
 
-Prompt the users for their username and password. +
-Format: `login`
+Examples:
+
+* Login user with username as zulq9 and password as zulsenpai. +
+`login u/zulq9 p/zulsenpai`
+
+==== Add users : `add_user`
+
+Adds an user into the system. +
+Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+Examples:
+
+* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
+ `add_user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+
+==== Update users : `update_user`
+
+Updates an user information into the system with given username. +
+Format: `update_user u/USERNAME n/NAME  r/ROLE`
+
+Examples:
+
+* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
+ `update_user u/yaotx n/Yao Teng Xiong r/admin`.
+
+==== Remove users : `remove_user`
+
+Removes an user from the system with given username. +
+Format: `remove_user u/USERNAME`
+
+Examples:
+
+* Reomove user with given username as fzdy1914. +
+ `remove_user u/fzdy1914`.
+
+
+==== List users : `list_user`
+
+Displays a list of existing users in the system. +
+Format: `list_user`
+
+
+==== Change user's password : `change_password`
+
+Updates an user information into the system with given username. +
+Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+
+Examples:
+
+* Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
+ `change_password u/darren96 o/darren123 n/darrensinglenus`.
 
 === Sales Management
 
@@ -311,6 +364,54 @@ Format: `import-im f/FILEPATH`
 ****
 // end::exportimport[]
 
+=== Purchase Order Management
+
+// tag::purchaseOrderManagement[]
+==== Generate purchase order : `generate-po`
+
+Generate purchase order for an item. +
+The id of a purchase order and the date will be auto generated. +
+Format: `generate-po i/SKU_NUMBER q/QUANTITY sp/SUPPLIER rd/REQUIRED_DATE [t/TAG]...`
+
+Example:
+
+* `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+
+==== List all purchase order : `list po`
+
+Shows a list of all the purchase order.
+Format: `list-po`
+
+==== List approved purchase order : `list approved-po`
+
+Shows a list of all the approved purchase order.
+Format: `list approved-po`
+
+==== List pending purchase order : `list pending-po`
+
+Shows a list of all the pending purchase order.
+Format: `list pending-po`
+
+==== Approve purchase order : `approve`
+
+Approve a purchase order.
+Format: `approve id/PO_ID`
+
+Example:
+
+* `approve id/12`
+
+==== Reject purchase order : `reject`
+
+Reject a purchase order along with a reason description.
+Format: `reject id/PO_ID d/DESCRIPTION`
+
+Example:
+
+* `reject id/12 d/Only 100 amount is allowed`
+
+// end::purchaseOrderManagement[]
+
 === Inventory Management
 
 ==== Adding an item : `add`
@@ -418,7 +519,12 @@ Format: `generate-po`
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
+* *Login* `login u/USERNAME p/PASSWORD`
+* *Add User* `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Update User* `update_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Remove User* `remove_user u/USERNAME`
+* *List User* `list_user`
+* *Change Password* `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
@@ -437,29 +543,32 @@ e.g.`select 2`
 * *Redo* : `redo`
 * *Export sales report to CSV* : `export-csv-sales f/FILEPATH` +
 e.g. `export-csv-sales f/C:/out/sales.csv`
-
 * *Export list of items to CSV* : `export-csv-items f/FILEPATH` +
 e.g. `export-csv-items f/C:/out/items.csv`
-
 * *Export list of users to CSV* : `export-csv-users f/FILEPATH` +
 e.g. `export-csv-users f/C:/out/users.csv`
-
 * *Export entire data to .im file* : `export-im f/FILEPATH` +
 e.g. `export-im f/C:/out/data.im`
-
 * *Import sales report from CSV* : `import-csv-sales f/FILEPATH` +
 e.g. `import-csv-sales f/C:/in/sales.csv`
-
 * *Import list of items from CSV* : `import-csv-items f/FILEPATH` +
 e.g. `import-csv-items f/C:/in/items.csv`
-
 * *Import list of users from CSV* : `import-csv-users f/FILEPATH` +
 e.g. `import-csv-users f/C:/in/users.csv`
-
 * *Import entire data from .im file* : `import-im f/FILEPATH` +
 e.g. `import-im f/C:/in/data.im`
 
-= Glossary
+* *Generate purchase order* : `generate-po` +
+e.g. `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+* *List all purchase order* : `list po`
+* *List approved purchase order* : `list approved-po`
+* *List pending purchase order* : `list pending-po`
+* *Approve purchase order* : `approve` +
+e.g. `approve id/12`
+* *Reject purchase order* : `reject` +
+e.g. `reject id/12 d/Only 100 amount is allowed`
+
+== Glossary
 *CLI (Command Line Interface)*
 
 A command line interface (CLI) is an interface where you can input commands to interact with the software.
