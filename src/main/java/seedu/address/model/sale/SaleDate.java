@@ -45,21 +45,12 @@ public class SaleDate {
 
     private static boolean validateYear(Integer year) {
         // Prevent years older than 2018
-        if (year < 2018) {
-            return false;
-        }
-
-        return true;
+        return year >= 2018;
     }
 
     private static boolean validateMonth(Integer month) {
         // Prevent months in invalid range
-        if (month < 1 || month > 12) {
-            return false;
-        }
-
-
-        return true;
+        return month > 1 && month < 12;
     }
 
     private static boolean validateDay(Integer day, Integer month) {
@@ -100,5 +91,4 @@ public class SaleDate {
     public String toString() {
         return '[' + saleDate + ']';
     }
-
 }
