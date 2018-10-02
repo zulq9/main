@@ -26,7 +26,7 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** =
 ** Enhancements to existing features:
 ***
 ** Documentation:
@@ -45,9 +45,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=purchaseOrderManagement]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -55,9 +54,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=useCasePurchaseOrder]
 
 
 == PROJECT: SynchroNUS
@@ -69,5 +66,3 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 include::https://github.com/zulq9/Orbital2018_SynchroNUS
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
