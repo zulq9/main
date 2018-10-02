@@ -80,7 +80,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for users (cashier/manager) to update purchase orders
 * Feature for users (cashier/manager) to list purchase orders history
 * Feature for manager to list pending purchase orders
-* Feature for manager to delete pending purchase orders
+* Feature for manager to reject pending purchase orders
 * Feature for manager to approve purchase orders
 
 ====
@@ -270,6 +270,7 @@ Format: `import-im f/FILEPATH`
 ****
 // end::exportimport[]
 
+// tag::purchaseOrderManagement[]
 === Generate purchase order : `generate-po`
 
 Generate purchase order for an item. +
@@ -312,6 +313,8 @@ Format: `reject id/PO_ID d/DESCRIPTION`
 Example:
 
 * `reject id/12 d/Only 100 amount is allowed`
+
+// end::purchaseOrderManagement[]
 
 === Listing entered commands : `history`
 

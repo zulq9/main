@@ -971,6 +971,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 // end::usecaseexportimport[]
 
+// tag::useCasePurchaseOrder[]
 [discrete]
 === Use case: Generate PO
 
@@ -978,8 +979,8 @@ Use case resumes at step 1.
 
 1.  User requests to list inventory
 2.  Inventory Manager shows a list of inventory
-3.  User requests to generate PO
-4.  AddressBook deletes the person
+3.  User requests to generate PO on the inventory with low amount
+4.  Inventory Manager generates PO
 +
 Use case ends.
 
@@ -990,12 +991,64 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given command is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Approve PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to approve a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Reject PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to reject a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+// end::useCasePurchaseOrder[]
 
 _{To be updated}_
 
