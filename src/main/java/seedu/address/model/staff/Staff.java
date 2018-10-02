@@ -48,6 +48,10 @@ public class Staff {
         return this.role;
     }
 
+    /**
+     * Returns true if both staffs of the same name and username have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two staffs.
+     */
     public boolean isSameStaff(Staff otherStaff) {
         if (otherStaff == this) {
             return true;
@@ -56,8 +60,8 @@ public class Staff {
         return otherStaff != null
                 && otherStaff.getName().equals(getName())
                 && otherStaff.getUsername().equals(getUsername())
-                && otherStaff.getPassword().equals(getPassword())
-                && otherStaff.getRole().equals(getRole());
+                && (otherStaff.getPassword().equals(getPassword())
+                || otherStaff.getRole().equals(getRole()));
     }
 
     /**
