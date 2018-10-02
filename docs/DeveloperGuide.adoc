@@ -887,15 +887,16 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Inventory Manager` and the *Actor* is the `user`, unless specified otherwise)
 
+
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete staff
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Admin requests to list staffs
+2.  Inventory Manager shows a list of staffs
+3.  Admins requests to delete a specific staff in the list
+4.  Inventory Manager deletes the staff
 +
 Use case ends.
 
@@ -906,10 +907,10 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given username is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
 
