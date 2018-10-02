@@ -45,11 +45,7 @@ public class Image {
                 try {
                     String mimetype = Files.probeContentType(file.toPath());
 
-                    if (mimetype != null && mimetype.split("/")[0].equals("image")) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (mimetype != null && mimetype.split("/")[0].equals("image"));
                 } catch (IOException e) {
                     e.printStackTrace();
 
