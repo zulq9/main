@@ -23,7 +23,8 @@ public class StaffTest {
         assertFalse(ZUL.isSameStaff(null));
 
         // different username and password -> returns false
-        Staff editedZul = new StaffBuilder(ZUL).withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).build();
+        Staff editedZul = new StaffBuilder(ZUL)
+                .withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
         // different name -> returns false

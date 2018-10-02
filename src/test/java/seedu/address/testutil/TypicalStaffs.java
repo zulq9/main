@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.model.staff.Staff;
 
+/**
+ * A utility class containing a list of {@code Staff} objects to be used in tests.
+ */
 public class TypicalStaffs {
 
     public static final Staff ZUL = new StaffBuilder().withName("Muhammad Zulqarnain")
