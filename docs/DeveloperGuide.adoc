@@ -303,7 +303,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
-==== Design Considerations
+=== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
