@@ -56,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
-1. *Sales*
+2. *Sales*
 * Feature for cashier to create an order
 * Feature for cashier to delete an order
 * Feature for cashier to search for an order
@@ -124,7 +124,7 @@ Format: `list`
 
 === Editing an item : `update`
 
-Edits an existing item in the image book. +
+Edits an existing item in the inventory. +
 Format: `update INDEX [n/NAME] [s/SERIAL_NUMBER] [q/QUANTITY] [l/LOCATION] [b/BATCH_NUMBER] [t/TAG]...`
 
 ****
@@ -231,12 +231,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the image book to the state before the previous _undoable_ command was executed. +
+Restores the inventory to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the image book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the inventory's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -280,7 +280,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the image book. +
+Clears all entries from the inventory. +
 Format: `clear`
 
 === Exiting the program : `exit`

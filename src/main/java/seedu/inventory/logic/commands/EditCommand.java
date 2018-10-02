@@ -20,8 +20,11 @@ import seedu.inventory.commons.util.CollectionUtil;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 
 /**

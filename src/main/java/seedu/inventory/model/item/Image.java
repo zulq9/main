@@ -3,8 +3,8 @@ package seedu.inventory.model.item;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
 import java.io.File;
-import java.nio.file.Files;
 import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Represents a Item's inventory in the inventory.
