@@ -36,33 +36,47 @@ public class SaleDate {
                 return false;
             }
 
-            // Prevent years older than 2018
-            if (Integer.parseInt(parts[0]) < 2018) {
-                return false;
-            }
+            return validateYear(Integer.parseInt(parts[0])) && validateMonth(Integer.parseInt(parts[1]))
+                && validateDay(Integer.parseInt(parts[2]), Integer.parseInt(parts[1]));
+        }
 
-            // Prevent months in invalid range
-            if (Integer.parseInt(parts[1]) < 1 || Integer.parseInt(parts[1]) > 12) {
-                return false;
-            }
+        return false;
+    }
 
-            // Prevent days in invalid range
-            if (Integer.parseInt(parts[2]) < 1 || Integer.parseInt(parts[2]) > 31) {
-                return false;
-            }
-
-            if (Integer.parseInt(parts[1]) == 2 || Integer.parseInt(parts[1]) == 4 || Integer.parseInt(parts[1]) == 6
-                    || Integer.parseInt(parts[1]) == 9 || Integer.parseInt(parts[1]) == 11) {
-                if (Integer.parseInt(parts[2]) > 30) {
-                    return false;
-                }
-
-                if (Integer.parseInt(parts[2]) > 29 && Integer.parseInt(parts[1]) == 2) {
-                    return false;
-                }
-            }
-        } else {
+    private static boolean validateYear(Integer year) {
+        // Prevent years older than 2018
+        if (year < 2018) {
             return false;
+        }
+
+        return true;
+    }
+
+    private static boolean validateMonth(Integer month) {
+        // Prevent months in invalid range
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private static boolean validateDay(Integer day, Integer month) {
+        // Prevent days in invalid range
+        if (day < 1 || day > 31) {
+            return false;
+        }
+
+        if (month == 2 || month == 4 || month == 6
+                || month == 9 || month == 11) {
+            if (day > 30) {
+                return false;
+            }
+
+            if (day > 29 && month == 2) {
+                return false;
+            }
         }
 
         return true;
