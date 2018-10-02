@@ -34,5 +34,4 @@ public class SaleDateTest {
         // null tag name
         Assert.assertThrows(NullPointerException.class, () -> SaleDate.isValidSaleDate(null));
     }
-
 }

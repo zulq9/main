@@ -23,5 +23,4 @@ public class SaleProductTest {
         // null tag name
         Assert.assertThrows(NullPointerException.class, () -> SaleProduct.isValidProductSku(null));
     }
-
 }

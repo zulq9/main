@@ -25,5 +25,4 @@ public class SaleQuantityTest {
         // null tag name
         Assert.assertThrows(NullPointerException.class, () -> SaleQuantity.isValidSaleQuantity(null));
     }
-
 }
