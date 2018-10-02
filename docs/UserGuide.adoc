@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
+* Feature for users to change password
 2. *Sales Entry*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
@@ -175,12 +176,64 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::usersManagement[]
 === Users Management
 
 ==== Login to the system : `login`
+Login with users' given username and password. +
+Format: `login u/USERNAME p/PASSWORD`
 
-Prompt the users for their username and password. +
-Format: `login`
+Examples:
+
+* Login user with username as zulq9 and password as zulsenpai. +
+`login u/zulq9 p/zulsenpai`
+
+==== Add users : `add_user`
+
+Adds an user into the system. +
+Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+Examples:
+
+* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
+ `add_user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+
+==== Update users : `update_user`
+
+Updates an user information into the system with given username. +
+Format: `update_user u/USERNAME n/NAME  r/ROLE`
+
+Examples:
+
+* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
+ `update_user u/yaotx n/Yao Teng Xiong r/admin`.
+
+==== Remove users : `remove_user`
+
+Removes an user from the system with given username. +
+Format: `remove_user u/USERNAME`
+
+Examples:
+
+* Reomove user with given username as fzdy1914. +
+ `remove_user u/fzdy1914`.
+
+
+==== List users : `list_user`
+
+Displays a list of existing users in the system. +
+Format: `list_user`
+
+
+==== Change user's password : `change_password`
+
+Updates an user information into the system with given username. +
+Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+
+Examples:
+
+* Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
+ `change_password u/darren96 o/darren123 n/darrensinglenus`.
 
 === Sales Management
 
@@ -466,7 +519,12 @@ Format: `generate-po`
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
+* *Login* `login u/USERNAME p/PASSWORD`
+* *Add User* `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Update User* `update_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Remove User* `remove_user u/USERNAME`
+* *List User* `list_user`
+* *Change Password* `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
