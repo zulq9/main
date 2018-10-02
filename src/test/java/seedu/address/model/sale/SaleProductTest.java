@@ -13,15 +13,15 @@ public class SaleProductTest {
 
     @Test
     public void constructor_invalidSKU_throwsIllegalArgumentException() {
-        String invalidProductSKU = "";
+        String invalidProductSku = "";
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> new SaleProduct(invalidProductSKU));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new SaleProduct(invalidProductSku));
     }
 
     @Test
     public void isValidProductSKU() {
         // null tag name
-        Assert.assertThrows(NullPointerException.class, () -> SaleProduct.isValidProductSKU(null));
+        Assert.assertThrows(NullPointerException.class, () -> SaleProduct.isValidProductSku(null));
     }
 
 }

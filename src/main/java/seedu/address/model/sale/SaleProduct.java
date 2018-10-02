@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Product in the sale order.
- * Guarantees: immutable; name is valid as declared in {@link #isValidProductSKU(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidProductSku(String)}
  */
 public class SaleProduct {
 
@@ -17,18 +17,18 @@ public class SaleProduct {
     /**
      * Constructs a {@code SaleProduct}.
      *
-     * @param productSKU A valid product SKU.
+     * @param productSku A valid product SKU.
      */
-    public SaleProduct(String productSKU) {
-        requireNonNull(productSKU);
-        checkArgument(isValidProductSKU(productSKU), MESSAGE_SKU_CONSTRAINTS);
-        this.productSKU = productSKU;
+    public SaleProduct(String productSku) {
+        requireNonNull(productSku);
+        checkArgument(isValidProductSku(productSku), MESSAGE_SKU_CONSTRAINTS);
+        this.productSKU = productSku;
     }
 
     /**
      * Returns true if a given string is a valid product SKU.
      */
-    public static boolean isValidProductSKU(String test) {
+    public static boolean isValidProductSku(String test) {
         return test.matches(SKU_VALIDATION_REGEX);
     }
 
