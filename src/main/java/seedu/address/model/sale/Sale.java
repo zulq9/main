@@ -23,7 +23,7 @@ public class Sale {
      * Returns the SaleProduct
      */
     public SaleProduct getSaleProduct() {
-         return this.saleProduct;
+        return this.saleProduct;
     }
 
     /**

@@ -43,16 +43,25 @@ public class SaleDate {
         return false;
     }
 
+    /**
+     * Returns true if year is valid
+     */
     private static boolean validateYear(Integer year) {
         // Prevent years older than 2018
         return year >= 2018;
     }
 
+    /**
+     * Returns true if month is valid
+     */
     private static boolean validateMonth(Integer month) {
         // Prevent months in invalid range
         return month > 1 && month < 12;
     }
 
+    /**
+     * Returns true if day and month is valid
+     */
     private static boolean validateDay(Integer day, Integer month) {
         // Prevent days in invalid range
         if (day < 1 || day > 31) {
