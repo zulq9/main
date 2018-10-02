@@ -49,7 +49,8 @@ public class Staff {
     }
 
     /**
-     * Returns true if both staffs of the same name and username have at least one other identity field that is the same.
+     * Returns true if both staffs of the same name and username have
+     * at least one other identity field that is the same.
      * This defines a weaker notion of equality between two staffs.
      */
     public boolean isSameStaff(Staff otherStaff) {
