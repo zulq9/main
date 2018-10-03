@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.inventory.testutil.TypicalItems.GOOGLE;
-import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
 import static seedu.inventory.testutil.TypicalItems.ONEPLUS;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.util.Arrays;

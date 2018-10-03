@@ -5,25 +5,24 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_SONY;
-import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_DIFFERENT;
-import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
-import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_IMAGE_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_DIFFERENT;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_GADGET;
 import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_SMARTPHONE;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_DIFFERENT;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_DIFFERENT;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
@@ -80,16 +79,16 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit an item with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandSuccess(command, index, SONY);
 
         /* Case: edit an item with new values same as another item's values but with different SKU -> edited */
         assertTrue(getModel().getInventory().getItemList().contains(SONY));
         index = INDEX_SECOND_ITEM;
         assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), SONY);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY + SKU_DESC_DIFFERENT
-                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY
+                + SKU_DESC_DIFFERENT + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         editedItem = new ItemBuilder(SONY).withName(VALID_NAME_OPPO).withSku(VALID_SKU_DIFFERENT).build();
         assertCommandSuccess(command, index, editedItem);
 

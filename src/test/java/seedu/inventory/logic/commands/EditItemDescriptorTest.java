@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 
 import org.junit.Test;

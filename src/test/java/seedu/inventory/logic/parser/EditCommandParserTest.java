@@ -3,25 +3,25 @@ package seedu.inventory.logic.parser;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_SONY;
-import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
-import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_IMAGE_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_GADGET;
 import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_SMARTPHONE;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_GADGET;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
@@ -92,13 +92,17 @@ public class EditCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + QUANTITY_DESC_SONY + INVALID_QUANTITY_DESC, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
+        assertParseFailure(parser, "1" + QUANTITY_DESC_SONY + INVALID_QUANTITY_DESC,
+                Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Item} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_GADGET + TAG_EMPTY + TAG_DESC_SMARTPHONE, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE + TAG_EMPTY,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_GADGET + TAG_EMPTY + TAG_DESC_SMARTPHONE,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_SKU_DESC + VALID_IMAGE_OPPO + VALID_QUANTITY_OPPO,
@@ -173,7 +177,8 @@ public class EditCommandParserTest {
                 + QUANTITY_DESC_SONY + IMAGE_DESC_SONY + SKU_DESC_SONY + TAG_DESC_SMARTPHONE;
 
         EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_SONY)
-                .withEmail(VALID_SKU_SONY).withAddress(VALID_IMAGE_SONY).withTags(VALID_TAG_GADGET, VALID_TAG_SMARTPHONE)
+                .withEmail(VALID_SKU_SONY).withAddress(VALID_IMAGE_SONY).withTags(VALID_TAG_GADGET,
+                        VALID_TAG_SMARTPHONE)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

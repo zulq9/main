@@ -4,10 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.inventory.testutil.TypicalItems.GOOGLE;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 import static seedu.inventory.testutil.TypicalItems.LG;
 import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
 import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
-import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import java.util.ArrayList;
 import java.util.List;
