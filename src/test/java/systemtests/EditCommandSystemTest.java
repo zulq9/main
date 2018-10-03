@@ -28,9 +28,9 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 import static seedu.inventory.testutil.TypicalItems.OPPO;
 import static seedu.inventory.testutil.TypicalItems.SONY;
-import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
 
@@ -135,8 +135,8 @@ public class EditCommandSystemTest extends InventorySystemTest {
         showAllPersons();
         index = INDEX_FIRST_ITEM;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO
-                + IMAGE_DESC_OPPO + TAG_DESC_GADGET;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_OPPO
+                + SKU_DESC_OPPO + IMAGE_DESC_OPPO + TAG_DESC_GADGET;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new item's name
         assertCommandSuccess(command, index, OPPO, index);
@@ -165,52 +165,52 @@ public class EditCommandSystemTest extends InventorySystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+                + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_QUANTITY_DESC,
-                Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+                + INVALID_QUANTITY_DESC, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_SKU_DESC,
-                Sku.MESSAGE_SKU_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+                + INVALID_SKU_DESC, Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid inventory -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_IMAGE_DESC,
-                Image.MESSAGE_IMAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+                + INVALID_IMAGE_DESC, Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+                + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a item with new values same as another item's values -> rejected */
         executeCommand(ItemUtil.getAddCommand(SONY));
         assertTrue(getModel().getInventory().getItemList().contains(SONY));
         index = INDEX_FIRST_ITEM;
         assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(SONY));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different image -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_OPPO + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY
+                + SKU_DESC_SONY + IMAGE_DESC_OPPO + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different quantity -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_OPPO + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_OPPO
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different name -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
