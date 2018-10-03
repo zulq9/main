@@ -887,15 +887,57 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Inventory Manager` and the *Actor* is the `user`, unless specified otherwise)
 
+
 [discrete]
-=== Use case: Delete item
+=== Use case: Add Item
 
 *MSS*
 
-1.  User requests to list items
-2.  AddressBook shows a list of items
-3.  User requests to delete a specific item in the list
-4.  AddressBook deletes the item
+1.  User requests to add item into Inventory.
+2.  Inventory Manager adds the item into the Inventory list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Item name does not follow the correct format.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1b. Item SKU does not follow the correct format.
++
+[none]
+** 1b1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1c. Item Quantity does not follow the correct format.
++
+[none]
+** 1c1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1d. Item Image does not follow the correct format or is an invalid image/path.
++
+[none]
+** 1d1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Item
+
+*MSS*
+
+1.  User requests to list items.
+2.  Inventory Manager shows a list of items
+3.  User requests to edit a specific item in the list
+4.  Inventory Manager edits the item
 +
 Use case ends.
 
@@ -909,7 +951,60 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete Item
+
+*MSS*
+
+1.  User requests to list items.
+2.  Inventory Manager shows a list of items
+3.  User requests to delete a specific item in the list
+4.  Inventory Manager deletes the item
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+[tag::usecaseDeleteStaff]
+=== Use case: Delete staff
+
+*MSS*
+
+1.  Admin requests to list staffs
+2.  Inventory Manager shows a list of staffs
+3.  Admins requests to delete a specific staff in the list
+4.  Inventory Manager deletes the staff
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given username is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
 
@@ -971,6 +1066,85 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 // end::usecaseexportimport[]
 
+// tag::useCasePurchaseOrder[]
+[discrete]
+=== Use case: Generate PO
+
+*MSS*
+
+1.  User requests to list inventory
+2.  Inventory Manager shows a list of inventory
+3.  User requests to generate PO on the inventory with low amount
+4.  Inventory Manager generates PO
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given command is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Approve PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to approve a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Reject PO
+
+*MSS*
+
+1.  User requests to list PO
+2.  Inventory Manager shows a list of PO
+3.  User requests to reject a specific PO in the list
+4.  Inventory Manager updates PO status
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given PO ID is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+// end::useCasePurchaseOrder[]
+
 _{To be updated}_
 
 [appendix]
@@ -1025,6 +1199,15 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
+== Acronyms
+
+[[mss]] MSS::
+MSS stands for Main Success Scenario where it describes the shortest and most straightforward interaction by which the post-conditions can be achieved
+
+[[po]] PO::
+PO stands for purchase order
+
+[appendix]
 == Product Survey
 
 *Product Name*
@@ -1065,7 +1248,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a item
+[tag::testcaseDeleteStaff]
+=== Deleting a staff
+
+. Deleting a staff
+
+.. Prerequisites: The username provided must be the username of the existing user
+.. Test case: `remove_user u/johnd1912` +
+   Expected: User with username, johnd1912, will be deleted. Details of the deleted staff shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `remove_user u/` +
+   Expected: No staff is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `remove_user`, `remove_user ,,,`_ +
+   Expected: Similar to previous.
+
+=== Deleting a person
 
 . Deleting a item while all items are listed
 
