@@ -16,9 +16,9 @@ import seedu.inventory.model.util.SampleDataUtil;
  */
 public class ItemBuilder {
 
-    public static final String DEFAULT_NAME = "iPhone XR";
+    public static final String DEFAULT_NAME = "iPhone XS";
     public static final String DEFAULT_QUANTITY = "30";
-    public static final String DEFAULT_SKU = "apple-iphone-xr";
+    public static final String DEFAULT_SKU = "apple-iphone-xs";
     public static final String DEFAULT_IMAGE = "docs/images/iphone.jpg";
 
     private Name name;

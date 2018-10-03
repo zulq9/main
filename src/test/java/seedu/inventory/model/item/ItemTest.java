@@ -2,13 +2,13 @@ package seedu.inventory.model.item;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.inventory.testutil.TypicalItems.ALICE;
-import static seedu.inventory.testutil.TypicalItems.BOB;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.SONY;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,70 +30,70 @@ public class ItemTest {
     @Test
     public void isSameItem() {
         // same object -> returns true
-        assertTrue(ALICE.isSameItem(ALICE));
+        assertTrue(IPHONE.isSameItem(IPHONE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameItem(null));
+        assertFalse(IPHONE.isSameItem(null));
 
         // different phone and email -> returns false
-        Item editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).withSku(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameItem(editedAlice));
+        Item editedIphone = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).build();
+        assertFalse(IPHONE.isSameItem(editedIphone));
 
-        // different name -> returns false
-        editedAlice = new ItemBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameItem(editedAlice));
+        // different sku -> returns false
+        editedIphone = new ItemBuilder(IPHONE).withSku(VALID_SKU_SONY).build();
+        assertFalse(IPHONE.isSameItem(editedIphone));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new ItemBuilder(ALICE).withSku(VALID_EMAIL_BOB).withImage(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameItem(editedAlice));
+        // same name, different sku, different attributes -> returns false
+        editedIphone = new ItemBuilder(IPHONE).withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY)
+                .withTags(VALID_TAG_SMARTPHONE).build();
+        assertFalse(IPHONE.isSameItem(editedIphone));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).withImage(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameItem(editedAlice));
+        editedIphone = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).withImage(VALID_IMAGE_SONY)
+                .withTags(VALID_TAG_SMARTPHONE).build();
+        assertTrue(IPHONE.isSameItem(editedIphone));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameItem(editedAlice));
+        editedIphone = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE).build();
+        assertTrue(IPHONE.isSameItem(editedIphone));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Item aliceCopy = new ItemBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Item iphoneCopy = new ItemBuilder(IPHONE).build();
+        assertTrue(IPHONE.equals(iphoneCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(IPHONE.equals(IPHONE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(IPHONE.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(IPHONE.equals(5));
 
         // different item -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(IPHONE.equals(SONY));
 
         // different name -> returns false
-        Item editedAlice = new ItemBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Item editedAlice = new ItemBuilder(IPHONE).withName(VALID_NAME_SONY).build();
+        assertFalse(IPHONE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new ItemBuilder(ALICE).withQuantity(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).build();
+        assertFalse(IPHONE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new ItemBuilder(ALICE).withSku(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ItemBuilder(IPHONE).withSku(VALID_SKU_SONY).build();
+        assertFalse(IPHONE.equals(editedAlice));
 
         // different inventory -> returns false
-        editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).build();
+        assertFalse(IPHONE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ItemBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ItemBuilder(IPHONE).withTags(VALID_TAG_SMARTPHONE).build();
+        assertFalse(IPHONE.equals(editedAlice));
     }
 }

@@ -28,19 +28,19 @@ public class XmlUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
-    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validInventory.xml");
+    private static final Path MISSING_ITEM_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingItemField.xml");
+    private static final Path INVALID_ITEM_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidItemField.xml");
+    private static final Path VALID_ITEM_FILE = TEST_DATA_FOLDER.resolve("validItem.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempInventory.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
+    private static final String INVALID_QUANTITY = "9482asf424";
 
-    private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_NAME = "iPhone XR";
+    private static final String VALID_QUANTITY = "9482424";
+    private static final String VALID_SKU = "iphone-xr";
+    private static final String VALID_IMAGE = "docs/images/iphone.jpg";
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("iphone"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -76,30 +76,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
+    public void xmlAdaptedItemFromFile_fileWithMissingItemField_validResult() throws Exception {
+        XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
+                MISSING_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+                null, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+        assertEquals(expectedPerson, actualItem);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
+    public void xmlAdaptedItemFromFile_fileWithInvalidItemField_validResult() throws Exception {
+        XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
+                INVALID_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+                VALID_NAME, INVALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+        assertEquals(expectedPerson, actualItem);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedItem actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedItemWithRootElement.class);
+    public void xmlAdaptedItemFromFile_fileWithValidItem_validResult() throws Exception {
+        XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
+                VALID_ITEM_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+                VALID_NAME, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+        assertEquals(expectedPerson, actualItem);
     }
 
     @Test

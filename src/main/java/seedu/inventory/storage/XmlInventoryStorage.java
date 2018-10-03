@@ -51,9 +51,9 @@ public class XmlInventoryStorage implements InventoryStorage {
             return Optional.empty();
         }
 
-        XmlSerializableInventory xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableInventory xmlInventory = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlInventory.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlInventoryStorage implements InventoryStorage {
     }
 
     @Override
-    public void saveInventory(ReadOnlyInventory addressBook) throws IOException {
-        saveInventory(addressBook, filePath);
+    public void saveInventory(ReadOnlyInventory inventory) throws IOException {
+        saveInventory(inventory, filePath);
     }
 
     /**
      * Similar to {@link #saveInventory(ReadOnlyInventory)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveInventory(ReadOnlyInventory addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
+        requireNonNull(inventory);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableInventory(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableInventory(inventory));
     }
 
 }

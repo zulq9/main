@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.storage.XmlAdaptedItem.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.inventory.testutil.TypicalItems.BENSON;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class XmlAdaptedItemTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getQuantity().toString();
-    private static final String VALID_EMAIL = BENSON.getSku().toString();
-    private static final String VALID_ADDRESS = BENSON.getImage().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = SAMSUNG.getName().toString();
+    private static final String VALID_PHONE = SAMSUNG.getQuantity().toString();
+    private static final String VALID_EMAIL = SAMSUNG.getSku().toString();
+    private static final String VALID_ADDRESS = SAMSUNG.getImage().toString();
+    private static final List<XmlAdaptedTag> VALID_TAGS = SAMSUNG.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedItem person = new XmlAdaptedItem(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        XmlAdaptedItem person = new XmlAdaptedItem(SAMSUNG);
+        assertEquals(SAMSUNG, person.toModelType());
     }
 
     @Test

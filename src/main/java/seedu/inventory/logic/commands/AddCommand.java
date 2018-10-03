@@ -13,7 +13,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Adds a item to the inventory.
+ * Adds an item to the inventory.
  */
 public class AddCommand extends Command {
 

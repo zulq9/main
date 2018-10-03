@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.inventory.testutil.TypicalItems.CARL;
-import static seedu.inventory.testutil.TypicalItems.ELLE;
-import static seedu.inventory.testutil.TypicalItems.FIONA;
-import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.GOOGLE;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
+import static seedu.inventory.testutil.TypicalItems.ONEPLUS;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,8 +25,8 @@ import seedu.inventory.model.item.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -69,11 +69,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Google Note OnePlus");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredItemList());
+        assertEquals(Arrays.asList(GOOGLE, SAMSUNGNOTE, ONEPLUS), model.getFilteredItemList());
     }
 
     /**

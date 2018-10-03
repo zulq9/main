@@ -7,8 +7,8 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_ITEM_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         /* Case: select the first card in the item list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_ITEM);
 
         /* Case: select the last card in the item list -> selected */
         Index personCount = getLastIndex(getModel());
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         /* Case: filtered item list, select index within bounds of inventory book but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
@@ -94,7 +94,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
 
         /* Case: select from empty inventory book -> rejected */
         deleteAllPersons();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
                 MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 

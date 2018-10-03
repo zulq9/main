@@ -12,7 +12,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Deletes a item identified using it's displayed index from the inventory.
+ * Deletes an item identified using it's displayed index from the inventory.
  */
 public class DeleteCommand extends Command {
 

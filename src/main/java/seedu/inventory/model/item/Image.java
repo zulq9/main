@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Represents a Item's inventory in the inventory.
+ * Represents an Item's image in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidImage(String)}
  */
 public class Image {

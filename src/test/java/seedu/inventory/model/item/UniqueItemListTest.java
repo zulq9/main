@@ -3,10 +3,10 @@ package seedu.inventory.model.item;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.inventory.testutil.TypicalItems.ALICE;
-import static seedu.inventory.testutil.TypicalItems.BOB;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.SONY;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,19 +34,19 @@ public class UniqueItemListTest {
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniqueItemList.contains(ALICE));
+        assertFalse(uniqueItemList.contains(IPHONE));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniqueItemList.add(ALICE);
-        assertTrue(uniqueItemList.contains(ALICE));
+        uniqueItemList.add(IPHONE);
+        assertTrue(uniqueItemList.contains(IPHONE));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueItemList.add(ALICE);
-        Item editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueItemList.add(IPHONE);
+        Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
         assertTrue(uniqueItemList.contains(editedAlice));
     }
@@ -59,44 +59,44 @@ public class UniqueItemListTest {
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniqueItemList.add(ALICE);
+        uniqueItemList.add(IPHONE);
         thrown.expect(DuplicateItemException.class);
-        uniqueItemList.add(ALICE);
+        uniqueItemList.add(IPHONE);
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueItemList.setPerson(null, ALICE);
+        uniqueItemList.setItem(null, IPHONE);
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueItemList.setPerson(ALICE, null);
+        uniqueItemList.setItem(IPHONE, null);
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
-        uniqueItemList.setPerson(ALICE, ALICE);
+        uniqueItemList.setItem(IPHONE, IPHONE);
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
-        uniqueItemList.add(ALICE);
-        uniqueItemList.setPerson(ALICE, ALICE);
+        uniqueItemList.add(IPHONE);
+        uniqueItemList.setItem(IPHONE, IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
-        expectedUniqueItemList.add(ALICE);
+        expectedUniqueItemList.add(IPHONE);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
-        uniqueItemList.add(ALICE);
-        Item editedAlice = new ItemBuilder(ALICE).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueItemList.add(IPHONE);
+        Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
-        uniqueItemList.setPerson(ALICE, editedAlice);
+        uniqueItemList.setItem(IPHONE, editedAlice);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
         expectedUniqueItemList.add(editedAlice);
         assertEquals(expectedUniqueItemList, uniqueItemList);
@@ -104,19 +104,19 @@ public class UniqueItemListTest {
 
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniqueItemList.add(ALICE);
-        uniqueItemList.setPerson(ALICE, BOB);
+        uniqueItemList.add(IPHONE);
+        uniqueItemList.setItem(IPHONE, SONY);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
-        expectedUniqueItemList.add(BOB);
+        expectedUniqueItemList.add(SONY);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniqueItemList.add(ALICE);
-        uniqueItemList.add(BOB);
+        uniqueItemList.add(IPHONE);
+        uniqueItemList.add(SONY);
         thrown.expect(DuplicateItemException.class);
-        uniqueItemList.setPerson(ALICE, BOB);
+        uniqueItemList.setItem(IPHONE, SONY);
     }
 
     @Test
@@ -128,13 +128,13 @@ public class UniqueItemListTest {
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
-        uniqueItemList.remove(ALICE);
+        uniqueItemList.remove(IPHONE);
     }
 
     @Test
     public void remove_existingPerson_removesPerson() {
-        uniqueItemList.add(ALICE);
-        uniqueItemList.remove(ALICE);
+        uniqueItemList.add(IPHONE);
+        uniqueItemList.remove(IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -142,39 +142,39 @@ public class UniqueItemListTest {
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueItemList.setPersons((UniqueItemList) null);
+        uniqueItemList.setItems((UniqueItemList) null);
     }
 
     @Test
     public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniqueItemList.add(ALICE);
+        uniqueItemList.add(IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
-        expectedUniqueItemList.add(BOB);
-        uniqueItemList.setPersons(expectedUniqueItemList);
+        expectedUniqueItemList.add(SONY);
+        uniqueItemList.setItems(expectedUniqueItemList);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueItemList.setPersons((List<Item>) null);
+        uniqueItemList.setItems((List<Item>) null);
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniqueItemList.add(ALICE);
-        List<Item> itemList = Collections.singletonList(BOB);
-        uniqueItemList.setPersons(itemList);
+        uniqueItemList.add(IPHONE);
+        List<Item> itemList = Collections.singletonList(SONY);
+        uniqueItemList.setItems(itemList);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
-        expectedUniqueItemList.add(BOB);
+        expectedUniqueItemList.add(SONY);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Item> listWithDuplicateItems = Arrays.asList(ALICE, ALICE);
+        List<Item> listWithDuplicateItems = Arrays.asList(IPHONE, IPHONE);
         thrown.expect(DuplicateItemException.class);
-        uniqueItemList.setPersons(listWithDuplicateItems);
+        uniqueItemList.setItems(listWithDuplicateItems);
     }
 
     @Test

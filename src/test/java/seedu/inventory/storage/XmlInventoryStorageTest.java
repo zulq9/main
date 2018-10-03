@@ -2,10 +2,10 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.inventory.testutil.TypicalItems.ALICE;
-import static seedu.inventory.testutil.TypicalItems.HOON;
-import static seedu.inventory.testutil.TypicalItems.IDA;
-import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.NOKIA;
+import static seedu.inventory.testutil.TypicalItems.XIAOMI;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -64,19 +64,19 @@ public class XmlInventoryStorageTest {
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readAddressBook("invalidItemInventory.xml");
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readAddressBook("invalidAndValidItemInventory.xml");
     }
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        Inventory original = getTypicalAddressBook();
+        Inventory original = getTypicalInventory();
         XmlInventoryStorage xmlInventoryStorage = new XmlInventoryStorage(filePath);
 
         //Save in new file and read back
@@ -85,14 +85,14 @@ public class XmlInventoryStorageTest {
         assertEquals(original, new Inventory(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addItem(NOKIA);
+        original.removeItem(IPHONE);
         xmlInventoryStorage.saveInventory(original, filePath);
         readBack = xmlInventoryStorage.readInventory(filePath).get();
         assertEquals(original, new Inventory(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addItem(XIAOMI);
         xmlInventoryStorage.saveInventory(original); //file path not specified
         readBack = xmlInventoryStorage.readInventory().get(); //file path not specified
         assertEquals(original, new Inventory(readBack));

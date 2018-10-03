@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<inventory>
 
     <items>
-        <name>Alice Pauline</name>
+        <name>iPhone 8 Plus</name>
         <quantity>94351253</quantity>
-        <sku>alice@example.com</sku>
-        <image>123, Jurong West Ave 6, #08-111</image>
+        <sku>iphone-8-plus</sku>
+        <image>docs/images/iphone.jpg</image>
         <tagged>friends</tagged>
     </items>
 
     <!-- Item with same identity as Alice Pauline -->
     <items>
-        <name>Alice Pauline</name>
+        <name>iPhone 8 Plus</name>
         <quantity>94351253</quantity>
-        <sku>pauline@example.com</sku>
-        <image>4th street</image>
+        <sku>iphone-8-plus</sku>
+        <image>docs/images/iphone.jpg</image>
     </items>
 
-</addressbook>
+</inventory>

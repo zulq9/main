@@ -30,8 +30,7 @@ public class ImageTest {
         assertFalse(Image.isValidImage(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Image.isValidImage("Blk 456, Den Road, #01-355"));
-        assertTrue(Image.isValidImage("-")); // one character
-        assertTrue(Image.isValidImage("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long inventory
+        assertTrue(Image.isValidImage("docs/images/iphone.jpg"));
+        assertTrue(Image.isValidImage("docs/images/yao-tx.png")); // one character
     }
 }

@@ -39,17 +39,17 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_QUANTITY + "PHONE] "
-            + "[" + PREFIX_SKU + "EMAIL] "
-            + "[" + PREFIX_IMAGE + "ADDRESS] "
+            + "[" + PREFIX_QUANTITY + "QUANTITY] "
+            + "[" + PREFIX_SKU + "SKU] "
+            + "[" + PREFIX_IMAGE + "IMAGE_PATH] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_QUANTITY + "91234567 "
-            + PREFIX_SKU + "johndoe@example.com";
+            + PREFIX_QUANTITY + "1000 "
+            + PREFIX_SKU + "iphone-xr";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the inventory book.";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the inventory.";
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;

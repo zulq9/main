@@ -1,15 +1,15 @@
 package seedu.inventory.testutil;
 
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_GADGET;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,50 +27,50 @@ public class TypicalItems {
             .withImage("docs/images/iphone.jpg").withSku("apple-iphone-xr")
             .withQuantity("30")
             .withTags("apple").build();
-    public static final Item SAMSUNG = new ItemBuilder().withName("Samsung S9")
-            .withImage("docs/images/samsung.jpg")
-            .withSku("samsung-s9").withQuantity("100")
-            .withTags("samsung", "smartphone").build();
     public static final Item GOOGLE = new ItemBuilder().withName("Google Pixel XL").withQuantity("3")
             .withSku("google-pixel-xl").withImage("docs/images/google.jpg").build();
     public static final Item LG = new ItemBuilder().withName("LG G7").withQuantity("20")
-            .withSku("lg-67").withImage("docs/images/lg.jpg").withTags("lg").build();
-    public static final Item HUAWEI = new ItemBuilder().withName("Hua Wei P20").withQuantity("1000")
-            .withSku("huawei-p20").withImage("docs/images/huawei.jpg").build();
+            .withSku("lg-g7").withImage("docs/images/lg.jpg").withTags("smartphone").build();
+    public static final Item SAMSUNGNOTE = new ItemBuilder().withName("Samsung Note 9").withQuantity("1000")
+            .withSku("samsung-note-9").withImage("docs/images/huawei.jpg").build();
     public static final Item ONEPLUS = new ItemBuilder().withName("OnePlus 6").withQuantity("10")
             .withSku("oneplus-6").withImage("docs/images/oneplus.jpg").build();
     public static final Item HTC = new ItemBuilder().withName("HTC U6").withQuantity("75")
             .withSku("htc-u6").withImage("docs/images/htc.jpg").build();
+    public static final Item SAMSUNG = new ItemBuilder().withName("Samsung S9")
+            .withImage("docs/images/samsung.jpg")
+            .withSku("samsung-s9").withQuantity("100")
+            .withTags("samsung", "smartphone").build();
 
     // Manually added
-    public static final Item HOON = new ItemBuilder().withName("Hoon Meier").withQuantity("8482424")
-            .withSku("stefan@example.com").withImage("little india").build();
-    public static final Item IDA = new ItemBuilder().withName("Ida Mueller").withQuantity("8482131")
-            .withSku("hans@example.com").withImage("chicago ave").build();
+    public static final Item NOKIA = new ItemBuilder().withName("Nokia 3310").withQuantity("900")
+            .withSku("nokia-3310").withImage("docs/images/nokia.jpg").build();
+    public static final Item XIAOMI = new ItemBuilder().withName("XIAOMI MI 8").withQuantity("50")
+            .withSku("xiaomi-mi-8").withImage("docs/images/xiaomi.jpg").build();
 
     // Manually added - Item's details found in {@code CommandTestUtil}
-    public static final Item AMY = new ItemBuilder().withName(VALID_NAME_AMY).withQuantity(VALID_PHONE_AMY)
-            .withSku(VALID_EMAIL_AMY).withImage(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Item BOB = new ItemBuilder().withName(VALID_NAME_BOB).withQuantity(VALID_PHONE_BOB)
-            .withSku(VALID_EMAIL_BOB).withImage(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Item OPPO = new ItemBuilder().withName(VALID_NAME_OPPO).withQuantity(VALID_QUANTITY_OPPO)
+            .withSku(VALID_SKU_OPPO).withImage(VALID_IMAGE_OPPO).withTags(VALID_TAG_GADGET).build();
+    public static final Item SONY = new ItemBuilder().withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY)
+            .withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_SAMSUNG = "Samsung"; // A keyword that matches SAMSUNG
 
     private TypicalItems() {} // prevents instantiation
 
     /**
      * Returns an {@code Inventory} with all the typical persons.
      */
-    public static Inventory getTypicalAddressBook() {
+    public static Inventory getTypicalInventory() {
         Inventory ab = new Inventory();
-        for (Item item : getTypicalPersons()) {
-            ab.addPerson(item);
+        for (Item item : getTypicalItems()) {
+            ab.addItem(item);
         }
         return ab;
     }
 
-    public static List<Item> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(IPHONE, SAMSUNG, GOOGLE, LG, HUAWEI, ONEPLUS, HTC));
+    public static List<Item> getTypicalItems() {
+        return new ArrayList<>(Arrays.asList(IPHONE, GOOGLE, LG, SAMSUNGNOTE, ONEPLUS, HTC, SAMSUNG));
     }
 }

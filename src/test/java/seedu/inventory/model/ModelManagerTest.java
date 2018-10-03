@@ -3,8 +3,8 @@ package seedu.inventory.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.inventory.testutil.TypicalItems.ALICE;
-import static seedu.inventory.testutil.TypicalItems.BENSON;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,13 +30,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasItem(ALICE));
+        assertFalse(modelManager.hasItem(IPHONE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addItem(ALICE);
-        assertTrue(modelManager.hasItem(ALICE));
+        modelManager.addItem(IPHONE);
+        assertTrue(modelManager.hasItem(IPHONE));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Inventory inventory = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        Inventory inventory = new AddressBookBuilder().withPerson(IPHONE).withPerson(SAMSUNG).build();
         Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -69,7 +69,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = IPHONE.getName().fullName.split("\\s+");
         modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 

@@ -2,8 +2,8 @@ package seedu.inventory.logic.commands;
 
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.inventory.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
+import static seedu.inventory.logic.commands.CommandTestUtil.deleteFirstItem;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,18 +15,18 @@ import seedu.inventory.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
         // set up of models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstItem(model);
+        deleteFirstItem(model);
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstItem(expectedModel);
+        deleteFirstItem(expectedModel);
     }
 
     @Test

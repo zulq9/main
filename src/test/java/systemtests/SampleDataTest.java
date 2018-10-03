@@ -45,7 +45,7 @@ public class SampleDataTest extends InventorySystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Item[] expectedList = SampleDataUtil.getSamplePersons();
+        Item[] expectedList = SampleDataUtil.getSampleItems();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }

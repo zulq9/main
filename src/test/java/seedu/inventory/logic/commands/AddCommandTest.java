@@ -62,26 +62,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Item alice = new ItemBuilder().withName("Alice").build();
-        Item bob = new ItemBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Item iPhone = new ItemBuilder().withName("iPhone XR").build();
+        Item googlePixel = new ItemBuilder().withName("Google Pixel XL").build();
+        AddCommand addIphoneCommand = new AddCommand(iPhone);
+        AddCommand addGoogleCommand = new AddCommand(googlePixel);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addIphoneCommand.equals(addIphoneCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(iPhone);
+        assertTrue(addIphoneCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addIphoneCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addIphoneCommand.equals(null));
 
         // different item -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addIphoneCommand.equals(addGoogleCommand));
     }
 
     /**

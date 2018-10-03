@@ -18,17 +18,17 @@ import seedu.inventory.model.item.Item;
 @XmlRootElement(name = "inventory")
 public class XmlSerializableInventory {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate item(s).";
+    public static final String MESSAGE_DUPLICATE_ITEM = "Inventory list contains duplicate item(s).";
 
     @XmlElement
-    private List<XmlAdaptedItem> persons;
+    private List<XmlAdaptedItem> items;
 
     /**
      * Creates an empty XmlSerializableInventory.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableInventory() {
-        persons = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     /**
@@ -36,23 +36,23 @@ public class XmlSerializableInventory {
      */
     public XmlSerializableInventory(ReadOnlyInventory src) {
         this();
-        persons.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
+        items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code Inventory} object.
+     * Converts this inventory into the model's {@code Inventory} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedItem}.
      */
     public Inventory toModelType() throws IllegalValueException {
         Inventory inventory = new Inventory();
-        for (XmlAdaptedItem p : persons) {
+        for (XmlAdaptedItem p : items) {
             Item item = p.toModelType();
-            if (inventory.hasPerson(item)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            if (inventory.hasItem(item)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            inventory.addPerson(item);
+            inventory.addItem(item);
         }
         return inventory;
     }
@@ -66,6 +66,6 @@ public class XmlSerializableInventory {
         if (!(other instanceof XmlSerializableInventory)) {
             return false;
         }
-        return persons.equals(((XmlSerializableInventory) other).persons);
+        return items.equals(((XmlSerializableInventory) other).items);
     }
 }

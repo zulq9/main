@@ -3,7 +3,7 @@ package seedu.inventory.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.testutil.TypicalItems.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class StorageManagerTest {
          * {@link XmlInventoryStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlInventoryStorageTest} class.
          */
-        Inventory original = getTypicalAddressBook();
+        Inventory original = getTypicalInventory();
         storageManager.saveInventory(original);
         ReadOnlyInventory retrieved = storageManager.readInventory().get();
         assertEquals(original, new Inventory(retrieved));
@@ -94,7 +94,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveInventory(ReadOnlyInventory addressBook, Path filePath) throws IOException {
+        public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

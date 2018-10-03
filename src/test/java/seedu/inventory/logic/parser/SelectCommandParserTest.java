@@ -3,7 +3,7 @@ package seedu.inventory.logic.parser;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class SelectCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_ITEM));
     }
 
     @Test

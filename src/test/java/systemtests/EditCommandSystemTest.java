@@ -3,33 +3,35 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_DIFFERENT;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_IMAGE_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_GADGET;
+import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_SMARTPHONE;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_DIFFERENT;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalItems.AMY;
-import static seedu.inventory.testutil.TypicalItems.BOB;
-import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static seedu.inventory.testutil.TypicalItems.OPPO;
+import static seedu.inventory.testutil.TypicalItems.SONY;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
 
@@ -59,10 +61,10 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
          */
-        Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Item editedItem = new ItemBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Index index = INDEX_FIRST_ITEM;
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_SONY + "  "
+                + QUANTITY_DESC_SONY + " " + SKU_DESC_SONY + "  " + IMAGE_DESC_SONY + " " + TAG_DESC_SMARTPHONE + " ";
+        Item editedItem = new ItemBuilder(SONY).withTags(VALID_TAG_SMARTPHONE).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: undo editing the last item in the list -> last item restored */
@@ -74,34 +76,34 @@ public class EditCommandSystemTest extends InventorySystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updateItem(
-                getModel().getFilteredItemList().get(INDEX_FIRST_PERSON.getZeroBased()), editedItem);
+                getModel().getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased()), editedItem);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a item with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        /* Case: edit an item with new values same as existing values -> edited */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        assertCommandSuccess(command, index, SONY);
 
-        /* Case: edit a item with new values same as another item's values but with different name -> edited */
-        assertTrue(getModel().getInventory().getItemList().contains(BOB));
-        index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedItem = new ItemBuilder(BOB).withName(VALID_NAME_AMY).build();
+        /* Case: edit an item with new values same as another item's values but with different SKU -> edited */
+        assertTrue(getModel().getInventory().getItemList().contains(SONY));
+        index = INDEX_SECOND_ITEM;
+        assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), SONY);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY + SKU_DESC_DIFFERENT
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        editedItem = new ItemBuilder(SONY).withName(VALID_NAME_OPPO).withSku(VALID_SKU_DIFFERENT).build();
         assertCommandSuccess(command, index, editedItem);
 
-        /* Case: edit a item with new values same as another item's values but with different phone and email
+        /* Case: edit an item with new values same as another item's values but with different quantity and image
          * -> edited
          */
-        index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedItem = new ItemBuilder(BOB).withQuantity(VALID_PHONE_AMY).withSku(VALID_EMAIL_AMY).build();
+        index = INDEX_SECOND_ITEM;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_OPPO
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
+        editedItem = new ItemBuilder(SONY).withQuantity(VALID_QUANTITY_OPPO).withSku(VALID_SKU_DIFFERENT).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: clear tags -> cleared */
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_ITEM;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Item itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
         editedItem = new ItemBuilder(itemToEdit).withTags().build();
@@ -110,20 +112,20 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered item list, edit index within bounds of inventory book and item list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        index = INDEX_FIRST_PERSON;
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        index = INDEX_FIRST_ITEM;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_SONY;
         itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
-        editedItem = new ItemBuilder(itemToEdit).withName(VALID_NAME_BOB).build();
+        editedItem = new ItemBuilder(itemToEdit).withName(VALID_NAME_SONY).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: filtered item list, edit index within bounds of inventory book but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a item card is selected -------------------------- */
@@ -132,84 +134,84 @@ public class EditCommandSystemTest extends InventorySystemTest {
          * browser url changes
          */
         showAllPersons();
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_ITEM;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO
+                + IMAGE_DESC_OPPO + TAG_DESC_GADGET;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new item's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, OPPO, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_SONY,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_SONY,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_SONY,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_QUANTITY_DESC,
                 Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_SKU_DESC,
                 Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid inventory -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_IMAGE_DESC,
                 Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a item with new values same as another item's values -> rejected */
-        executeCommand(ItemUtil.getAddCommand(BOB));
-        assertTrue(getModel().getInventory().getItemList().contains(BOB));
-        index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        executeCommand(ItemUtil.getAddCommand(SONY));
+        assertTrue(getModel().getInventory().getItemList().contains(SONY));
+        index = INDEX_FIRST_ITEM;
+        assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(SONY));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
+                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: edit a item with new values same as another item's values but with different inventory -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a item with new values same as another item's values but with different image -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
+                + IMAGE_DESC_OPPO + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: edit a item with new values same as another item's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a item with new values same as another item's values but with different quantity -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + QUANTITY_DESC_OPPO + SKU_DESC_SONY
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: edit a item with new values same as another item's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a item with new values same as another item's values but with different name -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + QUANTITY_DESC_SONY + SKU_DESC_SONY
+                + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
 

@@ -2,13 +2,13 @@ package seedu.inventory.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 
 import org.junit.Test;
 
@@ -19,40 +19,40 @@ public class EditItemDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditItemDescriptor descriptorWithSameValues = new EditCommand.EditItemDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditCommand.EditItemDescriptor descriptorWithSameValues = new EditCommand.EditItemDescriptor(DESC_OPPO);
+        assertTrue(DESC_OPPO.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_OPPO.equals(DESC_OPPO));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_OPPO.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_OPPO.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_OPPO.equals(DESC_SONY));
 
         // different name -> returns false
         EditCommand.EditItemDescriptor editedAmy =
-                new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+                new EditPersonDescriptorBuilder(DESC_OPPO).withName(VALID_NAME_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withPhone(VALID_QUANTITY_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withEmail(VALID_SKU_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different inventory -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withAddress(VALID_IMAGE_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withTags(VALID_TAG_SMARTPHONE).build();
+        assertFalse(DESC_OPPO.equals(editedAmy));
     }
 }

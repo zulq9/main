@@ -19,26 +19,26 @@ public interface Model {
     ReadOnlyInventory getInventory();
 
     /**
-     * Returns true if a item with the same identity as {@code item} exists in the inventory book.
+     * Returns true if a item with the same identity as {@code item} exists in the inventory.
      */
     boolean hasItem(Item item);
 
     /**
      * Deletes the given item.
-     * The item must exist in the inventory book.
+     * The item must exist in the inventory.
      */
     void deleteItem(Item target);
 
     /**
      * Adds the given item.
-     * {@code item} must not already exist in the inventory book.
+     * {@code item} must not already exist in the inventory.
      */
     void addItem(Item item);
 
     /**
      * Replaces the given item {@code target} with {@code editedItem}.
-     * {@code target} must exist in the inventory book.
-     * The item identity of {@code editedItem} must not be the same as another existing item in the inventory book.
+     * {@code target} must exist in the inventory.
+     * The item identity of {@code editedItem} must not be the same as another existing item in the inventory.
      */
     void updateItem(Item target, Item editedItem);
 
@@ -52,27 +52,27 @@ public interface Model {
     void updateFilteredItemList(Predicate<Item> predicate);
 
     /**
-     * Returns true if the model has previous inventory book states to restore.
+     * Returns true if the model has previous inventory states to restore.
      */
     boolean canUndoInventory();
 
     /**
-     * Returns true if the model has undone inventory book states to restore.
+     * Returns true if the model has undone inventory states to restore.
      */
     boolean canRedoInventory();
 
     /**
-     * Restores the model's inventory book to its previous state.
+     * Restores the model's inventory to its previous state.
      */
     void undoInventory();
 
     /**
-     * Restores the model's inventory book to its previously undone state.
+     * Restores the model's inventory to its previously undone state.
      */
     void redoInventory();
 
     /**
-     * Saves the current inventory book state for undo/redo.
+     * Saves the current inventory state for undo/redo.
      */
     void commitInventory();
 }
