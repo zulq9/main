@@ -42,14 +42,14 @@ public class InventoryTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyInventory_replacesData() {
         Inventory newData = getTypicalInventory();
         inventory.resetData(newData);
         assertEquals(newData, inventory);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateItems_throwsDuplicatePersonException() {
         // Two items with the same identity fields
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
@@ -61,24 +61,24 @@ public class InventoryTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasItem_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         inventory.hasItem(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasItem_itemNotInInventory_returnsFalse() {
         assertFalse(inventory.hasItem(IPHONE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasItem_itemInInventory_returnsTrue() {
         inventory.addItem(IPHONE);
         assertTrue(inventory.hasItem(IPHONE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasItem_itemWithSameIdentityFieldsInInventory_returnsTrue() {
         inventory.addItem(IPHONE);
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
@@ -86,7 +86,7 @@ public class InventoryTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         inventory.getItemList().remove(0);
     }

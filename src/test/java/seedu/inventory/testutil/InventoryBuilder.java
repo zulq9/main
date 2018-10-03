@@ -4,26 +4,26 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.item.Item;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Inventory objects.
  * Example usage: <br>
- *     {@code Inventory ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code Inventory ab = new InventoryBuilder().withItem("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class InventoryBuilder {
 
     private Inventory inventory;
 
-    public AddressBookBuilder() {
+    public InventoryBuilder() {
         inventory = new Inventory();
     }
 
-    public AddressBookBuilder(Inventory inventory) {
+    public InventoryBuilder(Inventory inventory) {
         this.inventory = inventory;
     }
 
     /**
      * Adds a new {@code Item} to the {@code Inventory} that we are building.
      */
-    public AddressBookBuilder withPerson(Item item) {
+    public InventoryBuilder withItem(Item item) {
         inventory.addItem(item);
         return this;
     }

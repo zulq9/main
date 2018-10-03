@@ -32,28 +32,28 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingItemAdded modelStub = new ModelStubAcceptingItemAdded();
         Item validItem = new ItemBuilder().build();
 
         CommandResult commandResult = new AddCommand(validItem).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validItem), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validItem), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validItem), modelStub.itemsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateItem_throwsCommandException() throws Exception {
         Item validItem = new ItemBuilder().build();
         AddCommand addCommand = new AddCommand(validItem);
-        ModelStub modelStub = new ModelStubWithPerson(validItem);
+        ModelStub modelStub = new ModelStubWithItem(validItem);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
@@ -157,10 +157,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single item.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithItem extends ModelStub {
         private final Item item;
 
-        ModelStubWithPerson(Item item) {
+        ModelStubWithItem(Item item) {
             requireNonNull(item);
             this.item = item;
         }
@@ -175,19 +175,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the item being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Item> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingItemAdded extends ModelStub {
+        private final ArrayList<Item> itemsAdded = new ArrayList<>();
 
         @Override
         public boolean hasItem(Item item) {
             requireNonNull(item);
-            return personsAdded.stream().anyMatch(item::isSameItem);
+            return itemsAdded.stream().anyMatch(item::isSameItem);
         }
 
         @Override
         public void addItem(Item item) {
             requireNonNull(item);
-            personsAdded.add(item);
+            itemsAdded.add(item);
         }
 
         @Override

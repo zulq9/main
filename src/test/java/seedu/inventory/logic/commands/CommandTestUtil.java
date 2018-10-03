@@ -19,7 +19,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
-import seedu.inventory.testutil.EditPersonDescriptorBuilder;
+import seedu.inventory.testutil.EditItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -63,11 +63,11 @@ public class CommandTestUtil {
     public static final EditCommand.EditItemDescriptor DESC_SONY;
 
     static {
-        DESC_OPPO = new EditPersonDescriptorBuilder().withName(VALID_NAME_OPPO)
-                .withPhone(VALID_QUANTITY_OPPO).withEmail(VALID_SKU_OPPO).withAddress(VALID_IMAGE_OPPO)
+        DESC_OPPO = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO)
+                .withQuantity(VALID_QUANTITY_OPPO).withSku(VALID_SKU_OPPO).withImage(VALID_IMAGE_OPPO)
                 .withTags(VALID_TAG_GADGET).build();
-        DESC_SONY = new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY)
-                .withPhone(VALID_QUANTITY_SONY).withEmail(VALID_SKU_SONY).withAddress(VALID_IMAGE_SONY)
+        DESC_SONY = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY)
+                .withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY)
                 .withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
     }
 

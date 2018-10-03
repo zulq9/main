@@ -69,9 +69,9 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the inventory book data stored inside the storage file.
+     * Returns a defensive copy of the inventory data stored inside the storage file.
      */
-    public Inventory readStorageAddressBook() {
+    public Inventory readStorageInventory() {
         try {
             return new Inventory(storage.readInventory().get());
         } catch (DataConversionException dce) {

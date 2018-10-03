@@ -19,7 +19,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.storage.XmlAdaptedItem;
 import seedu.inventory.storage.XmlAdaptedTag;
 import seedu.inventory.storage.XmlSerializableInventory;
-import seedu.inventory.testutil.AddressBookBuilder;
+import seedu.inventory.testutil.InventoryBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.TestUtil;
 
@@ -128,9 +128,9 @@ public class XmlUtilTest {
         XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableInventory.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new Inventory());
+        InventoryBuilder builder = new InventoryBuilder(new Inventory());
         dataToWrite = new XmlSerializableInventory(
-                builder.withPerson(new ItemBuilder().build()).build());
+                builder.withItem(new ItemBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableInventory.class);

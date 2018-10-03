@@ -15,17 +15,17 @@ public class SkuTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Sku(invalidEmail));
+    public void constructor_invalidSku_throwsIllegalArgumentException() {
+        String invalidSku = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Sku(invalidSku));
     }
 
     @Test
     public void isValidSku() {
-        // null email
+        // null sku
         Assert.assertThrows(NullPointerException.class, () -> Sku.isValidSku(null));
 
-        // blank email
+        // blank sku
         assertFalse(Sku.isValidSku("")); // empty string
         assertFalse(Sku.isValidSku(" ")); // spaces only
 
@@ -34,7 +34,7 @@ public class SkuTest {
         assertFalse(Sku.isValidSku("ipho@nex")); // invalid character in middle
         assertFalse(Sku.isValidSku("iphone@")); // trailing invalid characters
 
-        // valid email
+        // valid sku
         assertTrue(Sku.isValidSku("iphone-xs"));
         assertTrue(Sku.isValidSku("a_xs")); // minimal
         assertTrue(Sku.isValidSku("iphonexs")); // alphabets only

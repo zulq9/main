@@ -62,7 +62,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of items in {@code PersonListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,7 +76,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of items containing {@code personCount} items that is used to populate the
      * {@code PersonListPanel}.
      */
     private ObservableList<Item> createBackingList(int personCount) throws Exception {
@@ -87,7 +87,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code personCount} items. This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();

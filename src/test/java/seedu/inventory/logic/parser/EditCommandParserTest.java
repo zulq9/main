@@ -41,7 +41,7 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
-import seedu.inventory.testutil.EditPersonDescriptorBuilder;
+import seedu.inventory.testutil.EditItemDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -115,8 +115,8 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + QUANTITY_DESC_SONY + TAG_DESC_SMARTPHONE
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO + NAME_DESC_OPPO + TAG_DESC_GADGET;
 
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_OPPO)
-                .withPhone(VALID_QUANTITY_SONY).withEmail(VALID_SKU_OPPO).withAddress(VALID_IMAGE_OPPO)
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO)
+                .withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_OPPO).withImage(VALID_IMAGE_OPPO)
                 .withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -128,8 +128,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_ITEM;
         String userInput = targetIndex.getOneBased() + QUANTITY_DESC_SONY + SKU_DESC_OPPO;
 
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_SONY)
-                .withEmail(VALID_SKU_OPPO).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY)
+                .withSku(VALID_SKU_OPPO).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -140,31 +140,31 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_ITEM;
         String userInput = targetIndex.getOneBased() + NAME_DESC_OPPO;
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_OPPO).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = targetIndex.getOneBased() + QUANTITY_DESC_OPPO;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_OPPO).build();
+        descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + SKU_DESC_OPPO;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_SKU_OPPO).build();
+        descriptor = new EditItemDescriptorBuilder().withSku(VALID_SKU_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // inventory
         userInput = targetIndex.getOneBased() + IMAGE_DESC_OPPO;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_IMAGE_OPPO).build();
+        descriptor = new EditItemDescriptorBuilder().withImage(VALID_IMAGE_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_GADGET;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_GADGET).build();
+        descriptor = new EditItemDescriptorBuilder().withTags(VALID_TAG_GADGET).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -176,8 +176,8 @@ public class EditCommandParserTest {
                 + TAG_DESC_GADGET + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO + SKU_DESC_OPPO + TAG_DESC_GADGET
                 + QUANTITY_DESC_SONY + IMAGE_DESC_SONY + SKU_DESC_SONY + TAG_DESC_SMARTPHONE;
 
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_SONY)
-                .withEmail(VALID_SKU_SONY).withAddress(VALID_IMAGE_SONY).withTags(VALID_TAG_GADGET,
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY)
+                .withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_GADGET,
                         VALID_TAG_SMARTPHONE)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -190,15 +190,15 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_ITEM;
         String userInput = targetIndex.getOneBased() + INVALID_QUANTITY_DESC + QUANTITY_DESC_SONY;
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_SONY).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + SKU_DESC_SONY + INVALID_QUANTITY_DESC + IMAGE_DESC_SONY
                 + QUANTITY_DESC_SONY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_QUANTITY_SONY).withEmail(VALID_SKU_SONY)
-                .withAddress(VALID_IMAGE_SONY).build();
+        descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY)
+                .withImage(VALID_IMAGE_SONY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -208,7 +208,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_ITEM;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

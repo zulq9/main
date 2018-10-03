@@ -44,9 +44,9 @@ public class Image {
 
             if (file.exists()) {
                 try {
-                    String mimetype = Files.probeContentType(file.toPath());
+                    String mimeType = Files.probeContentType(file.toPath());
 
-                    return (mimetype != null && mimetype.split("/")[0].equals("image"));
+                    return (mimeType != null && mimeType.split("/")[0].equals("image"));
                 } catch (IOException e) {
                     e.printStackTrace();
 

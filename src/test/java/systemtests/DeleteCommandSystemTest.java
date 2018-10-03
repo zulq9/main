@@ -6,7 +6,7 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.inventory.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
-import static seedu.inventory.testutil.TestUtil.getPerson;
+import static seedu.inventory.testutil.TestUtil.getItem;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
      * @return the removed item
      */
     private Item removePerson(Model model, Index index) {
-        Item targetItem = getPerson(model, index);
+        Item targetItem = getItem(model, index);
         model.deleteItem(targetItem);
         return targetItem;
     }

@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyInventory getSampleAddressBook() {
+    public static ReadOnlyInventory getSampleInventory() {
         Inventory sampleAb = new Inventory();
         for (Item sampleItem : getSampleItems()) {
             sampleAb.addItem(sampleItem);

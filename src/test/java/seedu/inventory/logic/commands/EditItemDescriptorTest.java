@@ -12,7 +12,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHON
 
 import org.junit.Test;
 
-import seedu.inventory.testutil.EditPersonDescriptorBuilder;
+import seedu.inventory.testutil.EditItemDescriptorBuilder;
 
 public class EditItemDescriptorTest {
 
@@ -36,23 +36,23 @@ public class EditItemDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditItemDescriptor editedAmy =
-                new EditPersonDescriptorBuilder(DESC_OPPO).withName(VALID_NAME_SONY).build();
+                new EditItemDescriptorBuilder(DESC_OPPO).withName(VALID_NAME_SONY).build();
         assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withPhone(VALID_QUANTITY_SONY).build();
+        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withQuantity(VALID_QUANTITY_SONY).build();
         assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withEmail(VALID_SKU_SONY).build();
+        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withSku(VALID_SKU_SONY).build();
         assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different inventory -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withAddress(VALID_IMAGE_SONY).build();
+        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withImage(VALID_IMAGE_SONY).build();
         assertFalse(DESC_OPPO.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_OPPO).withTags(VALID_TAG_SMARTPHONE).build();
+        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withTags(VALID_TAG_SMARTPHONE).build();
         assertFalse(DESC_OPPO.equals(editedAmy));
     }
 }

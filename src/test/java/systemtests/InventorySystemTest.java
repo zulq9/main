@@ -179,7 +179,7 @@ public abstract class InventorySystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageAddressBook());
+        assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageInventory());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredItemList());
     }
 

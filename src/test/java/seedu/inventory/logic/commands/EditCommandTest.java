@@ -26,7 +26,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.testutil.EditPersonDescriptorBuilder;
+import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 
 /**
@@ -40,7 +40,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Item editedItem = new ItemBuilder().build();
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
@@ -61,8 +61,8 @@ public class EditCommandTest {
         Item editedItem = personInList.withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY)
                 .withTags(VALID_TAG_SMARTPHONE).build();
 
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY)
-                .withPhone(VALID_QUANTITY_SONY).withTags(VALID_TAG_SMARTPHONE).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY)
+                .withQuantity(VALID_QUANTITY_SONY).withTags(VALID_TAG_SMARTPHONE).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
@@ -94,7 +94,7 @@ public class EditCommandTest {
         Item itemInFilteredList = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         Item editedItem = new ItemBuilder(itemInFilteredList).withName(VALID_NAME_SONY).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY).build());
+                new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
@@ -108,7 +108,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Item firstItem = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(firstItem).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(firstItem).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_ITEM, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_ITEM);
@@ -121,7 +121,7 @@ public class EditCommandTest {
         // edit item in filtered list into a duplicate in inventory book
         Item itemInList = model.getInventory().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
-                new EditPersonDescriptorBuilder(itemInList).build());
+                new EditItemDescriptorBuilder(itemInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_ITEM);
     }
@@ -129,7 +129,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -147,7 +147,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY).build());
+                new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -156,7 +156,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item editedItem = new ItemBuilder().build();
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.updateItem(itemToEdit, editedItem);
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        EditCommand.EditItemDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_SONY).build();
+        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> inventory book state not added into model
@@ -198,7 +198,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameItemEdited() throws Exception {
         Item editedItem = new ItemBuilder().build();
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(editedItem).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 

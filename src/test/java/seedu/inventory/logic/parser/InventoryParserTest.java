@@ -30,7 +30,7 @@ import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
-import seedu.inventory.testutil.EditPersonDescriptorBuilder;
+import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
 
@@ -63,7 +63,7 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Item item = new ItemBuilder().build();
-        EditItemDescriptor descriptor = new EditPersonDescriptorBuilder(item).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder(item).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ITEM.getOneBased() + " " + ItemUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ITEM, descriptor), command);

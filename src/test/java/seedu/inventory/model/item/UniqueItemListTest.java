@@ -33,18 +33,18 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_itemNotInList_returnsFalse() {
         assertFalse(uniqueItemList.contains(IPHONE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_itemInList_returnsTrue() {
         uniqueItemList.add(IPHONE);
         assertTrue(uniqueItemList.contains(IPHONE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_itemWithSameIdentityFieldsInList_returnsTrue() {
         uniqueItemList.add(IPHONE);
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
@@ -126,7 +126,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_itemDoesNotExist_throwsPersonNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
         uniqueItemList.remove(IPHONE);
     }
