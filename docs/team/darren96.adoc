@@ -9,28 +9,34 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop image book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+desktop app to manage their shop inventory. More importantly, it is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of
+a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
+management tasks such as creating sales, generating reports, creating purchase orders
+and more. The user interacts with it using a CLI, and it has a GUI created
+with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement*:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+***
 ** Enhancements to existing features:
 ***
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Update the user guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+*** Update the developer guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+*** Update my personal portfolio https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
 ** Community:
 ** Tools:
 *** Created an organization for team on Github
 *** Integrated a Github plugin (TravisCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -39,9 +45,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=users-management]
 
 == Contributions to the Developer Guide
 
@@ -49,19 +53,17 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=usecaseDeleteStaff]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=testcaseDeleteStaff]
 
 
 == PROJECT: PeerNUS
 
-|==
-|_This project is the project I did during the summer holiday for SOC Orbital Programme.
-|==
+|===
+|_This project is the project I did during the summer holiday for SOC Orbital Programme._
+|===
 
 include::https://github.com/darren96/PeerNUS
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
