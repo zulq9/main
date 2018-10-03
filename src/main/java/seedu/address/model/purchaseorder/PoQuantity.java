@@ -13,7 +13,7 @@ public class PoQuantity {
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
             "Quantity should only contain numbers, and it should not start with a 0";
-    public static final String QUANTITY_VALIDATION_REGEX = "^[1-9]\\d*$";
+    public static final String QUANTITY_VALIDATION_REGEX = "^[1-9]\\d+";
     public final String value;
 
     /**
@@ -28,7 +28,7 @@ public class PoQuantity {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidPoQuantity(String test) {
         return test.matches(QUANTITY_VALIDATION_REGEX);

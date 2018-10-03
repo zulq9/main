@@ -19,7 +19,7 @@ public class Supplier {
      */
     public static final String SUPPLIER_VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    public final String supplierName;
 
     /**
      * Constructs an {@code Supplier}.
@@ -29,7 +29,7 @@ public class Supplier {
     public Supplier(String supplier) {
         requireNonNull(supplier);
         checkArgument(isValidSupplier(supplier), MESSAGE_SUPPLIER_CONSTRAINTS);
-        value = supplier;
+        supplierName = supplier;
     }
 
     /**
@@ -41,19 +41,19 @@ public class Supplier {
 
     @Override
     public String toString() {
-        return value;
+        return supplierName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Supplier// instanceof handles nulls
-                && value.equals(((Supplier) other).value)); // state check
+                && supplierName.equals(((Supplier) other).supplierName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return supplierName.hashCode();
     }
 
 }

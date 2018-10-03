@@ -48,26 +48,6 @@ public class PurchaseOrder {
         return tag;
     }
 
-    /**
-     * Returns true if both purchase order have the same identity and data fields.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof PurchaseOrder)) {
-            return false;
-        }
-
-        PurchaseOrder otherPsOdr = (PurchaseOrder) other;
-        return otherPsOdr.getPoQuantity().equals(getPoQuantity())
-                && otherPsOdr.getReqDate().equals(getReqDate())
-                && otherPsOdr.getSupplier().equals(getSupplier())
-                && otherPsOdr.getTag().equals(getTag());
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(quantity, reqDate, supplier, tag);
@@ -88,4 +68,3 @@ public class PurchaseOrder {
     }
 
 }
-
