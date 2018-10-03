@@ -417,14 +417,14 @@ Example:
 ==== Adding an item : `add`
 
 Adds an item to the inventory manager +
-Format: `add n/NAME s/SERIAL_NUMBER q/QUANTITY l/LOCATION b/BATCH_NUMBER [t/TAG]...`
+Format: `add n/NAME q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
 
 [TIP]
 An item can have any number of tags (including 0)
 
 Examples:
 
-* `add n/IPhone X s/SN-1234 q/1000 l/101-001A b/12-12-2012`
+* `add n/IPhone X q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
 
 ==== Listing all items : `list`
 
@@ -434,7 +434,7 @@ Format: `list`
 ==== Editing an item : `update`
 
 Edits an existing person in the address book. +
-Format: `update INDEX [n/NAME] [s/SERIAL_NUMBER] [q/QUANTITY] [l/LOCATION] [b/BATCH_NUMBER] [t/TAG]...`
+Format: `update INDEX [n/NAME] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
 ****
 * Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
