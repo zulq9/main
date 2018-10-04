@@ -1,4 +1,4 @@
-package seedu.address.model.sale;
+package seedu.inventory.model.sale;
 
 /**
  * Represents a Sale in the address book.

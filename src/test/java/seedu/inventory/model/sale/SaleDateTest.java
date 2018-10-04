@@ -1,8 +1,8 @@
-package seedu.address.model.sale;
+package seedu.inventory.model.sale;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.inventory.testutil.Assert;
 
 public class SaleDateTest {
 
