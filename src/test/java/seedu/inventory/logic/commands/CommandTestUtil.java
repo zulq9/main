@@ -56,6 +56,10 @@ public class CommandTestUtil {
     public static final String INVALID_IMAGE_DESC = " " + PREFIX_IMAGE; // empty string not allowed for image path
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "tech*"; // '*' not allowed in tags
 
+    public static final String VALID_NAME_ZUL = "Zulqarnain";
+    public static final String VALID_USERNAME_ZUL = "zulq8";
+    public static final String VALID_PASSWORD_ZUL = "meowmeowzul";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
