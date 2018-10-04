@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Item with an invalid quantity field -->
+<item>
+    <name>iPhone XR</name>
+    <quantity>9482asf424</quantity>
+    <sku>iphone-xr</sku>
+    <image>docs/images/iphone.jpg</image>
+    <tagged>iphone</tagged>
+</item>
