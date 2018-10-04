@@ -2,9 +2,9 @@ package seedu.inventory.model.staff;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
 import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
 import static seedu.inventory.testutil.TypicalStaffs.ZUL;
 
@@ -28,7 +28,7 @@ public class StaffTest {
         assertFalse(ZUL.isSameStaff(editedZul));
 
         // different name -> returns false
-        editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_BOB).build();
+        editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
         // same name, same username, different attributes -> returns false
@@ -65,7 +65,7 @@ public class StaffTest {
         assertFalse(ZUL.equals(TENGXIONG));
 
         // different name -> returns false
-        Staff editiedZul = new StaffBuilder(ZUL).withName(VALID_NAME_BOB).build();
+        Staff editiedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).build();
         assertFalse(ZUL.equals(editiedZul));
 
         // different username -> returns false

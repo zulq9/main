@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.inventory.testutil.Assert;
 
 public class PasswordTest {
 
