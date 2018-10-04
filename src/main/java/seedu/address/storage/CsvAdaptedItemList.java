@@ -6,11 +6,15 @@ import java.util.List;
  * A class to access item list data stored as an csv file on the hard disk.
  */
 public class CsvAdaptedItemList extends CsvAdaptedData {
-    public static final String DATA_TYPE = "Item";
-    public static final String[] FIELDS = {"name", "id"};
+    public static final String DATA_TYPE = "test";
+    public static final String[] FIELDS = {"name", "id", "date"};
 
-    CsvAdaptedItemList(List<List<String>> object) {
+    public CsvAdaptedItemList(List<List<String>> object) {
         super(object);
+    }
+
+    public CsvAdaptedItemList() {
+        super();
     }
 
     @Override

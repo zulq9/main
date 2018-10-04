@@ -76,17 +76,13 @@ public class CsvUtil {
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(file.toFile()));
-            List<String> dataTypes = Arrays.stream(reader.readLine().split(","))
-                    .map(s -> s.substring(1, s.length() - 1))
-                    .filter(s -> !s.equals(""))
-                    .collect(Collectors.toList());
+            List<String> dataTypes = Arrays.stream(reader.readLine().split(",")).collect(Collectors.toList());
+
             if (!isDataTypeEqual(dataTypes, dataTypeToConvert)) {
                 return false;
             }
 
-            List<String> dataFields = Arrays.stream(reader.readLine().split(","))
-                    .map(s -> s.substring(1, s.length() - 1))
-                    .collect(Collectors.toList());
+            List<String> dataFields = Arrays.stream(reader.readLine().split(",")).collect(Collectors.toList());
 
             if (!isDataFieldsEqual(dataFields, dataTypeToConvert)) {
                 return false;
@@ -113,12 +109,11 @@ public class CsvUtil {
         List<List<String>> contents = new LinkedList<>();
         try {
             reader = new BufferedReader(new FileReader(file.toFile()));
+            reader.readLine();
             long fieldsNumber = Arrays.stream(reader.readLine().split(",")).count();
             String contentLine;
             while ((contentLine = reader.readLine()) != null) {
-                List<String> content = Arrays.stream(contentLine.split(","))
-                        .map(s -> s.substring(1, s.length() - 1))
-                        .collect(Collectors.toList());
+                List<String> content = Arrays.stream(contentLine.split(",")).collect(Collectors.toList());
                 if (content.size() != fieldsNumber) {
                     throw new UnrecognizableDataException("File content format can not be recognized");
                 }
