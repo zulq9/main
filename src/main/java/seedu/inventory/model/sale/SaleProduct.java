@@ -1,7 +1,7 @@
 package seedu.inventory.model.sale;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Product in the sale order.
