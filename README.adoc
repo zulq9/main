@@ -2,9 +2,9 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-W14-4/main[image:https://travis-ci.org/CS2103-AY1819S1-W14-4/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
+https://ci.appveyor.com/project/darren96/main-cr0gn[image:https://ci.appveyor.com/api/projects/status/tgdvtfq36hlrg559?svg=true[Build status]]
 https://coveralls.io/github/CS2103-AY1819S1-W14-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W14-4/main/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://app.codacy.com/project/darren96/main[image:https://api.codacy.com/project/badge/Grade/3521652dc4b64ae6b16ec2d3c493df9c[Code Quality]]
 
 
 ifdef::env-github[]
@@ -29,6 +29,7 @@ endif::[]
 
 == Acknowledgements
 
+* This application is originated from AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/.
