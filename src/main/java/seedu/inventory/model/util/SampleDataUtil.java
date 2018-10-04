@@ -1,0 +1,60 @@
+package seedu.inventory.model.util;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.item.Image;
+import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
+import seedu.inventory.model.tag.Tag;
+
+/**
+ * Contains utility methods for populating {@code Inventory} with sample data.
+ */
+public class SampleDataUtil {
+    public static Item[] getSampleItems() {
+        return new Item[] {
+            new Item(new Name("iPhone XR"), new Quantity("30"), new Sku("apple-iphone-xr"),
+                new Image("docs/images/iphone.jpg"),
+                getTagSet("apple", "iphone")),
+            new Item(new Name("LG G7"), new Quantity("100"), new Sku("lg-g7"),
+                new Image("docs/images/lg.jpg"),
+                getTagSet("lg", "smartphone")),
+            new Item(new Name("Samsung S9"), new Quantity("14"), new Sku("samsung-s9"),
+                new Image("docs/images/samsung.jpg"),
+                getTagSet("samsung", "smartphone")),
+            new Item(new Name("HTC U6 "), new Quantity("88"), new Sku("htc-u6"),
+                new Image("docs/images/htc.jpg"),
+                getTagSet("samsung", "phablet")),
+            new Item(new Name("Google Pixel XL"), new Quantity("3"), new Sku("google-pixel-xl"),
+                new Image("docs/images/google.jpg"),
+                getTagSet("google")),
+            new Item(new Name("OPPO R8"), new Quantity("999"), new Sku("oppo-r8"),
+                new Image("docs/images/oppo.jpg"),
+                getTagSet("oppo", "smartphone"))
+        };
+    }
+
+    public static ReadOnlyInventory getSampleInventory() {
+        Inventory sampleAb = new Inventory();
+        for (Item sampleItem : getSampleItems()) {
+            sampleAb.addItem(sampleItem);
+        }
+        return sampleAb;
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+}
