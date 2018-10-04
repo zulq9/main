@@ -1,8 +1,8 @@
-package seedu.address.model.purchaseorder;
+package seedu.inventory.model.purchaseorder;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.

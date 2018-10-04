@@ -1,10 +1,6 @@
-package seedu.address.model.purchaseorder;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+package seedu.inventory.model.purchaseorder;
 
 import org.junit.Rule;
-import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 

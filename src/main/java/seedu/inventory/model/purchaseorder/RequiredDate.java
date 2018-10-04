@@ -1,7 +1,7 @@
-package seedu.address.model.purchaseorder;
+package seedu.inventory.model.purchaseorder;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,10 +1,10 @@
-package seedu.address.model.purchaseorder;
+package seedu.inventory.model.purchaseorder;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.tag.Tag;
+import seedu.inventory.model.tag.Tag;
 
 /**
  * Represents a purchase order entity.
