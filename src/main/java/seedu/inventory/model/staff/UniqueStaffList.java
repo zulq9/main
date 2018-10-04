@@ -1,16 +1,15 @@
-package seedu.address.model.staff;
+package seedu.inventory.model.staff;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.staff.exceptions.DuplicateStaffException;
-import seedu.address.model.staff.exceptions.StaffNotFoundException;
+import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
+import seedu.inventory.model.staff.exceptions.StaffNotFoundException;
 
 /**
  * A list of staffs that enforces uniqueness between its elements and does not allown nulls.
@@ -79,7 +78,7 @@ public class UniqueStaffList implements Iterable<Staff> {
     public void remove(Staff toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new StaffNotFoundException();
         }
     }
 

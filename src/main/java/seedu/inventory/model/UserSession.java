@@ -1,9 +1,9 @@
-package seedu.address.model;
+package seedu.inventory.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.staff.Staff;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * An user session object to keep track user's login status

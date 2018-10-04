@@ -1,7 +1,7 @@
-package seedu.address.model;
+package seedu.inventory.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.staff.Staff;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * Unmodifiable view of a staff list

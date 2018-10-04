@@ -1,4 +1,4 @@
-package seedu.address.model.staff.exceptions;
+package seedu.inventory.model.staff.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified staff.
