@@ -6,9 +6,9 @@ import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the quantity of item in the purchase order to be added in the inventory upon approval.
- * Guarantees: immutable; is valid as declared in {@link #isValidPoQuantity(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
-public class PoQuantity {
+public class Quantity {
 
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
@@ -17,20 +17,20 @@ public class PoQuantity {
     public final String value;
 
     /**
-     * Constructs a {@code PoQuantity}.
+     * Constructs a {@code Quantity}.
      *
      * @param quantity A valid quantity amount
      */
-    public PoQuantity(String quantity) {
+    public Quantity(String quantity) {
         requireNonNull(quantity);
-        checkArgument(isValidPoQuantity(quantity), MESSAGE_QUANTITY_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantity), MESSAGE_QUANTITY_CONSTRAINTS);
         value = quantity;
     }
 
     /**
      * Returns true if a given string is a valid quantity.
      */
-    public static boolean isValidPoQuantity(String test) {
+    public static boolean isValidQuantity(String test) {
         return test.matches(QUANTITY_VALIDATION_REGEX);
     }
 
@@ -42,8 +42,8 @@ public class PoQuantity {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PoQuantity // instanceof handles nulls
-                && value.equals(((PoQuantity) other).value)); // state check
+                || (other instanceof Quantity // instanceof handles nulls
+                && value.equals(((Quantity) other).value)); // state check
     }
 
     @Override

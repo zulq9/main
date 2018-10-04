@@ -4,7 +4,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.inventory.model.tag.Tag;
+import seedu.inventory.model.item.Item;
 
 /**
  * Represents a purchase order entity.
@@ -13,26 +13,41 @@ import seedu.inventory.model.tag.Tag;
 public class PurchaseOrder {
 
     // Identity field
-    //private final Item item - To be updated when merged
+    private final Item item;
 
     // Data fields
-    private final PoQuantity quantity;
+    private final Quantity quantity;
     private final RequiredDate reqDate;
     private final Supplier supplier;
-    private final Tag tag;
+    private final Status status;
+
+    /**
+     * Status that can be applied.
+     */
+    public enum Status {
+        PENDING,
+        APPROVED,
+        REJECTED
+    }
+
 
     /**
      * Every field must be present and not null.
      */
-    public PurchaseOrder(PoQuantity quantity, RequiredDate reqDate, Supplier supplier, Tag tag) {
-        requireAllNonNull(quantity, reqDate, supplier, tag);
+    public PurchaseOrder(Item item, Quantity quantity, RequiredDate reqDate, Supplier supplier, Status status) {
+        requireAllNonNull(item, quantity, reqDate, supplier, status);
+        this.item = item;
         this.quantity = quantity;
         this.reqDate = reqDate;
         this.supplier = supplier;
-        this.tag = tag;
+        this.status = status;
     }
 
-    public PoQuantity getPoQuantity() {
+    public Item getItem() {
+        return item;
+    }
+
+    public Quantity getQuantity() {
         return quantity;
     }
 
@@ -44,26 +59,28 @@ public class PurchaseOrder {
         return supplier;
     }
 
-    public Tag getTag() {
-        return tag;
+    public Status getStatus() {
+        return status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quantity, reqDate, supplier, tag);
+        return Objects.hash(quantity, reqDate, supplier);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Quantity: ")
-                .append(getPoQuantity())
+        builder.append(" SKU: ")
+                .append(getItem().getSku())
+                .append(" Item name: ")
+                .append(getItem().getName())
+                .append(" Quantity: ")
+                .append(getQuantity())
                 .append(" Date Required: ")
                 .append(getReqDate())
                 .append(" Supplier: ")
-                .append(getSupplier())
-                .append(" Description: ")
-                .append(getTag());
+                .append(getSupplier());
         return builder.toString();
     }
 
