@@ -86,6 +86,24 @@ public class StaffListTest {
         staffList.getStaffList().remove(0);
     }
 
+    @Test
+    public void updateStaff_nullTarget_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        staffList.updateStaff(null, ZUL);
+    }
+
+    @Test
+    public void updateStaff_nullEditedStaff_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        staffList.updateStaff(ZUL, null);
+    }
+
+    @Test
+    public void removeStaff_nullKey_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        staffList.removeStaff(null);
+    }
+
     /**
      * A stub ReadOnlyStaffList whose items list can violate interface constraints.
      */
