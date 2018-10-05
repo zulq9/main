@@ -54,6 +54,17 @@ public class StaffList implements ReadOnlyStaffList {
     }
 
     /**
+     * Returns true if the staff exists in the staff list.
+     *
+     * @param staff to check whether it exists in staff list.
+     * @return true if it has the staff else false.
+     */
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return staffs.contains(staff);
+    }
+
+    /**
      * Adds a staff to the staff list.
      * The staff must not already exist in the staff list.
      *
