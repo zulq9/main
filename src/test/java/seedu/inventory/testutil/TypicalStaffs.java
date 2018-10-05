@@ -1,5 +1,10 @@
 package seedu.inventory.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -33,4 +38,19 @@ public class TypicalStaffs {
             .withRole(Staff.Role.user).build();
 
     private TypicalStaffs() {}
+
+    /**
+     * Returns an {@code StaffList} with all the typical staffs.
+     */
+    public static StaffList getTypicalStaffList() {
+        StaffList staffList = new StaffList();
+        for (Staff staff : getTypicalStaffs()) {
+            staffList.addStaff(staff);
+        }
+        return staffList;
+    }
+
+    public static List<Staff> getTypicalStaffs() {
+        return new ArrayList<>(Arrays.asList(ZUL, ESMOND, TENGXIONG, DARREN, WANGCHAO));
+    }
 }

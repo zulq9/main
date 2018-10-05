@@ -10,9 +10,16 @@ import static seedu.inventory.testutil.TypicalStaffs.ZUL;
 
 import org.junit.Test;
 
+import seedu.inventory.testutil.Assert;
 import seedu.inventory.testutil.StaffBuilder;
 
 public class StaffTest {
+
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () ->
+                new Staff(null, null, null, null));
+    }
 
     @Test
     public void isSameStaff() {
