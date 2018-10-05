@@ -37,6 +37,15 @@ public class UserSession {
     }
 
     /**
+     * Returns the login status of the user.
+     *
+     * @return the login status of the user/
+     */
+    public boolean isLoggedIn() {
+        return this.isLoggedIn;
+    }
+
+    /**
      * Clears the user's object in the session and set isLoggedIn status to false.
      */
     public void logout() {
