@@ -1,13 +1,17 @@
 package seedu.inventory.model.purchaseorder;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import seedu.inventory.testutil.Assert;
 
+
 public class QuantityTest {
+
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -19,9 +23,15 @@ public class QuantityTest {
         String invalidQuantity = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Quantity(invalidQuantity));
     }
+
+    @Test
+    public void constructor_validQuantity() {
+        assertNotNull(new Quantity("10"));
+    }
+
     @Test
     public void isValidQuantity() {
-        // null phone number
+        // null quanitity
         Assert.assertThrows(NullPointerException.class, () -> Quantity.isValidQuantity(null));
 
         // invalid Quantity numbers
@@ -38,5 +48,20 @@ public class QuantityTest {
         assertTrue(Quantity.isValidQuantity("121"));
         assertTrue(Quantity.isValidQuantity("12334441"));
         assertTrue(Quantity.isValidQuantity("9218391230983912")); // long Quantity numbers
+    }
+
+    @Test
+    public void testToString() {
+        Quantity quantity = new Quantity("10");
+        String expected = "10";
+        assertEquals(expected, quantity.toString());
+    }
+
+    @Test
+    public void testEqualsSymmetric() {
+        Quantity q1 = new Quantity("10"); // equals and hashCode check name field value
+        Quantity q2 = new Quantity("10");
+        assertTrue(q1.equals(q2) && q2.equals(q1));
+        assertTrue(q1.hashCode() == q2.hashCode());
     }
 }

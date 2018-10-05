@@ -80,7 +80,9 @@ public class PurchaseOrder {
                 .append(" Date Required: ")
                 .append(getReqDate())
                 .append(" Supplier: ")
-                .append(getSupplier());
+                .append(getSupplier())
+                .append(" Status: ")
+                .append(getStatus());
         return builder.toString();
     }
 

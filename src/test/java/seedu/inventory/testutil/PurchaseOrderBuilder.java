@@ -76,6 +76,14 @@ public class PurchaseOrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code PurchaseOrder} that we are building.
+     */
+    public PurchaseOrderBuilder withStatus(PurchaseOrder.Status status) {
+        this.status = status;
+        return this;
+    }
+
     public PurchaseOrder build() {
         return new PurchaseOrder(item, quantity, reqDate, supplier, status);
     }
