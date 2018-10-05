@@ -16,16 +16,14 @@ public class UserSessionTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> new UserSession(null));
+        Assert.assertThrows(NullPointerException.class, () -> new UserSession(null));
     }
 
     @Test
     public void updateUser() {
         UserSession userSession = new UserSession(ZUL);
 
-        Assert.assertThrows(NullPointerException.class,
-                () -> userSession.updateUser(null));
+        Assert.assertThrows(NullPointerException.class, () -> userSession.updateUser(null));
 
         Staff editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).build();
         userSession.updateUser(editedZul);
