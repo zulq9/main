@@ -21,7 +21,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.staff.Staff;
-import seedu.inventory.model.staff.UniqueStaffList;
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.testutil.StaffBuilder;
 
