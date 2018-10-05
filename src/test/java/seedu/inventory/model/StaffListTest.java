@@ -46,6 +46,7 @@ public class StaffListTest {
         assertEquals(newData, staffList);
     }
 
+    @Test
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         Staff editedZul = new StaffBuilder(ZUL).withRole(Staff.Role.user).build();
         List<Staff> newStaffs = Arrays.asList(ZUL, editedZul);
