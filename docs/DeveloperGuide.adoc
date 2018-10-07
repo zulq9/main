@@ -839,7 +839,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |login through CLI |use the features of the app
 
-|`* * *` |user |be able to sell items |
+|`* * *` |user |be able to create sale order |deduct inventory quantity
+
+|`* * *` |user |be able to show created sale order |check created sale order
+
+|`* * *` |user |be able to delete sale order |restore deducted inventory quantity
+
+|`* * *` |user |be able to update sale order |update wrongly deducted inventory quantity
 
 |`* * *` |user |be able to view all the items as a list |
 
@@ -880,13 +886,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |group items according to categories |
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Inventory Manager` and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the `Inventory Manager` application and the *Actor* is the `user`, unless specified otherwise.
 
+Below are various use cases for the System.
 
 [discrete]
 === Use case: Add Item
@@ -981,8 +987,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+
+// tag::usecaseDeleteStaff[]
 [discrete]
-[tag::usecaseDeleteStaff]
 === Use case: Delete staff
 
 *MSS*
@@ -1007,6 +1014,7 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
+// end::usecaseDeleteStaff[]
 
 // tag::usecaseexportimport[]
 [discrete]
@@ -1092,7 +1100,7 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
-
+[discrete]
 === Use case: Approve PO
 
 *MSS*
@@ -1117,7 +1125,7 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
-
+[discrete]
 === Use case: Reject PO
 
 *MSS*
@@ -1142,10 +1150,68 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
-
 // end::useCasePurchaseOrder[]
 
-_{To be updated}_
+// tag::useCaseSaleOrder[]
+[discrete]
+=== Use case: Create Sale Order
+
+*MSS*
+
+1. User requests to add a sale into the System.
+2. System adds the sale into the sales list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. SKU cannot be found in the System.
++
+[none]
+** 1a1. System shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1b. Item SKU does not follow the correct format.
++
+[none]
+** 1b1. System shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1c. Sale Quantity does not follow the correct format.
++
+[none]
+** 1c1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete Sale Order
+*MSS*
+
+1. User request to list sale orders.
+2. System shows a list of sale orders.
+3. User requests to delete a specific sale order in the list.
+4. System deletes the sale order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no sale order to list.
++
+Use case ends.
+[none]
+* 1b. The given sale order ID is invalid.
++
+[none]
+** 1b1. System shows an error message.
++
+Use case resumes at step 2.
+// end::useCaseSaleOrder[]
 
 [appendix]
 == Non Functional Requirements
@@ -1206,23 +1272,6 @@ MSS stands for Main Success Scenario where it describes the shortest and most st
 
 [[po]] PO::
 PO stands for purchase order
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
