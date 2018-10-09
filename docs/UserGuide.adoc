@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
-By: `Team W14-4`      Since: `Sept 2018`      Licence: `MIT`
+By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
 
 == Introduction
@@ -52,19 +52,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 **Key Features** +
 
-1. *Authentication and User management*:
+1. *Authentication and User Management*:
 * Login for different group of users in CLI (cashier/admin/manager)
 * Feature for admin to create users
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
 * Feature for users to change password
-2. *Sales Entry*
+2. *Sale Orders Management*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
 * Feature for listing sales
 * Feature for cashier to search for a sale
-3. *Reporting module*:
+3. *Inventory and Sales Reporting*:
 * Feature for manager to import/export sales report from/to a CSV file
 * Feature for manager to import/export items from/to a CSV file
 * Feature for manager to import/export users from/to a CSV file
@@ -78,7 +78,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for users (cashier/manager) to update inventory
 * Feature for users (cashier/manager) to add image to inventory
 * Feature for users (cashier/manager) to sort inventory by field attributes
-5. *Purchase Order (CRUD)*:
+5. *Purchase Orders Management*:
 * Feature for users (cashier/manager) to create purchase orders
 * Feature for users (cashier/manager) to update purchase orders
 * Feature for users (cashier/manager) to list purchase orders history
@@ -114,12 +114,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the Inventory Manager to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Inventory Manager's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -163,7 +163,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Inventory Manager. +
 Format: `clear`
 
 ==== Exiting the program : `exit`
@@ -173,7 +173,7 @@ Format: `exit`
 
 ==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Inventory Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::usersManagement[]
@@ -242,7 +242,7 @@ Examples:
 
 Creating a sale and deducting the inventory stocks automatically.
 
-Format: `createSale i/SKU q/X`
+Format: `createSale i/SKU q/QTY`
 
 Examples:
 
@@ -255,7 +255,7 @@ Examples:
 
 Deleting a sale and restoring the inventory quantity automatically.
 
-Format: `deleteSale id/X`
+Format: `deleteSale id/ID`
 
 Examples:
 
@@ -268,20 +268,20 @@ Examples:
 
 Listing sale orders currently recorded in the system.
 
-Format: `listSales t/X`
+Format: `listSales r/RECORDS`
 
 Examples:
 
 * List latest 50 records. +
-`listSales t/50`
+`listSales r/50`
 * List latest 20 records. +
-`listSales /20`
+`listSales r/20`
 
 ==== Searching for sale orders : `searchSale`
 
 Searching for a sale based on sale ID or a specific date
 
-Format: `searchSale [d/YYYY-mm-dd] [id/X]`
+Format: `searchSale [d/YYYY-mm-dd] [id/ID]`
 
 Examples:
 
@@ -433,7 +433,7 @@ Format: `list`
 
 ==== Editing an item : `update`
 
-Edits an existing person in the address book. +
+Edits an existing person in the Inventory Manager. +
 Format: `update INDEX [n/NAME] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
 ****
@@ -507,16 +507,10 @@ Selects the 2nd item in the inventory.
 `select 1` +
 Selects the 1st item in the results of the `find` command.
 
-=== Purchase Orders Management
-
-==== Generate purchase order : `generate-po`
-
-Format: `generate-po`
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
 
 == Command Summary
 * *Login* `login u/USERNAME p/PASSWORD`
