@@ -42,24 +42,7 @@ public class CsvUtil {
         }
         List<List<String>> contents = getDataContentFromFile(file, dataTypeToConvert);
 
-        return new CsvAdaptedData(contents);
-    }
-
-    /**
-     * Saves the data in the file in xml format.
-     *
-     * @param file Points to a valid xml file containing data that match the {@code classToConvert}.
-     *             Cannot be null.
-     * @throws FileNotFoundException Thrown if the file is missing.
-     */
-    public static <T> void saveDataToFile(Path file, T data) throws FileNotFoundException {
-        requireNonNull(file);
-        requireNonNull(data);
-
-        if (!Files.exists(file)) {
-            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
-        }
-
+        return dataTypeToConvert.createInstance(contents);
     }
 
     /**
@@ -131,7 +114,7 @@ public class CsvUtil {
      * @param dataTypes         The types of data indicated in the csv file.
      * @param dataTypeToConvert The class corresponding to the csv data.
      */
-    private static boolean isDataTypeEqual(List<String> dataTypes, CsvAdaptedData dataTypeToConvert) {
+    public static boolean isDataTypeEqual(List<String> dataTypes, CsvAdaptedData dataTypeToConvert) {
         return dataTypes.size() == 1 && dataTypes.get(0).equals(dataTypeToConvert.getDataType());
     }
 
@@ -141,7 +124,7 @@ public class CsvUtil {
      * @param dataFields         The fields of data indicated in the csv file.
      * @param dataTypeToConvert The class corresponding to the csv data.
      */
-    private static boolean isDataFieldsEqual(List<String> dataFields, CsvAdaptedData dataTypeToConvert) {
+    public static boolean isDataFieldsEqual(List<String> dataFields, CsvAdaptedData dataTypeToConvert) {
         return dataFields.equals(new LinkedList<>(Arrays.asList(dataTypeToConvert.getDataFields())));
     }
 

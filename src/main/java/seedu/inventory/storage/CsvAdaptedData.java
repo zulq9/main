@@ -5,30 +5,14 @@ import java.util.List;
 /**
  * A class to access data stored as an csv file on the hard disk.
  */
-public class CsvAdaptedData {
-    private List<List<String>> contents;
+public interface CsvAdaptedData {
+    List<List<String>> getContents();
 
-    private String dataType = "Raw Data";
-    private String[] fields = {"name"};
+    String getDataType();
 
-    public CsvAdaptedData(List<List<String>> contents) {
-        this.contents = contents;
+    String[] getDataFields();
 
-    }
+    CsvAdaptedData getInstance();
 
-    public CsvAdaptedData() {
-
-    }
-
-    public List<List<String>> getContents() {
-        return contents;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public String[] getDataFields() {
-        return fields;
-    }
+    CsvAdaptedData createInstance(List<List<String>> contents);
 }
