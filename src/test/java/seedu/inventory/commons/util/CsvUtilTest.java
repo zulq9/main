@@ -59,10 +59,4 @@ public class CsvUtilTest {
     public void isDataHeaderRecognizable() {
         assertFalse(CsvUtil.isDataHeaderRecognizable(VALID_FILE, DATATYPE_TO_TRANSFER));
     }
-
-    @Test
-    public void getDataContentFromFile_emptyFile_throwsUnrecognizableDataException() {
-        thrown.expect(NullPointerException.class);
-        CsvUtil.isDataHeaderRecognizable(EMPTY_FILE, DATATYPE_TO_TRANSFER);
-    }
 }
