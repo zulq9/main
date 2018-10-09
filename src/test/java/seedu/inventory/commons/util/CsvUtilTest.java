@@ -57,7 +57,7 @@ public class CsvUtilTest {
 
     @Test
     public void isDataHeaderRecognizable() {
-        assertTrue(CsvUtil.isDataHeaderRecognizable(VALID_FILE, DATATYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(VALID_FILE, DATATYPE_TO_TRANSFER));
     }
 
     @Test
