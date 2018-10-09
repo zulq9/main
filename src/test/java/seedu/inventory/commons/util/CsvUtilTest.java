@@ -18,7 +18,7 @@ import seedu.inventory.storage.CsvAdaptedSalesList;
 
 public class CsvUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvUtilTest");
-    private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.csv");
+    //private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.csv");
     //private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.csv");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validSalesList.csv");
     //private static final Path MISSING_ITEM_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingItemField.csv");
