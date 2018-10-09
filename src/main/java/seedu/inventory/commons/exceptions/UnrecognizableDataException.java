@@ -1,4 +1,4 @@
-package seedu.address.commons.exceptions;
+package seedu.inventory.commons.exceptions;
 
 /**
  * Signals that data in the given file does not fulfill some constraints.

@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.inventory.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,8 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.exceptions.UnrecognizableDataException;
-import seedu.address.storage.CsvAdaptedData;
+import seedu.inventory.commons.exceptions.UnrecognizableDataException;
+import seedu.inventory.storage.CsvAdaptedData;
 /**
  * Helps with reading from and writing to CSV files.
  */

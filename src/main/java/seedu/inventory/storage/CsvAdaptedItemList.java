@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.inventory.storage;
 
 import java.util.List;
 
