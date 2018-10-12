@@ -6,6 +6,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -23,11 +24,6 @@ public class CreateSaleCommand extends Command {
     private final Item saleItem;
     private final Quantity quantity;
 
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return new CommandResult(String.format("TEST"));
-    }
-
     /**
      * Creates an CreateSaleCommand to add the specified {@code Item}
      */
@@ -36,5 +32,15 @@ public class CreateSaleCommand extends Command {
 
         this.saleItem = saleItem;
         this.quantity = quantity;
+    }
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        model.createSale(saleItem, quantity);
+
+        // TODO: RETURN SALE ID
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ""));
     }
 }
