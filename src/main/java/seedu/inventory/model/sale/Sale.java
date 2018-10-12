@@ -1,29 +1,35 @@
 package seedu.inventory.model.sale;
 
+import seedu.inventory.model.item.Item;
+
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
- * Represents a Sale in the address book.
+ * Represents a Sale in the Inventory Manager.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Sale {
 
-    private final SaleProduct saleProduct;
+    private final Item item;
     private final SaleQuantity saleQuantity;
     private final SaleDate saleDate;
 
     /**
      * Every field must be present and not null.
      */
-    public Sale(SaleProduct saleProduct, SaleQuantity saleQuantity, SaleDate saleDate) {
-        this.saleProduct = saleProduct;
+    public Sale(Item item, SaleQuantity saleQuantity, SaleDate saleDate) {
+        requireAllNonNull(item, saleQuantity, saleDate);
+
+        this.item = item;
         this.saleQuantity = saleQuantity;
         this.saleDate = saleDate;
     }
 
     /**
-     * Returns the SaleProduct
+     * Returns the item.
      */
-    public SaleProduct getSaleProduct() {
-        return this.saleProduct;
+    public Item getItem() {
+        return this.item;
     }
 
     /**
@@ -38,5 +44,10 @@ public class Sale {
      */
     public SaleDate getSaleDate() {
         return this.saleDate;
+    }
+
+    @Override
+    public String toString() {
+        return getSaleDate().toString() + " - " + getSaleQuantity().toString() + "x " + getItem().toString();
     }
 }
