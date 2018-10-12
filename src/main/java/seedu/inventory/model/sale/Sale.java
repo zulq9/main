@@ -11,6 +11,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Sale {
 
+    private final SaleID saleID;
     private final Item item;
     private final Quantity quantity;
     private final SaleDate saleDate;
@@ -18,12 +19,20 @@ public class Sale {
     /**
      * Every field must be present and not null.
      */
-    public Sale(Item item, Quantity quantity, SaleDate saleDate) {
-        requireAllNonNull(item, quantity, saleDate);
+    public Sale(SaleID saleID, Item item, Quantity quantity, SaleDate saleDate) {
+        requireAllNonNull(saleID, item, quantity, saleDate);
 
+        this.saleID = saleID;
         this.item = item;
         this.quantity = quantity;
         this.saleDate = saleDate;
+    }
+
+    /**
+     * Returns the sale ID.
+     */
+    public SaleID getSaleID() {
+        return this.saleID;
     }
 
     /**
@@ -49,6 +58,6 @@ public class Sale {
 
     @Override
     public String toString() {
-        return getSaleDate().toString() + " " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
+        return getSaleID() + ": " + getSaleDate().toString() + " " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
     }
 }

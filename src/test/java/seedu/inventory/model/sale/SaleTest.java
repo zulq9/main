@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class SaleTest {
+    private static SaleID saleID = new SaleID("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
@@ -21,20 +22,38 @@ public class SaleTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Sale(null, null, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Sale(null,null, null, null));
     }
 
     @Test
     public void constructor_validSale() {
-        Sale sale = new Sale(item, quantity, saleDate);
+        Sale sale = new Sale(saleID, item, quantity, saleDate);
         assertNotNull(sale);
     }
 
     @Test
-    public void isValidToString() {
-        Sale sale = new Sale(item, quantity, saleDate);
+    public void isValidSaleID() {
+        Sale sale = new Sale(saleID, item, quantity, saleDate);
 
-        String expectedString = "[2018-08-01] 1x " + TypicalItems.IPHONE.getName();
+        String expectedString = "1";
+
+        assertEquals(sale.getSaleID().toString(), expectedString);
+    }
+
+    @Test
+    public void isValidSaleQuantity() {
+        Sale sale = new Sale(saleID, item, quantity, saleDate);
+
+        String expectedString = "1";
+
+        assertEquals(sale.getSaleQuantity().toString(), expectedString);
+    }
+
+    @Test
+    public void isValidToString() {
+        Sale sale = new Sale(saleID, item, quantity, saleDate);
+
+        String expectedString = "1: [2018-08-01] 1x " + TypicalItems.IPHONE.getName();
 
         assertEquals(sale.toString(), expectedString);
     }
