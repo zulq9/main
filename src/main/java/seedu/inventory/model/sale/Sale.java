@@ -1,6 +1,7 @@
 package seedu.inventory.model.sale;
 
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
 
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,17 +12,17 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 public class Sale {
 
     private final Item item;
-    private final SaleQuantity saleQuantity;
+    private final Quantity quantity;
     private final SaleDate saleDate;
 
     /**
      * Every field must be present and not null.
      */
-    public Sale(Item item, SaleQuantity saleQuantity, SaleDate saleDate) {
-        requireAllNonNull(item, saleQuantity, saleDate);
+    public Sale(Item item, Quantity quantity, SaleDate saleDate) {
+        requireAllNonNull(item, quantity, saleDate);
 
         this.item = item;
-        this.saleQuantity = saleQuantity;
+        this.quantity = quantity;
         this.saleDate = saleDate;
     }
 
@@ -33,10 +34,10 @@ public class Sale {
     }
 
     /**
-     * Returns the SaleQuantity
+     * Returns the sold quantity.
      */
-    public SaleQuantity getSaleQuantity() {
-        return this.saleQuantity;
+    public Quantity getSaleQuantity() {
+        return this.quantity;
     }
 
     /**

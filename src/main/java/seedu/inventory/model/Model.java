@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.model.sale.SaleQuantity;
+import seedu.inventory.model.item.Quantity;
 
 /**
  * The API of the Model component.
@@ -80,7 +80,7 @@ public interface Model {
     /**
      * Create a new sale.
      */
-    void createSale(Item item, SaleQuantity saleQuantity);
+    void createSale(Item item, Quantity quantity);
 
     /**
      * Delete a sale.
