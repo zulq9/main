@@ -60,7 +60,7 @@ public class SaleQuantity {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + quantity + ']';
+        return quantity;
     }
 
 }

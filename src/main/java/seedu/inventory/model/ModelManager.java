@@ -13,6 +13,7 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.sale.SaleQuantity;
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -147,4 +148,19 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredItems.equals(other.filteredItems);
     }
 
+    //=========== Sale ====================================================================================
+    @Override
+    public void createSale(Item item, SaleQuantity saleQuantity) {
+
+    }
+
+    @Override
+    public void deleteSale(String id) {
+
+    }
+
+    @Override
+    public void listSales(String records) {
+
+    }
 }

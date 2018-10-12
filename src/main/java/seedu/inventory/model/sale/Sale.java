@@ -48,6 +48,6 @@ public class Sale {
 
     @Override
     public String toString() {
-        return getSaleDate().toString() + " - " + getSaleQuantity().toString() + "x " + getItem().toString();
+        return getSaleDate().toString() + " " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
     }
 }

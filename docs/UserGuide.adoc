@@ -242,7 +242,7 @@ Examples:
 
 Creating a sale and deducting the inventory stocks automatically.
 
-Format: `createSale i/SKU q/QTY`
+Format: `createSale s/SKU q/QTY`
 
 Examples:
 
