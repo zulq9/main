@@ -11,6 +11,6 @@ public interface ReadOnlySaleList {
     /**
      * Returns an unmodifiable view of the sale orders list.
      */
-    ObservableList<Sale> getUniqueSaleList();
+    ObservableList<Sale> getSaleList();
 
 }

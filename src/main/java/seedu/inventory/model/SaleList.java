@@ -41,10 +41,18 @@ public class SaleList implements ReadOnlySaleList {
     public void resetData(ReadOnlySaleList newData) {
         requireNonNull(newData);
 
-        setSales(newData.getUniqueSaleList());
+        setSales(newData.getSaleList());
     }
 
-    //// item-level operations
+    //// sale-level operations
+
+    /**
+     * Returns true if a sale with the same ID as {@code sale} exists in the list.
+     */
+    public boolean hasSale(Sale sale) {
+        requireNonNull(sale);
+        return uniqueSaleList.contains(sale);
+    }
 
     /**
      * Adds a sale to the sale list.
@@ -69,7 +77,7 @@ public class SaleList implements ReadOnlySaleList {
     }
 
     @Override
-    public ObservableList<Sale> getUniqueSaleList() {
+    public ObservableList<Sale> getSaleList() {
         return uniqueSaleList.asUnmodifiableObservableList();
     }
 
