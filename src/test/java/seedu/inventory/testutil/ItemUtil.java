@@ -2,6 +2,7 @@ package seedu.inventory.testutil;
 
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
@@ -31,6 +32,7 @@ public class ItemUtil {
     public static String getPersonDetails(Item item) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + item.getName().fullName + " ");
+        sb.append(PREFIX_PRICE + item.getPrice().value + " ");
         sb.append(PREFIX_QUANTITY + item.getQuantity().value + " ");
         sb.append(PREFIX_SKU + item.getSku().value + " ");
         sb.append(PREFIX_IMAGE + item.getImage().value + " ");

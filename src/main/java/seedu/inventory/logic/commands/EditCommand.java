@@ -3,6 +3,7 @@ package seedu.inventory.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
@@ -23,6 +24,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -39,6 +41,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_SKU + "SKU] "
             + "[" + PREFIX_IMAGE + "IMAGE_PATH] "
@@ -96,12 +99,13 @@ public class EditCommand extends Command {
         assert itemToEdit != null;
 
         Name updatedName = editItemDescriptor.getName().orElse(itemToEdit.getName());
+        Price updatedPrice = editItemDescriptor.getPrice().orElse(itemToEdit.getPrice());
         Quantity updatedQuantity = editItemDescriptor.getQuantity().orElse(itemToEdit.getQuantity());
         Sku updatedSku = editItemDescriptor.getSku().orElse(itemToEdit.getSku());
         Image updatedImage = editItemDescriptor.getImage().orElse(itemToEdit.getImage());
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
 
-        return new Item(updatedName, updatedQuantity, updatedSku, updatedImage, updatedTags);
+        return new Item(updatedName, updatedPrice, updatedQuantity, updatedSku, updatedImage, updatedTags);
     }
 
     @Override
@@ -128,6 +132,7 @@ public class EditCommand extends Command {
      */
     public static class EditItemDescriptor {
         private Name name;
+        private Price price;
         private Quantity quantity;
         private Sku sku;
         private Image image;
@@ -141,6 +146,7 @@ public class EditCommand extends Command {
          */
         public EditItemDescriptor(EditItemDescriptor toCopy) {
             setName(toCopy.name);
+            setPrice(toCopy.price);
             setQuantity(toCopy.quantity);
             setSku(toCopy.sku);
             setImage(toCopy.image);
@@ -151,7 +157,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, quantity, sku, image, tags);
+            return CollectionUtil.isAnyNonNull(name, price, quantity, sku, image, tags);
         }
 
         public void setName(Name name) {
@@ -160,6 +166,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setPrice(Price price) {
+            this.price = price;
+        }
+
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         public void setQuantity(Quantity quantity) {

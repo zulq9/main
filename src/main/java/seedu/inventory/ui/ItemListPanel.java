@@ -16,16 +16,16 @@ import seedu.inventory.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.inventory.model.item.Item;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of items.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ItemListPanel extends UiPart<Region> {
+    private static final String FXML = "ItemListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ItemListPanel.class);
 
     @FXML
     private ListView<Item> personListView;
 
-    public PersonListPanel(ObservableList<Item> itemList) {
+    public ItemListPanel(ObservableList<Item> itemList) {
         super(FXML);
         setConnections(itemList);
         registerAsAnEventHandler(this);

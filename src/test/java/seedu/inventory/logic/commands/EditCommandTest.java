@@ -210,7 +210,7 @@ public class EditCommandTest {
         // edit -> edits second item in unfiltered item list / first item in filtered item list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

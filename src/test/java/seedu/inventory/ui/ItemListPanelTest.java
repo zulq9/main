@@ -62,7 +62,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of items in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of items in {@code ItemListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -77,7 +77,7 @@ public class ItemListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of items containing {@code personCount} items that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code ItemListPanel}.
      */
     private ObservableList<Item> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
@@ -96,6 +96,7 @@ public class ItemListPanelTest extends GuiUnitTest {
         for (int i = 0; i < personCount; i++) {
             builder.append("<items>\n");
             builder.append("<name>").append(i).append("a</name>\n");
+            builder.append("<price>123.00</price>\n");
             builder.append("<quantity>333</quantity>\n");
             builder.append("<sku>sku-" + i + "</sku>\n");
             builder.append("<image>docs/images/iphone.jpg</image>\n");
@@ -111,14 +112,14 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code personListPanelHandle} with a {@code ItemListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code ItemListPanel}.
      */
     private void initUi(ObservableList<Item> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
-        uiPartRule.setUiPart(personListPanel);
+        ItemListPanel itemListPanel = new ItemListPanel(backingList);
+        uiPartRule.setUiPart(itemListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
+        personListPanelHandle = new PersonListPanelHandle(getChildNode(itemListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

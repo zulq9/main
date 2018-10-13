@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
@@ -28,6 +29,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_OPPO = "Oppo F7 Dual SIM";
     public static final String VALID_NAME_SONY = "Sony Xperia XZ2";
+    public static final String VALID_PRICE_OPPO = "999.99";
+    public static final String VALID_PRICE_SONY = "123.45";
     public static final String VALID_QUANTITY_OPPO = "11111111";
     public static final String VALID_QUANTITY_SONY = "22222222";
     public static final String VALID_SKU_DIFFERENT = "different-sku";
@@ -40,6 +43,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_OPPO = " " + PREFIX_NAME + VALID_NAME_OPPO;
     public static final String NAME_DESC_SONY = " " + PREFIX_NAME + VALID_NAME_SONY;
+    public static final String PRICE_DESC_OPPO = " " + PREFIX_PRICE + VALID_PRICE_OPPO;
+    public static final String PRICE_DESC_SONY = " " + PREFIX_PRICE + VALID_PRICE_SONY;
     public static final String QUANTITY_DESC_OPPO = " " + PREFIX_QUANTITY + VALID_QUANTITY_OPPO;
     public static final String QUANTITY_DESC_SONY = " " + PREFIX_QUANTITY + VALID_QUANTITY_SONY;
     public static final String SKU_DESC_OPPO = " " + PREFIX_SKU + VALID_SKU_OPPO;
@@ -51,6 +56,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_SMARTPHONE = " " + PREFIX_TAG + VALID_TAG_SMARTPHONE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "iPhone&"; // '&' not allowed in names
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "99."; // invalid decimal
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "911a"; // 'a' not allowed in quantities
     public static final String INVALID_SKU_DESC = " " + PREFIX_SKU + "bob!yahoo"; // '!' not allowed in SKUs
     public static final String INVALID_IMAGE_DESC = " " + PREFIX_IMAGE; // empty string not allowed for image path
@@ -67,10 +73,10 @@ public class CommandTestUtil {
     public static final EditCommand.EditItemDescriptor DESC_SONY;
 
     static {
-        DESC_OPPO = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO)
+        DESC_OPPO = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO).withPrice(VALID_PRICE_OPPO)
                 .withQuantity(VALID_QUANTITY_OPPO).withSku(VALID_SKU_OPPO).withImage(VALID_IMAGE_OPPO)
                 .withTags(VALID_TAG_GADGET).build();
-        DESC_SONY = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY)
+        DESC_SONY = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).withPrice(VALID_PRICE_SONY)
                 .withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY)
                 .withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
     }

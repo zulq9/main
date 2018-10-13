@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.inventory.model.item.Item;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code ItemCard}.
+ * Provides a handle for {@code ItemListPanel} containing the list of {@code ItemCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";

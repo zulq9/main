@@ -36,7 +36,7 @@ public class Image {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid image file.
      */
     public static boolean isValidImage(String test) {
         if (test.matches(IMAGE_VALIDATION_REGEX)) {

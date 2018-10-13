@@ -13,6 +13,7 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -26,6 +27,8 @@ public class XmlAdaptedItem {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String price;
     @XmlElement(required = true)
     private String quantity;
     @XmlElement(required = true)
@@ -45,8 +48,9 @@ public class XmlAdaptedItem {
     /**
      * Constructs an {@code XmlAdaptedItem} with the given item details.
      */
-    public XmlAdaptedItem(String name, String quantity, String sku, String image, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedItem(String name, String price, String quantity, String sku, String image, List<XmlAdaptedTag> tagged) {
         this.name = name;
+        this.price = price;
         this.quantity = quantity;
         this.sku = sku;
         this.image = image;
@@ -62,6 +66,7 @@ public class XmlAdaptedItem {
      */
     public XmlAdaptedItem(Item source) {
         name = source.getName().fullName;
+        price = source.getPrice().value;
         quantity = source.getQuantity().value;
         sku = source.getSku().value;
         image = source.getImage().value;
@@ -88,6 +93,16 @@ public class XmlAdaptedItem {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (price == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName())
+            );
+        }
+        if (!Price.isValidPrice(price)) {
+            throw new IllegalValueException(Price.MESSAGE_PRICE_CONSTRAINTS);
+        }
+        final Price modelPrice = new Price(price);
 
         if (quantity == null) {
             throw new IllegalValueException(
@@ -116,7 +131,7 @@ public class XmlAdaptedItem {
         final Image modelImage = new Image(image);
 
         final Set<Tag> modelTags = new HashSet<>(itemTags);
-        return new Item(modelName, modelQuantity, modelSku, modelImage, modelTags);
+        return new Item(modelName, modelPrice, modelQuantity, modelSku, modelImage, modelTags);
     }
 
     @Override
@@ -131,6 +146,7 @@ public class XmlAdaptedItem {
 
         XmlAdaptedItem otherItem = (XmlAdaptedItem) other;
         return Objects.equals(name, otherItem.name)
+                && Objects.equals(price, otherItem.price)
                 && Objects.equals(quantity, otherItem.quantity)
                 && Objects.equals(sku, otherItem.sku)
                 && Objects.equals(image, otherItem.image)

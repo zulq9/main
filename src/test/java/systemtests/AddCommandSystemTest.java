@@ -5,11 +5,14 @@ import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_IMAGE_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.PRICE_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.PRICE_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
@@ -39,6 +42,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -57,8 +61,8 @@ public class AddCommandSystemTest extends InventorySystemTest {
          * -> added
          */
         Item toAdd = OPPO;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_OPPO + "  " + QUANTITY_DESC_OPPO + " "
-                + SKU_DESC_OPPO + "   " + IMAGE_DESC_OPPO + "   " + TAG_DESC_GADGET + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_OPPO + "  " + PRICE_DESC_OPPO + "  "
+                + QUANTITY_DESC_OPPO + " " + SKU_DESC_OPPO + "   " + IMAGE_DESC_OPPO + "   " + TAG_DESC_GADGET + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -85,8 +89,8 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* Case: add a item with tags, command with parameters in random order -> added */
         toAdd = SONY;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_GADGET + QUANTITY_DESC_SONY + IMAGE_DESC_SONY + NAME_DESC_SONY
-                + TAG_DESC_SMARTPHONE + SKU_DESC_SONY;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_GADGET + PRICE_DESC_SONY + QUANTITY_DESC_SONY
+                + IMAGE_DESC_SONY + NAME_DESC_SONY + TAG_DESC_SMARTPHONE + SKU_DESC_SONY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a item, missing tags -> added */
@@ -150,24 +154,33 @@ public class AddCommandSystemTest extends InventorySystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+                + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + INVALID_QUANTITY_DESC + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        /* Case: invalid price -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + INVALID_PRICE_DESC + QUANTITY_DESC_OPPO
+                + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, Price.MESSAGE_PRICE_CONSTRAINTS);
+
+        /* Case: invalid quantity -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + INVALID_QUANTITY_DESC
+                + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + INVALID_SKU_DESC + IMAGE_DESC_OPPO;
+        /* Case: invalid SKU -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+                + INVALID_SKU_DESC + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Sku.MESSAGE_SKU_CONSTRAINTS);
 
-        /* Case: invalid inventory -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + INVALID_IMAGE_DESC;
+        /* Case: invalid image -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+                + SKU_DESC_OPPO + INVALID_IMAGE_DESC;
         assertCommandFailure(command, Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO
-                + INVALID_TAG_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+                + SKU_DESC_OPPO + IMAGE_DESC_OPPO + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
@@ -177,7 +190,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 4. {@code Storage} and {@code ItemListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
@@ -206,7 +219,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Item)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
-     * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 2. {@code Storage} and {@code ItemListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, Item)
      */
@@ -223,7 +236,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code ItemListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

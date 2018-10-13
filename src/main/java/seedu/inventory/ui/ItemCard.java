@@ -12,7 +12,7 @@ import seedu.inventory.model.item.Item;
  */
 public class ItemCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ItemListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,6 +31,8 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label price;
+    @FXML
     private Label quantity;
     @FXML
     private Label image;
@@ -44,6 +46,7 @@ public class ItemCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         name.setText(item.getName().fullName);
+        price.setText("$" + item.getPrice().value);
         quantity.setText(item.getQuantity().value);
         image.setText(item.getImage().value);
         sku.setText(item.getSku().value);
