@@ -63,11 +63,11 @@ public class AddCommandParserTest {
 
         // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_OPPO + PRICE_DESC_SONY + QUANTITY_DESC_SONY
-                + SKU_DESC_SONY  + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
 
         // multiple quantities - last quantity accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_OPPO
-                + QUANTITY_DESC_SONY + SKU_DESC_SONY  + IMAGE_DESC_SONY + TAG_DESC_GADGET,
+                + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET,
                 new AddCommand(expectedItem));
 
         // multiple SKUs - last SKU accepted
@@ -154,7 +154,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY
-                + SKU_DESC_SONY  + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET,
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
