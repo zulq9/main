@@ -32,8 +32,6 @@ public class CsvUtil {
     @SuppressWarnings("unchecked")
     public static CsvAdaptedData getDataFromFile(Path file, CsvAdaptedData dataTypeToConvert)
             throws FileNotFoundException, UnrecognizableDataException {
-        requireNonNull(file);
-        requireNonNull(dataTypeToConvert);
         if (!Files.exists(file)) {
             throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
         }
@@ -72,6 +70,8 @@ public class CsvUtil {
             }
         } catch (IOException e) {
             return false;
+        } catch (NullPointerException e) {
+            return false;
         }
         return true;
     }
@@ -96,13 +96,20 @@ public class CsvUtil {
             long fieldsNumber = Arrays.stream(reader.readLine().split(",")).count();
             String contentLine;
             while ((contentLine = reader.readLine()) != null) {
-                List<String> content = Arrays.stream(contentLine.split(",")).collect(Collectors.toList());
+                List<String> content;
+                if (contentLine.contains(",")) {
+                    content = getContentFromLineWithComma(contentLine);
+                } else {
+                    content = getContentFromLineWithoutComma(contentLine);
+                }
                 if (content.size() != fieldsNumber) {
                     throw new UnrecognizableDataException("File content format can not be recognized");
                 }
                 contents.add(content);
             }
         } catch (IOException e) {
+            throw new UnrecognizableDataException("File content format can not be recognized");
+        } catch (NullPointerException e) {
             throw new UnrecognizableDataException("File content format can not be recognized");
         }
         return contents;
@@ -112,9 +119,13 @@ public class CsvUtil {
      * Returns true if data type in the csv file equals the data type of  {@code dataTypeToConvert}.
      *
      * @param dataTypes         The types of data indicated in the csv file.
+     *                          Cannot be null.
      * @param dataTypeToConvert The class corresponding to the csv data.
+     *                          Cannot be null.
      */
     public static boolean isDataTypeEqual(List<String> dataTypes, CsvAdaptedData dataTypeToConvert) {
+        requireNonNull(dataTypes);
+        requireNonNull(dataTypeToConvert);
         return dataTypes.size() == 1 && dataTypes.get(0).equals(dataTypeToConvert.getDataType());
     }
 
@@ -122,12 +133,65 @@ public class CsvUtil {
      * Returns true if fields in the csv file equals the fields of  {@code dataTypeToConvert}.
      *
      * @param dataFields         The fields of data indicated in the csv file.
-     * @param dataTypeToConvert The class corresponding to the csv data.
+     *                           Cannot be null.
+     * @param dataTypeToConvert  The class corresponding to the csv data.
+     *                           Cannot be null.
      */
     public static boolean isDataFieldsEqual(List<String> dataFields, CsvAdaptedData dataTypeToConvert) {
+        requireNonNull(dataFields);
+        requireNonNull(dataTypeToConvert);
         return dataFields.equals(new LinkedList<>(Arrays.asList(dataTypeToConvert.getDataFields())));
     }
 
+    /**
+     * Returns the content from a content line with comma.
+     *
+     * @param contentLine         The fields of data indicated in the csv file.
+     *                            Cannot be null.
+     */
+    public static List<String> getContentFromLineWithComma(String contentLine) {
+        requireNonNull(contentLine);
+        boolean hasQuotesBefore = false;
+        LinkedList<String> content = new LinkedList<>();
+        String stringStack = "";
+        for (int i = 0; i < contentLine.length(); i++) {
+            if (contentLine.charAt(i) == ',') {
+                if (!hasQuotesBefore) {
+                    content.add(stringStack);
+                    stringStack = "";
+                } else {
+                    stringStack += ",";
+                }
+            } else if (contentLine.charAt(i) == '\"') {
+                if (!hasQuotesBefore) {
+                    hasQuotesBefore = true;
+                } else {
+                    content.add(stringStack);
+                    stringStack = "";
+                    hasQuotesBefore = false;
+                }
+            } else {
+                stringStack += contentLine.charAt(i);
+            }
+        }
+        if ("".equals(stringStack)) {
+            if (contentLine.charAt(contentLine.length() - 2) == ',') {
+                content.add(stringStack);
+            }
+        } else {
+            content.add(stringStack);
+        }
+        return content;
+    }
 
-
+    /**
+     * Returns the content from a content line without comma.
+     *
+     * @param contentLine         The fields of data indicated in the csv file.
+     *                            Cannot be null.
+     */
+    public static List<String> getContentFromLineWithoutComma(String contentLine) {
+        requireNonNull(contentLine);
+        return Arrays.stream(contentLine.split(",")).collect(Collectors.toList());
+    }
 }

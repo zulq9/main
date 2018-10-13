@@ -1,62 +1,152 @@
 package seedu.inventory.commons.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
+import seedu.inventory.commons.exceptions.UnrecognizableDataException;
 import seedu.inventory.storage.CsvAdaptedData;
-import seedu.inventory.storage.CsvAdaptedSalesList;
-
 
 public class CsvUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvUtilTest");
-    //private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.csv");
-    //private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.csv");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validSalesList.csv");
-    //private static final Path MISSING_ITEM_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingItemField.csv");
-    //private static final Path INVALID_ITEM_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidItemField.csv");
-    //private static final Path VALID_ITEM_FILE = TEST_DATA_FOLDER.resolve("validItem.csv");
-    private static final CsvAdaptedData DATATYPE_TO_TRANSFER = new CsvAdaptedSalesList(null).getInstance();
-    //private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempInventory.xml");
+    private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.csv");
+    private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.csv");
+    private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
+    private static final Path MISSING_DATA_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingDataField.csv");
+    private static final Path MISSING_DATA_TYPE_FILE = TEST_DATA_FOLDER.resolve("missingDataType.csv");
+    private static final Path INVALID_DATA_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidDataField.csv");
+    private static final Path INVALID_DATA_TYPE_FILE = TEST_DATA_FOLDER.resolve("invalidDataType.csv");
+    private static final Path INVALID_CONTENT_FILE = TEST_DATA_FOLDER.resolve("invalidContent.csv");
+    private static final CsvAdaptedData DATA_TYPE_TO_TRANSFER = new CsvAdaptedDataStub().getInstance();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getDataFromFile_nullFile_throwsNullPointerException() throws Exception {
+    public void getDataFromFile_nullFile_nullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        CsvUtil.getDataFromFile(null, DATATYPE_TO_TRANSFER);
+        CsvUtil.getDataFromFile(null, DATA_TYPE_TO_TRANSFER);
     }
 
     @Test
-    public void getDataFromFile_nullDataType_throwsNullPointerException() throws Exception {
+    public void getDataFromFile_nullDataType_nullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        CsvUtil.getDataFromFile(VALID_FILE, null);
+        CsvUtil.getDataFromFile(VALID_TEST_FILE, null);
+    }
+
+    @Test
+    public void getDataFromFile_missingFile_fileNotFoundException() throws Exception {
+        thrown.expect(FileNotFoundException.class);
+        CsvUtil.getDataFromFile(MISSING_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_emptyFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(EMPTY_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_missingDataFieldFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(MISSING_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_missingDataTypeFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(MISSING_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_invalidDataFieldFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(INVALID_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_invalidDataTypeFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(INVALID_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_invalidContentFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataFromFile(INVALID_CONTENT_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataFromFile_validFile_validResult() throws Exception {
+        CsvAdaptedData data = CsvUtil.getDataFromFile(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER);
+        assertEquals(5, data.getContents().size());
     }
 
     @Test
     public void isDataTypeEqual() {
-        assertTrue(CsvUtil.isDataTypeEqual(Arrays.asList("Sales"), DATATYPE_TO_TRANSFER));
-        assertFalse(CsvUtil.isDataTypeEqual(Arrays.asList("Sales", "Items"), DATATYPE_TO_TRANSFER));
+        assertTrue(CsvUtil.isDataTypeEqual(Arrays.asList("Test"), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataTypeEqual(Arrays.asList("Test", "AnotherTest"), DATA_TYPE_TO_TRANSFER));
     }
 
     @Test
     public void isDataFieldsEqual() {
         assertTrue(CsvUtil
-                .isDataFieldsEqual(Arrays.asList("saleProduct", "saleQuantity", "saleDate"), DATATYPE_TO_TRANSFER));
-        assertFalse(CsvUtil.isDataFieldsEqual(Arrays.asList("saleProduct", "saleDate"), DATATYPE_TO_TRANSFER));
+                .isDataFieldsEqual(Arrays.asList("firstField", "secondField", "thirdField"), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataFieldsEqual(Arrays.asList("firstField", "secondField"), DATA_TYPE_TO_TRANSFER));
     }
 
     @Test
     public void isDataHeaderRecognizable() {
-        assertFalse(CsvUtil.isDataHeaderRecognizable(VALID_FILE, DATATYPE_TO_TRANSFER));
+        assertTrue(CsvUtil.isDataHeaderRecognizable(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(EMPTY_FILE, DATA_TYPE_TO_TRANSFER));
+    }
+}
+
+class CsvAdaptedDataStub implements CsvAdaptedData {
+    public static final String DATA_TYPE = "Test";
+    public static final String[] FIELDS = {"firstField", "secondField", "thirdField"};
+
+    private List<List<String>> contents;
+
+    public CsvAdaptedDataStub(List<List<String>> contents) {
+        this.contents = contents;
+    }
+
+    public CsvAdaptedDataStub() {}
+
+    @Override
+    public List<List<String>> getContents() {
+        return contents;
+    }
+
+    @Override
+    public String getDataType() {
+        return DATA_TYPE;
+    }
+
+    @Override
+    public String[] getDataFields() {
+        return FIELDS;
+    }
+
+    @Override
+    public CsvAdaptedData getInstance() {
+        return new CsvAdaptedDataStub();
+    }
+
+    @Override
+    public CsvAdaptedData createInstance(List<List<String>> contents) {
+        return new CsvAdaptedDataStub(contents);
     }
 }

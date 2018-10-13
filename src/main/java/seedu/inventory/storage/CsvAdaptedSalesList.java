@@ -6,7 +6,7 @@ import java.util.List;
  * A class to access item list data stored as an csv file on the hard disk.
  */
 public class CsvAdaptedSalesList implements CsvAdaptedData {
-    public static final String DATA_TYPE = "Sales";
+    public static final String DATA_TYPE = new StringBuilder("Sales").toString();
     public static final String[] FIELDS = {"saleProduct", "saleQuantity", "saleDate"};
 
     private List<List<String>> contents;
