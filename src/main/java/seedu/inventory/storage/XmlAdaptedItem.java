@@ -48,7 +48,8 @@ public class XmlAdaptedItem {
     /**
      * Constructs an {@code XmlAdaptedItem} with the given item details.
      */
-    public XmlAdaptedItem(String name, String price, String quantity, String sku, String image, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedItem(String name, String price, String quantity, String sku,
+            String image, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
