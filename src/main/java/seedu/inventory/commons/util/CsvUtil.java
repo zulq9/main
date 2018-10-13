@@ -162,6 +162,7 @@ public class CsvUtil {
                     } else {
                         content.add(stringStack);
                         stringStack = "";
+                        hasCommaBefore = true;
                     }
                 } else {
                     stringStack += ",";

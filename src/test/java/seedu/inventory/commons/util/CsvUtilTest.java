@@ -167,10 +167,22 @@ public class CsvUtilTest {
     @Test
     public void getContentFromLine() {
         assertEquals(Arrays.asList("one", "two", "three"), CsvUtil.getContentFromLine("one,two,three"));
-        assertEquals(Arrays.asList("one", "two", "three, three"),
-                CsvUtil.getContentFromLine("one,two,\"three, three\""));
         assertEquals(Arrays.asList("one, one", "two", "three"),
                 CsvUtil.getContentFromLine("\"one, one\",two,three"));
+        assertEquals(Arrays.asList("one", "two, two", "three"),
+                CsvUtil.getContentFromLine("one,\"two, two\",three"));
+        assertEquals(Arrays.asList("one", "two", "three, three"),
+                CsvUtil.getContentFromLine("one,two,\"three, three\""));
+        assertEquals(Arrays.asList("one, one", "two, two", "three, three"),
+                CsvUtil.getContentFromLine("\"one, one\",\"two, two\",\"three, three\""));
+        assertEquals(Arrays.asList("one, one", "", "three"),
+                CsvUtil.getContentFromLine("\"one, one\",,three"));
+        assertEquals(Arrays.asList("one, one", "two", ""),
+                CsvUtil.getContentFromLine("\"one, one\",two,"));
+        assertEquals(Arrays.asList("one", "two, two", ""),
+                CsvUtil.getContentFromLine("one,\"two, two\","));
+        assertEquals(Arrays.asList("", "", ""),
+                CsvUtil.getContentFromLine(",,"));
 
     }
 
