@@ -11,8 +11,11 @@ import seedu.inventory.commons.core.GuiSettings;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.commons.util.XmlUtil;
-import seedu.inventory.model.*;
 import seedu.inventory.model.Inventory;
+import seedu.inventory.model.Model;
+import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.UserPrefs;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlSerializableInventory;
 import seedu.inventory.testutil.TestUtil;
@@ -66,9 +69,9 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the inventory book data stored inside the storage file.
+     * Returns a defensive copy of the inventory data stored inside the storage file.
      */
-    public Inventory readStorageAddressBook() {
+    public Inventory readStorageInventory() {
         try {
             return new Inventory(storage.readInventory().get());
         } catch (DataConversionException dce) {

@@ -68,14 +68,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveInventory(ReadOnlyInventory addressBook) throws IOException {
-        saveInventory(addressBook, inventoryStorage.getInventoryFilePath());
+    public void saveInventory(ReadOnlyInventory inventory) throws IOException {
+        saveInventory(inventory, inventoryStorage.getInventoryFilePath());
     }
 
     @Override
-    public void saveInventory(ReadOnlyInventory addressBook, Path filePath) throws IOException {
+    public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        inventoryStorage.saveInventory(addressBook, filePath);
+        inventoryStorage.saveInventory(inventory, filePath);
     }
 
 

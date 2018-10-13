@@ -33,14 +33,14 @@ public interface InventoryStorage {
 
     /**
      * Saves the given {@link ReadOnlyInventory} to the storage.
-     * @param addressBook cannot be null.
+     * @param inventory cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveInventory(ReadOnlyInventory addressBook) throws IOException;
+    void saveInventory(ReadOnlyInventory inventory) throws IOException;
 
     /**
      * @see #saveInventory(ReadOnlyInventory)
      */
-    void saveInventory(ReadOnlyInventory addressBook, Path filePath) throws IOException;
+    void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException;
 
 }

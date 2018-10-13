@@ -89,7 +89,7 @@ public class MainApp extends Application {
             if (!inventoryOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Inventory");
             }
-            initialData = inventoryOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = inventoryOptional.orElseGet(SampleDataUtil::getSampleInventory);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Inventory");
             initialData = new Inventory();

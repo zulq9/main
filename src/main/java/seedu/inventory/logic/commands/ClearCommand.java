@@ -12,7 +12,7 @@ import seedu.inventory.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Image book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Inventory list has been cleared!";
 
 
     @Override

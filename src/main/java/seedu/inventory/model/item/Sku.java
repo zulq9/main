@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Item's SKU in the inventory book.
+ * Represents an Item's SKU in the inventory book.
  * Guarantees: immutable; is valid as declared in {@link #isValidSku(String)}
  */
 public class Sku {

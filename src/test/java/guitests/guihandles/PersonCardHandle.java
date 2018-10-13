@@ -15,17 +15,17 @@ import seedu.inventory.model.item.Item;
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
+    private static final String IMAGE_FIELD_ID = "#image";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#inventory";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String QUANTITY_FIELD_ID = "#quantity";
+    private static final String SKU_FIELD_ID = "#sku";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label addressLabel;
-    private final Label phoneLabel;
-    private final Label emailLabel;
+    private final Label imageLabel;
+    private final Label quantityLabel;
+    private final Label skuLabel;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -33,9 +33,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        imageLabel = getChildNode(IMAGE_FIELD_ID);
+        quantityLabel = getChildNode(QUANTITY_FIELD_ID);
+        skuLabel = getChildNode(SKU_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -53,16 +53,16 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
+    public String getImage() {
+        return imageLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getQuantity() {
+        return quantityLabel.getText();
     }
 
-    public String getEmail() {
-        return emailLabel.getText();
+    public String getSku() {
+        return skuLabel.getText();
     }
 
     public List<String> getTags() {
@@ -77,9 +77,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Item item) {
         return getName().equals(item.getName().fullName)
-                && getAddress().equals(item.getImage().value)
-                && getPhone().equals(item.getQuantity().value)
-                && getEmail().equals(item.getSku().value)
+                && getImage().equals(item.getImage().value)
+                && getQuantity().equals(item.getQuantity().value)
+                && getSku().equals(item.getSku().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(item.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

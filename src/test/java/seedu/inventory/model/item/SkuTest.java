@@ -15,48 +15,32 @@ public class SkuTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Sku(invalidEmail));
+    public void constructor_invalidSku_throwsIllegalArgumentException() {
+        String invalidSku = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Sku(invalidSku));
     }
 
     @Test
-    public void isValidEmail() {
-        // null email
+    public void isValidSku() {
+        // null sku
         Assert.assertThrows(NullPointerException.class, () -> Sku.isValidSku(null));
 
-        // blank email
+        // blank sku
         assertFalse(Sku.isValidSku("")); // empty string
         assertFalse(Sku.isValidSku(" ")); // spaces only
 
         // missing parts
-        assertFalse(Sku.isValidSku("@example.com")); // missing local part
-        assertFalse(Sku.isValidSku("peterjackexample.com")); // missing '@' symbol
-        assertFalse(Sku.isValidSku("peterjack@")); // missing domain name
+        assertFalse(Sku.isValidSku("@iphonex")); // invalid character in front
+        assertFalse(Sku.isValidSku("ipho@nex")); // invalid character in middle
+        assertFalse(Sku.isValidSku("iphone@")); // trailing invalid characters
 
-        // invalid parts
-        assertFalse(Sku.isValidSku("peterjack@-")); // invalid domain name
-        assertFalse(Sku.isValidSku("peterjack@exam_ple.com")); // underscore in domain name
-        assertFalse(Sku.isValidSku("peter jack@example.com")); // spaces in local part
-        assertFalse(Sku.isValidSku("peterjack@exam ple.com")); // spaces in domain name
-        assertFalse(Sku.isValidSku(" peterjack@example.com")); // leading space
-        assertFalse(Sku.isValidSku("peterjack@example.com ")); // trailing space
-        assertFalse(Sku.isValidSku("peterjack@@example.com")); // double '@' symbol
-        assertFalse(Sku.isValidSku("peter@jack@example.com")); // '@' symbol in local part
-        assertFalse(Sku.isValidSku("peterjack@example@com")); // '@' symbol in domain name
-        assertFalse(Sku.isValidSku("peterjack@.example.com")); // domain name starts with a period
-        assertFalse(Sku.isValidSku("peterjack@example.com.")); // domain name ends with a period
-        assertFalse(Sku.isValidSku("peterjack@-example.com")); // domain name starts with a hyphen
-        assertFalse(Sku.isValidSku("peterjack@example.com-")); // domain name ends with a hyphen
-
-        // valid email
-        assertTrue(Sku.isValidSku("PeterJack_1190@example.com"));
-        assertTrue(Sku.isValidSku("a@bc")); // minimal
-        assertTrue(Sku.isValidSku("test@localhost")); // alphabets only
-        assertTrue(Sku.isValidSku("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
-        assertTrue(Sku.isValidSku("123@145")); // numeric local part and domain name
-        assertTrue(Sku.isValidSku("a1+be!@example1.com")); // mixture of alphanumeric and special characters
-        assertTrue(Sku.isValidSku("peter_jack@very-very-very-long-example.com")); // long domain name
-        assertTrue(Sku.isValidSku("if.you.dream.it_you.can.do.it@example.com")); // long local part
+        // valid sku
+        assertTrue(Sku.isValidSku("iphone-xs"));
+        assertTrue(Sku.isValidSku("a_xs")); // minimal
+        assertTrue(Sku.isValidSku("iphonexs")); // alphabets only
+        assertTrue(Sku.isValidSku("_-_-example-_-_-")); // special characters local part
+        assertTrue(Sku.isValidSku("123-_-")); // numeric local part and domain name
+        assertTrue(Sku.isValidSku("123-_-asd-__-123")); // mixture of alphanumeric and special characters
+        assertTrue(Sku.isValidSku("very_-longskU-123with-characters-and-special-chars-nos")); // long domain name
     }
 }

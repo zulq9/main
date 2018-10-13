@@ -3,10 +3,10 @@ package seedu.inventory.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.exceptions.DuplicateItemException;
-import seedu.inventory.testutil.PersonBuilder;
+import seedu.inventory.testutil.ItemBuilder;
 
 public class InventoryTest {
 
@@ -42,18 +42,18 @@ public class InventoryTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Inventory newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyInventory_replacesData() {
+        Inventory newData = getTypicalInventory();
         inventory.resetData(newData);
         assertEquals(newData, inventory);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateItems_throwsDuplicatePersonException() {
         // Two items with the same identity fields
-        Item editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
-        List<Item> newItems = Arrays.asList(ALICE, editedAlice);
+        List<Item> newItems = Arrays.asList(IPHONE, editedAlice);
         InventoryStub newData = new InventoryStub(newItems);
 
         thrown.expect(DuplicateItemException.class);
@@ -61,32 +61,32 @@ public class InventoryTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasItem_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        inventory.hasPerson(null);
+        inventory.hasItem(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(inventory.hasPerson(ALICE));
+    public void hasItem_itemNotInInventory_returnsFalse() {
+        assertFalse(inventory.hasItem(IPHONE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        inventory.addPerson(ALICE);
-        assertTrue(inventory.hasPerson(ALICE));
+    public void hasItem_itemInInventory_returnsTrue() {
+        inventory.addItem(IPHONE);
+        assertTrue(inventory.hasItem(IPHONE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        inventory.addPerson(ALICE);
-        Item editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasItem_itemWithSameIdentityFieldsInInventory_returnsTrue() {
+        inventory.addItem(IPHONE);
+        Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
-        assertTrue(inventory.hasPerson(editedAlice));
+        assertTrue(inventory.hasItem(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         inventory.getItemList().remove(0);
     }

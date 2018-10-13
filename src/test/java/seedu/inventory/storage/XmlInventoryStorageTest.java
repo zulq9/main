@@ -2,10 +2,10 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.HOON;
-import static seedu.inventory.testutil.TypicalPersons.IDA;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.NOKIA;
+import static seedu.inventory.testutil.TypicalItems.XIAOMI;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,12 +30,12 @@ public class XmlInventoryStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readInventory_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readInventory(null);
     }
 
-    private java.util.Optional<ReadOnlyInventory> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyInventory> readInventory(String filePath) throws Exception {
         return new XmlInventoryStorage(Paths.get(filePath)).readInventory(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,14 +47,14 @@ public class XmlInventoryStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readInventory("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readInventory("NotXmlFormatInventory.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,21 +62,21 @@ public class XmlInventoryStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readInventory_invalidItemInventory_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readInventory("invalidItemInventory.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readInventory_invalidAndValidItemInventory_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readInventory("invalidAndValidItemInventory.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        Inventory original = getTypicalAddressBook();
+    public void readAndSaveInventory_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempInventory.xml");
+        Inventory original = getTypicalInventory();
         XmlInventoryStorage xmlInventoryStorage = new XmlInventoryStorage(filePath);
 
         //Save in new file and read back
@@ -85,14 +85,14 @@ public class XmlInventoryStorageTest {
         assertEquals(original, new Inventory(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addItem(NOKIA);
+        original.removeItem(IPHONE);
         xmlInventoryStorage.saveInventory(original, filePath);
         readBack = xmlInventoryStorage.readInventory(filePath).get();
         assertEquals(original, new Inventory(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addItem(XIAOMI);
         xmlInventoryStorage.saveInventory(original); //file path not specified
         readBack = xmlInventoryStorage.readInventory().get(); //file path not specified
         assertEquals(original, new Inventory(readBack));
@@ -100,27 +100,27 @@ public class XmlInventoryStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveInventory_nullInventory_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveInventory(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code inventory} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyInventory addressBook, String filePath) {
+    private void saveInventory(ReadOnlyInventory inventory, String filePath) {
         try {
             new XmlInventoryStorage(Paths.get(filePath))
-                    .saveInventory(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveInventory(inventory, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveInventory_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new Inventory(), null);
+        saveInventory(new Inventory(), null);
     }
 
 

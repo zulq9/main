@@ -14,16 +14,18 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
-By: `Team W14-4`      Since: `Sept 2018`      Licence: `MIT`
+By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
+
 
 == Introduction
-
+// tag::projectIntro[]
 Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
 who prefer to work with a Command Line Interface (CLI) while still having the benefits of
 a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
 management tasks such as creating sales, generating reports, creating purchase orders
 and more.
+// end::projectIntro[]
 
 == Quick Start
 
@@ -48,23 +50,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-**Major Features** +
+**Key Features** +
 
-1. *Authentication and User management*:
+1. *Authentication and User Management*:
 * Login for different group of users in CLI (cashier/admin/manager)
 * Feature for admin to create users
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
-2. *Sales*
-* Feature for cashier to create an order
-* Feature for cashier to delete an order
-* Feature for cashier to search for an order
-* Order creation to automatically update inventory level
-3. *Reporting module*:
-* Feature for manager to export sales report to a CSV file
-* Feature for manager to export items to a CSV file
-* Feature for manager to export users to a CSV file
+* Feature for users to change password
+2. *Sale Orders Management*
+* Feature for cashier to create a sale
+* Feature for cashier to delete a sale
+* Feature for listing sales
+* Feature for cashier to search for a sale
+3. *Inventory and Sales Reporting*:
+* Feature for manager to import/export sales report from/to a CSV file
+* Feature for manager to import/export items from/to a CSV file
+* Feature for manager to import/export users from/to a CSV file
+* Feature for manager to import/export entire data to a .im file
 * Feature for manager to manage notification alerts
 * Notification/alerts to be automatically sent according to inventory level
 4. *Inventory Management*:
@@ -74,151 +78,30 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Feature for users (cashier/manager) to update inventory
 * Feature for users (cashier/manager) to add image to inventory
 * Feature for users (cashier/manager) to sort inventory by field attributes
-5. *Purchase Order (CRUD)*:
+5. *Purchase Orders Management*:
 * Feature for users (cashier/manager) to create purchase orders
 * Feature for users (cashier/manager) to update purchase orders
 * Feature for users (cashier/manager) to list purchase orders history
 * Feature for manager to list pending purchase orders
-* Feature for manager to delete pending purchase orders
+* Feature for manager to reject pending purchase orders
 * Feature for manager to approve purchase orders
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/IPhone X`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/IPhone X t/Expensive` or as `n/IPhone X`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Firmware` t/ExpiryDate` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME q/QUANTITY`, `q/QUANTITY n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. For example `add n/NAME`. `NAME` is a parameter which can be used as `add n/IPhone X`.
+* Items in square brackets are optional. For example `add n/NAME [t/TAG]` can be used as `add n/IPhone X t/Expensive` or as `n/IPhone X`.
+* Items with `…`​ after them can be zero or more times. For example `add n/NAME [t/TAG]...` can be used as `add n/IPhone X` (i.e. 0 times) or `add n/IPhone X t/Firmware t/ExpiryDate` (i.e. 2 times).
+* Parameters can be in any order. For example, if the command specifies `add n/NAME q/QUANTITY`, `add q/QUANTITY n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== General
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Login to the system : `login`
-
-Prompt the users for their username and password. +
-Format: `login`
-
-=== Selling an item (Cashier) : `sell`
-
-Format: `sell`
-
-
-=== Adding an item : `add`
-
-Adds an item to the inventory manager +
-Format: `add n/NAME s/SERIAL_NUMBER q/QUANTITY l/LOCATION b/BATCH_NUMBER [t/TAG]...`
-
-[TIP]
-An item can have any number of tags (including 0)
-
-Examples:
-
-* `add n/IPhone X s/SN-1234 q/1000 l/101-001A b/12-12-2012`
-
-=== Listing all items : `list`
-
-Shows a list of all items in the inventory manager. +
-Format: `list`
-
-=== Editing an item : `update`
-
-Edits an existing item in the inventory. +
-Format: `update INDEX [n/NAME] [s/SERIAL_NUMBER] [q/QUANTITY] [l/LOCATION] [b/BATCH_NUMBER] [t/TAG]...`
-
-****
-* Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When updating tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
-* You can remove all the item's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `update 1 l/111-123A q/999` +
-Updates the location and quantity of the 1st item to be `111-123A` and `999` respectively.
-
-=== Locating items by name : `find`
-
-Finds item whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `iphone` will match `IPhone`
-* The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
-* Only the name of the item is searched.
-* Only full words will be matched e.g. `quantity` will not match `IPhone`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
-****
-
-Examples:
-
-* `find iphone` +
-Returns `IPhone X` and `IPhone 10`
-
-=== Deleting an item : `delete`
-
-Deletes the specified item from the inventory. +
-Format: `delete INDEX`
-
-****
-* Deletes the item at the specified `INDEX`.
-* The index refers to the index number shown in the displayed inventory list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd item in the inventory.
-* `find IPhone X` +
-`delete 1` +
-Deletes the 1st item in the results of the `find` command.
-
-=== Selecting an item : `select`
-
-Selects the item identified by the index number used in the displayed inventory. +
-Format: `select INDEX`
-
-****
-* Selects the item and loads the Google search page the item at the specified `INDEX`.
-* The index refers to the index number shown in the displayed item list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd item in the inventory.
-* `find IPhone X` +
-`select 1` +
-Selects the 1st item in the results of the `find` command.
-
-=== Export sales report : `export-sales`
-
-Format: `export-sales`
-
-=== Export list of items : `export-items`
-
-Format: `export-items`
-
-=== Export list of users : `export-users`
-
-Format: `export-users`
-
-=== Send sku to users : `sku`
-
-Format: `sku`
-
-=== Generate purchase order : `generate-po`
-
-Format: `generate-po`
-
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -229,14 +112,14 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
-Restores the inventory to the state before the previous _undoable_ command was executed. +
+Restores the Inventory Manager to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the inventory's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Inventory Manager's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -255,7 +138,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -278,34 +161,364 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
-Clears all entries from the inventory. +
+Clears all entries from the Inventory Manager. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Inventory Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::usersManagement[]
+=== Users Management
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Login to the system : `login`
+Login with users' given username and password. +
+Format: `login u/USERNAME p/PASSWORD`
+
+Examples:
+
+* Login user with username as zulq9 and password as zulsenpai. +
+`login u/zulq9 p/zulsenpai`
+
+==== Add users : `add_user`
+
+Adds an user into the system. +
+Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+Examples:
+
+* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
+ `add_user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+
+==== Update users : `update_user`
+
+Updates an user information into the system with given username. +
+Format: `update_user u/USERNAME n/NAME  r/ROLE`
+
+Examples:
+
+* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
+ `update_user u/yaotx n/Yao Teng Xiong r/admin`.
+
+==== Remove users : `remove_user`
+
+Removes an user from the system with given username. +
+Format: `remove_user u/USERNAME`
+
+Examples:
+
+* Reomove user with given username as fzdy1914. +
+ `remove_user u/fzdy1914`.
+
+
+==== List users : `list_user`
+
+Displays a list of existing users in the system. +
+Format: `list_user`
+
+
+==== Change user's password : `change_password`
+
+Updates an user information into the system with given username. +
+Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+
+Examples:
+
+* Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
+ `change_password u/darren96 o/darren123 n/darrensinglenus`.
+
+=== Sales Management
+
+// tag::salesManagement[]
+==== Creating a sale order : `createSale`
+
+Creating a sale and deducting the inventory stocks automatically.
+
+Format: `createSale i/SKU q/QTY`
+
+Examples:
+
+* Sold 5 quantity of a product with SKU 0123. +
+`createSale i/0123 q/5`
+* Sold 1 quantity of a product with SKU 456. +
+`createSale i/456 q/1`
+
+==== Deleting a sale order : `deleteSale`
+
+Deleting a sale and restoring the inventory quantity automatically.
+
+Format: `deleteSale id/ID`
+
+Examples:
+
+* Deleting sale ID 12. +
+`deleteSale id/12`
+* Deleting sale ID 123. +
+`deleteSale id/123`
+
+==== Listing sale orders : `listSales`
+
+Listing sale orders currently recorded in the system.
+
+Format: `listSales r/RECORDS`
+
+Examples:
+
+* List latest 50 records. +
+`listSales r/50`
+* List latest 20 records. +
+`listSales r/20`
+
+==== Searching for sale orders : `searchSale`
+
+Searching for a sale based on sale ID or a specific date
+
+Format: `searchSale [d/YYYY-mm-dd] [id/ID]`
+
+Examples:
+
+* Searching for sale ID 12. +
+`searchSale id/12`
+* Searching for sales created on 01 October 2018. +
+`searchSale d/2018-10-01`
+// end::salesManagement[]
+
+=== Reports Management
+
+// tag::exportimport[]
+==== Export to CSV: `export-csv`
+****
+* Export the data to the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
+
+===== Export sales report to CSV: `export-csv-sales`
+
+Export the sales report in CSV format to the filepath given. +
+Format: `export-csv-sales f/FILEPATH`
+
+===== Export list of items to CSV : `export-csv-items`
+
+Export the list of items in CSV format to the filepath given. +
+Format: `export-csv-items f/FILEPATH`
+
+===== Export list of users to CSV: `export-csv-users`
+
+Export the list of users in CSV format to the filepath given. +
+Format: `export-csv-users f/FILEPATH`
+
+==== Export entire data to .im file: `export-im`
+Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `export-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
+
+==== Import from CSV: `import-csv`
+****
+* Imports the data from the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Data that already exist in *Inventory Manager* will not be imported.
+* Data in the CSV file must be recognizable by *Inventory Manager*.
+****
+===== Import sales report from CSV: `import-csv-sales`
+
+Import the sales report in CSV format from the filepath given. +
+Format: `import-csv-sales f/FILEPATH`
+
+===== Import list of items from CSV : `import-csv-items`
+
+Import the list of items in CSV format from the filepath given. +
+Format: `import-csv-items f/FILEPATH`
+
+===== Import list of users from CSV: `import-csv-users`
+
+Import the list of users in CSV format from the filepath given. +
+Format: `import-csv-users f/FILEPATH`
+
+==== Import entire data from .im file: `import-im`
+Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `import-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Data that already exist in *Inventory Manager* will not be imported.
+* Data in the .im file must be recognizable by *Inventory Manager*.
+****
+// end::exportimport[]
+
+=== Purchase Order Management
+
+// tag::purchaseOrderManagement[]
+==== Generate purchase order : `generate-po`
+
+Generate purchase order for an item. +
+The id of a purchase order and the date will be auto generated. +
+Format: `generate-po i/SKU_NUMBER q/QUANTITY sp/SUPPLIER rd/REQUIRED_DATE [t/TAG]...`
+
+Example:
+
+* `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+
+==== List all purchase order : `list po`
+
+Shows a list of all the purchase order.
+Format: `list-po`
+
+==== List approved purchase order : `list approved-po`
+
+Shows a list of all the approved purchase order.
+Format: `list approved-po`
+
+==== List pending purchase order : `list pending-po`
+
+Shows a list of all the pending purchase order.
+Format: `list pending-po`
+
+==== Approve purchase order : `approve`
+
+Approve a purchase order.
+Format: `approve id/PO_ID`
+
+Example:
+
+* `approve id/12`
+
+==== Reject purchase order : `reject`
+
+Reject a purchase order along with a reason description.
+Format: `reject id/PO_ID d/DESCRIPTION`
+
+Example:
+
+* `reject id/12 d/Only 100 amount is allowed`
+
+// end::purchaseOrderManagement[]
+
+=== Inventory Management
+
+==== Adding an item : `add`
+
+Adds an item to the inventory manager +
+Format: `add n/NAME q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
+
+[TIP]
+An item can have any number of tags (including 0)
+
+Examples:
+
+* `add n/IPhone X q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
+
+==== Listing all items : `list`
+
+Shows a list of all items in the inventory manager. +
+Format: `list`
+
+==== Editing an item : `update`
+
+Edits an existing person in the Inventory Manager. +
+Format: `update INDEX [n/NAME] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
+
+****
+* Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When updating tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
+* You can remove all the item's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `update 1 l/111-123A q/999` +
+Updates the location and quantity of the 1st item to be `111-123A` and `999` respectively.
+
+==== Locating items by name : `find`
+
+Finds item whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `iphone` will match `IPhone`
+* The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
+* Only the name of the item is searched.
+* Only full words will be matched e.g. `phone` will not match `IPhone`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
+****
+
+Examples:
+
+* `find iphone` +
+Returns `IPhone X` and `IPhone 10`
+
+==== Deleting an item : `delete`
+
+Deletes the specified item from the inventory. +
+Format: `delete INDEX`
+
+****
+* Deletes the item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed inventory list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd item in the inventory.
+* `find IPhone X` +
+`delete 1` +
+Deletes the 1st item in the results of the `find` command.
+
+==== Selecting an item : `select`
+
+Selects the item identified by the index number used in the displayed inventory. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd item in the inventory.
+* `find IPhone X` +
+`select 1` +
+Selects the 1st item in the results of the `find` command.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
 
 == Command Summary
-
+* *Login* `login u/USERNAME p/PASSWORD`
+* *Add User* `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Update User* `update_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Remove User* `remove_user u/USERNAME`
+* *List User* `list_user`
+* *Change Password* `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
@@ -322,3 +535,38 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Export sales report to CSV* : `export-csv-sales f/FILEPATH` +
+e.g. `export-csv-sales f/C:/out/sales.csv`
+* *Export list of items to CSV* : `export-csv-items f/FILEPATH` +
+e.g. `export-csv-items f/C:/out/items.csv`
+* *Export list of users to CSV* : `export-csv-users f/FILEPATH` +
+e.g. `export-csv-users f/C:/out/users.csv`
+* *Export entire data to .im file* : `export-im f/FILEPATH` +
+e.g. `export-im f/C:/out/data.im`
+* *Import sales report from CSV* : `import-csv-sales f/FILEPATH` +
+e.g. `import-csv-sales f/C:/in/sales.csv`
+* *Import list of items from CSV* : `import-csv-items f/FILEPATH` +
+e.g. `import-csv-items f/C:/in/items.csv`
+* *Import list of users from CSV* : `import-csv-users f/FILEPATH` +
+e.g. `import-csv-users f/C:/in/users.csv`
+* *Import entire data from .im file* : `import-im f/FILEPATH` +
+e.g. `import-im f/C:/in/data.im`
+
+* *Generate purchase order* : `generate-po` +
+e.g. `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+* *List all purchase order* : `list po`
+* *List approved purchase order* : `list approved-po`
+* *List pending purchase order* : `list pending-po`
+* *Approve purchase order* : `approve` +
+e.g. `approve id/12`
+* *Reject purchase order* : `reject` +
+e.g. `reject id/12 d/Only 100 amount is allowed`
+
+== Glossary
+*CLI (Command Line Interface)*
+
+A command line interface (CLI) is an interface where you can input commands to interact with the software.
+
+*GUI (Graphical User Interface)*
+
+A graphical user interface (GUI) is an interface through which a user interacts with the software.

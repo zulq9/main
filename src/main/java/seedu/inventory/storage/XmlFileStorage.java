@@ -9,11 +9,11 @@ import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores inventory data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given inventory data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableInventory addressBook)
             throws FileNotFoundException {

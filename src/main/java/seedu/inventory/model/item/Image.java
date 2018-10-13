@@ -2,12 +2,13 @@ package seedu.inventory.model.item;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Represents a Item's inventory in the inventory.
+ * Represents an Item's image in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidImage(String)}
  */
 public class Image {
@@ -43,13 +44,9 @@ public class Image {
 
             if (file.exists()) {
                 try {
-                    String mimetype = Files.probeContentType(file.toPath());
+                    String mimeType = Files.probeContentType(file.toPath());
 
-                    if (mimetype != null && mimetype.split("/")[0].equals("image")) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (mimeType != null && mimeType.split("/")[0].equals("image"));
                 } catch (IOException e) {
                     e.printStackTrace();
 

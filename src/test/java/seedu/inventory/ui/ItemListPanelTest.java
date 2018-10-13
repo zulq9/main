@@ -4,8 +4,8 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.inventory.testutil.EventsUtil.postNow;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static seedu.inventory.testutil.TypicalItems.getTypicalItems;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -26,9 +26,9 @@ import seedu.inventory.storage.XmlSerializableInventory;
 
 public class ItemListPanelTest extends GuiUnitTest {
     private static final ObservableList<Item> TYPICAL_ITEMS =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalItems());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ITEM);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -56,13 +56,13 @@ public class ItemListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_ITEM.getZeroBased());
         PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of items in {@code PersonListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,7 +76,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of items containing {@code personCount} items that is used to populate the
      * {@code PersonListPanel}.
      */
     private ObservableList<Item> createBackingList(int personCount) throws Exception {
@@ -87,23 +87,23 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code personCount} items. This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<inventory>\n");
         for (int i = 0; i < personCount; i++) {
-            builder.append("<persons>\n");
+            builder.append("<items>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
-            builder.append("<inventory>a</inventory>\n");
-            builder.append("</persons>\n");
+            builder.append("<quantity>333</quantity>\n");
+            builder.append("<sku>sku-" + i + "</sku>\n");
+            builder.append("<image>docs/images/iphone.jpg</image>\n");
+            builder.append("</items>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</inventory>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
+        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyItems.xml");
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();

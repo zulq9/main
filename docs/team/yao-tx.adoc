@@ -13,11 +13,23 @@ Inventory Manager is a desktop inventory management application designed special
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: Inventory Management of the Inventory Manager App
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
+
+** Minor Enhancements:
+*** Add/Delete/Edit items in inventory
+*** Export/Import of Inventories through .csv
+*** Image support for items
+*** Develop inventory management API
+
+** Project Management:
+*** In charge of transforming and modifying the Address Book into the current Inventory Manager
+
+** Others:
+*** Storage
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -29,8 +41,6 @@ Inventory Manager is a desktop inventory management application designed special
 ** Tools:
 *** Created an organization for team on Github
 *** Integrated a Github plugin (TravisCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

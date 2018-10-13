@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends InventorySystemTest {
 
         /* Case: filters the item list before clearing -> entire inventory book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

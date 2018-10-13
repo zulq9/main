@@ -1,33 +1,32 @@
 package systemtests;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.inventory.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.IMAGE_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_IMAGE_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
+import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SKU_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.inventory.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.QUANTITY_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_OPPO;
+import static seedu.inventory.logic.commands.CommandTestUtil.SKU_DESC_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_GADGET;
+import static seedu.inventory.logic.commands.CommandTestUtil.TAG_DESC_SMARTPHONE;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.inventory.testutil.TypicalPersons.ALICE;
-import static seedu.inventory.testutil.TypicalPersons.AMY;
-import static seedu.inventory.testutil.TypicalPersons.BOB;
-import static seedu.inventory.testutil.TypicalPersons.CARL;
-import static seedu.inventory.testutil.TypicalPersons.HOON;
-import static seedu.inventory.testutil.TypicalPersons.IDA;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalItems.GOOGLE;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
+import static seedu.inventory.testutil.TypicalItems.NOKIA;
+import static seedu.inventory.testutil.TypicalItems.OPPO;
+import static seedu.inventory.testutil.TypicalItems.SONY;
+import static seedu.inventory.testutil.TypicalItems.XIAOMI;
 
 import org.junit.Test;
 
@@ -37,11 +36,14 @@ import seedu.inventory.logic.commands.AddCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
-import seedu.inventory.testutil.PersonBuilder;
-import seedu.inventory.testutil.PersonUtil;
+import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.ItemUtil;
 
 public class AddCommandSystemTest extends InventorySystemTest {
 
@@ -51,12 +53,12 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a item without tags to a non-empty inventory book, command with leading spaces and trailing spaces
+        /* Case: add an item without tags to a non-empty inventory book, command with leading spaces and trailing spaces
          * -> added
          */
-        Item toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        Item toAdd = OPPO;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_OPPO + "  " + QUANTITY_DESC_OPPO + " "
+                + SKU_DESC_OPPO + "   " + IMAGE_DESC_OPPO + "   " + TAG_DESC_GADGET + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -70,107 +72,101 @@ public class AddCommandSystemTest extends InventorySystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a item with all fields same as another item in the inventory book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add a item with all fields same as another item in the inventory book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(OPPO).withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty inventory book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(IPHONE);
 
         /* Case: add a item with tags, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        toAdd = SONY;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_GADGET + QUANTITY_DESC_SONY + IMAGE_DESC_SONY + NAME_DESC_SONY
+                + TAG_DESC_SMARTPHONE + SKU_DESC_SONY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a item, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(NOKIA);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the item list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        assertCommandSuccess(XIAOMI);
 
         /* ------------------------ Perform add operation while a item card is selected --------------------------- */
 
         /* Case: selects first card in the item list, add a item -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(GOOGLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate item -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = ItemUtil.getAddCommand(NOKIA);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(NOKIA).withQuantity(VALID_QUANTITY_SONY).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(NOKIA).withSku(VALID_SKU_SONY).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different inventory -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new ItemBuilder(NOKIA).withImage(VALID_IMAGE_SONY).build();
+        command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = ItemUtil.getAddCommand(NOKIA) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing inventory -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + ItemUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + INVALID_QUANTITY_DESC + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + INVALID_SKU_DESC + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid inventory -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + INVALID_IMAGE_DESC;
         assertCommandFailure(command, Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -190,7 +186,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Item toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(ItemUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.inventory.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.inventory.testutil.TestUtil.getItem;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
-import static seedu.inventory.testutil.TestUtil.getPerson;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.inventory.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
 
@@ -31,8 +31,8 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
 
         /* Case: delete the first item in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Item deletedItem = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_ITEM.getOneBased() + "       ";
+        Item deletedItem = removePerson(expectedModel, INDEX_FIRST_ITEM);
         String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -59,15 +59,15 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered item list, delete index within bounds of inventory book and item list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        Index index = INDEX_FIRST_ITEM;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered item list, delete index within bounds of inventory book but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
      * @return the removed item
      */
     private Item removePerson(Model model, Index index) {
-        Item targetItem = getPerson(model, index);
+        Item targetItem = getItem(model, index);
         model.deleteItem(targetItem);
         return targetItem;
     }

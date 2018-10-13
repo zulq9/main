@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.inventory.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,23 +17,23 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
-import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_IMAGE = " ";
+    private static final String INVALID_NAME = "iPh0ne!";
+    private static final String INVALID_QUANTITY = "+651234";
+    private static final String INVALID_SKU = "asd!asd";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_IMAGE = "docs/images/iphone.jpg";
+    private static final String VALID_NAME = "iPhone XR";
+    private static final String VALID_QUANTITY = "123456";
+    private static final String VALID_SKU = "iphone-xr";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -58,10 +58,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_ITEM, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_ITEM, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -88,71 +88,71 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
+    public void parseQuantity_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_PHONE));
+    public void parseQuantity_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_QUANTITY));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Quantity expectedQuantity = new Quantity(VALID_PHONE);
-        assertEquals(expectedQuantity, ParserUtil.parseQuantity(VALID_PHONE));
+    public void parseQuantity_validValueWithoutWhitespace_returnsQuantity() throws Exception {
+        Quantity expectedQuantity = new Quantity(VALID_QUANTITY);
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(VALID_QUANTITY));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Quantity expectedQuantity = new Quantity(VALID_PHONE);
+    public void parseQuantity_validValueWithWhitespace_returnsTrimmedQuantity() throws Exception {
+        String phoneWithWhitespace = WHITESPACE + VALID_QUANTITY + WHITESPACE;
+        Quantity expectedQuantity = new Quantity(VALID_QUANTITY);
         assertEquals(expectedQuantity, ParserUtil.parseQuantity(phoneWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
+    public void parseImage_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseImage((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseImage(INVALID_ADDRESS));
+    public void parseImage_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseImage(INVALID_IMAGE));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Image expectedImage = new Image(VALID_ADDRESS);
-        assertEquals(expectedImage, ParserUtil.parseImage(VALID_ADDRESS));
+    public void parseImage_validValueWithoutWhitespace_returnsImage() throws Exception {
+        Image expectedImage = new Image(VALID_IMAGE);
+        assertEquals(expectedImage, ParserUtil.parseImage(VALID_IMAGE));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Image expectedImage = new Image(VALID_ADDRESS);
-        assertEquals(expectedImage, ParserUtil.parseImage(addressWithWhitespace));
+    public void parseImage_validValueWithWhitespace_returnsTrimmedImage() throws Exception {
+        String imageWithWhitespace = WHITESPACE + VALID_IMAGE + WHITESPACE;
+        Image expectedImage = new Image(VALID_IMAGE);
+        assertEquals(expectedImage, ParserUtil.parseImage(imageWithWhitespace));
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
+    public void parseSku_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseSku((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSku(INVALID_EMAIL));
+    public void parseSku_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseSku(INVALID_SKU));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Sku expectedSku = new Sku(VALID_EMAIL);
-        assertEquals(expectedSku, ParserUtil.parseSku(VALID_EMAIL));
+    public void parseSku_validValueWithoutWhitespace_returnsSku() throws Exception {
+        Sku expectedSku = new Sku(VALID_SKU);
+        assertEquals(expectedSku, ParserUtil.parseSku(VALID_SKU));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Sku expectedSku = new Sku(VALID_EMAIL);
+    public void parseSku_validValueWithWhitespace_returnsTrimmedSku() throws Exception {
+        String emailWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
+        Sku expectedSku = new Sku(VALID_SKU);
         assertEquals(expectedSku, ParserUtil.parseSku(emailWithWhitespace));
     }
 

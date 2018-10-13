@@ -1,7 +1,7 @@
 package seedu.inventory.logic.commands;
 
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.inventory.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyInventory_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitInventory();
@@ -25,9 +25,9 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyInventory_success() {
+        Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
         expectedModel.resetData(new Inventory());
         expectedModel.commitInventory();
 

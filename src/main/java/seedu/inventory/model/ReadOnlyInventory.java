@@ -4,13 +4,13 @@ import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 
 /**
- * Unmodifiable view of an inventory book
+ * Unmodifiable view of an inventory
  */
 public interface ReadOnlyInventory {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the items list.
+     * This list will not contain any duplicate items.
      */
     ObservableList<Item> getItemList();
 

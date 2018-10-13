@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Item's quantity in the inventory.
+ * Represents an Item's quantity in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
 public class Quantity {

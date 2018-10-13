@@ -76,9 +76,9 @@ public class XmlAdaptedItem {
      * @throws IllegalValueException if there were any data constraints violated in the adapted item
      */
     public Item toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> itemTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            itemTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -115,7 +115,7 @@ public class XmlAdaptedItem {
         }
         final Image modelImage = new Image(image);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(itemTags);
         return new Item(modelName, modelQuantity, modelSku, modelImage, modelTags);
     }
 
@@ -129,11 +129,11 @@ public class XmlAdaptedItem {
             return false;
         }
 
-        XmlAdaptedItem otherPerson = (XmlAdaptedItem) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(quantity, otherPerson.quantity)
-                && Objects.equals(sku, otherPerson.sku)
-                && Objects.equals(image, otherPerson.image)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedItem otherItem = (XmlAdaptedItem) other;
+        return Objects.equals(name, otherItem.name)
+                && Objects.equals(quantity, otherItem.quantity)
+                && Objects.equals(sku, otherItem.sku)
+                && Objects.equals(image, otherItem.image)
+                && tagged.equals(otherItem.tagged);
     }
 }

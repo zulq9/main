@@ -9,28 +9,17 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.UniqueItemList;
 
 /**
- * Wraps all data at the inventory-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the inventory-list level
+ * Duplicates are not allowed (by .isSameItem comparison)
  */
 public class Inventory implements ReadOnlyInventory {
 
-    private final UniqueItemList persons;
-
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        persons = new UniqueItemList();
-    }
+    private final UniqueItemList items = new UniqueItemList();
 
     public Inventory() {}
 
     /**
-     * Creates an Inventory using the Persons in the {@code toBeCopied}
+     * Creates an Inventory using the Items in the {@code toBeCopied}
      */
     public Inventory(ReadOnlyInventory toBeCopied) {
         this();
@@ -43,8 +32,8 @@ public class Inventory implements ReadOnlyInventory {
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */
-    public void setPersons(List<Item> items) {
-        this.persons.setPersons(items);
+    public void setItems(List<Item> items) {
+        this.items.setItems(items);
     }
 
     /**
@@ -53,68 +42,68 @@ public class Inventory implements ReadOnlyInventory {
     public void resetData(ReadOnlyInventory newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getItemList());
+        setItems(newData.getItemList());
     }
 
     //// item-level operations
 
     /**
-     * Returns true if a item with the same identity as {@code item} exists in the inventory book.
+     * Returns true if a item with the same identity as {@code item} exists in the inventory.
      */
-    public boolean hasPerson(Item item) {
+    public boolean hasItem(Item item) {
         requireNonNull(item);
-        return persons.contains(item);
+        return items.contains(item);
     }
 
     /**
-     * Adds a item to the inventory book.
-     * The item must not already exist in the inventory book.
+     * Adds a item to the inventory.
+     * The item must not already exist in the inventory.
      */
-    public void addPerson(Item p) {
-        persons.add(p);
+    public void addItem(Item p) {
+        items.add(p);
     }
 
     /**
      * Replaces the given item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the inventory book.
-     * The item identity of {@code editedItem} must not be the same as another existing item in the inventory book.
+     * {@code target} must exist in the inventory.
+     * The item identity of {@code editedItem} must not be the same as another existing item in the inventory.
      */
-    public void updatePerson(Item target, Item editedItem) {
+    public void updateItem(Item target, Item editedItem) {
         requireNonNull(editedItem);
 
-        persons.setPerson(target, editedItem);
+        items.setItem(target, editedItem);
     }
 
     /**
      * Removes {@code key} from this {@code Inventory}.
-     * {@code key} must exist in the inventory book.
+     * {@code key} must exist in the inventory.
      */
-    public void removePerson(Item key) {
-        persons.remove(key);
+    public void removeItem(Item key) {
+        items.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return items.asUnmodifiableObservableList().size() + " items";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Item> getItemList() {
-        return persons.asUnmodifiableObservableList();
+        return items.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && persons.equals(((Inventory) other).persons));
+                && items.equals(((Inventory) other).items));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return items.hashCode();
     }
 }

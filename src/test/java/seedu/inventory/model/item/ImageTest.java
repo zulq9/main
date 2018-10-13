@@ -15,23 +15,25 @@ public class ImageTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidImage_throwsIllegalArgumentException() {
         String invalidAddress = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Image(invalidAddress));
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidImage() {
         // null inventory
         Assert.assertThrows(NullPointerException.class, () -> Image.isValidImage(null));
 
         // invalid addresses
         assertFalse(Image.isValidImage("")); // empty string
         assertFalse(Image.isValidImage(" ")); // spaces only
+        assertFalse(Image.isValidImage("docs")); // directory, not a file
+        assertFalse(Image.isValidImage("docs/AboutUs.adoc")); // not an image file
+        assertFalse(Image.isValidImage("test.jpg")); // non-existing image file
 
         // valid addresses
-        assertTrue(Image.isValidImage("Blk 456, Den Road, #01-355"));
-        assertTrue(Image.isValidImage("-")); // one character
-        assertTrue(Image.isValidImage("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long inventory
+        assertTrue(Image.isValidImage("docs/images/iphone.jpg")); // jpg image
+        assertTrue(Image.isValidImage("docs/images/yao-tx.png")); // png image
     }
 }

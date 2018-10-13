@@ -15,7 +15,7 @@ import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.model.item.Item;
 
 /**
- * Represents the in-memory model of the inventory book data.
+ * Represents the in-memory model of the inventory data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -24,15 +24,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Item> filteredItems;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(inventory, userPrefs);
 
-        logger.fine("Initializing with inventory book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
-        versionedInventory = new VersionedInventory(addressBook);
+        versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
     }
 
@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyInventory newData) {
         versionedInventory.resetData(newData);
-        indicateAddressBookChanged();
+        indicateInventoryChanged();
     }
 
     @Override
@@ -52,35 +52,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateInventoryChanged() {
         raise(new InventoryChangedEvent(versionedInventory));
     }
 
     @Override
     public boolean hasItem(Item item) {
         requireNonNull(item);
-        return versionedInventory.hasPerson(item);
+        return versionedInventory.hasItem(item);
     }
 
     @Override
     public void deleteItem(Item target) {
-        versionedInventory.removePerson(target);
-        indicateAddressBookChanged();
+        versionedInventory.removeItem(target);
+        indicateInventoryChanged();
     }
 
     @Override
     public void addItem(Item item) {
-        versionedInventory.addPerson(item);
+        versionedInventory.addItem(item);
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
-        indicateAddressBookChanged();
+        indicateInventoryChanged();
     }
 
     @Override
     public void updateItem(Item target, Item editedItem) {
         requireAllNonNull(target, editedItem);
 
-        versionedInventory.updatePerson(target, editedItem);
-        indicateAddressBookChanged();
+        versionedInventory.updateItem(target, editedItem);
+        indicateInventoryChanged();
     }
 
     //=========== Filtered Item List Accessors =============================================================
@@ -115,13 +115,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoInventory() {
         versionedInventory.undo();
-        indicateAddressBookChanged();
+        indicateInventoryChanged();
     }
 
     @Override
     public void redoInventory() {
         versionedInventory.redo();
-        indicateAddressBookChanged();
+        indicateInventoryChanged();
     }
 
     @Override

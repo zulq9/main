@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * Represents a Item in the inventory.
+ * Represents an Item in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {

@@ -12,10 +12,11 @@ import seedu.inventory.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
+
     private Path inventoryFilePath = Paths.get("data" , "inventory.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(750, 600, 10, 10);
     }
 
     public GuiSettings getGuiSettings() {
