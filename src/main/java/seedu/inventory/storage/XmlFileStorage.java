@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBException;
 
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.commons.util.XmlUtil;
+import seedu.inventory.model.ReadOnlyInventory;
 
 /**
  * Stores inventory data in an XML file
@@ -31,6 +32,29 @@ public class XmlFileStorage {
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableInventory.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
+     * Saves the given sale list data to the specified file.
+     */
+    public static void saveDataToFile(Path file, XmlSerializableSaleList saleList)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, saleList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Returns sale list in the file or an empty sale list     */
+    public static XmlSerializableSaleList loadSaleListFromSaveFile(Path file, ReadOnlyInventory inventory) throws
+            DataConversionException, FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableSaleList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

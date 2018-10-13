@@ -20,18 +20,9 @@ import seedu.inventory.commons.util.ConfigUtil;
 import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.logic.LogicManager;
-import seedu.inventory.model.Inventory;
-import seedu.inventory.model.Model;
-import seedu.inventory.model.ModelManager;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.*;
 import seedu.inventory.model.util.SampleDataUtil;
-import seedu.inventory.storage.InventoryStorage;
-import seedu.inventory.storage.JsonUserPrefsStorage;
-import seedu.inventory.storage.Storage;
-import seedu.inventory.storage.StorageManager;
-import seedu.inventory.storage.UserPrefsStorage;
-import seedu.inventory.storage.XmlInventoryStorage;
+import seedu.inventory.storage.*;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 
@@ -63,8 +54,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath());
-        storage = new StorageManager(inventoryStorage, userPrefsStorage);
-
+        SaleListStorage saleListStorage = new XmlSaleListStorage();
+        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage);
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
@@ -98,7 +89,28 @@ public class MainApp extends Application {
             initialData = new Inventory();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        // Sale List
+        Optional<ReadOnlySaleList> saleListOptional;
+        ReadOnlySaleList readOnlySaleList;
+
+        try {
+            saleListOptional = storage.readSaleList(initialData);
+            if (!saleListOptional.isPresent()) {
+                logger.info("Data file not found for sale list. Will be starting with empty sale list.");
+            }
+
+            readOnlySaleList = new SaleList();
+        } catch (DataConversionException e) {
+            logger.warning("Data file for sale list not in the correct format. Will be starting with an empty sale list");
+
+            readOnlySaleList = new SaleList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty sale list");
+
+            readOnlySaleList = new SaleList();
+        }
+
+        return new ModelManager(initialData, userPrefs, readOnlySaleList);
     }
 
     private void initLogging(Config config) {

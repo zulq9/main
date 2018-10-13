@@ -3,6 +3,8 @@ package seedu.inventory.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +16,9 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.sale.SaleDate;
+import seedu.inventory.model.sale.SaleID;
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -23,22 +28,25 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedInventory versionedInventory;
     private final FilteredList<Item> filteredItems;
+    private final SaleList saleList;
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, SaleList saleList) {
         super();
-        requireAllNonNull(inventory, userPrefs);
+        requireAllNonNull(inventory, userPrefs, saleList);
 
         logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
         versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
+
+        this.saleList = saleList;
     }
 
     public ModelManager() {
-        this(new Inventory(), new UserPrefs());
+        this(new Inventory(), new UserPrefs(), new SaleList());
     }
 
     @Override
@@ -151,7 +159,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Sale ====================================================================================
     @Override
     public void createSale(Item item, Quantity quantity) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+        Date date = new Date();
 
+        Sale sale = new Sale(new SaleID(saleList.getNextSaleID()), item, quantity, new SaleDate(formatter.format(date)));
+
+        saleList.addSale(sale);
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.inventory.model.sale;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,6 +76,21 @@ public class UniqueSaleList implements Iterable<Sale> {
         }
 
         internalList.setAll(sales);
+    }
+
+    /**
+     * Get next available sale ID
+     */
+    public String getNextSaleID() {
+        if (internalList.isEmpty()) {
+            return "1";
+        }
+
+        int currentSaleID = internalList.stream().map(sale -> Integer.parseInt(sale.getSaleID().toString())).max(Comparator.comparing(i -> i)).orElse(0);
+
+        int nextSaleID = currentSaleID + 1;
+
+        return Integer.toString(nextSaleID);
     }
 
     /**

@@ -69,6 +69,13 @@ public class SaleList implements ReadOnlySaleList {
         uniqueSaleList.remove(key);
     }
 
+    /**
+     * Get next available sale ID
+     */
+    public String getNextSaleID() {
+        return uniqueSaleList.getNextSaleID();
+    }
+
     //// util methods
 
     @Override
