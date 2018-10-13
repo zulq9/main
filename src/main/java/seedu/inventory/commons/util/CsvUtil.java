@@ -96,12 +96,7 @@ public class CsvUtil {
             long fieldsNumber = Arrays.stream(reader.readLine().split(",")).count();
             String contentLine;
             while ((contentLine = reader.readLine()) != null) {
-                List<String> content;
-                if (contentLine.contains(",")) {
-                    content = getContentFromLineWithComma(contentLine);
-                } else {
-                    content = getContentFromLineWithoutComma(contentLine);
-                }
+                List<String> content = getContentFromLine(contentLine);
                 if (content.size() != fieldsNumber) {
                     throw new UnrecognizableDataException("File content format can not be recognized");
                 }
@@ -144,21 +139,30 @@ public class CsvUtil {
     }
 
     /**
-     * Returns the content from a content line with comma.
+     * Returns the content from a content line with or without comma.
      *
      * @param contentLine         The fields of data indicated in the csv file.
      *                            Cannot be null.
      */
-    public static List<String> getContentFromLineWithComma(String contentLine) {
+    public static List<String> getContentFromLine(String contentLine) {
         requireNonNull(contentLine);
         boolean hasQuotesBefore = false;
+        boolean hasCommaBefore = true;
         LinkedList<String> content = new LinkedList<>();
         String stringStack = "";
         for (int i = 0; i < contentLine.length(); i++) {
             if (contentLine.charAt(i) == ',') {
                 if (!hasQuotesBefore) {
-                    content.add(stringStack);
-                    stringStack = "";
+                    if ("".equals(stringStack)) {
+                        if (hasCommaBefore) {
+                            content.add(stringStack);
+                        } else {
+                            hasCommaBefore = true;
+                        }
+                    } else {
+                        content.add(stringStack);
+                        stringStack = "";
+                    }
                 } else {
                     stringStack += ",";
                 }
@@ -170,28 +174,19 @@ public class CsvUtil {
                     stringStack = "";
                     hasQuotesBefore = false;
                 }
+                hasCommaBefore = false;
             } else {
                 stringStack += contentLine.charAt(i);
+                hasCommaBefore = false;
             }
         }
         if ("".equals(stringStack)) {
-            if (contentLine.charAt(contentLine.length() - 2) == ',') {
+            if (hasCommaBefore) {
                 content.add(stringStack);
             }
         } else {
             content.add(stringStack);
         }
         return content;
-    }
-
-    /**
-     * Returns the content from a content line without comma.
-     *
-     * @param contentLine         The fields of data indicated in the csv file.
-     *                            Cannot be null.
-     */
-    public static List<String> getContentFromLineWithoutComma(String contentLine) {
-        requireNonNull(contentLine);
-        return Arrays.stream(contentLine.split(",")).collect(Collectors.toList());
     }
 }

@@ -22,12 +22,12 @@ public class CsvUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.csv");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.csv");
-    private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
     private static final Path MISSING_DATA_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingDataField.csv");
     private static final Path MISSING_DATA_TYPE_FILE = TEST_DATA_FOLDER.resolve("missingDataType.csv");
     private static final Path INVALID_DATA_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidDataField.csv");
     private static final Path INVALID_DATA_TYPE_FILE = TEST_DATA_FOLDER.resolve("invalidDataType.csv");
     private static final Path INVALID_CONTENT_FILE = TEST_DATA_FOLDER.resolve("invalidContent.csv");
+    private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
     private static final CsvAdaptedData DATA_TYPE_TO_TRANSFER = new CsvAdaptedDataStub().getInstance();
 
     @Rule
@@ -97,20 +97,83 @@ public class CsvUtilTest {
     public void isDataTypeEqual() {
         assertTrue(CsvUtil.isDataTypeEqual(Arrays.asList("Test"), DATA_TYPE_TO_TRANSFER));
         assertFalse(CsvUtil.isDataTypeEqual(Arrays.asList("Test", "AnotherTest"), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataTypeEqual(Arrays.asList(), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataTypeEqual(Arrays.asList("AnotherTest"), DATA_TYPE_TO_TRANSFER));
     }
 
     @Test
     public void isDataFieldsEqual() {
         assertTrue(CsvUtil
                 .isDataFieldsEqual(Arrays.asList("firstField", "secondField", "thirdField"), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil
+                .isDataFieldsEqual(Arrays.asList("firstField", "thirdField", "secondField"), DATA_TYPE_TO_TRANSFER));
         assertFalse(CsvUtil.isDataFieldsEqual(Arrays.asList("firstField", "secondField"), DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil
+                .isDataFieldsEqual(Arrays.asList("firstField", "thirdField", "secondField", "fourthField"),
+                        DATA_TYPE_TO_TRANSFER));
     }
 
     @Test
     public void isDataHeaderRecognizable() {
         assertTrue(CsvUtil.isDataHeaderRecognizable(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER));
         assertFalse(CsvUtil.isDataHeaderRecognizable(EMPTY_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(MISSING_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(MISSING_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(MISSING_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(INVALID_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER));
+        assertFalse(CsvUtil.isDataHeaderRecognizable(INVALID_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER));
+        assertTrue(CsvUtil.isDataHeaderRecognizable(INVALID_CONTENT_FILE, DATA_TYPE_TO_TRANSFER));
     }
+
+    @Test
+    public void getDataContentFromFile_emptyFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataContentFromFile(EMPTY_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataContentFromFile_missingFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataContentFromFile(MISSING_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataContentFromFile_missingDataTypeFile_validResult() throws Exception {
+        assertEquals(CsvUtil.getDataContentFromFile(MISSING_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER).size(), 5);
+    }
+
+    @Test
+    public void getDataContentFromFile_missingDataFieldFile_validResult() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataContentFromFile(MISSING_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getDataContentFromFile_invalidDataTypeFile_validResult() throws Exception {
+        assertEquals(CsvUtil.getDataContentFromFile(INVALID_DATA_TYPE_FILE, DATA_TYPE_TO_TRANSFER).size(), 5);
+    }
+
+    @Test
+    public void getDataContentFromFile_invalidDataFieldFile_validResult() throws Exception {
+        assertEquals(CsvUtil.getDataContentFromFile(INVALID_DATA_FIELD_FILE, DATA_TYPE_TO_TRANSFER).size(), 5);
+    }
+
+    @Test
+    public void getDataContentFromFile_invalidContentFile_unrecognizableDataException() throws Exception {
+        thrown.expect(UnrecognizableDataException.class);
+        CsvUtil.getDataContentFromFile(INVALID_CONTENT_FILE, DATA_TYPE_TO_TRANSFER);
+    }
+
+    @Test
+    public void getContentFromLine() {
+        assertEquals(Arrays.asList("one", "two", "three"), CsvUtil.getContentFromLine("one,two,three"));
+        assertEquals(Arrays.asList("one", "two", "three, three"),
+                CsvUtil.getContentFromLine("one,two,\"three, three\""));
+        assertEquals(Arrays.asList("one, one", "two", "three"),
+                CsvUtil.getContentFromLine("\"one, one\",two,three"));
+
+    }
+
 }
 
 class CsvAdaptedDataStub implements CsvAdaptedData {
