@@ -13,6 +13,7 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -22,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedInventory versionedInventory;
     private final FilteredList<Item> filteredItems;
+    private final FilteredList<PurchaseOrder> filteredPurchaseOrder;
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
+        filteredPurchaseOrder = new FilteredList<>(versionedInventory.getPurchaseOrderList());
     }
 
     public ModelManager() {
@@ -55,6 +58,9 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateInventoryChanged() {
         raise(new InventoryChangedEvent(versionedInventory));
     }
+
+
+    //=========== Item  ====================================================================================
 
     @Override
     public boolean hasItem(Item item) {
@@ -98,6 +104,46 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
         filteredItems.setPredicate(predicate);
+    }
+
+    //=========== Purchase Order ==========================================================================
+
+    @Override
+    public void deletePurchaseOrder(PurchaseOrder target) {
+        versionedInventory.removePurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void addPurchaseOrder(PurchaseOrder po) {
+        versionedInventory.addPurchaseOrder(po);
+        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
+        requireAllNonNull(target, editedPurchaseOrder);
+
+        versionedInventory.updatePurchaseOrder(target, editedPurchaseOrder);
+        indicateInventoryChanged();
+    }
+
+    //=========== Filtered Purchase Order List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code PurchaseOrder} backed by the internal list of
+     * {@code versionedInventory}
+     */
+    @Override
+    public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
+        return FXCollections.unmodifiableObservableList(filteredPurchaseOrder);
+    }
+
+    @Override
+    public void updateFilteredPurchaseOrderList(Predicate<PurchaseOrder> predicate) {
+        requireNonNull(predicate);
+        filteredPurchaseOrder.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
