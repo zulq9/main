@@ -11,6 +11,7 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * An Immutable Inventory that is serializable to XML format
@@ -23,12 +24,16 @@ public class XmlSerializableInventory {
     @XmlElement
     private List<XmlAdaptedItem> items;
 
+    @XmlElement
+    private List<XmlAdaptedPurchaseOrder> purchaseOrders;
+
     /**
      * Creates an empty XmlSerializableInventory.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableInventory() {
         items = new ArrayList<>();
+        purchaseOrders = new ArrayList<>();
     }
 
     /**
@@ -37,16 +42,18 @@ public class XmlSerializableInventory {
     public XmlSerializableInventory(ReadOnlyInventory src) {
         this();
         items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
+        purchaseOrders.addAll(src.getPurchaseOrderList().stream().map(XmlAdaptedPurchaseOrder::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this inventory into the model's {@code Inventory} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedItem}.
+     *                               {@code XmlAdaptedItem}.
      */
     public Inventory toModelType() throws IllegalValueException {
         Inventory inventory = new Inventory();
+
         for (XmlAdaptedItem p : items) {
             Item item = p.toModelType();
             if (inventory.hasItem(item)) {
@@ -54,6 +61,12 @@ public class XmlSerializableInventory {
             }
             inventory.addItem(item);
         }
+
+        for (XmlAdaptedPurchaseOrder po : purchaseOrders) {
+            PurchaseOrder purchaseOrder = po.toModelType();
+            inventory.addPurchaseOrder(purchaseOrder);
+        }
+
         return inventory;
     }
 
@@ -66,6 +79,7 @@ public class XmlSerializableInventory {
         if (!(other instanceof XmlSerializableInventory)) {
             return false;
         }
-        return items.equals(((XmlSerializableInventory) other).items);
+        return items.equals(((XmlSerializableInventory) other).items)
+                && purchaseOrders.equals(((XmlSerializableInventory) other).purchaseOrders);
     }
 }
