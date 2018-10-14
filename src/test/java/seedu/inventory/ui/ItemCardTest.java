@@ -5,8 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysItem;
 
-import guitests.guihandles.ItemCardHandle;
 import org.junit.Test;
+
+import guitests.guihandles.ItemCardHandle;
 
 import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.ItemBuilder;

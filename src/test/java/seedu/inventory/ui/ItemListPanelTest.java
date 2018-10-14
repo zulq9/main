@@ -12,9 +12,10 @@ import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Test;
+
 import guitests.guihandles.ItemCardHandle;
 import guitests.guihandles.ItemListPanelHandle;
-import org.junit.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,9 +82,9 @@ public class ItemListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Item> createBackingList(int itemCount) throws Exception {
         Path xmlFile = createXmlFileWithItems(itemCount);
-        XmlSerializableInventory xmlInventoryManager =
+        XmlSerializableInventory xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableInventory.class);
-        return FXCollections.observableArrayList(xmlInventoryManager.toModelType().getItemList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getItemList());
     }
 
     /**
