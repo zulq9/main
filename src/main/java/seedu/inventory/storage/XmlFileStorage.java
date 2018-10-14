@@ -51,7 +51,7 @@ public class XmlFileStorage {
 
     /**
      * Returns sale list in the file or an empty sale list     */
-    public static XmlSerializableSaleList loadSaleListFromSaveFile(Path file, ReadOnlyInventory inventory) throws
+    public static XmlSerializableSaleList loadSaleListFromSaveFile(Path file) throws
             DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableSaleList.class);

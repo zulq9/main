@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
+import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.sale.Sale;
@@ -15,12 +16,12 @@ import seedu.inventory.model.sale.Sale;
 /**
  * An Immutable Sale List that is serializable to XML format
  */
-@XmlRootElement(name = "sale")
+@XmlRootElement(name = "sales")
 public class XmlSerializableSaleList {
 
     public static final String MESSAGE_DUPLICATE_SALE = "Sale list contains duplicate sale(s).";
 
-    @XmlElement
+    @XmlElement(name = "sale")
     private List<XmlAdaptedSale> saleList;
 
     /**
@@ -46,10 +47,10 @@ public class XmlSerializableSaleList {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedSale}.
      */
-    public SaleList toModelType() throws IllegalValueException {
+    public SaleList toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
         SaleList saleList = new SaleList();
         for (XmlAdaptedSale p : this.saleList) {
-            Sale sale = p.toModelType();
+            Sale sale = p.toModelType(inventory);
             if (saleList.hasSale(sale)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SALE);
             }

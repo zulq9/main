@@ -33,16 +33,16 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, SaleList saleList) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList) {
         super();
-        requireAllNonNull(inventory, userPrefs, saleList);
+        requireAllNonNull(inventory, userPrefs, readOnlySaleList);
 
         logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
         versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
 
-        this.saleList = saleList;
+        this.saleList = new SaleList(readOnlySaleList);
     }
 
     public ModelManager() {

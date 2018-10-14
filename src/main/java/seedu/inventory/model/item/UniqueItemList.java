@@ -42,7 +42,8 @@ public class UniqueItemList implements Iterable<Item> {
     public Item getItemBySku(String sku) {
         requireNonNull(sku);
 
-        Optional<Item> searchItem = internalList.stream().filter(item -> item.getSku().toString().equalsIgnoreCase(sku)).findFirst();
+        Optional<Item> searchItem = internalList.stream().filter(item -> item.getSku().toString().equalsIgnoreCase(sku))
+                .findFirst();
 
         return searchItem.orElse(null);
     }

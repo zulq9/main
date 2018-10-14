@@ -57,7 +57,24 @@ public class Sale {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Sale)) {
+            return false;
+        }
+
+        Sale otherSale = (Sale) other;
+        return otherSale.getSaleID().equals(getSaleID())
+                && otherSale.getSaleQuantity().equals(getSaleQuantity())
+                && otherSale.getItem().equals(getItem())
+                && otherSale.getSaleDate().equals(getSaleDate());
+    }
+
+    @Override
     public String toString() {
-        return getSaleID() + ": " + getSaleDate().toString() + " " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
+        return getSaleID() + ": [" + getSaleDate().toString() + "] " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
     }
 }

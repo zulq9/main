@@ -34,7 +34,8 @@ public class StorageManagerTest {
     public void setUp() {
         XmlInventoryStorage addressBookStorage = new XmlInventoryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        XmlSaleListStorage saleListStorage = new XmlSaleListStorage();
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, saleListStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -78,7 +79,7 @@ public class StorageManagerTest {
     public void handleInventoryChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
+                                             new JsonUserPrefsStorage(Paths.get("dummy")), new XmlSaleListStorage());
         storage.handleAddressBookChangedEvent(new InventoryChangedEvent(new Inventory()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }

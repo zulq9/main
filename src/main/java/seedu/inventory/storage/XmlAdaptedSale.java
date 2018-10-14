@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.*;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
@@ -21,7 +23,6 @@ import seedu.inventory.model.tag.Tag;
  */
 public class XmlAdaptedSale {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Sale's %s field is missing!";
     public static final String MISSING_ITEM = "Sale item cannot be found!";
 
     @XmlElement(required = true)
@@ -33,8 +34,6 @@ public class XmlAdaptedSale {
     @XmlElement(required = true)
     private String saleDate;
 
-    private UniqueItemList inventory;
-
     /**
      * Constructs an XmlAdaptedSale.
      * This is the no-arg constructor that is required by JAXB.
@@ -44,12 +43,11 @@ public class XmlAdaptedSale {
     /**
      * Constructs an {@code XmlAdaptedSale} with the given item details.
      */
-    public XmlAdaptedSale(String saleID, String saleSku, String saleQuantity, String saleDate, UniqueItemList inventory) {
+    public XmlAdaptedSale(String saleID, String saleSku, String saleQuantity, String saleDate) {
         this.saleID = saleID;
         this.saleSku = saleSku;
         this.saleQuantity = saleQuantity;
         this.saleDate = saleDate;
-        this.inventory = inventory;
     }
 
     /**
@@ -69,9 +67,9 @@ public class XmlAdaptedSale {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted sale
      */
-    public Sale toModelType() throws IllegalValueException {
+    public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
         if (saleID == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(SaleID.MESSAGE_ID_CONSTRAINTS);
         }
 
         if (!SaleID.isValidSaleID(saleID)) {
@@ -79,25 +77,29 @@ public class XmlAdaptedSale {
         }
 
         if (saleSku == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
 
         if (!Sku.isValidSku(saleSku)) {
             throw new IllegalValueException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
 
-        Item modelsSaleItem = inventory.getItemBySku(saleSku);
+        Item modelSaleItem;
 
-        if (modelsSaleItem == null) {
+        try {
+            modelSaleItem = inventory.getItemBySku(saleSku);
+
+            if (modelSaleItem == null) {
+                throw new IllegalValueException(MISSING_ITEM);
+            }
+        } catch(NullPointerException e) {
             throw new IllegalValueException(MISSING_ITEM);
         }
 
         final SaleID modelSaleID = new SaleID(saleID);
 
         if (saleQuantity == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName())
-            );
+            throw new IllegalValueException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
         }
 
         if (!Quantity.isValidQuantity(saleQuantity)) {
@@ -107,7 +109,7 @@ public class XmlAdaptedSale {
         final Quantity modelQuantity = new Quantity(saleQuantity);
 
         if (saleDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sku.class.getSimpleName()));
+            throw new IllegalValueException(SaleDate.MESSAGE_DATE_CONSTRAINTS);
         }
 
         if (!SaleDate.isValidSaleDate(saleDate)) {
@@ -116,7 +118,7 @@ public class XmlAdaptedSale {
 
         final SaleDate modelSaleDate = new SaleDate(saleDate);
 
-        return new Sale(modelSaleID, modelsSaleItem, modelQuantity, modelSaleDate);
+        return new Sale(modelSaleID, modelSaleItem, modelQuantity, modelSaleDate);
     }
 
     @Override

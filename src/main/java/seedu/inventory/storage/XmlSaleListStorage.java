@@ -1,6 +1,7 @@
 package seedu.inventory.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,17 +43,17 @@ public class XmlSaleListStorage implements SaleListStorage {
      */
     public Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory) throws
             DataConversionException, FileNotFoundException {
-        requireNonNull(filePath);
+        requireAllNonNull(filePath, inventory);
 
         if (!Files.exists(filePath)) {
             logger.info("Sale List file " + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableSaleList xmlSaleList = XmlFileStorage.loadSaleListFromSaveFile(filePath, inventory);
+        XmlSerializableSaleList xmlSaleList = XmlFileStorage.loadSaleListFromSaveFile(filePath);
 
         try {
-            return Optional.of(xmlSaleList.toModelType());
+            return Optional.of(xmlSaleList.toModelType(inventory));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -72,6 +73,7 @@ public class XmlSaleListStorage implements SaleListStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
+
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableSaleList(saleList));
     }
 
