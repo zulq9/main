@@ -1,15 +1,16 @@
 package seedu.inventory.model.sale;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.testutil.Assert;
 import seedu.inventory.testutil.TypicalItems;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class SaleTest {
     private static SaleId saleId = new SaleId("1");
@@ -22,7 +23,8 @@ public class SaleTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Sale(null,null, null, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Sale(null,
+                null, null, null));
     }
 
     @Test
@@ -32,7 +34,7 @@ public class SaleTest {
     }
 
     @Test
-    public void isValidSaleID() {
+    public void isValidSaleId() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         String expectedString = "1";

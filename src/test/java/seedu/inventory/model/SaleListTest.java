@@ -23,11 +23,12 @@ public class SaleListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final SaleList saleList = new SaleList();
     private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
+
+    private final SaleList saleList = new SaleList();
 
     @Test
     public void constructor() {
@@ -80,23 +81,23 @@ public class SaleListTest {
     }
 
     @Test
-    public void geNextSaleID_correctNextID() {
+    public void geNextSaleId_correctNextId() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
-        String expectedID = "2";
+        String expectedId = "2";
 
-        assertEquals(saleList.getNextSaleId(), expectedID);
+        assertEquals(saleList.getNextSaleId(), expectedId);
     }
 
     @Test
-    public void geNextSaleID_incorrectNextID() {
+    public void geNextSaleId_incorrectNextId() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
-        String wrongID = "1";
+        String wrongId = "1";
 
-        assertNotEquals(saleList.getNextSaleId(), wrongID);
+        assertNotEquals(saleList.getNextSaleId(), wrongId);
     }
 
 }

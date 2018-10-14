@@ -23,6 +23,7 @@ public class UniqueSaleListTest {
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
+
     private final UniqueSaleList uniqueSaleList = new UniqueSaleList();
 
     @Rule

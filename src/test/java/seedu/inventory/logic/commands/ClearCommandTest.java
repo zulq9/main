@@ -6,7 +6,11 @@ import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 import org.junit.Test;
 
 import seedu.inventory.logic.CommandHistory;
-import seedu.inventory.model.*;
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.Model;
+import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.UserPrefs;
 
 public class ClearCommandTest {
 

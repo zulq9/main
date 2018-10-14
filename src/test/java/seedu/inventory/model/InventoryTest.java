@@ -107,7 +107,9 @@ public class InventoryTest {
         }
 
         @Override
-        public Item getItemBySku(String sku) { return null; }
+        public Item getItemBySku(String sku) {
+            return null;
+        }
     }
 
 }

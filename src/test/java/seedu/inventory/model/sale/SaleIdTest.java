@@ -24,7 +24,7 @@ public class SaleIdTest {
     }
 
     @Test
-    public void isValidSaleID() {
+    public void isValidSaleId() {
         // null sale ID
         Assert.assertThrows(NullPointerException.class, () -> SaleId.isValidSaleId(null));
     }
