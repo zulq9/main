@@ -23,7 +23,7 @@ public class SaleListTest {
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
     private static SaleId saleId = new SaleId("1");
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
