@@ -42,11 +42,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyInventory getSampleInventory() {
-        Inventory sampleAb = new Inventory();
+        Inventory sampleInventory = new Inventory();
         for (Item sampleItem : getSampleItems()) {
-            sampleAb.addItem(sampleItem);
+            sampleInventory.addItem(sampleItem);
         }
-        return sampleAb;
+        return sampleInventory;
     }
 
     /**

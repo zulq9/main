@@ -36,7 +36,7 @@ public class FindCommandSystemTest extends InventorySystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where item list is displaying the items we are finding
-         * -> 2 persons found
+         * -> 2 items found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
         assertCommandSuccess(command, expectedModel);
@@ -81,7 +81,7 @@ public class FindCommandSystemTest extends InventorySystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same items in inventory book after deleting 1 of them -> 1 item found */
+        /* Case: find same items in inventory after deleting 1 of them -> 1 item found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getInventory().getItemList().contains(SAMSUNGNOTE));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
@@ -107,7 +107,7 @@ public class FindCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find item not in inventory -> 0 persons found */
+        /* Case: find item not in inventory -> 0 items found */
         command = FindCommand.COMMAND_WORD + " Windows";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -134,16 +134,16 @@ public class FindCommandSystemTest extends InventorySystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find while a item is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(LG.getName().fullName));
+        showAllItems();
+        selectItem(Index.fromOneBased(1));
+        assertFalse(getItemListPanel().getHandleToSelectedCard().getName().equals(LG.getName().fullName));
         command = FindCommand.COMMAND_WORD + " LG";
         ModelHelper.setFilteredList(expectedModel, LG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find item in empty inventory book -> 0 items found */
-        deleteAllPersons();
+        /* Case: find item in empty inventory -> 0 items found */
+        deleteAllItems();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, SAMSUNG);

@@ -14,17 +14,17 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import seedu.inventory.MainApp;
-import seedu.inventory.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
-    private PersonPanelSelectionChangedEvent selectionChangedEventStub;
+    private ItemPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(IPHONE);
+        selectionChangedEventStub = new ItemPanelSelectionChangedEvent(IPHONE);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -40,10 +40,10 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a item
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+        URL expectedItemUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
                 + IPHONE.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedItemUrl, browserPanelHandle.getLoadedUrl());
     }
 }

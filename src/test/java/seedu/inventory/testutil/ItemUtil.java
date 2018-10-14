@@ -23,13 +23,13 @@ public class ItemUtil {
      * Returns an add command string for adding the {@code item}.
      */
     public static String getAddCommand(Item item) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(item);
+        return AddCommand.COMMAND_WORD + " " + getItemDetails(item);
     }
 
     /**
      * Returns the part of command string for the given {@code item}'s details.
      */
-    public static String getPersonDetails(Item item) {
+    public static String getItemDetails(Item item) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + item.getName().fullName + " ");
         sb.append(PREFIX_PRICE + item.getPrice().value + " ");
@@ -45,12 +45,13 @@ public class ItemUtil {
     /**
      * Returns the part of command string for the given {@code EditItemDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditItemDescriptor descriptor) {
+    public static String getEditItemDescriptorDetails(EditItemDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getQuantity().ifPresent(phone -> sb.append(PREFIX_QUANTITY).append(phone.value).append(" "));
-        descriptor.getSku().ifPresent(email -> sb.append(PREFIX_SKU).append(email.value).append(" "));
-        descriptor.getImage().ifPresent(address -> sb.append(PREFIX_IMAGE).append(address.value).append(" "));
+        descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
+        descriptor.getQuantity().ifPresent(quantity -> sb.append(PREFIX_QUANTITY).append(quantity.value).append(" "));
+        descriptor.getSku().ifPresent(sku -> sb.append(PREFIX_SKU).append(sku.value).append(" "));
+        descriptor.getImage().ifPresent(image -> sb.append(PREFIX_IMAGE).append(image.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

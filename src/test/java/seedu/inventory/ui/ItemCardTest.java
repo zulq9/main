@@ -3,11 +3,11 @@ package seedu.inventory.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysItem;
 
+import guitests.guihandles.ItemCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.ItemBuilder;
 
@@ -61,12 +61,12 @@ public class ItemCardTest extends GuiUnitTest {
     private void assertCardDisplay(ItemCard itemCard, Item expectedItem, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(itemCard.getRoot());
+        ItemCardHandle itemCardHandle = new ItemCardHandle(itemCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", itemCardHandle.getId());
 
         // verify item details are displayed correctly
-        assertCardDisplaysPerson(expectedItem, personCardHandle);
+        assertCardDisplaysItem(expectedItem, itemCardHandle);
     }
 }

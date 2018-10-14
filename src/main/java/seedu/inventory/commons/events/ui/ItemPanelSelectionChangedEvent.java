@@ -6,12 +6,12 @@ import seedu.inventory.model.item.Item;
 /**
  * Represents a selection change in the Item List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class ItemPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Item newSelection;
 
-    public PersonPanelSelectionChangedEvent(Item newSelection) {
+    public ItemPanelSelectionChangedEvent(Item newSelection) {
         this.newSelection = newSelection;
     }
 

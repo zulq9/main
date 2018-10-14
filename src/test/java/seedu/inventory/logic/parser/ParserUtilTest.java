@@ -177,9 +177,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseSku_validValueWithWhitespace_returnsTrimmedSku() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
+        String skuWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
         Sku expectedSku = new Sku(VALID_SKU);
-        assertEquals(expectedSku, ParserUtil.parseSku(emailWithWhitespace));
+        assertEquals(expectedSku, ParserUtil.parseSku(skuWithWhitespace));
     }
 
     @Test

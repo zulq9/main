@@ -57,7 +57,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add an item without tags to a non-empty inventory book, command with leading spaces and trailing spaces
+        /* Case: add an item without tags to a non-empty inventory list, command with leading spaces and trailing spaces
          * -> added
          */
         Item toAdd = OPPO;
@@ -76,15 +76,15 @@ public class AddCommandSystemTest extends InventorySystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a item with all fields same as another item in the inventory book except phone and email
+        /* Case: add a item with all fields same as another item in the inventory book except quantity and SKU
          * -> added
          */
         toAdd = new ItemBuilder(OPPO).withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty inventory book -> added */
-        deleteAllPersons();
+        /* Case: add to empty inventory list -> added */
+        deleteAllItems();
         assertCommandSuccess(IPHONE);
 
         /* Case: add a item with tags, command with parameters in random order -> added */
@@ -99,13 +99,13 @@ public class AddCommandSystemTest extends InventorySystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the item list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         assertCommandSuccess(XIAOMI);
 
         /* ------------------------ Perform add operation while a item card is selected --------------------------- */
 
         /* Case: selects first card in the item list, add a item -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectItem(Index.fromOneBased(1));
         assertCommandSuccess(GOOGLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -114,17 +114,17 @@ public class AddCommandSystemTest extends InventorySystemTest {
         command = ItemUtil.getAddCommand(NOKIA);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: add a duplicate item except with different phone -> rejected */
+        /* Case: add a duplicate item except with different quantity -> rejected */
         toAdd = new ItemBuilder(NOKIA).withQuantity(VALID_QUANTITY_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: add a duplicate item except with different email -> rejected */
+        /* Case: add a duplicate item except with different SKU -> rejected */
         toAdd = new ItemBuilder(NOKIA).withSku(VALID_SKU_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
-        /* Case: add a duplicate item except with different inventory -> rejected */
+        /* Case: add a duplicate item except with different image -> rejected */
         toAdd = new ItemBuilder(NOKIA).withImage(VALID_IMAGE_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
@@ -134,23 +134,27 @@ public class AddCommandSystemTest extends InventorySystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        command = AddCommand.COMMAND_WORD + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        /* Case: missing price -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO;
+        /* Case: missing quantity -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing inventory -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO;
+        /* Case: missing SKU -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing image -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + ItemUtil.getPersonDetails(toAdd);
+        command = "adds " + ItemUtil.getItemDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */

@@ -50,7 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane itemListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         itemListPanel = new ItemListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+        itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

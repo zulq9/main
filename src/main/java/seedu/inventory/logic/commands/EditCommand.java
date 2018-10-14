@@ -233,6 +233,7 @@ public class EditCommand extends Command {
             EditItemDescriptor e = (EditItemDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getPrice().equals(e.getPrice())
                     && getQuantity().equals(e.getQuantity())
                     && getSku().equals(e.getSku())
                     && getImage().equals(e.getImage())

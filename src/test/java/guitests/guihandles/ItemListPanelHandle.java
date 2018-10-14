@@ -11,24 +11,24 @@ import seedu.inventory.model.item.Item;
 /**
  * Provides a handle for {@code ItemListPanel} containing the list of {@code ItemCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class ItemListPanelHandle extends NodeHandle<ListView<Item>> {
+    public static final String ITEM_LIST_VIEW_ID = "#itemListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Item> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Item> personListPanelNode) {
-        super(personListPanelNode);
+    public ItemListPanelHandle(ListView<Item> itemListPanelNode) {
+        super(itemListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code ItemCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public ItemCardHandle getHandleToSelectedCard() {
         List<Item> selectedItemList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItemList.size() != 1) {
@@ -36,7 +36,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(ItemCardHandle::new)
                 .filter(handle -> handle.equals(selectedItemList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -101,9 +101,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
      * Returns the item card handle of a item associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public ItemCardHandle getItemCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(ItemCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -125,7 +125,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
     /**
      * Remembers the selected {@code ItemCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedItemCard() {
         List<Item> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
@@ -137,9 +137,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Item>> {
 
     /**
      * Returns true if the selected {@code ItemCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedItemCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedItemCardChanged() {
         List<Item> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {

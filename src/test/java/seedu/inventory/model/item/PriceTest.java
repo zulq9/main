@@ -25,7 +25,7 @@ public class PriceTest {
         // null price
         Assert.assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
-        // invalid quantities
+        // invalid prices
         assertFalse(Price.isValidPrice("")); // empty string
         assertFalse(Price.isValidPrice(" ")); // spaces only
         assertFalse(Price.isValidPrice("price")); // non-numeric
@@ -38,7 +38,7 @@ public class PriceTest {
         assertFalse(Price.isValidPrice("123.123")); // more than two digits after decimal point
         assertFalse(Price.isValidPrice("123456789.123")); // too many digits before/after decimal point
 
-        // valid quantities
+        // valid prices
         assertTrue(Price.isValidPrice("9")); // less than 3 numbers
         assertTrue(Price.isValidPrice("91")); // less than 3 numbers
         assertTrue(Price.isValidPrice("911")); // exactly 3 numbers

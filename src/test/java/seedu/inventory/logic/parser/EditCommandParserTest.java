@@ -82,15 +82,15 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_QUANTITY_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_SKU_DESC, Sku.MESSAGE_SKU_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_IMAGE_DESC, Image.MESSAGE_IMAGE_CONSTRAINTS); // invalid inventory
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_QUANTITY_CONSTRAINTS); // invalid quantity
+        assertParseFailure(parser, "1" + INVALID_SKU_DESC, Sku.MESSAGE_SKU_CONSTRAINTS); // invalid SKU
+        assertParseFailure(parser, "1" + INVALID_IMAGE_DESC, Image.MESSAGE_IMAGE_CONSTRAINTS); // invalid image
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
-        // invalid phone followed by valid email
+        // invalid quantity followed by valid SKU
         assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC + SKU_DESC_OPPO, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid quantity followed by invalid quantity. The test case for invalid quantity followed by valid quantity
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + QUANTITY_DESC_SONY + INVALID_QUANTITY_DESC,
                 Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
@@ -144,19 +144,19 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // quantity
         userInput = targetIndex.getOneBased() + QUANTITY_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
+        // SKU
         userInput = targetIndex.getOneBased() + SKU_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withSku(VALID_SKU_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // inventory
+        // image
         userInput = targetIndex.getOneBased() + IMAGE_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withImage(VALID_IMAGE_OPPO).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

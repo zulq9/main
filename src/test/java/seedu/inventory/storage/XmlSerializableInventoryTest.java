@@ -17,33 +17,33 @@ import seedu.inventory.testutil.TypicalItems;
 public class XmlSerializableInventoryTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableInventoryTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalItemsInventory.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidItemInventory.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateItemInventory.xml");
+    private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemsInventory.xml");
+    private static final Path INVALID_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidItemInventory.xml");
+    private static final Path DUPLICATE_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateItemInventory.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+    public void toModelType_typicalItemsFile_success() throws Exception {
+        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(TYPICAL_ITEMS_FILE,
                 XmlSerializableInventory.class);
         Inventory inventoryFromFile = dataFromFile.toModelType();
-        Inventory typicalPersonsInventory = TypicalItems.getTypicalInventory();
-        assertEquals(inventoryFromFile, typicalPersonsInventory);
+        Inventory typicalItemsInventory = TypicalItems.getTypicalInventory();
+        assertEquals(inventoryFromFile, typicalItemsInventory);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+    public void toModelType_invalidItemFile_throwsIllegalValueException() throws Exception {
+        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(INVALID_ITEM_FILE,
                 XmlSerializableInventory.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
+    public void toModelType_duplicateItems_throwsIllegalValueException() throws Exception {
+        XmlSerializableInventory dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_ITEM_FILE,
                 XmlSerializableInventory.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableInventory.MESSAGE_DUPLICATE_ITEM);

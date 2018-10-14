@@ -104,7 +104,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the inventory book and the filtered item list in the {@code actualModel} remain unchanged <br>
+     * - the inventory and the filtered item list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -129,7 +129,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the item at the given {@code targetIndex} in the
-     * {@code model}'s inventory book.
+     * {@code model}'s inventory.
      */
     public static void showItemAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList().size());
@@ -142,7 +142,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first item in {@code model}'s filtered list from {@code model}'s inventory book.
+     * Deletes the first item in {@code model}'s filtered list from {@code model}'s inventory.
      */
     public static void deleteFirstItem(Model model) {
         Item firstItem = model.getFilteredItemList().get(0);

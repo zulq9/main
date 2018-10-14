@@ -74,7 +74,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_OPPO
                 + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
 
-        // multiple addresses - last inventory accepted
+        // multiple images - last inventory accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
                 + IMAGE_DESC_OPPO + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
 

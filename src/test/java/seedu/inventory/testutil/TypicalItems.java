@@ -64,14 +64,14 @@ public class TypicalItems {
     private TypicalItems() {} // prevents instantiation
 
     /**
-     * Returns an {@code Inventory} with all the typical persons.
+     * Returns an {@code Inventory} with all the typical items.
      */
     public static Inventory getTypicalInventory() {
-        Inventory ab = new Inventory();
+        Inventory inventory = new Inventory();
         for (Item item : getTypicalItems()) {
-            ab.addItem(item);
+            inventory.addItem(item);
         }
-        return ab;
+        return inventory;
     }
 
     public static List<Item> getTypicalItems() {

@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, INDEX_FIRST_ITEM);
 
         /* Case: select the last card in the item list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index itemCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + itemCount.getOneBased();
+        assertCommandSuccess(command, itemCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -54,14 +54,14 @@ public class SelectCommandSystemTest extends InventorySystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered item list, select index within bounds of inventory book but out of bounds of item list
+        /* Case: filtered item list, select index within bounds of inventory but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
-        /* Case: filtered item list, select index within bounds of inventory book and item list -> selected */
+        /* Case: filtered item list, select index within bounds of inventory and item list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredItemList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -92,8 +92,8 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty inventory book -> rejected */
-        deleteAllPersons();
+        /* Case: select from empty inventory -> rejected */
+        deleteAllItems();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
                 MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -116,7 +116,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_ITEM_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getItemListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

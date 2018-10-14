@@ -115,8 +115,8 @@ public class EditCommandSystemTest extends InventorySystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered item list, edit index within bounds of inventory book and item list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        /* Case: filtered item list, edit index within bounds of inventory and item list -> edited */
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         index = INDEX_FIRST_ITEM;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_SONY;
@@ -124,10 +124,10 @@ public class EditCommandSystemTest extends InventorySystemTest {
         editedItem = new ItemBuilder(itemToEdit).withName(VALID_NAME_SONY).build();
         assertCommandSuccess(command, index, editedItem);
 
-        /* Case: filtered item list, edit index within bounds of inventory book but out of bounds of item list
+        /* Case: filtered item list, edit index within bounds of inventory but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -137,9 +137,9 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* Case: selects first card in the item list, edit a item -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllItems();
         index = INDEX_FIRST_ITEM;
-        selectPerson(index);
+        selectItem(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_OPPO
                 + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO + TAG_DESC_GADGET;
         // this can be misleading: card selection actually remains unchanged but the

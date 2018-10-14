@@ -14,6 +14,11 @@ public class Price {
             "Price should only contain numbers and/or a decimal point, and it should be at least 1 digit long. "
             + "Price can only contain a maximum of 8 digits before the decimal point, "
             + "and 2 digits after the decimal point.";
+
+    /*
+     * The first character of the item's price must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
     public static final String PRICE_VALIDATION_REGEX = "^\\d{1,8}(\\.\\d{1,2})?$";
     public final String value;
 
