@@ -19,13 +19,13 @@ import seedu.inventory.model.sale.exceptions.SaleNotFoundException;
 import seedu.inventory.testutil.TypicalItems;
 
 public class UniqueSaleListTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private final UniqueSaleList uniqueSaleList = new UniqueSaleList();
 
