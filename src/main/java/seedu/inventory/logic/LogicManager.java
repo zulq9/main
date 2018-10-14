@@ -12,6 +12,7 @@ import seedu.inventory.logic.parser.InventoryParser;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * The main LogicManager of the app.
@@ -41,8 +42,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Item> getFilteredPersonList() {
+    public ObservableList<Item> getFilteredItemList() {
         return model.getFilteredItemList();
+    }
+
+    @Override
+    public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
+        return model.getFilteredPurchaseOrderList();
     }
 
     @Override

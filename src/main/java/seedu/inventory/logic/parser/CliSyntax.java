@@ -5,11 +5,16 @@ package seedu.inventory.logic.parser;
  */
 public class CliSyntax {
 
-    /* Prefix definitions */
+    /* Item prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
     public static final Prefix PREFIX_SKU = new Prefix("s/");
     public static final Prefix PREFIX_IMAGE = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+
+    /* Purchase order prefix definitions */
+    public static final Prefix PREFIX_REQDATE = new Prefix("d/");
+    public static final Prefix PREFIX_SUPPLIER = new Prefix("sp/");
+    public static final Prefix PREFIX_STATUS = new Prefix("st/");
 
 }

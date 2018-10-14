@@ -19,7 +19,10 @@ import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
+import seedu.inventory.logic.parser.purchaseorder.GeneratePurchaseOrderCommandParser;
 
 /**
  * Parses user input.
@@ -83,6 +86,12 @@ public class InventoryParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ListPurchaseOrderCommand.COMMAND_WORD:
+            return new ListPurchaseOrderCommand();
+
+        case GeneratePurchaseOrderCommand.COMMAND_WORD:
+            return new GeneratePurchaseOrderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
