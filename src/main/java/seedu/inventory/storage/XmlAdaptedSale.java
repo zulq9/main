@@ -21,7 +21,7 @@ public class XmlAdaptedSale {
     public static final String MISSING_ITEM = "Sale item cannot be found!";
 
     @XmlElement(required = true)
-    private String saleID;
+    private String saleId;
     @XmlElement(required = true)
     private String saleSku;
     @XmlElement(required = true)
@@ -38,8 +38,8 @@ public class XmlAdaptedSale {
     /**
      * Constructs an {@code XmlAdaptedSale} with the given item details.
      */
-    public XmlAdaptedSale(String saleID, String saleSku, String saleQuantity, String saleDate) {
-        this.saleID = saleID;
+    public XmlAdaptedSale(String saleId, String saleSku, String saleQuantity, String saleDate) {
+        this.saleId = saleId;
         this.saleSku = saleSku;
         this.saleQuantity = saleQuantity;
         this.saleDate = saleDate;
@@ -51,7 +51,7 @@ public class XmlAdaptedSale {
      * @param source future changes to this will not affect the created XmlAdaptedSale
      */
     public XmlAdaptedSale(Sale source) {
-        saleID = source.getSaleId().toString();
+        saleId = source.getSaleId().toString();
         saleSku = source.getItem().getSku().toString();
         saleQuantity = source.getSaleQuantity().toString();
         saleDate = source.getSaleDate().toString();
@@ -63,11 +63,11 @@ public class XmlAdaptedSale {
      * @throws IllegalValueException if there were any data constraints violated in the adapted sale
      */
     public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
-        if (saleID == null) {
+        if (saleId == null) {
             throw new IllegalValueException(SaleId.MESSAGE_ID_CONSTRAINTS);
         }
 
-        if (!SaleId.isValidSaleId(saleID)) {
+        if (!SaleId.isValidSaleId(saleId)) {
             throw new IllegalValueException(SaleId.MESSAGE_ID_CONSTRAINTS);
         }
 
@@ -91,7 +91,7 @@ public class XmlAdaptedSale {
             throw new IllegalValueException(MISSING_ITEM);
         }
 
-        final SaleId modelSaleId = new SaleId(saleID);
+        final SaleId modelSaleId = new SaleId(saleId);
 
         if (saleQuantity == null) {
             throw new IllegalValueException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
@@ -127,7 +127,7 @@ public class XmlAdaptedSale {
         }
 
         XmlAdaptedSale otherItem = (XmlAdaptedSale) other;
-        return Objects.equals(saleID, otherItem.saleID)
+        return Objects.equals(saleId, otherItem.saleId)
                 && Objects.equals(saleQuantity, otherItem.saleQuantity)
                 && Objects.equals(saleDate, otherItem.saleDate);
     }

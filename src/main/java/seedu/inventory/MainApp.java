@@ -114,8 +114,8 @@ public class MainApp extends Application {
 
             readOnlySaleList = new SaleList();
         } catch (DataConversionException e) {
-            logger.warning("Data file for sale list not in the correct format." +
-                    " Will be starting with an empty sale list");
+            logger.warning("Data file for sale list not in the correct format."
+                    + " Will be starting with an empty sale list");
 
             readOnlySaleList = new SaleList();
         } catch (IOException e) {

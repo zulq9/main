@@ -81,7 +81,7 @@ public class UniqueSaleList implements Iterable<Sale> {
     /**
      * Get next available sale ID
      */
-    public String getNextSaleID() {
+    public String getNextSaleId() {
         if (internalList.isEmpty()) {
             return "1";
         }

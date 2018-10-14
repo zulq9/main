@@ -2,8 +2,8 @@ package seedu.inventory.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
