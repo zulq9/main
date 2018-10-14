@@ -18,7 +18,15 @@ public class Staff {
      * This is a enum for staff's role.
      */
     public enum Role {
-        admin, manager, user
+        admin, manager, user;
+
+        public static Role role(String token) {
+            return Role.valueOf(token);
+        }
+
+        public static String token(Role t) {
+            return t.name();
+        }
     }
 
     /**
