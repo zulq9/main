@@ -1,22 +1,17 @@
 package seedu.inventory.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.item.*;
+import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
-import seedu.inventory.model.tag.Tag;
+import seedu.inventory.model.sale.SaleId;
 
 /**
  * JAXB-friendly version of the Sale.
@@ -56,7 +51,7 @@ public class XmlAdaptedSale {
      * @param source future changes to this will not affect the created XmlAdaptedSale
      */
     public XmlAdaptedSale(Sale source) {
-        saleID = source.getSaleID().toString();
+        saleID = source.getSaleId().toString();
         saleSku = source.getItem().getSku().toString();
         saleQuantity = source.getSaleQuantity().toString();
         saleDate = source.getSaleDate().toString();
@@ -69,11 +64,11 @@ public class XmlAdaptedSale {
      */
     public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
         if (saleID == null) {
-            throw new IllegalValueException(SaleID.MESSAGE_ID_CONSTRAINTS);
+            throw new IllegalValueException(SaleId.MESSAGE_ID_CONSTRAINTS);
         }
 
-        if (!SaleID.isValidSaleID(saleID)) {
-            throw new IllegalValueException(SaleID.MESSAGE_ID_CONSTRAINTS);
+        if (!SaleId.isValidSaleId(saleID)) {
+            throw new IllegalValueException(SaleId.MESSAGE_ID_CONSTRAINTS);
         }
 
         if (saleSku == null) {
@@ -92,11 +87,11 @@ public class XmlAdaptedSale {
             if (modelSaleItem == null) {
                 throw new IllegalValueException(MISSING_ITEM);
             }
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new IllegalValueException(MISSING_ITEM);
         }
 
-        final SaleID modelSaleID = new SaleID(saleID);
+        final SaleId modelSaleId = new SaleId(saleID);
 
         if (saleQuantity == null) {
             throw new IllegalValueException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
@@ -118,7 +113,7 @@ public class XmlAdaptedSale {
 
         final SaleDate modelSaleDate = new SaleDate(saleDate);
 
-        return new Sale(modelSaleID, modelSaleItem, modelQuantity, modelSaleDate);
+        return new Sale(modelSaleId, modelSaleItem, modelQuantity, modelSaleDate);
     }
 
     @Override

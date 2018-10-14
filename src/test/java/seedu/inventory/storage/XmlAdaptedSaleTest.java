@@ -11,7 +11,7 @@ import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
+import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.Assert;
 import seedu.inventory.testutil.TypicalItems;
 
@@ -28,14 +28,14 @@ public class XmlAdaptedSaleTest {
 
     private static final String NOT_FOUND_SKU = "ABCDEFG";
 
-    private static SaleID saleID = new SaleID("1");
+    private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
 
     @Test
     public void toModelType_validSaleDetails_returnsSale() throws Exception {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         Inventory inventory = new Inventory();
         inventory.addItem(item);
@@ -52,7 +52,7 @@ public class XmlAdaptedSaleTest {
 
         XmlAdaptedSale adaptedSale =
                 new XmlAdaptedSale(INVALID_SALEID, VALID_SALESKU, VALID_SALEQUANTITY, VALID_SALEDATE);
-        String expectedMessage = SaleID.MESSAGE_ID_CONSTRAINTS;
+        String expectedMessage = SaleId.MESSAGE_ID_CONSTRAINTS;
 
         Assert.assertThrows(IllegalValueException.class, expectedMessage, () -> adaptedSale.toModelType(inventory));
     }
@@ -64,7 +64,7 @@ public class XmlAdaptedSaleTest {
 
         XmlAdaptedSale adaptedSale =
                 new XmlAdaptedSale(null, VALID_SALESKU, VALID_SALEQUANTITY, VALID_SALEDATE);
-        String expectedMessage = SaleID.MESSAGE_ID_CONSTRAINTS;
+        String expectedMessage = SaleId.MESSAGE_ID_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, () -> adaptedSale.toModelType(inventory));
     }
 

@@ -2,13 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.inventory.testutil.TypicalItems.IPHONE;
-import static seedu.inventory.testutil.TypicalItems.NOKIA;
-import static seedu.inventory.testutil.TypicalItems.XIAOMI;
-import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,10 +19,9 @@ import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
-import seedu.inventory.model.item.UniqueItemList;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
+import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.TypicalItems;
 
 public class XmlSaleListStorageTest {
@@ -97,8 +90,8 @@ public class XmlSaleListStorageTest {
         Path filePath = testFolder.getRoot().toPath().resolve("TempSaleList.xml");
         XmlSaleListStorage xmlSaleListStorage = new XmlSaleListStorage();
 
-        Sale sale1 = new Sale(new SaleID(("1")), item, quantity, saleDate);
-        Sale sale2 = new Sale(new SaleID(("2")), item, quantity, saleDate);
+        Sale sale1 = new Sale(new SaleId(("1")), item, quantity, saleDate);
+        Sale sale2 = new Sale(new SaleId(("2")), item, quantity, saleDate);
 
         SaleList saleList = new SaleList();
 

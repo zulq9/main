@@ -17,7 +17,7 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
+import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.TypicalItems;
 
 public class XmlSerializableSaleListTest {
@@ -27,7 +27,7 @@ public class XmlSerializableSaleListTest {
     private static final Path INVALID_SALE_LIST_FILE = TEST_DATA_FOLDER.resolve("invalidSaleList.xml");
     private static final Path DUPLICATE_SALE_LIST_FILE = TEST_DATA_FOLDER.resolve("duplicateSaleList.xml");
 
-    private static SaleID saleID = new SaleID("1");
+    private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
@@ -45,7 +45,7 @@ public class XmlSerializableSaleListTest {
         SaleList saleListFromFile = dataFromFile.toModelType(typicalInventory);
 
         SaleList defaultSaleList = new SaleList();
-        defaultSaleList.addSale(new Sale(saleID, item, quantity, saleDate));
+        defaultSaleList.addSale(new Sale(saleId, item, quantity, saleDate));
 
         assertEquals(saleListFromFile, defaultSaleList);
     }

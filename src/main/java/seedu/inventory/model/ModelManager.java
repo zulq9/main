@@ -18,7 +18,7 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
+import seedu.inventory.model.sale.SaleId;
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -162,7 +162,8 @@ public class ModelManager extends ComponentManager implements Model {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
         Date date = new Date();
 
-        Sale sale = new Sale(new SaleID(saleList.getNextSaleID()), item, quantity, new SaleDate(formatter.format(date)));
+        Sale sale = new Sale(new SaleId(saleList.getNextSaleId()), item, quantity,
+                new SaleDate(formatter.format(date)));
 
         saleList.addSale(sale);
     }

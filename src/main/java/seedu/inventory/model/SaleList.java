@@ -72,7 +72,7 @@ public class SaleList implements ReadOnlySaleList {
     /**
      * Get next available sale ID
      */
-    public String getNextSaleID() {
+    public String getNextSaleId() {
         return uniqueSaleList.getNextSaleID();
     }
 

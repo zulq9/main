@@ -25,7 +25,7 @@ public class XmlSaleListStorage implements SaleListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlSaleListStorage.class);
 
-    private Path filePath = Paths.get("data" , "sale.xml");;
+    private Path filePath = Paths.get("data" , "sale.xml");
 
     public Path getSaleListFilePath() {
         return filePath;

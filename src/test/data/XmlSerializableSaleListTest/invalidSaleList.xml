@@ -2,7 +2,7 @@
 <sales>
     <!-- Sale with invalid sale ID -->
     <sale>
-        <saleID>ABC</saleID>
+        <saleId>ABC</saleId>
         <saleSku>apple-iphone-xr</saleSku>
         <saleQuantity>1</saleQuantity>
         <saleDate>2018-08-01</saleDate>

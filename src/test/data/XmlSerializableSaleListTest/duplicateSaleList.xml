@@ -2,13 +2,13 @@
 <!-- Sale List with duplicate sale -->
 <sales>
     <sale>
-        <saleID>1</saleID>
+        <saleId>1</saleId>
         <saleSku>apple-iphone-xr</saleSku>
         <saleQuantity>1</saleQuantity>
         <saleDate>2018-08-01</saleDate>
     </sale>
     <sale>
-        <saleID>1</saleID>
+        <saleId>1</saleId>
         <saleSku>apple-iphone-xr</saleSku>
         <saleQuantity>1</saleQuantity>
         <saleDate>2018-08-01</saleDate>

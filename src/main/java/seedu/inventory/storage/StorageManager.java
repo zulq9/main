@@ -27,7 +27,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private SaleListStorage saleListStorage;
 
 
-    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage, SaleListStorage saleListStorage) {
+    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
+                          SaleListStorage saleListStorage) {
         super();
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -89,12 +90,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException, IOException {
+    public Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException,
+            IOException {
         return readSaleList(saleListStorage.getSaleListFilePath(), inventory);
     }
 
     @Override
-    public Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory) throws DataConversionException, IOException {
+    public Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return saleListStorage.readSaleList(filePath, inventory);
     }

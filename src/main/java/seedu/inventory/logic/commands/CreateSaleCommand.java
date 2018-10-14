@@ -1,16 +1,19 @@
 package seedu.inventory.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
+
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
-
+/**
+ * Adds a sale to the sale list.
+ */
 public class CreateSaleCommand extends Command {
     public static final String COMMAND_WORD = "createSale";
 

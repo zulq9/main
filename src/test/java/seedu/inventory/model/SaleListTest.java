@@ -15,7 +15,7 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleID;
+import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.TypicalItems;
 
 public class SaleListTest {
@@ -24,7 +24,7 @@ public class SaleListTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final SaleList saleList = new SaleList();
-    private static SaleID saleID = new SaleID("1");
+    private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
@@ -44,7 +44,7 @@ public class SaleListTest {
     public void resetData_withValidReadOnlySale_replacesData() {
         SaleList newData = new SaleList();
 
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         newData.addSale(sale);
 
@@ -60,14 +60,14 @@ public class SaleListTest {
 
     @Test
     public void hasSale_saleNotInSaleList_returnsFalse() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         assertFalse(saleList.hasSale(sale));
     }
 
     @Test
     public void hasSale_saleInSaleList_returnsTrue() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         saleList.addSale(sale);
         assertTrue(saleList.hasSale(sale));
@@ -81,22 +81,22 @@ public class SaleListTest {
 
     @Test
     public void geNextSaleID_correctNextID() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
         String expectedID = "2";
 
-        assertEquals(saleList.getNextSaleID(), expectedID);
+        assertEquals(saleList.getNextSaleId(), expectedID);
     }
 
     @Test
     public void geNextSaleID_incorrectNextID() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
         String wrongID = "1";
 
-        assertNotEquals(saleList.getNextSaleID(), wrongID);
+        assertNotEquals(saleList.getNextSaleId(), wrongID);
     }
 
 }

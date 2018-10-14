@@ -7,24 +7,11 @@ import javax.xml.bind.JAXBException;
 
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.commons.util.XmlUtil;
-import seedu.inventory.model.ReadOnlyInventory;
 
 /**
  * Stores inventory data in an XML file
  */
 public class XmlFileStorage {
-    /**
-     * Saves the given inventory data to the specified file.
-     */
-    public static void saveDataToFile(Path file, XmlSerializableInventory addressBook)
-            throws FileNotFoundException {
-        try {
-            XmlUtil.saveDataToFile(file, addressBook);
-        } catch (JAXBException e) {
-            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
-        }
-    }
-
     /**
      * Returns inventory book in the file or an empty inventory book
      */
@@ -34,6 +21,18 @@ public class XmlFileStorage {
             return XmlUtil.getDataFromFile(file, XmlSerializableInventory.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
+        }
+    }
+
+    /**
+     * Saves the given inventory data to the specified file.
+     */
+    public static void saveDataToFile(Path file, XmlSerializableInventory addressBook)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, addressBook);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 
@@ -50,7 +49,8 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns sale list in the file or an empty sale list     */
+     * Returns sale list in the file or an empty sale list
+     */
     public static XmlSerializableSaleList loadSaleListFromSaveFile(Path file) throws
             DataConversionException, FileNotFoundException {
         try {

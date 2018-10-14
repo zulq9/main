@@ -26,8 +26,8 @@ public class UniqueSaleList implements Iterable<Sale> {
      */
     public boolean contains(Sale toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().map(sales -> sales.getSaleID()).collect(Collectors.toList())
-                .contains(toCheck.getSaleID());
+        return internalList.stream().map(sales -> sales.getSaleId()).collect(Collectors.toList())
+                .contains(toCheck.getSaleId());
     }
 
     /**
@@ -86,11 +86,12 @@ public class UniqueSaleList implements Iterable<Sale> {
             return "1";
         }
 
-        int currentSaleID = internalList.stream().map(sale -> Integer.parseInt(sale.getSaleID().toString())).max(Comparator.comparing(i -> i)).orElse(0);
+        int currentSaleId = internalList.stream().map(sale -> Integer.parseInt(sale.getSaleId().toString()))
+                .max(Comparator.comparing(i -> i)).orElse(0);
 
-        int nextSaleID = currentSaleID + 1;
+        int nextSaleId = currentSaleId + 1;
 
-        return Integer.toString(nextSaleID);
+        return Integer.toString(nextSaleId);
     }
 
     /**
@@ -123,7 +124,7 @@ public class UniqueSaleList implements Iterable<Sale> {
     private boolean salesAreUnique(List<Sale> sales) {
         for (int i = 0; i < sales.size() - 1; i++) {
             for (int j = i + 1; j < sales.size(); j++) {
-                if (sales.get(i).getSaleID().toString().equals(sales.get(j).getSaleID().toString())) {
+                if (sales.get(i).getSaleId().toString().equals(sales.get(j).getSaleId().toString())) {
                     return false;
                 }
             }

@@ -1,9 +1,9 @@
 package seedu.inventory.model.sale;
 
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
-
-import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Sale in the Inventory Manager.
@@ -11,7 +11,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Sale {
 
-    private final SaleID saleID;
+    private final SaleId saleId;
     private final Item item;
     private final Quantity quantity;
     private final SaleDate saleDate;
@@ -19,10 +19,10 @@ public class Sale {
     /**
      * Every field must be present and not null.
      */
-    public Sale(SaleID saleID, Item item, Quantity quantity, SaleDate saleDate) {
-        requireAllNonNull(saleID, item, quantity, saleDate);
+    public Sale(SaleId saleId, Item item, Quantity quantity, SaleDate saleDate) {
+        requireAllNonNull(saleId, item, quantity, saleDate);
 
-        this.saleID = saleID;
+        this.saleId = saleId;
         this.item = item;
         this.quantity = quantity;
         this.saleDate = saleDate;
@@ -31,8 +31,8 @@ public class Sale {
     /**
      * Returns the sale ID.
      */
-    public SaleID getSaleID() {
-        return this.saleID;
+    public SaleId getSaleId() {
+        return this.saleId;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Sale {
         }
 
         Sale otherSale = (Sale) other;
-        return otherSale.getSaleID().equals(getSaleID())
+        return otherSale.getSaleId().equals(getSaleId())
                 && otherSale.getSaleQuantity().equals(getSaleQuantity())
                 && otherSale.getItem().equals(getItem())
                 && otherSale.getSaleDate().equals(getSaleDate());
@@ -75,6 +75,7 @@ public class Sale {
 
     @Override
     public String toString() {
-        return getSaleID() + ": [" + getSaleDate().toString() + "] " + getSaleQuantity().toString() + "x " + getItem().getName().toString();
+        return getSaleId() + ": [" + getSaleDate().toString() + "] " + getSaleQuantity().toString() + "x "
+                + getItem().getName().toString();
     }
 }

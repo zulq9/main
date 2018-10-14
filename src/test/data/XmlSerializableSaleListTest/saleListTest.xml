@@ -2,7 +2,7 @@
 <sales>
 	<!-- Sale List save file which contains the same sale values as in the default test -->
     <sale>
-        <saleID>1</saleID>
+        <saleId>1</saleId>
         <saleSku>apple-iphone-xr</saleSku>
         <saleQuantity>1</saleQuantity>
         <saleDate>2018-08-01</saleDate>

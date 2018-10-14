@@ -19,7 +19,7 @@ import seedu.inventory.model.sale.exceptions.SaleNotFoundException;
 import seedu.inventory.testutil.TypicalItems;
 
 public class UniqueSaleListTest {
-    private static SaleID saleID = new SaleID("1");
+    private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
@@ -36,14 +36,14 @@ public class UniqueSaleListTest {
 
     @Test
     public void contains_saleIDNotInList_returnsFalse() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         assertFalse(uniqueSaleList.contains(sale));
     }
 
     @Test
     public void contains_saleIDInList_returnsTrue() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
 
@@ -58,7 +58,7 @@ public class UniqueSaleListTest {
 
     @Test
     public void add_duplicateSale_throwsDuplicateSaleException() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
         thrown.expect(DuplicateSaleException.class);
@@ -73,7 +73,7 @@ public class UniqueSaleListTest {
 
     @Test
     public void remove_saleDoesNotExist_throwsSaleNotFoundException() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         thrown.expect(SaleNotFoundException.class);
         uniqueSaleList.remove(sale);
@@ -81,7 +81,7 @@ public class UniqueSaleListTest {
 
     @Test
     public void remove_existingSale_removesSale() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
         uniqueSaleList.remove(sale);
@@ -99,12 +99,12 @@ public class UniqueSaleListTest {
 
     @Test
     public void seSales_uniqueSaleList_replacesOwnListWithProvidedUniqueSaleList() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
         UniqueSaleList expectedUniqueSaleList = new UniqueSaleList();
 
-        Sale sale1 = new Sale(new SaleID("2"), item, quantity, saleDate);
+        Sale sale1 = new Sale(new SaleId("2"), item, quantity, saleDate);
 
         expectedUniqueSaleList.add(sale1);
 
@@ -120,11 +120,11 @@ public class UniqueSaleListTest {
 
     @Test
     public void setSales_list_replacesOwnListWithProvidedList() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
 
-        Sale sale1 = new Sale(new SaleID("2"), item, quantity, saleDate);
+        Sale sale1 = new Sale(new SaleId("2"), item, quantity, saleDate);
 
         List<Sale> saleList = Collections.singletonList(sale1);
         uniqueSaleList.setSales(saleList);
@@ -135,7 +135,7 @@ public class UniqueSaleListTest {
 
     @Test
     public void setSales_listWithDuplicateSales_throwsDuplicateSaleException() {
-        Sale sale = new Sale(saleID, item, quantity, saleDate);
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         List<Sale> listWithDuplicateSales = Arrays.asList(sale, sale);
         thrown.expect(DuplicateSaleException.class);

@@ -30,7 +30,8 @@ public interface SaleListStorage {
     /**
      * @see #getSaleListFilePath()
      */
-    Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory) throws DataConversionException, IOException;
+    Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlySaleList} to the storage.
