@@ -36,4 +36,44 @@ public class XmlFileStorage {
         }
     }
 
+    /**
+     * @author darren96
+     */
+
+    /**
+     * Saves the given staff list data to the specified file.
+     *
+     * @param file the file path that data to be saved to
+     * @param staffList the staff list to be saved
+     *
+     * @throws FileNotFoundException if file path provided is not found
+     */
+    public static void saveStaffsDataToFile(Path file, XmlSerializableStaffList staffList)
+        throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, staffList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Returns staff list in the file or an empty staff list.
+     *
+     * @param file the file consists of the staffs data
+     *
+     * @return the staff list which is serializable
+     *
+     * @throws DataConversionException if errors occur during conversion of data
+     * @throws FileNotFoundException if file path provided is not found
+     */
+    public static XmlSerializableStaffList loadStaffsDataFromSaveFile(Path file)
+            throws DataConversionException, FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableStaffList.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
 }

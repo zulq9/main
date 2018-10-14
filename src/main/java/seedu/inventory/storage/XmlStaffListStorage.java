@@ -18,8 +18,8 @@ import seedu.inventory.model.ReadOnlyStaffList;
 /**
  * A class to access StaffStorage data stored as a xml file on the hard disk.
  */
-public class XmlStaffStorage implements StaffStorage {
-    private static final Logger logger = LogsCenter.getLogger(XmlStaffStorage.class);
+public class XmlStaffListStorage implements StaffStorage {
+    private static final Logger logger = LogsCenter.getLogger(XmlStaffListStorage.class);
 
     private Path filePath;
 
@@ -27,7 +27,7 @@ public class XmlStaffStorage implements StaffStorage {
      * Constructs XmlStaffStorage for reading and writing data from the xml file.
      * @param filePath where the data is stored at.
      */
-    public XmlStaffStorage(Path filePath) {
+    public XmlStaffListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -36,7 +36,7 @@ public class XmlStaffStorage implements StaffStorage {
      *
      * @return the file path of the storage for staff list
      */
-    public Path getStaffFilePath() {
+    public Path getStaffListFilePath() {
         return filePath;
     }
 
