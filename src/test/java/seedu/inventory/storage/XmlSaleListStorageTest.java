@@ -45,7 +45,8 @@ public class XmlSaleListStorageTest {
         readSaleList(null, EMPTY_INVENTORY);
     }
 
-    private java.util.Optional<ReadOnlySaleList> readSaleList(String filePath, ReadOnlyInventory inventory) throws Exception {
+    private java.util.Optional<ReadOnlySaleList> readSaleList(String filePath, ReadOnlyInventory inventory)
+            throws Exception {
         return new XmlSaleListStorage().readSaleList(addToTestDataPathIfNotNull(filePath), inventory);
     }
 

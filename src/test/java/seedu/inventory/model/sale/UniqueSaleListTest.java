@@ -19,15 +19,15 @@ import seedu.inventory.model.sale.exceptions.SaleNotFoundException;
 import seedu.inventory.testutil.TypicalItems;
 
 public class UniqueSaleListTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     private static SaleId saleId = new SaleId("1");
     private static Item item = TypicalItems.IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
 
     private final UniqueSaleList uniqueSaleList = new UniqueSaleList();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void contains_nullSale_throwsNullPointerException() {
@@ -36,14 +36,14 @@ public class UniqueSaleListTest {
     }
 
     @Test
-    public void contains_saleIDNotInList_returnsFalse() {
+    public void contains_saleIdNotInList_returnsFalse() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         assertFalse(uniqueSaleList.contains(sale));
     }
 
     @Test
-    public void contains_saleIDInList_returnsTrue() {
+    public void contains_saleIdInList_returnsTrue() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         uniqueSaleList.add(sale);
