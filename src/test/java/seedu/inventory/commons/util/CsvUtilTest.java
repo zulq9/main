@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Rule;
@@ -17,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
 import seedu.inventory.storage.CsvAdaptedData;
+import seedu.inventory.testutil.TestUtil;
 
 public class CsvUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvUtilTest");
@@ -28,6 +30,7 @@ public class CsvUtilTest {
     private static final Path INVALID_DATA_TYPE_FILE = TEST_DATA_FOLDER.resolve("invalidDataType.csv");
     private static final Path INVALID_CONTENT_FILE = TEST_DATA_FOLDER.resolve("invalidContent.csv");
     private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempData.csv");
     private static final CsvAdaptedData DATA_TYPE_TO_TRANSFER = new CsvAdaptedDataStub().getInstance();
 
     @Rule
@@ -186,6 +189,39 @@ public class CsvUtilTest {
 
     }
 
+    @Test
+    public void saveDataToFile_validFile_dataSaved() throws Exception {
+        FileUtil.createFile(TEMP_FILE);
+        CsvAdaptedData dataToWrite = new CsvAdaptedDataStub();
+        CsvUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+        CsvAdaptedData dataFromFile = CsvUtil.getDataFromFile(TEMP_FILE, DATA_TYPE_TO_TRANSFER);
+        assertEquals(dataToWrite, dataFromFile);
+
+        FileUtil.createFile(TEMP_FILE);
+        dataToWrite = CsvUtil.getDataFromFile(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER);
+        CsvUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+        dataFromFile = CsvUtil.getDataFromFile(TEMP_FILE, DATA_TYPE_TO_TRANSFER);
+        assertEquals(dataToWrite, dataFromFile);
+    }
+
+    @Test
+    public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        CsvUtil.saveDataToFile(null, new CsvAdaptedDataStub());
+    }
+
+    @Test
+    public void saveDataToFile_nullClass_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        CsvUtil.saveDataToFile(VALID_TEST_FILE, null);
+    }
+
+    @Test
+    public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
+        thrown.expect(FileNotFoundException.class);
+        CsvUtil.saveDataToFile(MISSING_FILE, new CsvAdaptedDataStub());
+    }
+
 }
 
 class CsvAdaptedDataStub implements CsvAdaptedData {
@@ -198,7 +234,9 @@ class CsvAdaptedDataStub implements CsvAdaptedData {
         this.contents = contents;
     }
 
-    public CsvAdaptedDataStub() {}
+    public CsvAdaptedDataStub() {
+        this.contents = new LinkedList<>();
+    }
 
     @Override
     public List<List<String>> getContents() {
@@ -223,5 +261,13 @@ class CsvAdaptedDataStub implements CsvAdaptedData {
     @Override
     public CsvAdaptedData createInstance(List<List<String>> contents) {
         return new CsvAdaptedDataStub(contents);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CsvAdaptedDataStub)) return false;
+        CsvAdaptedDataStub that = (CsvAdaptedDataStub) o;
+        return contents.equals(that.contents);
     }
 }

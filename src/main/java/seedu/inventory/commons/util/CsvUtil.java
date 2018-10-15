@@ -2,10 +2,7 @@ package seedu.inventory.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -189,5 +186,60 @@ public class CsvUtil {
             content.add(stringStack);
         }
         return content;
+    }
+
+    /**
+     * Saves the data in the file in csv format.
+     *
+     * @param file Points to a csv file address to write data.
+     *             Cannot be null.
+     * @param data The data to be written in the file;
+     *                       Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws IOException           Thrown if there is an error during writing data to the file.
+     */
+    public static <T> void saveDataToFile(Path file, CsvAdaptedData data) throws FileNotFoundException, IOException {
+
+        requireNonNull(file);
+        requireNonNull(data);
+
+        if (!Files.exists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+
+        file.toFile().createNewFile();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file.toFile()));
+
+        String separator = ",";
+        String dataType = data.getDataType();
+        String[] dataFields = data.getDataFields();
+        List<List<String>> contents = data.getContents();
+        int fieldsLength = dataFields.length;
+
+        writer.write(dataType);
+        for(int i = 0; i < fieldsLength - 1; i++){
+            writer.write(separator);
+        }
+        writer.write("\n");
+
+        for(int i = 0; i < fieldsLength - 1; i++){
+            writer.write(dataFields[i] + separator);
+        }
+        writer.write(dataFields[fieldsLength - 1] + "\n");
+
+        for(List<String> content : contents){
+            List<String> csvStandardContent = getCsvStandardContent(content);
+            for(int i = 0; i < fieldsLength - 1; i++){
+                writer.write(csvStandardContent.get(i) + separator);
+            }
+            writer.write(csvStandardContent.get(fieldsLength - 1) + "\n");
+        }
+        writer.flush();
+    }
+
+    public static List<String> getCsvStandardContent(List<String> content){
+        return content.stream()
+                .map(field -> field.contains(",") ? "\"" + field + "\"" : field)
+                .collect(Collectors.toList());
     }
 }
