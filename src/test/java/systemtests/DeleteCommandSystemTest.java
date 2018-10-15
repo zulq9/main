@@ -32,14 +32,14 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         /* Case: delete the first item in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_ITEM.getOneBased() + "       ";
-        Item deletedItem = removePerson(expectedModel, INDEX_FIRST_ITEM);
+        Item deletedItem = removeItem(expectedModel, INDEX_FIRST_ITEM);
         String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last item in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastItemIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastItemIndex);
 
         /* Case: undo deleting the last item in the list -> last item restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,26 +48,26 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
 
         /* Case: redo deleting the last item in the list -> last item deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeItem(modelBeforeDeletingLast, lastItemIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle item in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleItemIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleItemIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered item list, delete index within bounds of inventory book and item list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        /* Case: filtered item list, delete index within bounds of inventory and item list -> deleted */
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         Index index = INDEX_FIRST_ITEM;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered item list, delete index within bounds of inventory book but out of bounds of item list
+        /* Case: filtered item list, delete index within bounds of inventory but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -75,13 +75,13 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
         /* --------------------- Performing delete operation while a item card is selected ------------------------ */
 
         /* Case: delete the selected item -> item list panel selects the item before the deleted item */
-        showAllPersons();
+        showAllItems();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectItem(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedItem = removePerson(expectedModel, selectedIndex);
+        deletedItem = removeItem(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -112,10 +112,10 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
     }
 
     /**
-     * Removes the {@code Item} at the specified {@code index} in {@code model}'s inventory book.
+     * Removes the {@code Item} at the specified {@code index} in {@code model}'s inventory.
      * @return the removed item
      */
-    private Item removePerson(Model model, Index index) {
+    private Item removeItem(Model model, Index index) {
         Item targetItem = getItem(model, index);
         model.deleteItem(targetItem);
         return targetItem;
@@ -128,7 +128,7 @@ public class DeleteCommandSystemTest extends InventorySystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Item deletedItem = removePerson(expectedModel, toDelete);
+        Item deletedItem = removeItem(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
 
         assertCommandSuccess(

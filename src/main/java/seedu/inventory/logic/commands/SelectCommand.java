@@ -14,14 +14,14 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 
 /**
- * Selects a item identified using it's displayed index from the inventory.
+ * Selects an item identified using it's displayed index from the inventory.
  */
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the item identified by the index number used in the displayed item list.\n"
+            + ": Selects the item identified by the index number used in the displayed inventory list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

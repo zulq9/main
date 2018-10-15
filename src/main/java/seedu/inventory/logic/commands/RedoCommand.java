@@ -8,7 +8,7 @@ import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 
 /**
- * Reverts the {@code model}'s inventory book to its previously undone state.
+ * Reverts the {@code model}'s inventory list to its previously undone state.
  */
 public class RedoCommand extends Command {
 
