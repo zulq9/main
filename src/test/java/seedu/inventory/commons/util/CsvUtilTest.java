@@ -265,8 +265,12 @@ class CsvAdaptedDataStub implements CsvAdaptedData {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CsvAdaptedDataStub)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CsvAdaptedDataStub)) {
+            return false;
+        }
         CsvAdaptedDataStub that = (CsvAdaptedDataStub) o;
         return contents.equals(that.contents);
     }

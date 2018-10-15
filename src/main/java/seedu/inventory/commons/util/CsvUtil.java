@@ -2,7 +2,12 @@ package seedu.inventory.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -217,19 +222,19 @@ public class CsvUtil {
         int fieldsLength = dataFields.length;
 
         writer.write(dataType);
-        for(int i = 0; i < fieldsLength - 1; i++){
+        for (int i = 0; i < fieldsLength - 1; i++) {
             writer.write(separator);
         }
         writer.write("\n");
 
-        for(int i = 0; i < fieldsLength - 1; i++){
+        for (int i = 0; i < fieldsLength - 1; i++) {
             writer.write(dataFields[i] + separator);
         }
         writer.write(dataFields[fieldsLength - 1] + "\n");
 
-        for(List<String> content : contents){
+        for (List<String> content : contents) {
             List<String> csvStandardContent = getCsvStandardContent(content);
-            for(int i = 0; i < fieldsLength - 1; i++){
+            for (int i = 0; i < fieldsLength - 1; i++) {
                 writer.write(csvStandardContent.get(i) + separator);
             }
             writer.write(csvStandardContent.get(fieldsLength - 1) + "\n");
@@ -237,7 +242,7 @@ public class CsvUtil {
         writer.flush();
     }
 
-    public static List<String> getCsvStandardContent(List<String> content){
+    public static List<String> getCsvStandardContent(List<String> content) {
         return content.stream()
                 .map(field -> field.contains(",") ? "\"" + field + "\"" : field)
                 .collect(Collectors.toList());
