@@ -5,17 +5,17 @@ import java.util.List;
 /**
  * A class to access item list data stored as an csv file on the hard disk.
  */
-public class CsvAdaptedSalesList implements CsvAdaptedData {
-    public static final String DATA_TYPE = "Sales";
-    public static final String[] FIELDS = {"saleProduct", "saleQuantity", "saleDate"};
+public class CsvAdaptedItemList implements CsvAdaptedData {
+    public static final String DATA_TYPE = "Item";
+    public static final String[] FIELDS = {"name", "price", "quantity", "sku", "image", "tags"};
 
     private List<List<String>> contents;
 
-    public CsvAdaptedSalesList(List<List<String>> contents) {
+    public CsvAdaptedItemList(List<List<String>> contents) {
         this.contents = contents;
     }
 
-    private CsvAdaptedSalesList() {}
+    private CsvAdaptedItemList() {}
 
     @Override
     public List<List<String>> getContents() {
@@ -34,11 +34,11 @@ public class CsvAdaptedSalesList implements CsvAdaptedData {
 
     @Override
     public CsvAdaptedData getInstance() {
-        return new CsvAdaptedSalesList();
+        return new CsvAdaptedItemList();
     }
 
     @Override
     public CsvAdaptedData createInstance(List<List<String>> contents) {
-        return new CsvAdaptedSalesList(contents);
+        return new CsvAdaptedItemList(contents);
     }
 }
