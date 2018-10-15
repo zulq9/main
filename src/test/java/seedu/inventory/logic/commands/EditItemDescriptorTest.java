@@ -35,24 +35,24 @@ public class EditItemDescriptorTest {
         assertFalse(DESC_OPPO.equals(DESC_SONY));
 
         // different name -> returns false
-        EditCommand.EditItemDescriptor editedAmy =
+        EditCommand.EditItemDescriptor editedOppo =
                 new EditItemDescriptorBuilder(DESC_OPPO).withName(VALID_NAME_SONY).build();
-        assertFalse(DESC_OPPO.equals(editedAmy));
+        assertFalse(DESC_OPPO.equals(editedOppo));
 
-        // different phone -> returns false
-        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withQuantity(VALID_QUANTITY_SONY).build();
-        assertFalse(DESC_OPPO.equals(editedAmy));
+        // different quantity -> returns false
+        editedOppo = new EditItemDescriptorBuilder(DESC_OPPO).withQuantity(VALID_QUANTITY_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedOppo));
 
-        // different email -> returns false
-        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withSku(VALID_SKU_SONY).build();
-        assertFalse(DESC_OPPO.equals(editedAmy));
+        // different SKU -> returns false
+        editedOppo = new EditItemDescriptorBuilder(DESC_OPPO).withSku(VALID_SKU_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedOppo));
 
-        // different inventory -> returns false
-        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withImage(VALID_IMAGE_SONY).build();
-        assertFalse(DESC_OPPO.equals(editedAmy));
+        // different image -> returns false
+        editedOppo = new EditItemDescriptorBuilder(DESC_OPPO).withImage(VALID_IMAGE_SONY).build();
+        assertFalse(DESC_OPPO.equals(editedOppo));
 
         // different tags -> returns false
-        editedAmy = new EditItemDescriptorBuilder(DESC_OPPO).withTags(VALID_TAG_SMARTPHONE).build();
-        assertFalse(DESC_OPPO.equals(editedAmy));
+        editedOppo = new EditItemDescriptorBuilder(DESC_OPPO).withTags(VALID_TAG_SMARTPHONE).build();
+        assertFalse(DESC_OPPO.equals(editedOppo));
     }
 }

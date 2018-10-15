@@ -9,6 +9,7 @@ import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -34,6 +35,7 @@ public class EditItemDescriptorBuilder {
     public EditItemDescriptorBuilder(Item item) {
         descriptor = new EditItemDescriptor();
         descriptor.setName(item.getName());
+        descriptor.setPrice(item.getPrice());
         descriptor.setQuantity(item.getQuantity());
         descriptor.setSku(item.getSku());
         descriptor.setImage(item.getImage());
@@ -45,6 +47,14 @@ public class EditItemDescriptorBuilder {
      */
     public EditItemDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code price} of the {@code EditItemDescriptor} that we are building.
+     */
+    public EditItemDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
         return this;
     }
 
