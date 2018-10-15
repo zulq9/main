@@ -1,20 +1,18 @@
 package seedu.inventory.storage;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * A class to access item list data stored as an csv file on the hard disk.
+ * Csv-friendly adapted version of the Tag.
  */
 public class CsvAdaptedTag {
 
     private String tagName;
-
-    /**
-     * Constructs an XmlAdaptedTag.
-     * This is the no-arg constructor that is required by JAXB.
-     */
-    public CsvAdaptedTag() {}
 
     /**
      * Constructs a {@code CsvAdaptedTag} with the given {@code tagName}.
@@ -24,7 +22,7 @@ public class CsvAdaptedTag {
     }
 
     /**
-     * Converts a given Tag into this class for JAXB use.
+     * Converts a given Tag into this class for Csv use.
      *
      * @param source future changes to this will not affect the created
      */
@@ -33,7 +31,7 @@ public class CsvAdaptedTag {
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     * Converts this Csv-friendly adapted tag object into the model's Tag object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted item
      */
@@ -44,16 +42,38 @@ public class CsvAdaptedTag {
         return new Tag(tagName);
     }
 
+    /**
+     * Combine a list of Csv-friendly adapted tags into a single string.
+     *
+     * @param tags A list of Csv-friendly adapted tag
+     * @return combinedTags A single string representing a list of Csv-friendly adapted tags
+     */
+    public static String combineTags(List<CsvAdaptedTag> tags) {
+        String combinedTags = "";
+        for (int i = 0; i < tags.size() - 2; i++) {
+            combinedTags += tags.get(i) + ",";
+        }
+        combinedTags += tags.get(tags.size() - 1);
+        return combinedTags;
+    }
+
+    /**
+     * Split a single string representing a list of Csv-friendly adapted tags to the list.
+     *
+     * @param combinedTags A single string representing a list of Csv-friendly adapted tags
+     */
+    public static List<CsvAdaptedTag> splitToTags(String combinedTags) {
+        return Arrays.stream(combinedTags.split(",")).map(CsvAdaptedTag::new).collect(Collectors.toList());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
-
         if (!(other instanceof CsvAdaptedTag)) {
             return false;
         }
-
         return tagName.equals(((CsvAdaptedTag) other).tagName);
     }
 }
