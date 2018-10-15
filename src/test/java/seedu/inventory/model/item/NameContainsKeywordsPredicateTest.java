@@ -67,7 +67,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new ItemBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and inventory, but does not match name
+        // Keywords match quantity, SKU and image, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice-item", "/docs/images/iphone.jpg"));
         assertFalse(predicate.test(new ItemBuilder().withName("Alice").withQuantity("12345")
                 .withSku("alice-item").withImage("docs/images/iphone.jpg").build()));

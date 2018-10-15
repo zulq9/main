@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -26,12 +27,14 @@ import seedu.inventory.testutil.Assert;
 public class ParserUtilTest {
     private static final String INVALID_IMAGE = " ";
     private static final String INVALID_NAME = "iPh0ne!";
+    private static final String INVALID_PRICE = "99.";
     private static final String INVALID_QUANTITY = "+651234";
     private static final String INVALID_SKU = "asd!asd";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_IMAGE = "docs/images/iphone.jpg";
     private static final String VALID_NAME = "iPhone XR";
+    private static final String VALID_PRICE = "1500.00";
     private static final String VALID_QUANTITY = "123456";
     private static final String VALID_SKU = "iphone-xr";
     private static final String VALID_TAG_1 = "friend";
@@ -88,6 +91,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parsePrice_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
+    }
+
+    @Test
+    public void parsePrice_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePrice(INVALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithoutWhitespace_returnsPrice() throws Exception {
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithWhitespace_returnsTrimmedPrice() throws Exception {
+        String priceWithWhitespace = WHITESPACE + VALID_PRICE + WHITESPACE;
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(priceWithWhitespace));
+    }
+
+    @Test
     public void parseQuantity_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity((String) null));
     }
@@ -105,9 +131,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseQuantity_validValueWithWhitespace_returnsTrimmedQuantity() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_QUANTITY + WHITESPACE;
+        String quantityWithWhitespace = WHITESPACE + VALID_QUANTITY + WHITESPACE;
         Quantity expectedQuantity = new Quantity(VALID_QUANTITY);
-        assertEquals(expectedQuantity, ParserUtil.parseQuantity(phoneWithWhitespace));
+        assertEquals(expectedQuantity, ParserUtil.parseQuantity(quantityWithWhitespace));
     }
 
     @Test
@@ -151,9 +177,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseSku_validValueWithWhitespace_returnsTrimmedSku() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
+        String skuWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
         Sku expectedSku = new Sku(VALID_SKU);
-        assertEquals(expectedSku, ParserUtil.parseSku(emailWithWhitespace));
+        assertEquals(expectedSku, ParserUtil.parseSku(skuWithWhitespace));
     }
 
     @Test

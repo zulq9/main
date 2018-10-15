@@ -27,10 +27,10 @@ public class XmlFileStorage {
     /**
      * Saves the given inventory data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableInventory addressBook)
+    public static void saveDataToFile(Path file, XmlSerializableInventory inventory)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, inventory);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

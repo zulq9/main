@@ -56,7 +56,7 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
-     * Adds a item to the inventory.
+     * Adds an item to the inventory.
      * The item must not already exist in the inventory.
      */
     public void addItem(Item p) {

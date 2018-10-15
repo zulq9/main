@@ -49,7 +49,7 @@ public class InventoryTest {
     }
 
     @Test
-    public void resetData_withDuplicateItems_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateItems_throwsDuplicateItemException() {
         // Two items with the same identity fields
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();

@@ -3,6 +3,7 @@
     <!-- Valid Item -->
     <items>
         <name>iPhone 8 Plus</name>
+        <price>1500.00</price>
         <quantity isPrivate="false">888</quantity>
         <sku isPrivate="false">iphone-8-plus</sku>
         <image isPrivate="false">docs/images/iphone.jpg</image>
@@ -10,6 +11,7 @@
     <!-- Item with invalid quantity field -->
     <items>
         <name>iPhone 8 Plus</name>
+        <price>1500.00</price>
         <quantity isPrivate="false">8asd8</quantity>
         <sku isPrivate="false">iphone-8-plus</sku>
         <image isPrivate="false">docs/images/iphone.jpg</image>

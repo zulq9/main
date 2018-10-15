@@ -35,7 +35,7 @@ public class ItemTest {
         // null -> returns false
         assertFalse(IPHONE.isSameItem(null));
 
-        // different phone and email -> returns false
+        // different quantity and sku -> returns false
         Item editedIphone = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).build();
         assertFalse(IPHONE.isSameItem(editedIphone));
 
@@ -48,12 +48,12 @@ public class ItemTest {
                 .withTags(VALID_TAG_SMARTPHONE).build();
         assertFalse(IPHONE.isSameItem(editedIphone));
 
-        // same name, same email, different attributes -> returns true
+        // same name, same image, different attributes -> returns true
         editedIphone = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).withImage(VALID_IMAGE_SONY)
                 .withTags(VALID_TAG_SMARTPHONE).build();
         assertTrue(IPHONE.isSameItem(editedIphone));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same quantity, same image, different attributes -> returns true
         editedIphone = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE).build();
         assertTrue(IPHONE.isSameItem(editedIphone));
     }
@@ -80,15 +80,15 @@ public class ItemTest {
         Item editedAlice = new ItemBuilder(IPHONE).withName(VALID_NAME_SONY).build();
         assertFalse(IPHONE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different quantity -> returns false
         editedAlice = new ItemBuilder(IPHONE).withQuantity(VALID_QUANTITY_SONY).build();
         assertFalse(IPHONE.equals(editedAlice));
 
-        // different email -> returns false
+        // different SKU -> returns false
         editedAlice = new ItemBuilder(IPHONE).withSku(VALID_SKU_SONY).build();
         assertFalse(IPHONE.equals(editedAlice));
 
-        // different inventory -> returns false
+        // different image -> returns false
         editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).build();
         assertFalse(IPHONE.equals(editedAlice));
 

@@ -65,7 +65,7 @@ public class SelectCommandTest {
         showItemAtIndex(expectedModel, INDEX_FIRST_ITEM);
 
         Index outOfBoundsIndex = INDEX_SECOND_ITEM;
-        // ensures that outOfBoundIndex is still in bounds of inventory book list
+        // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);

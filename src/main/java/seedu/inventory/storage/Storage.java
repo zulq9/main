@@ -42,9 +42,9 @@ public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsSto
     void saveSaleList(ReadOnlySaleList saleList) throws IOException;
 
     /**
-     * Saves the current version of the Image Book to the hard disk.
+     * Saves the current version of the Inventory List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(InventoryChangedEvent abce);
+    void handleInventoryChangedEvent(InventoryChangedEvent abce);
 }
