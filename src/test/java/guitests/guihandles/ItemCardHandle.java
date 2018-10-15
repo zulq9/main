@@ -13,7 +13,7 @@ import seedu.inventory.model.item.Item;
 /**
  * Provides a handle to a item card in the item list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class ItemCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String IMAGE_FIELD_ID = "#image";
     private static final String NAME_FIELD_ID = "#name";
@@ -28,7 +28,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label skuLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public ItemCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);

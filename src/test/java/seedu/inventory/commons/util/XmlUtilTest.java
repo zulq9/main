@@ -37,6 +37,7 @@ public class XmlUtilTest {
     private static final String INVALID_QUANTITY = "9482asf424";
 
     private static final String VALID_NAME = "iPhone XR";
+    private static final String VALID_PRICE = "1500.00";
     private static final String VALID_QUANTITY = "9482424";
     private static final String VALID_SKU = "iphone-xr";
     private static final String VALID_IMAGE = "docs/images/iphone.jpg";
@@ -79,9 +80,9 @@ public class XmlUtilTest {
     public void xmlAdaptedItemFromFile_fileWithMissingItemField_validResult() throws Exception {
         XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
                 MISSING_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
-        XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                null, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
-        assertEquals(expectedPerson, actualItem);
+        XmlAdaptedItem expectedItem = new XmlAdaptedItem(
+                null, VALID_PRICE, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+        assertEquals(expectedItem, actualItem);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class XmlUtilTest {
         XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
                 INVALID_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                VALID_NAME, INVALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+                VALID_NAME, VALID_PRICE, INVALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
         assertEquals(expectedPerson, actualItem);
     }
 
@@ -98,7 +99,7 @@ public class XmlUtilTest {
         XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
                 VALID_ITEM_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedPerson = new XmlAdaptedItem(
-                VALID_NAME, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
+                VALID_NAME, VALID_PRICE, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
         assertEquals(expectedPerson, actualItem);
     }
 

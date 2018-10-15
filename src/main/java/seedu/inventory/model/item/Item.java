@@ -17,19 +17,21 @@ public class Item {
 
     // Identity fields
     private final Name name;
-    private final Quantity quantity;
     private final Sku sku;
 
     // Data fields
     private final Image image;
+    private final Price price;
+    private final Quantity quantity;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Item(Name name, Quantity quantity, Sku sku, Image image, Set<Tag> tags) {
-        requireAllNonNull(name, quantity, sku, image, tags);
+    public Item(Name name, Price price, Quantity quantity, Sku sku, Image image, Set<Tag> tags) {
+        requireAllNonNull(name, price, quantity, sku, image, tags);
         this.name = name;
+        this.price = price;
         this.quantity = quantity;
         this.sku = sku;
         this.image = image;
@@ -38,6 +40,10 @@ public class Item {
 
     public Name getName() {
         return name;
+    }
+
+    public Price getPrice() {
+        return price;
     }
 
     public Quantity getQuantity() {
@@ -61,7 +67,7 @@ public class Item {
     }
 
     /**
-     * Returns true if both items of the same SKU.
+     * Returns true if both items have the same SKU.
      * This defines a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item otherItem) {
@@ -74,7 +80,7 @@ public class Item {
     }
 
     /**
-     * Returns true if both items have the same identity and data fields.
+     * Returns true if both items have the same SKU and data fields.
      * This defines a stronger notion of equality between two items.
      */
     @Override
@@ -89,6 +95,7 @@ public class Item {
 
         Item otherItem = (Item) other;
         return otherItem.getName().equals(getName())
+                && otherItem.getPrice().equals(getPrice())
                 && otherItem.getQuantity().equals(getQuantity())
                 && otherItem.getSku().equals(getSku())
                 && otherItem.getImage().equals(getImage())
@@ -98,13 +105,15 @@ public class Item {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, quantity, sku, image, tags);
+        return Objects.hash(name, price, quantity, sku, image, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Price: ")
+                .append(getPrice())
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Sku: ")
