@@ -5,9 +5,11 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
-
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
@@ -15,9 +17,6 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Adds a sale to the sale list.
