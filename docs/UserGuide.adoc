@@ -318,6 +318,11 @@ Format: `export-csv-items f/FILEPATH`
 Export the list of users in CSV format to the filepath given. +
 Format: `export-csv-users f/FILEPATH`
 
+===== Export list of purchase orders to CSV: `export-csv-orders`
+
+Export the list of orders in CSV format to the filepath given. +
+Format: `export-csv-orders f/FILEPATH`
+
 ==== Export entire data to .im file: `export-im`
 Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
 Format: `export-im f/FILEPATH`
@@ -351,6 +356,11 @@ Format: `import-csv-items f/FILEPATH`
 
 Import the list of users in CSV format from the filepath given. +
 Format: `import-csv-users f/FILEPATH`
+
+===== Import list of purchase orders from CSV: `import-csv-orders`
+
+Import the list of orders in CSV format from the filepath given. +
+Format: `import-csv-orders f/FILEPATH`
 
 ==== Import entire data from .im file: `import-im`
 Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
@@ -541,6 +551,8 @@ e.g. `export-csv-sales f/C:/out/sales.csv`
 e.g. `export-csv-items f/C:/out/items.csv`
 * *Export list of users to CSV* : `export-csv-users f/FILEPATH` +
 e.g. `export-csv-users f/C:/out/users.csv`
+* *Export list of orders to CSV* : `export-csv-orders f/FILEPATH` +
+e.g. `export-csv-orders f/C:/out/orders.csv`
 * *Export entire data to .im file* : `export-im f/FILEPATH` +
 e.g. `export-im f/C:/out/data.im`
 * *Import sales report from CSV* : `import-csv-sales f/FILEPATH` +
@@ -549,6 +561,8 @@ e.g. `import-csv-sales f/C:/in/sales.csv`
 e.g. `import-csv-items f/C:/in/items.csv`
 * *Import list of users from CSV* : `import-csv-users f/FILEPATH` +
 e.g. `import-csv-users f/C:/in/users.csv`
+* *Import list of orders from CSV* : `import-csv-orders f/FILEPATH` +
+e.g. `import-csv-orders f/C:/in/orders.csv`
 * *Import entire data from .im file* : `import-im f/FILEPATH` +
 e.g. `import-im f/C:/in/data.im`
 
