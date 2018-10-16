@@ -84,6 +84,16 @@ public class Inventory implements ReadOnlyInventory {
 
     //// util methods
 
+    /**
+     * Returns the item if Sku matches.
+     */
+    @Override
+    public Item getItemBySku(String sku) {
+        requireNonNull(sku);
+
+        return items.getItemBySku(sku);
+    }
+
     @Override
     public String toString() {
         return items.asUnmodifiableObservableList().size() + " items";

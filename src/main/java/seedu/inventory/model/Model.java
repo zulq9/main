@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
 
 /**
  * The API of the Model component.
@@ -75,4 +76,19 @@ public interface Model {
      * Saves the current inventory state for undo/redo.
      */
     void commitInventory();
+
+    /**
+     * Create a new sale.
+     */
+    void createSale(Item item, Quantity quantity);
+
+    /**
+     * Delete a sale.
+     */
+    void deleteSale(String id);
+
+    /**
+     * List sales.
+     */
+    void listSales(String records);
 }
