@@ -7,7 +7,7 @@ import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
 import org.junit.Test;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.staff.Name;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.Username;
@@ -20,7 +20,7 @@ public class XmlAdaptedStaffTest {
 
     private static final String VALID_USERNAME = TENGXIONG.getUsername().toString();
     private static final String VALID_PASSWORD = TENGXIONG.getPassword().toString();
-    private static final String VALID_NAME = TENGXIONG.getName().toString();
+    private static final String VALID_NAME = TENGXIONG.getStaffName().toString();
 
     @Test
     public void toModelType_validStaffDetails_returnsStaff() throws Exception {
@@ -66,7 +66,7 @@ public class XmlAdaptedStaffTest {
     @Test
     public void toModelType_nullName_throwsIllegaleValueException() {
         XmlAdaptedStaff staff = new XmlAdaptedStaff(VALID_USERNAME, VALID_PASSWORD, null, Staff.Role.user);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, StaffName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, staff::toModelType);
     }
 

@@ -4,14 +4,14 @@
     <staffs>
         <username>yaotx</username>
         <password isPrivate="false">81232aaa</password>
-        <name isPrivate="false">Yao TengXiong</name>
+        <staffName isPrivate="false">Yao TengXiong</staffName>
         <staff.role isPrivate="false">user</staff.role>
     </staffs>
     <!-- Item with invalid username field -->
     <staffs>
         <username>y@0-tx</username>
         <password isPrivate="false">81232aaa</password>
-        <name isPrivate="false">Yao TengXiong</name>
+        <staffName isPrivate="false">Yao TengXiong</staffName>
         <role isPrivate="false">user</role>
     </staffs>
 </staffList>

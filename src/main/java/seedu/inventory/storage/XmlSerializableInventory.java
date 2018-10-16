@@ -10,7 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * An Immutable Inventory that is serializable to XML format
@@ -19,9 +21,12 @@ import seedu.inventory.model.item.Item;
 public class XmlSerializableInventory {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Inventory list contains duplicate item(s).";
+    public static final String MESSAGE_DUPLICATE_STAFF = "Staff list contains duplicate staff(s).";
 
     @XmlElement
     private List<XmlAdaptedItem> items;
+    @XmlElement
+    private List<XmlAdaptedStaff> staffs;
 
     /**
      * Creates an empty XmlSerializableInventory.
@@ -29,6 +34,7 @@ public class XmlSerializableInventory {
      */
     public XmlSerializableInventory() {
         items = new ArrayList<>();
+        staffs = new ArrayList<>();
     }
 
     /**
@@ -37,6 +43,7 @@ public class XmlSerializableInventory {
     public XmlSerializableInventory(ReadOnlyInventory src) {
         this();
         items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
+        staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +61,15 @@ public class XmlSerializableInventory {
             }
             inventory.addItem(item);
         }
+
+        StaffList staffList = new StaffList();
+        for (XmlAdaptedStaff s : staffs) {
+            Staff staff = s.toModelType();
+            if (staffList.hasStaff(staff)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
+            }
+            staffList.addStaff(staff);
+        }
         return inventory;
     }
 
@@ -66,6 +82,7 @@ public class XmlSerializableInventory {
         if (!(other instanceof XmlSerializableInventory)) {
             return false;
         }
-        return items.equals(((XmlSerializableInventory) other).items);
+        return items.equals(((XmlSerializableInventory) other).items)
+                && staffs.equals(((XmlSerializableInventory) other).staffs);
     }
 }

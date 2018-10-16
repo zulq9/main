@@ -5,7 +5,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.staff.Name;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.Username;
@@ -51,7 +51,7 @@ public class XmlAdaptedStaff {
     public XmlAdaptedStaff(Staff source) {
         this.username = source.getUsername().username;
         this.password = source.getPassword().password;
-        this.name = source.getName().fullName;
+        this.name = source.getStaffName().fullName;
         this.role = source.getRole();
     }
 
@@ -81,12 +81,12 @@ public class XmlAdaptedStaff {
 
         if (this.name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Name.class.getSimpleName()));
+                    StaffName.class.getSimpleName()));
         }
-        if (!Name.isValidName(this.name)) {
+        if (!StaffName.isValidName(this.name)) {
             throw new IllegalValueException(Username.MESSAGE_USERNAME_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final StaffName modelStaffName = new StaffName(name);
 
         if (this.role == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -95,7 +95,7 @@ public class XmlAdaptedStaff {
 
         final Staff.Role modelRole = role;
 
-        return new Staff(modelUsername, modelPassword, modelName, modelRole);
+        return new Staff(modelUsername, modelPassword, modelStaffName, modelRole);
     }
 
     @Override

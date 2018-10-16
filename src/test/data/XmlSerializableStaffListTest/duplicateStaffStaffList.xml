@@ -4,7 +4,7 @@
     <staffs>
         <username>darren96</username>
         <password>singlenus</password>
-        <name>Darren Ong Yun Kai</name>
+        <staffName>Darren Ong Yun Kai</staffName>
         <role>manager</role>
     </staffs>
 
@@ -12,7 +12,7 @@
     <staffs>
         <username>darren96</username>
         <password>singlenus</password>
-        <name>Darren Ong Yun Kai</name>
+        <staffName>Darren Ong Yun Kai</staffName>
         <role>user</role>
     </staffs>
 
