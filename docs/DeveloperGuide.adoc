@@ -403,8 +403,8 @@ in `Storage`. +
 ** Pros: Avoid direct access of `Storage` from `export` commands. Does not violate Single Responsibility Principle. +
 ** Cons: Need a middle Component to achieve the goal. An additional event need to be raised +
 * **Alternative 2:** Couples `Command` with `Storage` +
-**Pros:** Provides direct access to `Storage` for commands that is highly depend it. +
-**Cons:** `Storage` will also need directly access of data in `Model` component which will violate
+** Pros: Provides direct access to `Storage` for commands that is highly depend it. +
+** Cons: `Storage` will also need directly access of data in `Model` component which will violate
 Single Responsibility Principle. +
 
 ===== Aspect: Location for Implementation of File Path Validation and Location to Check File Path Validation +
