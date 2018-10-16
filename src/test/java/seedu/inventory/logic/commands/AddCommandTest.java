@@ -21,7 +21,6 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.testutil.ItemBuilder;
 

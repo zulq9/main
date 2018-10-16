@@ -20,7 +20,11 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
-import seedu.inventory.model.*;
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.Model;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.SaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
@@ -66,7 +70,7 @@ public class CreateSaleCommandTest {
     }
 
     @Test
-    public void execute_QuantityDeduct_successful() throws Exception {
+    public void execute_quantityDeduct_successful() throws Exception {
         ModelStubCreateSaleQuantityTest modelStub = new ModelStubCreateSaleQuantityTest();
 
         Sku sku = IPHONE.getSku();
@@ -237,8 +241,8 @@ public class CreateSaleCommandTest {
      */
     private class ModelStubCreateSaleQuantityTest extends ModelStub {
         private final ArrayList<Sale> salesAdded = new ArrayList<>();
-        private final Item testItem = new Item(IPHONE.getName(), IPHONE.getPrice(), IPHONE.getQuantity()
-                , IPHONE.getSku(), IPHONE.getImage(), IPHONE.getTags());
+        private final Item testItem = new Item(IPHONE.getName(), IPHONE.getPrice(), IPHONE.getQuantity(),
+                IPHONE.getSku(), IPHONE.getImage(), IPHONE.getTags());
         private final Inventory inventory = new Inventory();
 
         public ModelStubCreateSaleQuantityTest() {
