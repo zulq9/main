@@ -5,6 +5,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,19 @@ public class UniqueItemList implements Iterable<Item> {
     }
 
     /**
-     * Adds an item to the list.
+     * Returns the item if Sku matches.
+     */
+    public Item getItemBySku(String sku) {
+        requireNonNull(sku);
+
+        Optional<Item> searchItem = internalList.stream().filter(item -> item.getSku().toString().equalsIgnoreCase(sku))
+                .findFirst();
+
+        return searchItem.orElse(null);
+    }
+
+    /**
+     * Adds a item to the list.
      * The item must not already exist in the list.
      */
     public void add(Item toAdd) {

@@ -12,5 +12,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_SKU = new Prefix("s/");
     public static final Prefix PREFIX_IMAGE = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
 }
