@@ -40,7 +40,7 @@ public class CsvAdaptedTagTest {
     public void toModelType_invalidTagDetails_illegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         CsvAdaptedTag adaptedTag = new CsvAdaptedTag(INVALID_TAG_NAME);
-        Tag tag = adaptedTag.toModelType();
+        adaptedTag.toModelType();
     }
 
     @Test
