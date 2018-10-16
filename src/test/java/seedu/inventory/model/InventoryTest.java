@@ -7,7 +7,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.IPHONEPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,7 +25,7 @@ import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.ItemBuilder;
-import seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class InventoryTest {
 
@@ -60,7 +60,7 @@ public class InventoryTest {
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
         List<Item> newItems = Arrays.asList(IPHONE, editedAlice);
-        List<PurchaseOrder> newPurchaseOrder = Arrays.asList(TypicalPurchaseOrder.IPHONEPO);
+        List<PurchaseOrder> newPurchaseOrder = Arrays.asList(IPHONEPO);
         InventoryStub newData = new InventoryStub(newItems, newPurchaseOrder);
 
         thrown.expect(DuplicateItemException.class);

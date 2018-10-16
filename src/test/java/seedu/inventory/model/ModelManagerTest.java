@@ -6,8 +6,8 @@ import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_PURCHASE_ORDER;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.IPHONEPO;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.SAMSUNGNOTEPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.SAMSUNGNOTEPO;
 
 import java.nio.file.Paths;
 import java.util.Arrays;

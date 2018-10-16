@@ -1,4 +1,4 @@
-package seedu.inventory.testutil.purchaseOrder;
+package seedu.inventory.testutil.purchaseorder;
 
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;

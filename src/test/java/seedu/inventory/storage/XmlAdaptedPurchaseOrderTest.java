@@ -3,7 +3,7 @@ package seedu.inventory.storage;
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.storage.XmlAdaptedPurchaseOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.inventory.testutil.TypicalItems.LG;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.LGPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.LGPO;
 
 import org.junit.Test;
 

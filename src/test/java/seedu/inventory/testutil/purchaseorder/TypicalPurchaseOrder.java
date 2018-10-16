@@ -1,4 +1,4 @@
-package seedu.inventory.testutil.purchaseOrder;
+package seedu.inventory.testutil.purchaseorder;
 
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;

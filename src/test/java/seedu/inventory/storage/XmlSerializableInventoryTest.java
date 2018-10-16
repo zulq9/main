@@ -13,7 +13,7 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.testutil.TypicalItems;
-import seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class XmlSerializableInventoryTest {
 

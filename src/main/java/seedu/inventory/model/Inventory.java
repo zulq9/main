@@ -171,7 +171,7 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
         return items.getItemBySku(sku);
     }
 
-    //===================== purchaseOrder-level operations =================================
+    //===================== purchaseorder-level operations =================================
 
     /**
      * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.

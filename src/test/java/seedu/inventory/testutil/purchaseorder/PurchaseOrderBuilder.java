@@ -1,4 +1,4 @@
-package seedu.inventory.testutil.purchaseOrder;
+package seedu.inventory.testutil.purchaseorder;
 
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
@@ -37,7 +37,7 @@ public class PurchaseOrderBuilder {
     }
 
     /**
-     * Initializes the PurchaseOrderBuilder with the data of {@code purchaseOrder}
+     * Initializes the PurchaseOrderBuilder with the data of {@code purchaseorder}
      *
      * @param poToCopy the Purchase order to be copied
      */

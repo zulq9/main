@@ -96,12 +96,12 @@ public interface Model {
 
     /**
      * Adds the given purchase order.
-     * {@code purchaseOrder} must not already exist in the inventory.
+     * {@code purchaseorder} must not already exist in the inventory.
      */
     void addPurchaseOrder(PurchaseOrder purchaseOrder);
 
     /**
-     * Replaces the given purchaseOrder {@code target} with {@code editedPurchaseOrder}.
+     * Replaces the given purchaseorder {@code target} with {@code editedPurchaseOrder}.
      * {@code target} must exist in the inventory.
      */
     void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);

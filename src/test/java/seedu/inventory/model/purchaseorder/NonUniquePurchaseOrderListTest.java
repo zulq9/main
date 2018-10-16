@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SUPPLIER_SONY;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.LGPO;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.SAMSUNGNOTEPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.LGPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.SAMSUNGNOTEPO;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.model.purchaseorder.exceptions.PurchaseOrderNotFoundException;
-import seedu.inventory.testutil.purchaseOrder.PurchaseOrderBuilder;
+import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
 
 public class NonUniquePurchaseOrderListTest {
 

@@ -37,8 +37,8 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
-import seedu.inventory.testutil.purchaseOrder.PurchaseOrderBuilder;
-import seedu.inventory.testutil.purchaseOrder.PurchaseOrderUtil;
+import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
+import seedu.inventory.testutil.purchaseorder.PurchaseOrderUtil;
 
 public class InventoryParserTest {
     @Rule

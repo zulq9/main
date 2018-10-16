@@ -18,8 +18,8 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.ModelStub;
-import seedu.inventory.testutil.purchaseOrder.PurchaseOrderBuilder;
-import seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder;
+import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class GeneratePurchaseOrderCommandTest {
 
@@ -93,7 +93,7 @@ public class GeneratePurchaseOrderCommandTest {
     }
 
     /**
-     * A Model stub that always accept the purchaseOrder being added.
+     * A Model stub that always accept the purchaseorder being added.
      */
     private class ModelStubAcceptingPurchaseOrderAdded extends ModelStub {
         private final ArrayList<PurchaseOrder> purchaseOrdersAdded = new ArrayList<>();

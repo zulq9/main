@@ -28,7 +28,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SUPPLIER_SONY;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.SONYPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.SONYPO;
 
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.purchaseorder.RequiredDate;
 import seedu.inventory.model.purchaseorder.Supplier;
-import seedu.inventory.testutil.purchaseOrder.PurchaseOrderBuilder;
+import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
 
 public class GeneratePurchaseOrderParserTest {
     private GeneratePurchaseOrderCommandParser parser = new GeneratePurchaseOrderCommandParser();
