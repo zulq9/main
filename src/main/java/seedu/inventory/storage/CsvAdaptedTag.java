@@ -50,10 +50,10 @@ public class CsvAdaptedTag {
      */
     public static String combineTags(List<CsvAdaptedTag> tags) {
         String combinedTags = "";
-        for (int i = 0; i < tags.size() - 2; i++) {
-            combinedTags += tags.get(i) + ",";
+        for (int i = 0; i < tags.size() - 1; i++) {
+            combinedTags += tags.get(i).tagName + ",";
         }
-        combinedTags += tags.get(tags.size() - 1);
+        combinedTags += tags.get(tags.size() - 1).tagName;
         return combinedTags;
     }
 
