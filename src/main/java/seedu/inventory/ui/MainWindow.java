@@ -15,10 +15,13 @@ import javafx.stage.Stage;
 import seedu.inventory.commons.core.Config;
 import seedu.inventory.commons.core.GuiSettings;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.model.AccessItemEvent;
+import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.ui.purchaseorder.PurchaseOrderListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private PurchaseOrderListPanel purchaseOrderListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -87,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -124,6 +129,9 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        purchaseOrderListPanel = new PurchaseOrderListPanel(logic.getFilteredPurchaseOrderList());
+        //personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
