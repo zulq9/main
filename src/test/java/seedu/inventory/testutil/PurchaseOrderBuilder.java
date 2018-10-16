@@ -1,8 +1,9 @@
 package seedu.inventory.testutil;
 
-import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
-import seedu.inventory.model.purchaseorder.Quantity;
 import seedu.inventory.model.purchaseorder.RequiredDate;
 import seedu.inventory.model.purchaseorder.Supplier;
 
@@ -11,20 +12,24 @@ import seedu.inventory.model.purchaseorder.Supplier;
  */
 public class PurchaseOrderBuilder {
 
+    public static final String DEFAULT_SKU = "apple-iphone-xr";
+    public static final String DEFAULT_NAME = "iPhone XR";
     public static final String DEFAULT_QUANTITY = "10";
     public static final String DEFAULT_REQUIRED_DATE = "2018-12-31";
     public static final String DEFAULT_SUPPLIER = "Apple Inc.";
     public static final PurchaseOrder.Status DEFAULT_STATUS = PurchaseOrder.Status.PENDING;
-    public static final Item DEFAULT_ITEM = TypicalItems.IPHONE;
 
-    private Item item;
+
+    private Sku sku;
+    private Name name;
     private Quantity quantity;
     private RequiredDate reqDate;
     private Supplier supplier;
     private PurchaseOrder.Status status;
 
     public PurchaseOrderBuilder() {
-        item = DEFAULT_ITEM;
+        sku = new Sku(DEFAULT_SKU);
+        name = new Name(DEFAULT_NAME);
         quantity = new Quantity(DEFAULT_QUANTITY);
         reqDate = new RequiredDate(DEFAULT_REQUIRED_DATE);
         supplier = new Supplier(DEFAULT_SUPPLIER);
@@ -37,7 +42,8 @@ public class PurchaseOrderBuilder {
      * @param poToCopy the Purchase order to be copied
      */
     public PurchaseOrderBuilder(PurchaseOrder poToCopy) {
-        item = poToCopy.getItem();
+        sku = poToCopy.getSku();
+        name = poToCopy.getName();
         quantity = poToCopy.getQuantity();
         reqDate = poToCopy.getReqDate();
         supplier = poToCopy.getSupplier();
@@ -45,10 +51,18 @@ public class PurchaseOrderBuilder {
     }
 
     /**
-     * Sets the {@code Item} of the {@code PurchaseOrder} that we are building.
+     * Sets the {@code Sku} of the {@code PurchaseOrder} that we are building.
      */
-    public PurchaseOrderBuilder withItem(Item item) {
-        this.item = item;
+    public PurchaseOrderBuilder withSku(Sku sku) {
+        this.sku = sku;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code PurchaseOrder} that we are building.
+     */
+    public PurchaseOrderBuilder withName(Name name) {
+        this.name = name;
         return this;
     }
 
@@ -85,6 +99,6 @@ public class PurchaseOrderBuilder {
     }
 
     public PurchaseOrder build() {
-        return new PurchaseOrder(item, quantity, reqDate, supplier, status);
+        return new PurchaseOrder(sku, name, quantity, reqDate, supplier, status);
     }
 }

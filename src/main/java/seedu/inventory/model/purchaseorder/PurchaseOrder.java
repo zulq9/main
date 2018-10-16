@@ -32,6 +32,8 @@ public class PurchaseOrder {
         APPROVED,
         REJECTED;
 
+        public static final Status DEFAULT_STATUS = Status.PENDING;
+
         public static final String MESSAGE_STATUS_CONSTRAINTS =
                 "Status should only be one of the following state: PENDING, APPROVED, REJECTED";
 
@@ -56,7 +58,8 @@ public class PurchaseOrder {
     /**
      * Every field must be present and not null.
      */
-    public PurchaseOrder(Sku sku, Name name, Quantity quantity, RequiredDate reqDate, Supplier supplier, Status status) {
+    public PurchaseOrder(Sku sku, Name name, Quantity quantity, RequiredDate reqDate,
+                         Supplier supplier, Status status) {
         requireAllNonNull(sku, name, quantity, reqDate, supplier, status);
         this.sku = sku;
         this.name = name;

@@ -28,7 +28,8 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
     /**
      * Replaces the purchase order {@code target} in the list with {@code editedPo}.
      * {@code target} must exist in the list.
-     * The purchase order identity of {@code editedPo} must not be the same as another existing purchase order in the list.
+     * The purchase order identity of {@code editedPo} must not be the same as another
+     * existing purchase order in the list.
      */
     public void setPurchaseOrder(PurchaseOrder target, PurchaseOrder editedPo) {
         requireAllNonNull(target, editedPo);

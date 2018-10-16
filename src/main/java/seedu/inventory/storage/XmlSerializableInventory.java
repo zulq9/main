@@ -42,7 +42,8 @@ public class XmlSerializableInventory {
     public XmlSerializableInventory(ReadOnlyInventory src) {
         this();
         items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
-        purchaseOrders.addAll(src.getPurchaseOrderList().stream().map(XmlAdaptedPurchaseOrder::new).collect(Collectors.toList()));
+        purchaseOrders.addAll(src.getPurchaseOrderList().stream().map(XmlAdaptedPurchaseOrder::new)
+                .collect(Collectors.toList()));
     }
 
     /**

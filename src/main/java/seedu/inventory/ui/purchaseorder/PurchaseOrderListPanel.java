@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.ui.UiPart;
 
@@ -34,6 +35,17 @@ public class PurchaseOrderListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<PurchaseOrder> poList) {
         purchaseOrderListView.setItems(poList);
         purchaseOrderListView.setCellFactory(listView -> new PurchaseOrderViewCell());
+        setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setEventHandlerForSelectionChangeEvent() {
+        purchaseOrderListView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        logger.fine("Selection in item list panel changed to : '" + newValue + "'");
+                        raise(new PurchaseOrderSelectionChangedEvent(newValue));
+                    }
+                });
     }
 
     /**
