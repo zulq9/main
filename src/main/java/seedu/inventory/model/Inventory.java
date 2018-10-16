@@ -3,12 +3,16 @@ package seedu.inventory.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.UniqueItemList;
+import seedu.inventory.model.purchaseorder.NonUniquePurchaseOrderList;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.UniqueStaffList;
+
 
 /**
  * Wraps all data at the inventory-list level
@@ -17,9 +21,12 @@ import seedu.inventory.model.staff.UniqueStaffList;
 public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     private final UniqueItemList items = new UniqueItemList();
+    private final NonUniquePurchaseOrderList purchaseOrders = new NonUniquePurchaseOrderList();
     private final UniqueStaffList staffs = new UniqueStaffList();
 
-    public Inventory() {}
+
+    public Inventory() {
+    }
 
     /**
      * Creates an Inventory using the Items in the {@code toBeCopied}
@@ -29,7 +36,17 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //===================== list overwrite operations ==============================
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     */
+    public void resetData(ReadOnlyInventory newData) {
+        requireNonNull(newData);
+
+        setItems(newData.getItemList());
+        setPurchaseOrders(newData.getPurchaseOrderList());
+    }
 
     /**
      * Replaces the contents of the item list with {@code items}.
@@ -40,15 +57,14 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
     }
 
     /**
-     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     * Replaces the contents of the purchase order list with {@code purchaseOrders}.
      */
-    public void resetData(ReadOnlyInventory newData) {
-        requireNonNull(newData);
-
-        setItems(newData.getItemList());
+    public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+        this.purchaseOrders.setPurchaseOrders(purchaseOrders);
     }
 
-    //// item-level operations
+
+    //===================== item-level operations ==========================================
 
     /**
      * Returns true if a item with the same identity as {@code item} exists in the inventory.
@@ -107,6 +123,7 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the inventory.
+     *
      * @return true if staff found
      */
     public boolean hasStaff(Staff staff) {
@@ -116,6 +133,7 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     /**
      * Adds a staff to the inventory management system.
+     *
      * @param s the staff to be added
      */
     public void addStaff(Staff s) {
@@ -153,12 +171,49 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
         return items.getItemBySku(sku);
     }
 
-    @Override
-    public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items\n"
-                + staffs.asUnmodifiableObservableList().size() + "staffs\n";
-        // TODO: refine later
+    //===================== purchaseorder-level operations =================================
+
+    /**
+     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
+     */
+    public boolean hasPurchaseOrder(PurchaseOrder po) {
+        requireNonNull(po);
+        return purchaseOrders.contains(po);
     }
+
+    /**
+     * Adds a purchase order to the purchase order list.
+     * Only add the purchase order if the item exist in the inventory
+     */
+    public void addPurchaseOrder(PurchaseOrder po) {
+        requireNonNull(po);
+        for (Item item : items) {
+            if (item.getSku().value.equals(po.getSku().value)) {
+                purchaseOrders.add(po);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Replaces the given item {@code target} in the list with {@code editedPurchaseOrder}.
+     * {@code target} must exist in the purchase order list.
+     */
+    public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
+        requireNonNull(editedPurchaseOrder);
+
+        purchaseOrders.setPurchaseOrder(target, editedPurchaseOrder);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Inventory}.
+     * {@code key} must exist in the purchase order list.
+     */
+    public void removePurchaseOrder(PurchaseOrder key) {
+        purchaseOrders.remove(key);
+    }
+
+    //===================== util methods =======================================================
 
     @Override
     public ObservableList<Item> getItemList() {
@@ -166,6 +221,17 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
     }
 
     @Override
+    public ObservableList<PurchaseOrder> getPurchaseOrderList() {
+        return purchaseOrders.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public String toString() {
+        return items.asUnmodifiableObservableList().size() + " items"
+                + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders"
+                + staffs.asUnmodifiableObservableList().size() + "staffs";
+    }
+
     public ObservableList<Staff> getStaffList() {
         return staffs.asUnmodifiableObservableList();
     }
@@ -174,12 +240,13 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && items.equals(((Inventory) other).items)
-                && staffs.equals(((Inventory) other).staffs));
+                && items.equals(((Inventory) other).items))
+                && purchaseOrders.equals(((Inventory) other).purchaseOrders)
+                && staffs.equals(((Inventory) other).staffs);
     }
 
     @Override
     public int hashCode() {
-        return items.hashCode();
+        return Objects.hash(items, purchaseOrders);
     }
 }

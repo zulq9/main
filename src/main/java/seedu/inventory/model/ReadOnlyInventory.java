@@ -2,6 +2,7 @@ package seedu.inventory.model;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -14,6 +15,11 @@ public interface ReadOnlyInventory {
      * This list will not contain any duplicate items.
      */
     ObservableList<Item> getItemList();
+
+    /**
+     * Returns an unmodifiable view of the purchase order list.
+     */
+    ObservableList<PurchaseOrder> getPurchaseOrderList();
 
     /**
      * Returns an unmodifiable view of the staffs list.

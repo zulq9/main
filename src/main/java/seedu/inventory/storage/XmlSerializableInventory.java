@@ -12,6 +12,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.StaffList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -28,12 +29,16 @@ public class XmlSerializableInventory {
     @XmlElement
     private List<XmlAdaptedStaff> staffs;
 
+    @XmlElement
+    private List<XmlAdaptedPurchaseOrder> purchaseOrders;
+
     /**
      * Creates an empty XmlSerializableInventory.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableInventory() {
         items = new ArrayList<>();
+        purchaseOrders = new ArrayList<>();
         staffs = new ArrayList<>();
     }
 
@@ -43,6 +48,8 @@ public class XmlSerializableInventory {
     public XmlSerializableInventory(ReadOnlyInventory src) {
         this();
         items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
+        purchaseOrders.addAll(src.getPurchaseOrderList().stream().map(XmlAdaptedPurchaseOrder::new)
+                .collect(Collectors.toList()));
         staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
     }
 
@@ -50,10 +57,11 @@ public class XmlSerializableInventory {
      * Converts this inventory into the model's {@code Inventory} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedItem}.
+     *                               {@code XmlAdaptedItem}.
      */
     public Inventory toModelType() throws IllegalValueException {
         Inventory inventory = new Inventory();
+
         for (XmlAdaptedItem p : items) {
             Item item = p.toModelType();
             if (inventory.hasItem(item)) {
@@ -61,6 +69,13 @@ public class XmlSerializableInventory {
             }
             inventory.addItem(item);
         }
+
+
+        for (XmlAdaptedPurchaseOrder po : purchaseOrders) {
+            PurchaseOrder purchaseOrder = po.toModelType();
+            inventory.addPurchaseOrder(purchaseOrder);
+        }
+
 
         StaffList staffList = new StaffList();
         for (XmlAdaptedStaff s : staffs) {
@@ -70,6 +85,7 @@ public class XmlSerializableInventory {
             }
             staffList.addStaff(staff);
         }
+
         return inventory;
     }
 
@@ -83,6 +99,7 @@ public class XmlSerializableInventory {
             return false;
         }
         return items.equals(((XmlSerializableInventory) other).items)
+                && purchaseOrders.equals(((XmlSerializableInventory) other).purchaseOrders)
                 && staffs.equals(((XmlSerializableInventory) other).staffs);
     }
 }

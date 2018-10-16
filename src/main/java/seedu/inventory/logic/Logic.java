@@ -5,6 +5,7 @@ import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * API of the Logic component
@@ -20,7 +21,10 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Item> getFilteredPersonList();
+    ObservableList<Item> getFilteredItemList();
+
+    /** Returns an unmodifiable view of the filtered list of purchase order */
+    ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

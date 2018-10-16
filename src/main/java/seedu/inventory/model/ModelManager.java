@@ -11,11 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.model.AccessItemEvent;
+import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
+
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -25,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedInventory versionedInventory;
     private final FilteredList<Item> filteredItems;
+    private final FilteredList<PurchaseOrder> filteredPurchaseOrder;
     private final FilteredList<Staff> filteredStaffs;
     private final SaleList saleList;
 
@@ -40,6 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
+        filteredPurchaseOrder = new FilteredList<>(versionedInventory.getPurchaseOrderList());
         filteredStaffs = new FilteredList<>(versionedInventory.getStaffList());
         this.saleList = new SaleList(readOnlySaleList);
     }
@@ -59,15 +65,40 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedInventory;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateInventoryChanged() {
         raise(new InventoryChangedEvent(versionedInventory));
     }
+
+    /**
+     * Raises an event to indicate accessing item
+     */
+    private void indicateAccessItem() {
+        raise(new AccessItemEvent());
+    }
+
+    /**
+     * Raises an event to indicate accessing purchase order
+     */
+    private void indicatePurchaseOrder() {
+        raise(new AccessPurchaseOrderEvent());
+    }
+
+
+    //=========== Item  ====================================================================================
 
     @Override
     public boolean hasItem(Item item) {
         requireNonNull(item);
         return versionedInventory.hasItem(item);
+    }
+
+    @Override
+    public void viewItem() {
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicateAccessItem();
     }
 
     @Override
@@ -86,7 +117,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateItem(Item target, Item editedItem) {
         requireAllNonNull(target, editedItem);
-
         versionedInventory.updateItem(target, editedItem);
         indicateInventoryChanged();
     }
@@ -108,6 +138,32 @@ public class ModelManager extends ComponentManager implements Model {
         filteredItems.setPredicate(predicate);
     }
 
+    //=========== Purchase Order ==========================================================================
+
+    @Override
+    public boolean hasPurchaseOrder(PurchaseOrder po) {
+        requireNonNull(po);
+        return versionedInventory.hasPurchaseOrder(po);
+    }
+
+    @Override
+    public void viewPurchaseOrder() {
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicatePurchaseOrder();
+    }
+
+    @Override
+    public void deletePurchaseOrder(PurchaseOrder target) {
+        versionedInventory.removePurchaseOrder(target);
+    }
+
+    @Override
+    public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
+        requireAllNonNull(target, editedPurchaseOrder);
+        versionedInventory.updatePurchaseOrder(target, editedPurchaseOrder);
+        indicateInventoryChanged();
+    }
+
     //=========== User Management ===========================================
     @Override
     public boolean hasStaff(Staff staff) {
@@ -122,6 +178,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateInventoryChanged();
     }
 
+
+    @Override
+    public void addPurchaseOrder(PurchaseOrder po) {
+        versionedInventory.addPurchaseOrder(po);
+        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+    }
+
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
@@ -133,12 +196,31 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
-
         versionedInventory.updateStaff(target, editedStaff);
         indicateInventoryChanged();
     }
 
+
+    //=========== Filtered Purchase Order List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code PurchaseOrder} backed by the internal list of
+     * {@code versionedInventory}
+     */
+    @Override
+    public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
+        return FXCollections.unmodifiableObservableList(filteredPurchaseOrder);
+    }
+
+    @Override
+    public void updateFilteredPurchaseOrderList(Predicate<PurchaseOrder> predicate) {
+        requireNonNull(predicate);
+        filteredPurchaseOrder.setPredicate(predicate);
+    }
+
+
     // ================ Filtered Staff list accessors=============
+
     /**
      * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
      * {@code versionedInventory}

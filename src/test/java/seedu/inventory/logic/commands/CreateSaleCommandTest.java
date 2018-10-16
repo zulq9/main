@@ -11,17 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ObservableList;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Inventory;
-import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.SaleList;
@@ -31,7 +28,7 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
-import seedu.inventory.model.staff.Staff;
+import seedu.inventory.testutil.ModelStub;
 import seedu.inventory.testutil.TypicalItems;
 
 public class CreateSaleCommandTest {
@@ -122,131 +119,6 @@ public class CreateSaleCommandTest {
 
         // different quantity -> returns false
         assertFalse(createSaleCommand.equals(createSaleCommandDifferentQuantity));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addItem(Item item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyInventory newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyInventory getInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasItem(Item item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteItem(Item target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateItem(Item target, Item editedItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Item> getFilteredItemList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredItemList(Predicate<Item> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasStaff(Staff staff) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteStaff(Staff staff) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addStaff(Staff staff) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateStaff(Staff staff, Staff editedStaff) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Staff> getFilteredStaffList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredStaffList(Predicate<Staff> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void authenticateUser(Staff staff) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlySaleList getSaleList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void createSale(Sale sale) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteSale(String id) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void listSales(String records) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

@@ -11,7 +11,7 @@ public class Quantity {
 
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
-            "Quantity should only contain numbers, and it should be at least 1 digit long";
+            "Quantity should only contain numbers, and it should not start with a 0";
     public static final String QUANTITY_VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 

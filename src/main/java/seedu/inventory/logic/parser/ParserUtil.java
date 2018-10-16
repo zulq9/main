@@ -14,6 +14,8 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
+import seedu.inventory.model.purchaseorder.RequiredDate;
+import seedu.inventory.model.purchaseorder.Supplier;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;
@@ -39,6 +41,8 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
+    //=================== Item variable parser =========================================================
 
     /**
      * Parses a {@code String name} into a {@code StaffName}.
@@ -142,6 +146,42 @@ public class ParserUtil {
         return tagSet;
     }
 
+
+
+    //=================== Purchase order variable parser =========================================================
+
+    /**
+     * Parses a {@code String reqDate} into a {@code RequiredDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code reqDate} is invalid.
+     */
+    public static RequiredDate parseReqDate(String reqDate) throws ParseException {
+        requireNonNull(reqDate);
+        String trimmedDate = reqDate.trim();
+        if (!RequiredDate.isValidDate(trimmedDate)) {
+            throw new ParseException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new RequiredDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String supplier} into a {@code Supplier}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code supplier} is invalid.
+     */
+    public static Supplier parseSupplier(String supplier) throws ParseException {
+        requireNonNull(supplier);
+        String trimmedSupplier = supplier.trim();
+        if (!Supplier.isValidSupplier(trimmedSupplier)) {
+            throw new ParseException(Supplier.MESSAGE_SUPPLIER_CONSTRAINTS);
+        }
+        return new Supplier(trimmedSupplier);
+    }
+
+    //=================== Staff variable parser =========================================
+
     /**
      * Parses a {@code String username} into an {@code Username}.
      * Leading and trailing whitespaces will be trimmed.
@@ -209,4 +249,5 @@ public class ParserUtil {
             throw new ParseException(Staff.Role.MESSAGE_ROLE_CONSTRAINTS);
         }
     }
+
 }
