@@ -21,4 +21,9 @@ public interface ReadOnlyInventory {
      */
     ObservableList<Staff> getStaffList();
 
+    /**
+     * Returns the specific item by Sku.
+     */
+    Item getItemBySku(String sku);
+
 }

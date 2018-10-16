@@ -4,31 +4,31 @@
     <staffs>
         <username>zulq9</username>
         <password>zulq9999</password>
-        <staffName>Muhammad Zulqarnain</staffName>
+        <name>Muhammad Zulqarnain</name>
         <role>admin</role>
     </staffs>
     <staffs>
         <username>esmondTan</username>
         <password>esmondtt</password>
-        <staffName>Esmond Tan</staffName>
+        <name>Esmond Tan</name>
         <role>admin</role>
     </staffs>
     <staffs>
         <username>yaotx</username>
         <password>pcyaotxcfanboi</password>
-        <staffName>Yao TengXiong</staffName>
+        <name>Yao TengXiong</name>
         <role>manager</role>
     </staffs>
     <staffs>
         <username>darren96</username>
         <password>darrenSinglenus</password>
-        <staffName>Darren Ong</staffName>
+        <name>Darren Ong</name>
         <role>manager</role>
     </staffs>
     <staffs>
         <username>fzdy1914</username>
         <password>fengzhidaoying</password>
-        <staffName>Wang Chao</staffName>
+        <name>Wang Chao</name>
         <role>user</role>
     </staffs>
 </staffList>

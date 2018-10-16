@@ -14,6 +14,7 @@ import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
 
@@ -26,13 +27,15 @@ public class StorageManager extends ComponentManager implements Storage {
     private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
     private StaffStorage staffStorage;
+    private SaleListStorage saleListStorage;
 
 
     public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
-                          StaffStorage staffStorage) {
+                          SaleListStorage saleListStorage, StaffStorage staffStorage) {
         super();
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.saleListStorage = saleListStorage;
         this.staffStorage = staffStorage;
     }
 
@@ -83,9 +86,40 @@ public class StorageManager extends ComponentManager implements Storage {
         inventoryStorage.saveInventory(inventory, filePath);
     }
 
+    // ================ Sale List methods ==============================
+
+    @Override
+    public Path getSaleListFilePath() {
+        return saleListStorage.getSaleListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException,
+            IOException {
+        return readSaleList(saleListStorage.getSaleListFilePath(), inventory);
+    }
+
+    @Override
+    public Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return saleListStorage.readSaleList(filePath, inventory);
+    }
+
+    @Override
+    public void saveSaleList(ReadOnlySaleList saleList) throws IOException {
+        saveSaleList(saleList, saleListStorage.getSaleListFilePath());
+    }
+
+    @Override
+    public void saveSaleList(ReadOnlySaleList saleList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        saleListStorage.saveSaleList(saleList, filePath);
+    }
+
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(InventoryChangedEvent event) {
+    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveInventory(event.data);

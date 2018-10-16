@@ -9,6 +9,9 @@ import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.staff.Staff;
 
+/**
+ * Logs in the user into the system.
+ */
 public class LoginCommand extends Command {
 
     public static final String COMMAND_WORD = "login";

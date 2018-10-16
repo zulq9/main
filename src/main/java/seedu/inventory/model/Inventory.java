@@ -59,7 +59,7 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
     }
 
     /**
-     * Adds a item to the inventory.
+     * Adds an item to the inventory.
      * The item must not already exist in the inventory.
      */
     public void addItem(Item p) {
@@ -143,10 +143,20 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     //// util methods
 
+    /**
+     * Returns the item if Sku matches.
+     */
+    @Override
+    public Item getItemBySku(String sku) {
+        requireNonNull(sku);
+
+        return items.getItemBySku(sku);
+    }
+
     @Override
     public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items\n" +
-                staffs.asUnmodifiableObservableList().size() + "staffs\n";
+        return items.asUnmodifiableObservableList().size() + " items\n"
+                + staffs.asUnmodifiableObservableList().size() + "staffs\n";
         // TODO: refine later
     }
 

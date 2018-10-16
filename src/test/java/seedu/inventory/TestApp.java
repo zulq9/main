@@ -15,6 +15,8 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlSerializableInventory;
@@ -92,7 +94,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getInventory()), new UserPrefs());
+        Model copy = new ModelManager((model.getInventory()), new UserPrefs(), new SaleList(), new StaffList());
         ModelHelper.setFilteredList(copy, model.getFilteredItemList());
         return copy;
     }

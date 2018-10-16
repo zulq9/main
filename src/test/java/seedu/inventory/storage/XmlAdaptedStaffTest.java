@@ -7,9 +7,9 @@ import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
 import org.junit.Test;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
 import seedu.inventory.testutil.Assert;
 

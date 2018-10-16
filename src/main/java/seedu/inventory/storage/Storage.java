@@ -9,13 +9,14 @@ import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends InventoryStorage, UserPrefsStorage, StaffStorage {
+public interface Storage extends InventoryStorage, SaleListStorage, StaffStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -40,13 +41,22 @@ public interface Storage extends InventoryStorage, UserPrefsStorage, StaffStorag
 
     @Override
     void saveStaffList(ReadOnlyStaffList staffList) throws IOException;
+    // Sale List Storage
+    @Override
+    Path getSaleListFilePath();
+
+    @Override
+    Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException, IOException;
+
+    @Override
+    void saveSaleList(ReadOnlySaleList saleList) throws IOException;
 
     /**
-     * Saves the current version of the Image Book to the hard disk.
+     * Saves the current version of the Inventory List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(InventoryChangedEvent abce);
+    void handleInventoryChangedEvent(InventoryChangedEvent abce);
 
     void handleStaffListChangedEvent(StaffListChangedEvent abce);
 }

@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -124,4 +125,18 @@ public interface Model {
      */
     void commitInventory();
 
+    /**
+     * Create a new sale.
+     */
+    void createSale(Item item, Quantity quantity);
+
+    /**
+     * Delete a sale.
+     */
+    void deleteSale(String id);
+
+    /**
+     * List sales.
+     */
+    void listSales(String records);
 }

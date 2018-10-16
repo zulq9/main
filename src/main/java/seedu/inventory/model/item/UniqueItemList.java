@@ -5,6 +5,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ import seedu.inventory.model.item.exceptions.ItemNotFoundException;
 
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
- * A item is considered unique by comparing using {@code Item#isSameItem(Item)}. As such, adding and updating of
+ * An item is considered unique by comparing using {@code Item#isSameItem(Item)}. As such, adding and updating of
  * items uses Item#isSameItem(Item) for equality so as to ensure that the item being added or updated is
  * unique in terms of identity in the UniqueItemList. However, the removal of a item uses Item#equals(Object) so
  * as to ensure that the item with exactly the same fields will be removed.
@@ -32,6 +33,18 @@ public class UniqueItemList implements Iterable<Item> {
     public boolean contains(Item toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameItem);
+    }
+
+    /**
+     * Returns the item if Sku matches.
+     */
+    public Item getItemBySku(String sku) {
+        requireNonNull(sku);
+
+        Optional<Item> searchItem = internalList.stream().filter(item -> item.getSku().toString().equalsIgnoreCase(sku))
+                .findFirst();
+
+        return searchItem.orElse(null);
     }
 
     /**

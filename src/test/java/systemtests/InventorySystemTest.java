@@ -25,9 +25,9 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.ItemListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.inventory.MainApp;
@@ -103,8 +103,8 @@ public abstract class InventorySystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public ItemListPanelHandle getItemListPanel() {
+        return mainWindowHandle.getItemListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,17 +139,17 @@ public abstract class InventorySystemTest {
     }
 
     /**
-     * Displays all persons in the inventory book.
+     * Displays all items in the inventory.
      */
-    protected void showAllPersons() {
+    protected void showAllItems() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getInventory().getItemList().size(), getModel().getFilteredItemList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all items with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showItemsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredItemList().size() < getModel().getInventory().getItemList().size());
     }
@@ -157,15 +157,15 @@ public abstract class InventorySystemTest {
     /**
      * Selects the item at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectItem(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the inventory book.
+     * Deletes all items in the inventory.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllItems() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getInventory().getItemList().size());
     }
@@ -173,18 +173,18 @@ public abstract class InventorySystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same item objects as {@code expectedModel}
-     * and the item list panel displays the persons in the model correctly.
+     * and the item list panel displays the items in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Inventory(expectedModel.getInventory()), testApp.readStorageInventory());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredItemList());
+        assertListMatching(getItemListPanel(), expectedModel.getFilteredItemList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code ItemListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -192,7 +192,7 @@ public abstract class InventorySystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getItemListPanel().rememberSelectedItemCard();
     }
 
     /**
@@ -202,18 +202,18 @@ public abstract class InventorySystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getItemListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the item in the item list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getItemListPanel().navigateToCard(getItemListPanel().getSelectedCardIndex());
+        String selectedCardName = getItemListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -222,17 +222,17 @@ public abstract class InventorySystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the item list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getItemListPanel().isSelectedItemCardChanged());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class InventorySystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredItemList());
+        assertListMatching(getItemListPanel(), getModel().getFilteredItemList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

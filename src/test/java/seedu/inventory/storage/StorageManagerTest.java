@@ -36,10 +36,11 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlInventoryStorage addressBookStorage = new XmlInventoryStorage(getTempFilePath("ab"));
+        XmlInventoryStorage inventoryManagerStorage = new XmlInventoryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         XmlStaffListStorage staffStorage = new XmlStaffListStorage(getTempFilePath("cd"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, staffStorage);
+        XmlSaleListStorage saleListStorage = new XmlSaleListStorage();
+        storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage, staffStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -84,8 +85,9 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
+                                             new XmlSaleListStorage(),
                                              new XmlStaffListStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new InventoryChangedEvent(new Inventory()));
+        storage.handleInventoryChangedEvent(new InventoryChangedEvent(new Inventory()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -106,6 +108,7 @@ public class StorageManagerTest {
     public void handleStaffListChangedEvent_exceptionThrown_eventRaised() {
         Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
                 new XmlStaffListStorageExceptionThrowingStub(Paths.get("dummy")));
         storage.handleStaffListChangedEvent(new StaffListChangedEvent(new StaffList()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);

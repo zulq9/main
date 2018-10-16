@@ -27,7 +27,7 @@ public class UniqueItemListTest {
     private final UniqueItemList uniqueItemList = new UniqueItemList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.contains(null);
     }
@@ -52,38 +52,38 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.add(null);
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateItem_throwsDuplicateItemException() {
         uniqueItemList.add(IPHONE);
         thrown.expect(DuplicateItemException.class);
         uniqueItemList.add(IPHONE);
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setItem_nullTargetItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.setItem(null, IPHONE);
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setItem_nullEditedItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.setItem(IPHONE, null);
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setItem_targetItemNotInList_throwsItemNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
         uniqueItemList.setItem(IPHONE, IPHONE);
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setItem_editedItemIsSameItem_success() {
         uniqueItemList.add(IPHONE);
         uniqueItemList.setItem(IPHONE, IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
@@ -92,7 +92,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setItem_editedItemHasSameIdentity_success() {
         uniqueItemList.add(IPHONE);
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
@@ -103,7 +103,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setItem_editedItemHasDifferentIdentity_success() {
         uniqueItemList.add(IPHONE);
         uniqueItemList.setItem(IPHONE, SONY);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
@@ -112,7 +112,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setItem_editedItemHasNonUniqueIdentity_throwsDuplicateItemException() {
         uniqueItemList.add(IPHONE);
         uniqueItemList.add(SONY);
         thrown.expect(DuplicateItemException.class);
@@ -120,19 +120,19 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.remove(null);
     }
 
     @Test
-    public void remove_itemDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_itemDoesNotExist_throwsItemNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
         uniqueItemList.remove(IPHONE);
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingItem_removesItem() {
         uniqueItemList.add(IPHONE);
         uniqueItemList.remove(IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
@@ -140,13 +140,13 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setItems_nullUniqueItemList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.setItems((UniqueItemList) null);
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setItems_uniqueItemList_replacesOwnListWithProvidedUniqueItemList() {
         uniqueItemList.add(IPHONE);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
         expectedUniqueItemList.add(SONY);
@@ -155,13 +155,13 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setItems_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueItemList.setItems((List<Item>) null);
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setItems_list_replacesOwnListWithProvidedList() {
         uniqueItemList.add(IPHONE);
         List<Item> itemList = Collections.singletonList(SONY);
         uniqueItemList.setItems(itemList);
@@ -171,7 +171,7 @@ public class UniqueItemListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setItems_listWithDuplicateItems_throwsDuplicateItemException() {
         List<Item> listWithDuplicateItems = Arrays.asList(IPHONE, IPHONE);
         thrown.expect(DuplicateItemException.class);
         uniqueItemList.setItems(listWithDuplicateItems);

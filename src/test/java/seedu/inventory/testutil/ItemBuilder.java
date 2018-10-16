@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
@@ -17,11 +18,13 @@ import seedu.inventory.model.util.SampleDataUtil;
 public class ItemBuilder {
 
     public static final String DEFAULT_NAME = "iPhone XS";
+    public static final String DEFAULT_PRICE = "1500.00";
     public static final String DEFAULT_QUANTITY = "30";
     public static final String DEFAULT_SKU = "apple-iphone-xs";
     public static final String DEFAULT_IMAGE = "docs/images/iphone.jpg";
 
     private Name name;
+    private Price price;
     private Quantity quantity;
     private Sku sku;
     private Image image;
@@ -29,6 +32,7 @@ public class ItemBuilder {
 
     public ItemBuilder() {
         name = new Name(DEFAULT_NAME);
+        price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         sku = new Sku(DEFAULT_SKU);
         image = new Image(DEFAULT_IMAGE);
@@ -40,6 +44,7 @@ public class ItemBuilder {
      */
     public ItemBuilder(Item itemToCopy) {
         name = itemToCopy.getName();
+        price = itemToCopy.getPrice();
         quantity = itemToCopy.getQuantity();
         sku = itemToCopy.getSku();
         image = itemToCopy.getImage();
@@ -71,6 +76,14 @@ public class ItemBuilder {
     }
 
     /**
+     * Sets the {@code price} of the {@code Item} that we are building.
+     */
+    public ItemBuilder withPrice(String price) {
+        this.price = new Price(price);
+        return this;
+    }
+
+    /**
      * Sets the {@code Quantity} of the {@code Item} that we are building.
      */
     public ItemBuilder withQuantity(String quantity) {
@@ -87,7 +100,7 @@ public class ItemBuilder {
     }
 
     public Item build() {
-        return new Item(name, quantity, sku, image, tags);
+        return new Item(name, price, quantity, sku, image, tags);
     }
 
 }

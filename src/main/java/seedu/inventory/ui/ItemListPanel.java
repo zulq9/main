@@ -11,38 +11,38 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
-import seedu.inventory.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.inventory.model.item.Item;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of items.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ItemListPanel extends UiPart<Region> {
+    private static final String FXML = "ItemListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ItemListPanel.class);
 
     @FXML
-    private ListView<Item> personListView;
+    private ListView<Item> itemListView;
 
-    public PersonListPanel(ObservableList<Item> itemList) {
+    public ItemListPanel(ObservableList<Item> itemList) {
         super(FXML);
         setConnections(itemList);
         registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Item> itemList) {
-        personListView.setItems(itemList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        itemListView.setItems(itemList);
+        itemListView.setCellFactory(listView -> new ItemListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        itemListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in item list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new ItemPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
@@ -52,8 +52,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            itemListView.scrollTo(index);
+            itemListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -66,7 +66,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Item} using a {@code ItemCard}.
      */
-    class PersonListViewCell extends ListCell<Item> {
+    class ItemListViewCell extends ListCell<Item> {
         @Override
         protected void updateItem(Item item, boolean empty) {
             super.updateItem(item, empty);

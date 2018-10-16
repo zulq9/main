@@ -17,6 +17,8 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
 
@@ -26,7 +28,7 @@ import seedu.inventory.model.item.Item;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,7 +38,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
@@ -60,7 +63,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
         showNoPerson(expectedModel);
@@ -73,7 +76,7 @@ public class DeleteCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
-        // ensures that outOfBoundIndex is still in bounds of inventory book list
+        // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -85,14 +88,14 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
         // delete -> first item deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -106,10 +109,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> inventory book state not added into model
+        // execution failed -> inventory state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
-        // single inventory book state in model -> undoCommand and redoCommand fail
+        // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -124,7 +127,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameItemDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
 
         showItemAtIndex(model, INDEX_SECOND_ITEM);
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
@@ -134,7 +137,7 @@ public class DeleteCommandTest {
         // delete -> deletes second item in unfiltered item list / first item in filtered item list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts inventory back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

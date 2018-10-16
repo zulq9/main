@@ -1,8 +1,8 @@
 package seedu.inventory.testutil;
 
-import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
 
 /**

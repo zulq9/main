@@ -1,7 +1,6 @@
 package seedu.inventory.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.inventory.model.staff.Staff.Role.admin;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,13 +10,13 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
-import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
-import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
 import seedu.inventory.model.tag.Tag;
 
@@ -57,10 +56,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Quantity}.
+     * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String quantity} into a {@code Quantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code quantity} is invalid.
      */
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
@@ -72,10 +86,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String inventory} into an {@code Image}.
+     * Parses a {@code String image} into an {@code Image}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code inventory} is invalid.
+     * @throws ParseException if the given {@code image} is invalid.
      */
     public static Image parseImage(String image) throws ParseException {
         requireNonNull(image);
@@ -87,10 +101,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Sku}.
+     * Parses a {@code String sku} into an {@code Sku}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code sku} is invalid.
      */
     public static Sku parseSku(String sku) throws ParseException {
         requireNonNull(sku);
@@ -158,6 +172,12 @@ public class ParserUtil {
         return new Password(trimmedPassword);
     }
 
+    /**
+     * Parses a {@code String name} into an {@code StaffName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
     public static StaffName parseStaffName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
@@ -167,6 +187,12 @@ public class ParserUtil {
         return new StaffName(trimmedName);
     }
 
+    /**
+     * Parses a {@code String role} into an {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
     public static Staff.Role parseRole(String role) throws ParseException {
         requireNonNull(role);
         String trimmedRole = role.trim();
