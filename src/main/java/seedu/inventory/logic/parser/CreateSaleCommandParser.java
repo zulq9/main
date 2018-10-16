@@ -3,20 +3,13 @@ package seedu.inventory.logic.parser;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
-import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.inventory.logic.commands.CreateSaleCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
-import seedu.inventory.model.item.Image;
-import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Name;
-import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
-import seedu.inventory.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new CreateSaleCommand object
@@ -37,14 +30,10 @@ public class CreateSaleCommandParser implements Parser<CreateSaleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateSaleCommand.MESSAGE_USAGE));
         }
 
-        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Sku sku = ParserUtil.parseSku(argMultimap.getValue(PREFIX_SKU).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
 
-        // TODO: Find item by SKU then add item
-        Item item = new Item(new Name("TEST"), new Price("10"), quantity, sku, new Image(""), tagList);
-
-        return new CreateSaleCommand(item, quantity);
+        return new CreateSaleCommand(sku, quantity);
     }
 
     /**

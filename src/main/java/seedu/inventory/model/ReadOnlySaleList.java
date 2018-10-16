@@ -13,4 +13,9 @@ public interface ReadOnlySaleList {
      */
     ObservableList<Sale> getSaleList();
 
+    /**
+     * Returns the next available sale ID.
+     */
+    String getNextSaleId();
+
 }

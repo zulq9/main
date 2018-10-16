@@ -140,7 +140,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found for sale list. Will be starting with empty sale list.");
             }
 
-            readOnlySaleList = new SaleList();
+            readOnlySaleList = saleListOptional.orElse(new SaleList());
         } catch (DataConversionException e) {
             logger.warning("Data file for sale list not in the correct format."
                     + " Will be starting with an empty sale list");

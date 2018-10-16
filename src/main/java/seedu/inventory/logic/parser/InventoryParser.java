@@ -10,6 +10,7 @@ import seedu.inventory.logic.commands.AddCommand;
 import seedu.inventory.logic.commands.AddStaffCommand;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CreateSaleCommand;
 import seedu.inventory.logic.commands.DeleteCommand;
 import seedu.inventory.logic.commands.DeleteStaffCommand;
 import seedu.inventory.logic.commands.EditCommand;
@@ -94,6 +95,9 @@ public class InventoryParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case CreateSaleCommand.COMMAND_WORD:
+            return new CreateSaleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
