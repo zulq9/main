@@ -17,4 +17,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_REQDATE = new Prefix("d/");
     public static final Prefix PREFIX_SUPPLIER = new Prefix("sp/");
 
+    /* Staff prefix definitions */
+    public static final Prefix PREFIX_USERNAME = new Prefix("u/");
+    public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
+    public static final Prefix PREFIX_ROLE = new Prefix("r/");
+
+
 }

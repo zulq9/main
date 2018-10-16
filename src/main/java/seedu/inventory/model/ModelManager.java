@@ -22,6 +22,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.model.staff.Staff;
 
 
 /**
@@ -33,26 +34,28 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedInventory versionedInventory;
     private final FilteredList<Item> filteredItems;
     private final FilteredList<PurchaseOrder> filteredPurchaseOrder;
+    private final FilteredList<Staff> filteredStaffs;
     private final SaleList saleList;
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList,
+                        ReadOnlyStaffList readOnlyStaffList) {
         super();
-        requireAllNonNull(inventory, userPrefs, readOnlySaleList);
+        requireAllNonNull(inventory, userPrefs, readOnlySaleList, readOnlyStaffList);
 
         logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
         versionedInventory = new VersionedInventory(inventory);
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
         filteredPurchaseOrder = new FilteredList<>(versionedInventory.getPurchaseOrderList());
-
+        filteredStaffs = new FilteredList<>(versionedInventory.getStaffList());
         this.saleList = new SaleList(readOnlySaleList);
     }
 
     public ModelManager() {
-        this(new Inventory(), new UserPrefs(), new SaleList());
+        this(new Inventory(), new UserPrefs(), new SaleList(), new StaffList());
     }
 
     @Override
@@ -156,14 +159,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePurchaseOrder(PurchaseOrder target) {
         versionedInventory.removePurchaseOrder(target);
-        indicateInventoryChanged();
-    }
-
-    @Override
-    public void addPurchaseOrder(PurchaseOrder po) {
-        versionedInventory.addPurchaseOrder(po);
-        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
-        indicateInventoryChanged();
     }
 
     @Override
@@ -172,6 +167,43 @@ public class ModelManager extends ComponentManager implements Model {
         versionedInventory.updatePurchaseOrder(target, editedPurchaseOrder);
         indicateInventoryChanged();
     }
+
+    //=========== User Management ===========================================
+    @Override
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return versionedInventory.hasStaff(staff);
+    }
+
+    @Override
+    public void deleteStaff(Staff target) {
+        requireNonNull(target);
+        versionedInventory.removeStaff(target);
+        indicateInventoryChanged();
+    }
+
+
+    @Override
+    public void addPurchaseOrder(PurchaseOrder po) {
+        versionedInventory.addPurchaseOrder(po);
+        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+    }
+
+    @Override
+    public void addStaff(Staff staff) {
+        requireNonNull(staff);
+        versionedInventory.addStaff(staff);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void updateStaff(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
+        versionedInventory.updateStaff(target, editedStaff);
+        indicateInventoryChanged();
+    }
+
 
     //=========== Filtered Purchase Order List Accessors =============================================================
 
@@ -189,6 +221,33 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPurchaseOrder.setPredicate(predicate);
     }
+
+
+    // ================ Filtered Staff list accessors=============
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Item} backed by the internal list of
+     * {@code versionedInventory}
+     */
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
+        return FXCollections.unmodifiableObservableList(filteredStaffs);
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        requireNonNull(predicate);
+        filteredStaffs.setPredicate(predicate);
+    }
+
+    //================ Authentication ========================
+    @Override
+    public void authenticateUser(Staff toLogin) {
+        requireNonNull(toLogin);
+
+        versionedInventory.authenticateUser(toLogin);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
