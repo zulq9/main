@@ -27,7 +27,6 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
-import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.TypicalItems;
 
 public class CreateSaleCommandTest {
@@ -64,6 +63,22 @@ public class CreateSaleCommandTest {
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(sale), modelStub.salesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_QuantityDeduct_successful() throws Exception {
+        ModelStubCreateSaleQuantityTest modelStub = new ModelStubCreateSaleQuantityTest();
+
+        Sku sku = IPHONE.getSku();
+        Quantity saleQuantity = new Quantity("1");
+
+        Integer expectedQuantity = Integer.parseInt(IPHONE.getQuantity().toString()) - 1;
+
+        new CreateSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
+
+        Quantity newQuantity = modelStub.getInventory().getItemBySku(IPHONE.getSku().toString()).getQuantity();
+
+        assertTrue(expectedQuantity.equals(Integer.parseInt(newQuantity.toString())));
     }
 
     @Test
@@ -203,6 +218,42 @@ public class CreateSaleCommandTest {
         @Override
         public ReadOnlyInventory getInventory() {
             return TypicalItems.getTypicalInventory();
+        }
+
+        @Override
+        public ReadOnlySaleList getSaleList() {
+            return new SaleList();
+        }
+
+        @Override
+        public void createSale(Sale sale) {
+            requireNonNull(sale);
+            salesAdded.add(sale);
+        }
+    }
+
+    /**
+     * A Model stub that is used for testing deducting quantity.
+     */
+    private class ModelStubCreateSaleQuantityTest extends ModelStub {
+        private final ArrayList<Sale> salesAdded = new ArrayList<>();
+        private final Item testItem = new Item(IPHONE.getName(), IPHONE.getPrice(), IPHONE.getQuantity()
+                , IPHONE.getSku(), IPHONE.getImage(), IPHONE.getTags());
+        private final Inventory inventory = new Inventory();
+
+        public ModelStubCreateSaleQuantityTest() {
+            inventory.addItem(testItem);
+        }
+
+        @Override
+        public ReadOnlyInventory getInventory() {
+            return inventory;
+        }
+
+        @Override
+        public void updateItem(Item target, Item editedItem) {
+            inventory.removeItem(target);
+            inventory.addItem(editedItem);
         }
 
         @Override

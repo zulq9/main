@@ -7,6 +7,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
@@ -62,6 +63,13 @@ public class CreateSaleCommand extends Command {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         model.createSale(sale);
+
+        int newIntQuantity = Integer.parseInt(item.getQuantity().toString()) - Integer.parseInt(quantity.toString());
+        Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
+
+        // Deduct item quantity
+        model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
+                item.getImage(), item.getTags()));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, saleId.toString(), item.getName()));
     }

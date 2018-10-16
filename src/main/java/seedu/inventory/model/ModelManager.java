@@ -3,8 +3,6 @@ package seedu.inventory.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,10 +14,7 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
-import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleId;
 
 /**
  * Represents the in-memory model of the inventory data.
