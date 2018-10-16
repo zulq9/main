@@ -25,7 +25,6 @@ import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.ItemBuilder;
-import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class InventoryTest {
 
