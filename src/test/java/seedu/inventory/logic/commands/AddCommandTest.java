@@ -82,7 +82,6 @@ public class AddCommandTest {
         assertFalse(addIphoneCommand.equals(addGoogleCommand));
     }
 
-
     /**
      * A Model stub that contains a single item.
      */

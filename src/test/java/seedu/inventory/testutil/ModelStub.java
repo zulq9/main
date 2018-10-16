@@ -5,9 +5,10 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -120,7 +121,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void createSale(Item item, Quantity quantity) {
+    public void createSale(Sale sale) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -131,6 +132,11 @@ public class ModelStub implements Model {
 
     @Override
     public void listSales(String records) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlySaleList getSaleList() {
         throw new AssertionError("This method should not be called.");
     }
 

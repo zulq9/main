@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
@@ -57,6 +58,13 @@ public interface Storage extends InventoryStorage, SaleListStorage, StaffStorage
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleInventoryChangedEvent(InventoryChangedEvent abce);
+
+    /**
+     * Saves the current version of the Sale List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleSaleListChangedEvent(SaleListChangedEvent abce);
 
     void handleStaffListChangedEvent(StaffListChangedEvent abce);
 }
