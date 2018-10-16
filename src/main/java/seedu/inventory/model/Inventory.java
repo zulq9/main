@@ -7,14 +7,17 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.UniqueItemList;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.UniqueStaffList;
 
 /**
  * Wraps all data at the inventory-list level
  * Duplicates are not allowed (by .isSameItem comparison)
  */
-public class Inventory implements ReadOnlyInventory {
+public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     private final UniqueItemList items = new UniqueItemList();
+    private final UniqueStaffList staffs = new UniqueStaffList();
 
     public Inventory() {}
 
@@ -82,6 +85,62 @@ public class Inventory implements ReadOnlyInventory {
         items.remove(key);
     }
 
+    // staff-level
+
+    /**
+     * Replaces the contents of the staff list with {@code staffs}
+     *
+     * @param staffs must not contain duplicated staffs.
+     */
+    public void setStaffs(List<Staff> staffs) {
+        this.staffs.setStaffs(staffs);
+    }
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
+     */
+    public void resetStaffData(ReadOnlyStaffList newStaffData) {
+        requireNonNull(newStaffData);
+
+        setStaffs(newStaffData.getStaffList());
+    }
+
+    /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the inventory.
+     * @return true if staff found
+     */
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return staffs.contains(staff);
+    }
+
+    /**
+     * Adds a staff to the inventory management system.
+     * @param s the staff to be added
+     */
+    public void addStaff(Staff s) {
+        staffs.add(s);
+    }
+
+    /**
+     * Updates the given staff {@code target} in the list with {@code editedStaff}.
+     * {@code target} must exist in the inventory management system.
+     */
+    public void updateStaff(Staff target, Staff editedStaff) {
+        requireNonNull(editedStaff);
+
+        staffs.setStaff(target, editedStaff);
+    }
+
+    /**
+     * Removes the provided staff {@code key} from the inventory manager.
+     */
+    public void removeStaff(Staff key) {
+        staffs.remove(key);
+    }
+
+    //
+
     //// util methods
 
     /**
@@ -96,7 +155,8 @@ public class Inventory implements ReadOnlyInventory {
 
     @Override
     public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items";
+        return items.asUnmodifiableObservableList().size() + " items\n"
+                + staffs.asUnmodifiableObservableList().size() + "staffs\n";
         // TODO: refine later
     }
 
@@ -106,10 +166,16 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     @Override
+    public ObservableList<Staff> getStaffList() {
+        return staffs.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && items.equals(((Inventory) other).items));
+                && items.equals(((Inventory) other).items)
+                && staffs.equals(((Inventory) other).staffs));
     }
 
     @Override

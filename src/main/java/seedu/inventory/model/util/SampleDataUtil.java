@@ -6,12 +6,18 @@ import java.util.stream.Collectors;
 
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
+import seedu.inventory.model.staff.Username;
 import seedu.inventory.model.tag.Tag;
 
 /**
@@ -47,6 +53,29 @@ public class SampleDataUtil {
             sampleInventory.addItem(sampleItem);
         }
         return sampleInventory;
+    }
+
+    public static Staff[] getSampleStaffs() {
+        return new Staff[] {
+            new Staff(new Username("darren96"), new Password("darrenSinglnus"), new StaffName("Darren Ong"),
+                    Staff.Role.manager),
+            new Staff(new Username("zulq9"), new Password("zulq999"), new StaffName("Zulqarnain"),
+                    Staff.Role.admin),
+            new Staff(new Username("yaotx"), new Password("pcyaotxcfanboi"), new StaffName("Yao TengXiong"),
+                    Staff.Role.admin),
+            new Staff(new Username("EsmondTan"), new Password("esmondTann"), new StaffName("Esmond Tan"),
+                    Staff.Role.manager),
+            new Staff(new Username("fzdy1914"), new Password("fengzhidaoying"), new StaffName("Wang Chao"),
+                    Staff.Role.user)
+        };
+    }
+
+    public static ReadOnlyStaffList getSampleStaffList() {
+        StaffList sampleStaffList = new StaffList();
+        for (Staff sampleStaff : getSampleStaffs()) {
+            sampleStaffList.addStaff(sampleStaff);
+        }
+        return sampleStaffList;
     }
 
     /**

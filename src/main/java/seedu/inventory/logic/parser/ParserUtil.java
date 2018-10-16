@@ -14,6 +14,10 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
+import seedu.inventory.model.staff.Username;
 import seedu.inventory.model.tag.Tag;
 
 /**
@@ -37,7 +41,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String name} into a {@code StaffName}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -136,5 +140,73 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String password} into an {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code password} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Username.isValidUsername(trimmedPassword)) {
+            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        return new Password(trimmedPassword);
+    }
+
+    /**
+     * Parses a {@code String name} into an {@code StaffName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static StaffName parseStaffName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!StaffName.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new StaffName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String role} into an {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Staff.Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+        if (role.isEmpty()) {
+            throw new ParseException(Staff.Role.MESSAGE_ROLE_CONSTRAINTS);
+        }
+        if (trimmedRole.equals("admin")) {
+            return Staff.Role.admin;
+        } else if (trimmedRole.equals("manager")) {
+            return Staff.Role.manager;
+        } else if (trimmedRole.equals("user")) {
+            return Staff.Role.user;
+        } else {
+            throw new ParseException(Staff.Role.MESSAGE_ROLE_CONSTRAINTS);
+        }
     }
 }

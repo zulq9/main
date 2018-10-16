@@ -1,8 +1,8 @@
 package seedu.inventory.testutil;
 
-import seedu.inventory.model.staff.Name;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
 
 /**
@@ -17,13 +17,13 @@ public class StaffBuilder {
 
     private Username username;
     private Password password;
-    private Name name;
+    private StaffName staffName;
     private Staff.Role role;
 
     public StaffBuilder() {
         username = new Username(DEFAULT_USERNAME);
         password = new Password(DEFAULT_PASSWORD);
-        name = new Name(DEFAULT_NAME);
+        staffName = new StaffName(DEFAULT_NAME);
         role = DEFAULT_ROLE;
     }
 
@@ -34,7 +34,7 @@ public class StaffBuilder {
     public StaffBuilder(Staff staffToCopy) {
         username = staffToCopy.getUsername();
         password = staffToCopy.getPassword();
-        name = staffToCopy.getName();
+        staffName = staffToCopy.getStaffName();
         role = staffToCopy.getRole();
     }
 
@@ -55,10 +55,10 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Staff} that we are building.
+     * Sets the {@code StaffName} of the {@code Staff} that we are building.
      */
     public StaffBuilder withName(String name) {
-        this.name = new Name(name);
+        this.staffName = new StaffName(name);
         return this;
     }
 
@@ -71,6 +71,6 @@ public class StaffBuilder {
     }
 
     public Staff build() {
-        return new Staff(username, password, name, role);
+        return new Staff(username, password, staffName, role);
     }
 }

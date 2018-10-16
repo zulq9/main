@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * The API of the Model component.
@@ -51,6 +52,53 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredItemList(Predicate<Item> predicate);
+
+    /**
+     * Returns true if a staff with the same identity as {@code item} exists in the staff list.
+     *
+     * @param staff the staff to be checked
+     */
+    boolean hasStaff(Staff staff);
+
+    /**
+     * Deletes the given staff.
+     * The staff must exist in the staff list.
+     *
+     * @param target staff to be deleted must be in the list
+     */
+    void deleteStaff(Staff target);
+
+    /**
+     * Adds the given staff.
+     * {@code staff} must not already exist in the inventory.
+     *
+     * @param staff the staff to be added must not be in the list.
+     */
+    void addStaff(Staff staff);
+
+    /**
+     * Replaces the given staff {@code target} with {@code editedStaff}.
+     * {@code target} must exist in the staff list.
+     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the staff list.
+     *
+     * @param target the staff to be updated
+     * @param editedStaff the staff with updated info
+     */
+    void updateStaff(Staff target, Staff editedStaff);
+
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Staff> getFilteredStaffList();
+
+    /**
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStaffList(Predicate<Staff> predicate);
+
+    /**
+     * Authenticate the user.
+     */
+    void authenticateUser(Staff staff);
 
     /**
      * Returns true if the model has previous inventory states to restore.

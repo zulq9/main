@@ -15,6 +15,8 @@ public class UserPrefs {
 
     private Path inventoryFilePath = Paths.get("data" , "inventory.xml");
 
+    private Path staffListFilePath = Paths.get("data", "staffList.xml");
+
     public UserPrefs() {
         setGuiSettings(750, 600, 10, 10);
     }
@@ -39,6 +41,15 @@ public class UserPrefs {
         this.inventoryFilePath = inventoryFilePath;
     }
 
+    public Path getStaffListFilePath() {
+        return staffListFilePath;
+    }
+
+    public void setStaffListFilePath(Path inventoryFilePath) {
+        this.staffListFilePath = staffListFilePath;
+    }
+
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -51,7 +62,8 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(inventoryFilePath, o.inventoryFilePath);
+                && Objects.equals(inventoryFilePath, o.inventoryFilePath)
+                && Objects.equals(staffListFilePath, o.staffListFilePath);
     }
 
     @Override
@@ -64,6 +76,7 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + inventoryFilePath);
+        sb.append("\nLocal staff data file location : " + staffListFilePath);
         return sb.toString();
     }
 
