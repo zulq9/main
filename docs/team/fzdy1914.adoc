@@ -53,4 +53,7 @@ include::../UserGuide.adoc[tag=exportimport]
 |===
 
 include::../DeveloperGuide.adoc[tag=usecaseexportimport]
+include::../DeveloperGuide.adoc[tag=exportCsv]
+
+
 

@@ -98,6 +98,6 @@ public class SaleDate {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + saleDate + ']';
+        return saleDate;
     }
 }

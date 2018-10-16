@@ -143,6 +143,11 @@ public class InventoryTest {
         public ObservableList<PurchaseOrder> getPurchaseOrderList() {
             return purchaseOrders;
         }
+
+        @Override
+        public Item getItemBySku(String sku) {
+            return null;
+        }
     }
 
 }

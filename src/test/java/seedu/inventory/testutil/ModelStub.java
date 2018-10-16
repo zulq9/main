@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
@@ -114,6 +115,21 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void createSale(Item item, Quantity quantity) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteSale(String id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void listSales(String records) {
         throw new AssertionError("This method should not be called.");
     }
 }

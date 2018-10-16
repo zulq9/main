@@ -96,6 +96,16 @@ public class Inventory implements ReadOnlyInventory {
         items.remove(key);
     }
 
+    /**
+     * Returns the item if Sku matches.
+     */
+    @Override
+    public Item getItemBySku(String sku) {
+        requireNonNull(sku);
+
+        return items.getItemBySku(sku);
+    }
+
     //===================== purchaseOrder-level operations =================================
 
     /**
@@ -138,7 +148,6 @@ public class Inventory implements ReadOnlyInventory {
         purchaseOrders.remove(key);
     }
 
-
     //===================== util methods =======================================================
 
     @Override
@@ -155,7 +164,6 @@ public class Inventory implements ReadOnlyInventory {
     public String toString() {
         return items.asUnmodifiableObservableList().size() + " items"
                 + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders";
-
     }
 
     @Override

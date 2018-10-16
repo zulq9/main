@@ -4,22 +4,31 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<PurchaseOrder> PREDICATE_SHOW_ALL_PURCHASE_ORDER = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyInventory newData);
 
-    /** Returns the Inventory */
+    /**
+     * Returns the Inventory
+     */
     ReadOnlyInventory getInventory();
 
     //=========== Item API =============================================================
@@ -53,11 +62,14 @@ public interface Model {
      */
     void updateItem(Item target, Item editedItem);
 
-    /** Returns an unmodifiable view of the filtered item list */
+    /**
+     * Returns an unmodifiable view of the filtered item list
+     */
     ObservableList<Item> getFilteredItemList();
 
     /**
      * Updates the filter of the filtered item list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredItemList(Predicate<Item> predicate);
@@ -93,11 +105,14 @@ public interface Model {
      */
     void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);
 
-    /** Returns an unmodifiable view of the filtered purchase order list */
+    /**
+     * Returns an unmodifiable view of the filtered purchase order list
+     */
     ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();
 
     /**
      * Updates the filter of the filtered purchase order list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPurchaseOrderList(Predicate<PurchaseOrder> predicate);
@@ -129,4 +144,19 @@ public interface Model {
      * Saves the current inventory state for undo/redo.
      */
     void commitInventory();
+
+    /**
+     * Create a new sale.
+     */
+    void createSale(Item item, Quantity quantity);
+
+    /**
+     * Delete a sale.
+     */
+    void deleteSale(String id);
+
+    /**
+     * List sales.
+     */
+    void listSales(String records);
 }

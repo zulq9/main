@@ -20,4 +20,9 @@ public interface ReadOnlyInventory {
      */
     ObservableList<PurchaseOrder> getPurchaseOrderList();
 
+    /**
+     * Returns the specific item by Sku.
+     */
+    Item getItemBySku(String sku);
+
 }
