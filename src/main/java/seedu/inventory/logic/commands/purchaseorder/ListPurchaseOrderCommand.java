@@ -1,12 +1,12 @@
 package seedu.inventory.logic.commands.purchaseorder;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_PURCHASE_ORDER;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.model.Model;
+
 
 /**
  * Lists all pending purchase order in the system to the user.
@@ -21,7 +21,7 @@ public class ListPurchaseOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        model.viewPurchaseOrder();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

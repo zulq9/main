@@ -20,6 +20,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.ItemBuilder;
 
 public class AddCommandTest {
@@ -89,6 +90,11 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public void viewItem() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addItem(Item item) {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,6 +156,36 @@ public class AddCommandTest {
 
         @Override
         public void commitInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewPurchaseOrder() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePurchaseOrder(PurchaseOrder target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPurchaseOrderList(Predicate<PurchaseOrder> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
             throw new AssertionError("This method should not be called.");
         }
     }

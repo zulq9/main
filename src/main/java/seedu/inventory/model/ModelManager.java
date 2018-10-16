@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.model.AccessItemEvent;
+import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -54,9 +56,25 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedInventory;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateInventoryChanged() {
         raise(new InventoryChangedEvent(versionedInventory));
+    }
+
+    /**
+     * Raises an event to indicate accessing item
+     */
+    private void indicateAccessItem() {
+        raise(new AccessItemEvent());
+    }
+
+    /**
+     * Raises an event to indicate accessing purchase order
+     */
+    private void indicatePurchaseOrder() {
+        raise(new AccessPurchaseOrderEvent());
     }
 
 
@@ -66,6 +84,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasItem(Item item) {
         requireNonNull(item);
         return versionedInventory.hasItem(item);
+    }
+
+    @Override
+    public void viewItem() {
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicateAccessItem();
     }
 
     @Override
@@ -84,7 +108,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateItem(Item target, Item editedItem) {
         requireAllNonNull(target, editedItem);
-
         versionedInventory.updateItem(target, editedItem);
         indicateInventoryChanged();
     }
@@ -109,6 +132,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Purchase Order ==========================================================================
 
     @Override
+    public void viewPurchaseOrder() {
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicatePurchaseOrder();
+    }
+
+    @Override
     public void deletePurchaseOrder(PurchaseOrder target) {
         versionedInventory.removePurchaseOrder(target);
         indicateInventoryChanged();
@@ -124,7 +153,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
         requireAllNonNull(target, editedPurchaseOrder);
-
         versionedInventory.updatePurchaseOrder(target, editedPurchaseOrder);
         indicateInventoryChanged();
     }

@@ -143,6 +143,16 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    private void setPanelPurchaseOrder() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
+    }
+
+    private void setPanelPerson() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     void hide() {
         primaryStage.hide();
     }
@@ -201,6 +211,18 @@ public class MainWindow extends UiPart<Stage> {
 
     void releaseResources() {
         browserPanel.freeResources();
+    }
+
+    @Subscribe
+    private void handleAcessItem(AccessItemEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPanelPerson();
+    }
+
+    @Subscribe
+    private void handleAcessPo(AccessPurchaseOrderEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPanelPurchaseOrder();
     }
 
     @Subscribe

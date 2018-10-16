@@ -30,6 +30,11 @@ public interface Model {
     boolean hasItem(Item item);
 
     /**
+     * Returns true if a item with the same identity as {@code item} exists in the inventory.
+     */
+    void viewItem();
+
+    /**
      * Deletes the given item.
      * The item must exist in the inventory.
      */
@@ -58,6 +63,13 @@ public interface Model {
     void updateFilteredItemList(Predicate<Item> predicate);
 
     //=========== Purchase Order API =============================================================
+
+
+    /**
+     * Deletes the given purchase order.
+     * The purchase order must exist in the inventory.
+     */
+    void viewPurchaseOrder();
 
     /**
      * Deletes the given purchase order.

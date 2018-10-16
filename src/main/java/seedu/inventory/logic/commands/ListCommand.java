@@ -1,7 +1,6 @@
 package seedu.inventory.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
@@ -19,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        model.viewItem();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
