@@ -11,24 +11,34 @@ import java.util.Objects;
 public class Staff {
     private Username username;
     private Password password;
-    private Name name;
+    private StaffName staffName;
     private Role role;
 
     /**
      * This is a enum for staff's role.
      */
     public enum Role {
-        admin, manager, user
+        admin, manager, user;
+
+        public static final String MESSAGE_ROLE_CONSTRAINTS = "Role should only be either user, manager or admin.";
+
+        public static Role role(String token) {
+            return Role.valueOf(token);
+        }
+
+        public static String token(Role t) {
+            return t.name();
+        }
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Staff(Username username, Password password, Name name, Role role) {
-        requireAllNonNull(username, password, name, role);
+    public Staff(Username username, Password password, StaffName staffName, Role role) {
+        requireAllNonNull(username, password, staffName, role);
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.staffName = staffName;
         this.role = role;
     }
 
@@ -40,8 +50,8 @@ public class Staff {
         return this.password;
     }
 
-    public Name getName() {
-        return this.name;
+    public StaffName getStaffName() {
+        return this.staffName;
     }
 
     public Role getRole() {
@@ -49,7 +59,7 @@ public class Staff {
     }
 
     /**
-     * Returns true if both staffs of the same name and username have
+     * Returns true if both staffs of the same staffName and username have
      * at least one other identity field that is the same.
      * This defines a weaker notion of equality between two staffs.
      */
@@ -59,9 +69,9 @@ public class Staff {
         }
 
         return otherStaff != null
-                && otherStaff.getName().equals(getName())
                 && otherStaff.getUsername().equals(getUsername())
-                && (otherStaff.getPassword().equals(getPassword())
+                && otherStaff.getPassword().equals(getPassword())
+                && (otherStaff.getStaffName().equals(getStaffName())
                 || otherStaff.getRole().equals(getRole()));
     }
 
@@ -82,21 +92,21 @@ public class Staff {
         Staff otherStaff = (Staff) other;
         return otherStaff.getUsername().equals(getUsername())
                 && otherStaff.getPassword().equals(getPassword())
-                && otherStaff.getName().equals(getName())
+                && otherStaff.getStaffName().equals(getStaffName())
                 && otherStaff.getRole().equals(getRole());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, name, role);
+        return Objects.hash(username, password, staffName, role);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getUsername())
-                .append(" Name: ")
-                .append(getName())
+                .append(" Staff Name: ")
+                .append(getStaffName())
                 .append(" Role: ")
                 .append(getRole());
         return builder.toString();

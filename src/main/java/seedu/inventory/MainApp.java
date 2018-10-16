@@ -25,17 +25,21 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.util.SampleDataUtil;
 import seedu.inventory.storage.InventoryStorage;
 import seedu.inventory.storage.JsonUserPrefsStorage;
 import seedu.inventory.storage.SaleListStorage;
+import seedu.inventory.storage.StaffStorage;
 import seedu.inventory.storage.Storage;
 import seedu.inventory.storage.StorageManager;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlInventoryStorage;
 import seedu.inventory.storage.XmlSaleListStorage;
+import seedu.inventory.storage.XmlStaffListStorage;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 
@@ -67,8 +71,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath());
+        StaffStorage staffStorage = new XmlStaffListStorage(userPrefs.getStaffListFilePath());
         SaleListStorage saleListStorage = new XmlSaleListStorage();
-        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage);
+        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage, staffStorage);
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
@@ -90,9 +95,11 @@ public class MainApp extends Application {
         ReadOnlyInventory initialData;
         try {
             inventoryOptional = storage.readInventory();
+
             if (!inventoryOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Inventory");
             }
+
             initialData = inventoryOptional.orElseGet(SampleDataUtil::getSampleInventory);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Inventory");
@@ -100,6 +107,27 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Inventory");
             initialData = new Inventory();
+        }
+
+        // Staff List
+        Optional<ReadOnlyStaffList> staffListOptional;
+        ReadOnlyStaffList initialStaffListData;
+
+        try {
+            staffListOptional = storage.readStaffList();
+            if (!staffListOptional.isPresent()) {
+                logger.info("Staff data file not found. Will be starting with a sample Staff List");
+            }
+            initialStaffListData = staffListOptional.orElseGet(SampleDataUtil::getSampleStaffList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file for staff not in the correct format."
+                    + " Will be starting with an empty staff list");
+
+            initialStaffListData = new StaffList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty staff list");
+
+            initialStaffListData = new StaffList();
         }
 
         // Sale List
@@ -124,7 +152,7 @@ public class MainApp extends Application {
             readOnlySaleList = new SaleList();
         }
 
-        return new ModelManager(initialData, userPrefs, readOnlySaleList);
+        return new ModelManager(initialData, userPrefs, readOnlySaleList, initialStaffListData);
     }
 
     private void initLogging(Config config) {

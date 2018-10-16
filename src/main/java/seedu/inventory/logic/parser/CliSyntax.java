@@ -12,4 +12,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_SKU = new Prefix("s/");
     public static final Prefix PREFIX_IMAGE = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_USERNAME = new Prefix("u/");
+    public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
+    public static final Prefix PREFIX_ROLE = new Prefix("r/");
+
 }

@@ -21,6 +21,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.ItemBuilder;
 
 public class AddCommandTest {
@@ -126,6 +127,41 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredItemList(Predicate<Item> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStaff(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addStaff(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteStaff(Staff target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStaff(Staff target, Staff editedStaff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Staff> getFilteredStaffList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredStaffList(Predicate<Staff> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void authenticateUser(Staff toLogin) {
             throw new AssertionError("This method should not be called.");
         }
 
