@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
 import seedu.inventory.logic.parser.ArgumentMultimap;
 import seedu.inventory.logic.parser.ArgumentTokenizer;
+import seedu.inventory.logic.parser.Parser;
 import seedu.inventory.logic.parser.ParserUtil;
 import seedu.inventory.logic.parser.Prefix;
 import seedu.inventory.logic.parser.exceptions.ParseException;
@@ -26,7 +27,7 @@ import seedu.inventory.model.purchaseorder.Supplier;
 /**
  * Parses input arguments and creates a new GeneratePurchaseOrderCommand object
  */
-public class GeneratePurchaseOrderCommandParser {
+public class GeneratePurchaseOrderCommandParser implements Parser<GeneratePurchaseOrderCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the GeneratePurchaseOrderCommand
      * and returns an GeneratePurchaseOrderCommand object for execution.

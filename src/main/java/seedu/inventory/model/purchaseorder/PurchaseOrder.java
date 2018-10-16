@@ -93,6 +93,18 @@ public class PurchaseOrder {
         return status;
     }
 
+    /**
+     * Returns true if both purchase order have the same SKU.
+     */
+    public boolean isSameItem(PurchaseOrder otherPo) {
+        if (otherPo == this) {
+            return true;
+        }
+
+        return otherPo != null
+                && otherPo.getSku().equals(getSku());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(quantity, reqDate, supplier);

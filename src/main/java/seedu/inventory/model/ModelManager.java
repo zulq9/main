@@ -132,6 +132,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Purchase Order ==========================================================================
 
     @Override
+    public boolean hasPurchaseOrder(PurchaseOrder po) {
+        requireNonNull(po);
+        return versionedInventory.hasPurchaseOrder(po);
+    }
+
+    @Override
     public void viewPurchaseOrder() {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         indicatePurchaseOrder();

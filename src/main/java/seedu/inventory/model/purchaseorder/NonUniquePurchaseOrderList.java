@@ -18,6 +18,14 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
     private final ObservableList<PurchaseOrder> internalList = FXCollections.observableArrayList();
 
     /**
+     * Returns true if the list contains an equivalent purchase order as the given argument.
+     */
+    public boolean contains(PurchaseOrder toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameItem);
+    }
+
+    /**
      * Adds a purchase order to the list.
      */
     public void add(PurchaseOrder toAdd) {
@@ -53,6 +61,12 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
         }
     }
 
+    public void setPurchaseOrders(NonUniquePurchaseOrderList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+
     /**
      * Replaces the contents of this list with {@code PurchaseOrders}.
      * {@code PurchaseOrders} must not contain duplicate PurchaseOrders.
@@ -68,6 +82,7 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
     public ObservableList<PurchaseOrder> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
+
 
     @Override
     public Iterator<PurchaseOrder> iterator() {

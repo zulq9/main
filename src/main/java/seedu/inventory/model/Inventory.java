@@ -99,10 +99,25 @@ public class Inventory implements ReadOnlyInventory {
     //===================== purchaseOrder-level operations =================================
 
     /**
+     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
+     */
+    public boolean hasPurchaseOrder(PurchaseOrder po) {
+        requireNonNull(po);
+        return purchaseOrders.contains(po);
+    }
+
+    /**
      * Adds a purchase order to the purchase order list.
+     * Only add the purchase order if the item exist in the inventory
      */
     public void addPurchaseOrder(PurchaseOrder po) {
-        purchaseOrders.add(po);
+        requireNonNull(po);
+        for (Item item : items) {
+            if (item.getSku().value.equals(po.getSku().value)) {
+                purchaseOrders.add(po);
+                break;
+            }
+        }
     }
 
     /**

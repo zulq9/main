@@ -16,6 +16,5 @@ public class CliSyntax {
     /* Purchase order prefix definitions */
     public static final Prefix PREFIX_REQDATE = new Prefix("d/");
     public static final Prefix PREFIX_SUPPLIER = new Prefix("sp/");
-    public static final Prefix PREFIX_STATUS = new Prefix("st/");
 
 }

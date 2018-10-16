@@ -41,7 +41,7 @@ public class GeneratePurchaseOrderCommand extends Command {
     private final PurchaseOrder toGenerate;
 
     /**
-     * Creates an AddCommand to add the specified {@code Item}
+     * Creates an GeneratePurchaseOrderCommand to add the specified {@code PurchseOrder}
      */
     public GeneratePurchaseOrderCommand(PurchaseOrder po) {
         requireNonNull(po);

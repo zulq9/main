@@ -64,6 +64,10 @@ public interface Model {
 
     //=========== Purchase Order API =============================================================
 
+    /**
+     * Returns true if a purchase order with the same identity as {@code item} exists in the inventory.
+     */
+    boolean hasPurchaseOrder(PurchaseOrder item);
 
     /**
      * Deletes the given purchase order.
