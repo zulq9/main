@@ -1,6 +1,7 @@
 package seedu.inventory.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -27,12 +28,17 @@ import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
+import seedu.inventory.testutil.purchaseOrder.PurchaseOrderBuilder;
+import seedu.inventory.testutil.purchaseOrder.PurchaseOrderUtil;
 
 public class InventoryParserTest {
     @Rule
@@ -45,6 +51,14 @@ public class InventoryParserTest {
         Item item = new ItemBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
         assertEquals(new AddCommand(item), command);
+    }
+
+    @Test
+    public void parseCommand_generate_po() throws Exception {
+        PurchaseOrder po = new PurchaseOrderBuilder().build();
+        GeneratePurchaseOrderCommand command =
+                (GeneratePurchaseOrderCommand) parser.parseCommand(PurchaseOrderUtil.getGeneratePoCommand(po));
+        assertNotEquals(new GeneratePurchaseOrderCommand(po), command);
     }
 
     @Test
@@ -106,6 +120,13 @@ public class InventoryParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_list_po() throws Exception {
+        assertTrue(parser.parseCommand(ListPurchaseOrderCommand.COMMAND_WORD) instanceof ListPurchaseOrderCommand);
+        assertTrue(parser.parseCommand(ListPurchaseOrderCommand.COMMAND_WORD + " 3")
+                instanceof ListPurchaseOrderCommand);
     }
 
     @Test

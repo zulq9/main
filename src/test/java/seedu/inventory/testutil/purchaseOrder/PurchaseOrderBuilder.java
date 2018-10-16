@@ -1,4 +1,4 @@
-package seedu.inventory.testutil;
+package seedu.inventory.testutil.purchaseOrder;
 
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
@@ -53,16 +53,16 @@ public class PurchaseOrderBuilder {
     /**
      * Sets the {@code Sku} of the {@code PurchaseOrder} that we are building.
      */
-    public PurchaseOrderBuilder withSku(Sku sku) {
-        this.sku = sku;
+    public PurchaseOrderBuilder withSku(String sku) {
+        this.sku = new Sku(sku);
         return this;
     }
 
     /**
      * Sets the {@code Name} of the {@code PurchaseOrder} that we are building.
      */
-    public PurchaseOrderBuilder withName(Name name) {
-        this.name = name;
+    public PurchaseOrderBuilder withName(String name) {
+        this.name = new Name(name);
         return this;
     }
 
@@ -93,8 +93,8 @@ public class PurchaseOrderBuilder {
     /**
      * Sets the {@code Status} of the {@code PurchaseOrder} that we are building.
      */
-    public PurchaseOrderBuilder withStatus(PurchaseOrder.Status status) {
-        this.status = status;
+    public PurchaseOrderBuilder withStatus(String status) {
+        this.status = PurchaseOrder.Status.valueOf(status);
         return this;
     }
 

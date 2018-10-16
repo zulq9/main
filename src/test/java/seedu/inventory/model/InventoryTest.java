@@ -7,6 +7,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
+import static seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder.IPHONEPO;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.purchaseOrder.TypicalPurchaseOrder;
 
 public class InventoryTest {
 
@@ -49,13 +51,16 @@ public class InventoryTest {
         assertEquals(newData, inventory);
     }
 
+    ////===================== Item ==================================================================
+
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
         // Two items with the same identity fields
         Item editedAlice = new ItemBuilder(IPHONE).withImage(VALID_IMAGE_SONY).withTags(VALID_TAG_SMARTPHONE)
                 .build();
         List<Item> newItems = Arrays.asList(IPHONE, editedAlice);
-        InventoryStub newData = new InventoryStub(newItems);
+        List<PurchaseOrder> newPurchaseOrder = Arrays.asList(TypicalPurchaseOrder.IPHONEPO);
+        InventoryStub newData = new InventoryStub(newItems, newPurchaseOrder);
 
         thrown.expect(DuplicateItemException.class);
         inventory.resetData(newData);
@@ -92,6 +97,31 @@ public class InventoryTest {
         inventory.getItemList().remove(0);
     }
 
+    ////===================== Purchase Order ==================================================================
+
+    @Test
+    public void hasPurchaseOrder_nullPurchaseOrder_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        inventory.hasPurchaseOrder(null);
+    }
+
+    @Test
+    public void hasPurchaseOrder_purchaseOrderNotInInventory_returnsFalse() {
+        assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
+    }
+
+    @Test
+    public void hasPurchaseOrder_purchaseOrderInInventory_returnsFalse() {
+        inventory.addPurchaseOrder(IPHONEPO);
+        assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
+    }
+
+    @Test
+    public void getPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        inventory.getPurchaseOrderList().remove(0);
+    }
+
     /**
      * A stub ReadOnlyInventory whose items list can violate interface constraints.
      */
@@ -102,10 +132,6 @@ public class InventoryTest {
         InventoryStub(Collection<Item> items, Collection<PurchaseOrder> purchaseOrders) {
             this.items.setAll(items);
             this.purchaseOrders.setAll(purchaseOrders);
-        }
-
-        InventoryStub(Collection<Item> items) {
-            this.items.setAll(items);
         }
 
         @Override
