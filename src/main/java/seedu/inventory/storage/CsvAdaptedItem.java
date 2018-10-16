@@ -21,6 +21,7 @@ import seedu.inventory.model.tag.Tag;
  */
 public class CsvAdaptedItem {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Item's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE = "Item's field is missing!";
 
     private String name;
     private String price;
@@ -136,6 +137,42 @@ public class CsvAdaptedItem {
         final Set<Tag> modelTags = new HashSet<>(itemTags);
 
         return new Item(modelName, modelPrice, modelQuantity, modelSku, modelImage, modelTags);
+    }
+
+    /**
+     * Combine a Csv-friendly adapted item into a list of string representing the content.
+     *
+     * @param item A Csv-friendly item
+     * @return content A list of string representing the content.
+     */
+    public static List<String> getContentList(CsvAdaptedItem item) {
+        List<String> content = new ArrayList<>();
+        content.add(item.name);
+        content.add(item.price);
+        content.add(item.quantity);
+        content.add(item.sku);
+        content.add(item.image);
+        content.add(item.combinedTags);
+        return content;
+    }
+
+    /**
+     * Split a list of string representing the content of item into the Csv-friendly adapted item
+     *
+     * @param content A list of string representing the content of item
+     * @return The Csv-friendly adapted item containing the content of the list.
+     */
+    public static CsvAdaptedItem splitContentToItem(List<String> content) throws IllegalValueException {
+        if (content.size() < 6) {
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE);
+        }
+        String name = content.get(0);
+        String price = content.get(1);
+        String quantity = content.get(2);
+        String sku = content.get(3);
+        String image = content.get(4);
+        String combinedTags = content.get(5);
+        return new CsvAdaptedItem(name, price, quantity, sku, image, combinedTags);
     }
 
     @Override
