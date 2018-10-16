@@ -4,9 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.SONY;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -16,16 +20,17 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
-import seedu.inventory.model.Inventory;
-import seedu.inventory.model.Model;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.*;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
+import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.sale.SaleDate;
+import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.TypicalItems;
 
-public class AddCommandTest {
+public class CreateSaleCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -37,54 +42,66 @@ public class AddCommandTest {
     @Test
     public void constructor_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new CreateSaleCommand(null, null);
     }
 
     @Test
-    public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingItemAdded modelStub = new ModelStubAcceptingItemAdded();
-        Item validItem = new ItemBuilder().build();
+    public void execute_saleAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubCreateSale modelStub = new ModelStubCreateSale();
 
-        CommandResult commandResult = new AddCommand(validItem).execute(modelStub, commandHistory);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validItem), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validItem), modelStub.itemsAdded);
+        Sku sku = IPHONE.getSku();
+        Quantity saleQuantity = new Quantity("1");
+        SaleDate saleDate = new SaleDate(formatter.format(date));
+
+        Sale sale = new Sale(new SaleId("1"), IPHONE, saleQuantity, saleDate);
+
+        CommandResult commandResult = new CreateSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(CreateSaleCommand.MESSAGE_SUCCESS, "1", IPHONE.getName().toString()),
+                commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(sale), modelStub.salesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateItem_throwsCommandException() throws Exception {
-        Item validItem = new ItemBuilder().build();
-        AddCommand addCommand = new AddCommand(validItem);
-        ModelStub modelStub = new ModelStubWithItem(validItem);
+    public void execute_itemNotFound_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubCreateSale();
+
+        CreateSaleCommand createSaleCommand = new CreateSaleCommand(new Sku("abc"), new Quantity("1"));
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(String.format(CreateSaleCommand.MESSAGE_FAILED, "abc"));
+        createSaleCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Item iPhone = new ItemBuilder().withName("iPhone XR").build();
-        Item googlePixel = new ItemBuilder().withName("Google Pixel XL").build();
-        AddCommand addIphoneCommand = new AddCommand(iPhone);
-        AddCommand addGoogleCommand = new AddCommand(googlePixel);
+        CreateSaleCommand createSaleCommand = new CreateSaleCommand(IPHONE.getSku(), new Quantity("1"));
+        CreateSaleCommand createSaleCommandDifferentSku = new CreateSaleCommand(SONY.getSku(), new Quantity("2"));
+        CreateSaleCommand createSaleCommandDifferentQuantity = new CreateSaleCommand(IPHONE.getSku(),
+                new Quantity("2"));
 
         // same object -> returns true
-        assertTrue(addIphoneCommand.equals(addIphoneCommand));
+        assertTrue(createSaleCommand.equals(createSaleCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(iPhone);
-        assertTrue(addIphoneCommand.equals(addAliceCommandCopy));
+        CreateSaleCommand createSaleCommandCopy = new CreateSaleCommand(IPHONE.getSku(), new Quantity("1"));
+        assertTrue(createSaleCommand.equals(createSaleCommandCopy));
 
         // different types -> returns false
-        assertFalse(addIphoneCommand.equals(1));
+        assertFalse(createSaleCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addIphoneCommand.equals(null));
+        assertFalse(createSaleCommand.equals(null));
 
-        // different item -> returns false
-        assertFalse(addIphoneCommand.equals(addGoogleCommand));
+        // different sku -> returns false
+        assertFalse(createSaleCommand.equals(createSaleCommandDifferentSku));
+
+        // different quantity -> returns false
+        assertFalse(createSaleCommand.equals(createSaleCommandDifferentQuantity));
     }
 
     /**
@@ -178,49 +195,25 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single item.
+     * A Model stub that is used for testing.
      */
-    private class ModelStubWithItem extends ModelStub {
-        private final Item item;
-
-        ModelStubWithItem(Item item) {
-            requireNonNull(item);
-            this.item = item;
-        }
-
-        @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.item.isSameItem(item);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the item being added.
-     */
-    private class ModelStubAcceptingItemAdded extends ModelStub {
-        private final ArrayList<Item> itemsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return itemsAdded.stream().anyMatch(item::isSameItem);
-        }
-
-        @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            itemsAdded.add(item);
-        }
-
-        @Override
-        public void commitInventory() {
-            // called by {@code AddCommand#execute()}
-        }
+    private class ModelStubCreateSale extends ModelStub {
+        private final ArrayList<Sale> salesAdded = new ArrayList<>();
 
         @Override
         public ReadOnlyInventory getInventory() {
-            return new Inventory();
+            return TypicalItems.getTypicalInventory();
+        }
+
+        @Override
+        public ReadOnlySaleList getSaleList() {
+            return new SaleList();
+        }
+
+        @Override
+        public void createSale(Sale sale) {
+            requireNonNull(sale);
+            salesAdded.add(sale);
         }
     }
 

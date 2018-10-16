@@ -6,19 +6,7 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.logic.commands.ClearCommand;
-import seedu.inventory.logic.commands.Command;
-import seedu.inventory.logic.commands.DeleteCommand;
-import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.FindCommand;
-import seedu.inventory.logic.commands.HelpCommand;
-import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ListCommand;
-import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
-import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.*;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 
 /**
@@ -83,6 +71,9 @@ public class InventoryParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case CreateSaleCommand.COMMAND_WORD:
+            return new CreateSaleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

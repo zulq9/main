@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
@@ -158,14 +159,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Sale ====================================================================================
     @Override
-    public void createSale(Item item, Quantity quantity) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-        Date date = new Date();
+    public ReadOnlySaleList getSaleList() {
+        return saleList;
+    }
 
-        Sale sale = new Sale(new SaleId(saleList.getNextSaleId()), item, quantity,
-                new SaleDate(formatter.format(date)));
-
+    @Override
+    public void createSale(Sale sale) {
         saleList.addSale(sale);
+        indicateSaleListChanged();
     }
 
     @Override
@@ -176,5 +177,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void listSales(String records) {
 
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateSaleListChanged() {
+        raise(new SaleListChangedEvent(saleList));
     }
 }
