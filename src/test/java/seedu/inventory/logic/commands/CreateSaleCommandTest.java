@@ -31,6 +31,7 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.TypicalItems;
 
 public class CreateSaleCommandTest {
@@ -168,6 +169,41 @@ public class CreateSaleCommandTest {
         }
 
         @Override
+        public boolean hasStaff(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteStaff(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addStaff(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStaff(Staff staff, Staff editedStaff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Staff> getFilteredStaffList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredStaffList(Predicate<Staff> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void authenticateUser(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoInventory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -222,6 +258,10 @@ public class CreateSaleCommandTest {
         @Override
         public ReadOnlyInventory getInventory() {
             return TypicalItems.getTypicalInventory();
+        }
+
+        @Override
+        public void updateItem(Item target, Item editedItem) {
         }
 
         @Override
