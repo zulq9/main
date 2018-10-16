@@ -8,12 +8,13 @@ import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends InventoryStorage, UserPrefsStorage {
+public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -29,6 +30,16 @@ public interface Storage extends InventoryStorage, UserPrefsStorage {
 
     @Override
     void saveInventory(ReadOnlyInventory inventory) throws IOException;
+
+    // Sale List Storage
+    @Override
+    Path getSaleListFilePath();
+
+    @Override
+    Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException, IOException;
+
+    @Override
+    void saveSaleList(ReadOnlySaleList saleList) throws IOException;
 
     /**
      * Saves the current version of the Inventory List to the hard disk.

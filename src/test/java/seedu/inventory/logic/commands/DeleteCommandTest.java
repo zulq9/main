@@ -17,6 +17,7 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
 
@@ -26,7 +27,7 @@ import seedu.inventory.model.item.Item;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,7 +37,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
@@ -60,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
         showNoPerson(expectedModel);
@@ -85,7 +86,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
@@ -124,7 +125,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameItemDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
 
         showItemAtIndex(model, INDEX_SECOND_ITEM);
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());

@@ -13,6 +13,18 @@ import seedu.inventory.commons.util.XmlUtil;
  */
 public class XmlFileStorage {
     /**
+     * Returns inventory book in the file or an empty inventory book
+     */
+    public static XmlSerializableInventory loadDataFromSaveFile(Path file) throws DataConversionException,
+                                                                            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableInventory.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
      * Saves the given inventory data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableInventory inventory)
@@ -25,12 +37,24 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns inventory in the file or an empty inventory list
+     * Saves the given sale list data to the specified file.
      */
-    public static XmlSerializableInventory loadDataFromSaveFile(Path file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static void saveDataToFile(Path file, XmlSerializableSaleList saleList)
+            throws FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableInventory.class);
+            XmlUtil.saveDataToFile(file, saleList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Returns sale list in the file or an empty sale list
+     */
+    public static XmlSerializableSaleList loadSaleListFromSaveFile(Path file) throws
+            DataConversionException, FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableSaleList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }
