@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ItemCardHandle;
+import guitests.guihandles.ItemListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.inventory.model.item.Item;
 
@@ -17,7 +17,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(ItemCardHandle expectedCard, ItemCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getImage(), actualCard.getImage());
         assertEquals(expectedCard.getSku(), actualCard.getSku());
@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedItem}.
      */
-    public static void assertCardDisplaysPerson(Item expectedItem, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysItem(Item expectedItem, ItemCardHandle actualCard) {
         assertEquals(expectedItem.getName().fullName, actualCard.getName());
         assertEquals(expectedItem.getQuantity().value, actualCard.getQuantity());
         assertEquals(expectedItem.getSku().value, actualCard.getSku());
@@ -39,29 +39,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code items} correctly and
+     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code items} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Item... items) {
+    public static void assertListMatching(ItemListPanelHandle itemListPanelHandle, Item... items) {
         for (int i = 0; i < items.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(items[i], personListPanelHandle.getPersonCardHandle(i));
+            itemListPanelHandle.navigateToCard(i);
+            assertCardDisplaysItem(items[i], itemListPanelHandle.getItemCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code items} correctly and
+     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code items} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Item> items) {
-        assertListMatching(personListPanelHandle, items.toArray(new Item[0]));
+    public static void assertListMatching(ItemListPanelHandle itemListPanelHandle, List<Item> items) {
+        assertListMatching(itemListPanelHandle, items.toArray(new Item[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code itemListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(ItemListPanelHandle itemListPanelHandle, int size) {
+        int numberOfPeople = itemListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

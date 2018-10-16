@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.LogsCenter;
-import seedu.inventory.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -71,7 +71,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }

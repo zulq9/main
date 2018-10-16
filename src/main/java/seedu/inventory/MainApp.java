@@ -77,9 +77,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s inventory book and {@code userPrefs}. <br>
-     * The data from the sample inventory book will be used instead if {@code storage}'s inventory book is not found,
-     * or an empty inventory book will be used instead if errors occur when reading {@code storage}'s inventory book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s inventory and {@code userPrefs}. <br>
+     * The data from the sample inventory will be used instead if {@code storage}'s inventory is not found,
+     * or an empty inventory will be used instead if errors occur when reading {@code storage}'s inventory.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyInventory> inventoryOptional;

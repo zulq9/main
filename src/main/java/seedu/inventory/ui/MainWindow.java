@@ -38,8 +38,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ItemListPanel itemListPanel;
     private PurchaseOrderListPanel purchaseOrderListPanel;
+
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -54,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane itemListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        itemListPanel = new ItemListPanel(logic.getFilteredPersonList());
+        itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         purchaseOrderListPanel = new PurchaseOrderListPanel(logic.getFilteredPurchaseOrderList());
         //personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
@@ -144,13 +145,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setPanelPurchaseOrder() {
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
+        itemListPanelPlaceholder.getChildren().clear();
+        itemListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
     }
 
     private void setPanelPerson() {
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        itemListPanelPlaceholder.getChildren().clear();
+        itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
     }
 
     void hide() {
@@ -205,8 +206,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ItemListPanel getItemListPanel() {
+        return itemListPanel;
     }
 
     void releaseResources() {

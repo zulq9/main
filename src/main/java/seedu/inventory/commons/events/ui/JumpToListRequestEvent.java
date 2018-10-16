@@ -4,7 +4,7 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to the list of items
  */
 public class JumpToListRequestEvent extends BaseEvent {
 

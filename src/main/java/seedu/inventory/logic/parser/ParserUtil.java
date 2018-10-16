@@ -11,6 +11,7 @@ import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.RequiredDate;
@@ -55,10 +56,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Quantity}.
+     * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String quantity} into a {@code Quantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code quantity} is invalid.
      */
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
@@ -70,10 +86,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String inventory} into an {@code Image}.
+     * Parses a {@code String image} into an {@code Image}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code inventory} is invalid.
+     * @throws ParseException if the given {@code image} is invalid.
      */
     public static Image parseImage(String image) throws ParseException {
         requireNonNull(image);
@@ -85,10 +101,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Sku}.
+     * Parses a {@code String sku} into an {@code Sku}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code sku} is invalid.
      */
     public static Sku parseSku(String sku) throws ParseException {
         requireNonNull(sku);

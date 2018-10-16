@@ -244,7 +244,7 @@ Classes used by multiple components are in the `seedu.inventorybook.commons` pac
 
 This section describes some noteworthy details on how certain features are implemented.
 
-exportimport[]
+// tag:: undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -305,7 +305,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 === Design Considerations
 
-===== Aspect: How undo & redo executes
+==== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire image book.
 ** Pros: Easy to implement.
@@ -314,7 +314,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+==== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of image book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.

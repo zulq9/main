@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
-        // ensures that outOfBoundIndex is still in bounds of inventory book list
+        // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first item deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> inventory book state not added into model
+        // execution failed -> inventory state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
-        // single inventory book state in model -> undoCommand and redoCommand fail
+        // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second item in unfiltered item list / first item in filtered item list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts inventory back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
