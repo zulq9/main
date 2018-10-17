@@ -51,33 +51,35 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 **Key Features** +
 
-1. *Authentication and User Management*:
-* Login for different group of users in CLI (cashier/admin/manager)
+1. *Authentication*:
+* Feature for users to login in CLI (cashier/admin/manager)
+* Feature for users to change password
+* Feature for users to logout from the apps
+2. *User Management*:
 * Feature for admin to create users
 * Feature for admin to list users
 * Feature for admin to update users
 * Feature for admin to delete users
-* Feature for users to change password
-2. *Sale Orders Management*
+3. *Sale Orders Management*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
 * Feature for listing created sales
 * Feature for cashier to search the created sales
-3. *Inventory and Sales Reporting*:
+4. *Inventory and Sales Reporting*:
 * Feature for manager to import/export sales report from/to a CSV file
 * Feature for manager to import/export items from/to a CSV file
 * Feature for manager to import/export users from/to a CSV file
 * Feature for manager to import/export entire data to a .im file
 * Feature for manager to manage notification alerts
 * Notification/alerts to be automatically sent according to inventory level
-4. *Inventory Management*:
+5. *Inventory Management*:
 * Feature for users(cashier/manager) to list inventory
 * Feature for users(cashier/manager) to delete inventory
 * Feature for users(cashier/manager) to search inventory by field attributes
 * Feature for users (cashier/manager) to update inventory
 * Feature for users (cashier/manager) to add image to inventory
 * Feature for users (cashier/manager) to sort inventory by field attributes
-5. *Purchase Orders Management*:
+6. *Purchase Orders Management*:
 * Feature for users (cashier/manager) to create purchase orders
 * Feature for users (cashier/manager) to update purchase orders
 * Feature for users (cashier/manager) to list purchase orders history
@@ -175,8 +177,9 @@ Format: `exit`
 Inventory Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::usersManagement[]
-=== Users Management
+// tag::accountsManagement[]
+=== Authentication
+Users authenticate their identities prior using other functions of the applications and able to change their password.
 
 ==== Login to the system : `login`
 Login with users' given username and password. +
@@ -187,52 +190,67 @@ Examples:
 * Login user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
-==== Add users : `add_user`
-
-Adds an user into the system. +
-Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
-
-Examples:
-
-* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
- `add_user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
-
-==== Update users : `update_user`
+==== Change user's password : `change-password`
 
 Updates an user information into the system with given username. +
-Format: `update_user u/USERNAME n/NAME  r/ROLE`
-
-Examples:
-
-* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
- `update_user u/yaotx n/Yao Teng Xiong r/admin`.
-
-==== Remove users : `remove_user`
-
-Removes an user from the system with given username. +
-Format: `remove_user u/USERNAME`
-
-Examples:
-
-* Reomove user with given username as fzdy1914. +
- `remove_user u/fzdy1914`.
-
-
-==== List users : `list_user`
-
-Displays a list of existing users in the system. +
-Format: `list_user`
-
-
-==== Change user's password : `change_password`
-
-Updates an user information into the system with given username. +
-Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+Format: `change-password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 
 Examples:
 
 * Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
- `change_password u/darren96 o/darren123 n/darrensinglenus`.
+ `change-password u/darren96 o/darren123 n/darrensinglenus`.
+
+==== Logout from the system : `logout`
+Logout the current users from the system. +
+Format: `logout`
+
+Examples:
+
+* Logout from the current session. +
+`logout`
+
+// end::accountsManagement[]
+
+// tag::userManagement[]
+=== User Management
+Admin of the system manages the staffs who use this applications.
+
+==== Add users : `add-user`
+
+Adds an user into the system. +
+Format: `add-user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+Examples:
+
+* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
+ `add-user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+
+==== List users : `list-user`
+
+Displays a list of existing users in the system. +
+Format: `list-user`
+
+==== Update users : `update-user`
+
+Updates an user information into the system with given username. +
+Format: `update-user i/INDEX u/USERNAME n/NAME  r/ROLE`
+
+Examples:
+
+* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
+ `update-user i/2 u/yaotx n/Yao Teng Xiong r/admin`.
+
+==== Remove users : `delete-user`
+
+Deletes an user from the system with given index as shown in the list. +
+Format: `delete-user i/INDEX`
+
+Examples:
+
+* Reomove user with given index as shown in the list. +
+ `remove-user i/1`.
+
+// end::userManagement[]
 
 // tag::salesManagement[]
 === Sale Orders Management
@@ -539,13 +557,18 @@ Selects the 1st item in the results of the `find` command.
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-// User Management
+
+// Authentication
 * *Login* `login u/USERNAME p/PASSWORD`
-* *Add User* `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
-* *Update User* `update_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
-* *Remove User* `remove_user u/USERNAME`
-* *List User* `list_user`
 * *Change Password* `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+* *Logout* `logout`
+
+// User Management
+* *Add User* `add-user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Update User* `update-user i/INDEX n/NAME u/USERNAME p/PASSWORD r/ROLE`
+* *Remove User* `delete-user i/INDEX`
+* *List User* `list-user`
+
 // Sale Orders
 * *Add Sale Order* `add-sale s/SKU q/QTY` +
 e.g. `add-sale s/0123 q/1`
