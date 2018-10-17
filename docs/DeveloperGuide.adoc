@@ -425,10 +425,12 @@ Need to raise an additional event for invalid file path. +
 
 == Documentation
 
-We use asciidoc for writing documentation.
+The documentation for this project is written and maintained using asciidoc, it can found in the docs folder.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+
 
 === Editing Documentation
 
