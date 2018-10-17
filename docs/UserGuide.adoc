@@ -252,9 +252,8 @@ Examples:
 
 // end::userManagement[]
 
-=== Sale Orders Management
-
 // tag::salesManagement[]
+=== Sale Orders Management
 
 Staff users and manager users can create sale orders on the system using the commands below.
 
