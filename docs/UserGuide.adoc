@@ -209,6 +209,8 @@ Examples:
 * Logout from the current session. +
 `logout`
 
+// end::accountsManagement[]
+
 // tag::userManagement[]
 === User Management
 Admin of the system manages the staffs who use this applications.
@@ -247,6 +249,8 @@ Examples:
 
 * Reomove user with given index as shown in the list. +
  `remove-user i/1`.
+
+// end::userManagement[]
 
 === Sale Orders Management
 

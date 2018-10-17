@@ -1398,6 +1398,8 @@ _{ more test cases ... }_
 .. Test case: `login` , `login u/ p/password` +
    Expected: Similar to previous.
 
+// end::testcaseLogin[]
+
 // tag::testcaseDeleteStaff[]
 === Deleting a staff
 
@@ -1410,6 +1412,8 @@ _{ more test cases ... }_
    Expected: No staff is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-staff`, `delete-staff ,,,`_ +
    Expected: Similar to previous.
+
+// end::testcaseDeleteStaff[]
 
 === Deleting a person
 
