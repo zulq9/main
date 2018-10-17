@@ -15,7 +15,7 @@ include::../UserGuide.adoc[tag=projectIntro]
 
 * *Major enhancement*:
 
-** Created Sales Management Feature
+** Created Sale Orders Management Feature
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
