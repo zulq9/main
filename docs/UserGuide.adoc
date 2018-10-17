@@ -165,8 +165,9 @@ Format: `exit`
 Inventory Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::usersManagement[]
-=== Users Management
+// tag::accountsManagement[]
+=== Authentication
+Users authenticate their identities prior using other functions of the applications and able to change their password.
 
 The following commands are mainly used for admin to manage the users and for users login.
 
@@ -179,56 +180,70 @@ Examples:
 * Login user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
-==== Add users : `add_user`
-
-Adds an user into the system. +
-Format: `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
-
-Examples:
-
-* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
- `add_user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
-
-==== Update users : `update_user`
+==== Change user's password : `change-password`
 
 Updates an user information into the system with given username. +
-Format: `update_user u/USERNAME n/NAME  r/ROLE`
-
-Examples:
-
-* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
- `update_user u/yaotx n/Yao Teng Xiong r/admin`.
-
-==== Remove users : `remove_user`
-
-Removes an user from the system with given username. +
-Format: `remove_user u/USERNAME`
-
-Examples:
-
-* Reomove user with given username as fzdy1914. +
- `remove_user u/fzdy1914`.
-
-
-==== List users : `list_user`
-
-Displays a list of existing users in the system. +
-Format: `list_user`
-
-
-==== Change user's password : `change_password`
-
-Updates an user information into the system with given username. +
-Format: `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
+Format: `change-password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
 
 Examples:
 
 * Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
- `change_password u/darren96 o/darren123 n/darrensinglenus`.
+ `change-password u/darren96 o/darren123 n/darrensinglenus`.
 
-=== Sale Orders Management
+==== Logout from the system : `logout`
+Logout the current users from the system. +
+Format: `logout`
+
+Examples:
+
+* Logout from the current session. +
+`logout`
+
+// end::accountsManagement[]
+
+// tag::userManagement[]
+=== User Management
+Admin of the system manages the staffs who use this applications.
+
+==== Add users : `add-user`
+
+Adds an user into the system. +
+Format: `add-user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+
+Examples:
+
+* Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
+ `add-user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+
+==== List users : `list-user`
+
+Displays a list of existing users in the system. +
+Format: `list-user`
+
+==== Update users : `update-user`
+
+Updates an user information into the system with given username. +
+Format: `update-user i/INDEX u/USERNAME n/NAME  r/ROLE`
+
+Examples:
+
+* Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
+ `update-user i/2 u/yaotx n/Yao Teng Xiong r/admin`.
+
+==== Remove users : `delete-user`
+
+Deletes an user from the system with given index as shown in the list. +
+Format: `delete-user i/INDEX`
+
+Examples:
+
+* Reomove user with given index as shown in the list. +
+ `remove-user i/1`.
+
+// end::userManagement[]
 
 // tag::salesManagement[]
+=== Sale Orders Management
 
 Staff users and manager users can create sale orders on the system using the commands below.
 
@@ -547,6 +562,13 @@ The following table summarises Inventory Manager commands along with examples:
 |`History` |`history` | `history`
 |`Undo`| `undo`|`undo`
 |`Redo`| `Redo`|`Redo`
+// Items
+|`Add item into inventory` | `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_PATH [t/TAG]...` | `add-item n/iPhone XR p/1500.00 q/70 s/apple-iphone-xr i/docs/images/iphone.jpg t/apple t/smartphone`
+|`Delete an item from inventory` | `delete-item INDEX` | `delete-item 3`
+|`Edit an existing item in inventory` | `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_PATH] [t/TAG]...` | `edit-item 2 p/1600 q/300`
+|`Find an existing item in inventory` | `find-item KEYWORD [MORE_KEYWORDS]` | `find-item iPhone Samsung`
+|`List all existing items in inventory` | `list-item` | `list-item`
+|`Select an item in inventory` | `select INDEX` | `select 2`
 // Account Management
 |`Login` |`login u/USERNAME p/PASSWORD` |`login u/user111 p/password11`
 |`Change Password` |`change-password o/OLD_PASSWORD n/NEW_PASSWORD` |`change-password o/password11 n/wacaonima`
