@@ -19,7 +19,7 @@ By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
 == Introduction
 // tag::projectIntro[]
-Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+Inventory manager is designed for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
 who prefer to work with a Command Line Interface (CLI) while still having the benefits of
 a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
@@ -40,12 +40,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all items
-* **`add`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
-* **`delete`**`3` : deletes the 3rd item shown in the current list
+* *`list-items`* : lists all items
+* **`add-item`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for details of each available commands.
 
 [[Features]]
 == Features
@@ -62,8 +61,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 2. *Sale Orders Management*
 * Feature for cashier to create a sale
 * Feature for cashier to delete a sale
-* Feature for listing sales
-* Feature for cashier to search for a sale
+* Feature for listing created sales
+* Feature for cashier to search the created sales
 3. *Inventory and Sales Reporting*:
 * Feature for manager to import/export sales report from/to a CSV file
 * Feature for manager to import/export items from/to a CSV file
@@ -235,60 +234,72 @@ Examples:
 * Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
  `change_password u/darren96 o/darren123 n/darrensinglenus`.
 
-=== Sales Management
+=== Sale Orders Management
 
 // tag::salesManagement[]
-==== Creating a sale order : `createSale`
 
-Creating a sale and deducting the inventory stocks automatically.
+Staff users and manager users can create sale orders on the system using the commands below.
 
-Format: `createSale i/SKU q/QTY`
+==== Creating a sale order : `create-sale`
 
-Examples:
+This command allows the user to create a new sale order in Inventory Manager. Creating a sale order will deduct the
+inventory quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
 
-* Sold 5 quantity of a product with SKU 0123. +
-`createSale i/0123 q/5`
-* Sold 1 quantity of a product with SKU 456. +
-`createSale i/456 q/1`
+Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
+Entering a quantity that is greater than the available item quantity will result in an error shown
+on screen too.
 
-==== Deleting a sale order : `deleteSale`
-
-Deleting a sale and restoring the inventory quantity automatically.
-
-Format: `deleteSale id/ID`
+Format: `create-sale s/SKU q/QTY`
 
 Examples:
 
-* Deleting sale ID 12. +
-`deleteSale id/12`
-* Deleting sale ID 123. +
-`deleteSale id/123`
+* User sold 5 quantity of a product with SKU 0123. +
+`create-sale s/0123 q/5`
+* User sold 1 quantity of a product with SKU 456. +
+`create-sale s/456 q/1`
 
-==== Listing sale orders : `listSales`
+==== Deleting a sale order : `delete-sale`
 
-Listing sale orders currently recorded in the system.
+This command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
+the inventory quantity deducted automatically. User will need to ensure that the entered sale ID is valid.
 
-Format: `listSales r/RECORDS`
+Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
 
-Examples:
-
-* List latest 50 records. +
-`listSales r/50`
-* List latest 20 records. +
-`listSales r/20`
-
-==== Searching for sale orders : `searchSale`
-
-Searching for a sale based on sale ID or a specific date
-
-Format: `searchSale [d/YYYY-mm-dd] [id/ID]`
+Format: `delete-sale id/ID`
 
 Examples:
 
-* Searching for sale ID 12. +
-`searchSale id/12`
-* Searching for sales created on 01 October 2018. +
-`searchSale d/2018-10-01`
+* User wishes to delete sale ID 12. +
+`delete-sale id/12`
+* User wishes to delete sale ID 123. +
+`delete-sale id/123`
+
+==== Listing sale orders : `list-sales`
+
+This command allows the user to list a specific number of recently recorded sale orders in Inventory Manager.
+
+Format: `list-sales r/RECORDS`
+
+Examples:
+
+* User wishes to list the latest 50 sale orders. +
+`list-sales r/50`
+* User wishes to list the latest 20 sale orders. +
+`list-sales r/20`
+
+==== Finding sale orders : `find-sales`
+
+This command allows the user to search for a specific sale order based on the sale ID or for all sale orders created on
+a specific date. Either a valid sale order ID or date is required for this command.
+
+Format: `search-sale [d/YYYY-mm-dd] [id/ID]`
+
+Examples:
+
+* User wishes to search for sale order ID 12. +
+`search-sale id/12`
+* User wishes to search for sale orders created on 01 October 2018. +
+`search-sale d/2018-10-01`
 // end::salesManagement[]
 
 === Reports Management
@@ -317,6 +328,11 @@ Format: `export-csv-items f/FILEPATH`
 
 Export the list of users in CSV format to the filepath given. +
 Format: `export-csv-users f/FILEPATH`
+
+===== Export list of purchase orders to CSV: `export-csv-orders`
+
+Export the list of orders in CSV format to the filepath given. +
+Format: `export-csv-orders f/FILEPATH`
 
 ==== Export entire data to .im file: `export-im`
 Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
@@ -351,6 +367,11 @@ Format: `import-csv-items f/FILEPATH`
 
 Import the list of users in CSV format from the filepath given. +
 Format: `import-csv-users f/FILEPATH`
+
+===== Import list of purchase orders from CSV: `import-csv-orders`
+
+Import the list of orders in CSV format from the filepath given. +
+Format: `import-csv-orders f/FILEPATH`
 
 ==== Import entire data from .im file: `import-im`
 Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
@@ -513,34 +534,37 @@ Selects the 1st item in the results of the `find` command.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
 
 == Command Summary
+// General
+* *Clear* : `clear`
+* *Help* : `help`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+// User Management
 * *Login* `login u/USERNAME p/PASSWORD`
 * *Add User* `add_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
 * *Update User* `update_user n/NAME u/USERNAME p/PASSWORD r/ROLE`
 * *Remove User* `remove_user u/USERNAME`
 * *List User* `list_user`
 * *Change Password* `change_password u/USERNAME o/OLD_PASSWORD n/NEW_PASSWORD`
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+// Sale Orders
+* *Add Sale Order* `add-sale s/SKU q/QTY` +
+e.g. `add-sale s/0123 q/1`
+* *Delete Sale Order* `delete-sale id/ID` +
+e.g. `delete-sale id/1`
+* *List Sale Orders* `list-sales r/RECORD` +
+e.g. `list-sales r/50`
+* *Find Sale Orders* `find-sales [d/YYYY-mm-dd] [id/ID]` +
+e.g. `find-sales id/2
+// Report
 * *Export sales report to CSV* : `export-csv-sales f/FILEPATH` +
 e.g. `export-csv-sales f/C:/out/sales.csv`
 * *Export list of items to CSV* : `export-csv-items f/FILEPATH` +
 e.g. `export-csv-items f/C:/out/items.csv`
 * *Export list of users to CSV* : `export-csv-users f/FILEPATH` +
 e.g. `export-csv-users f/C:/out/users.csv`
+* *Export list of orders to CSV* : `export-csv-orders f/FILEPATH` +
+e.g. `export-csv-orders f/C:/out/orders.csv`
 * *Export entire data to .im file* : `export-im f/FILEPATH` +
 e.g. `export-im f/C:/out/data.im`
 * *Import sales report from CSV* : `import-csv-sales f/FILEPATH` +
@@ -549,9 +573,11 @@ e.g. `import-csv-sales f/C:/in/sales.csv`
 e.g. `import-csv-items f/C:/in/items.csv`
 * *Import list of users from CSV* : `import-csv-users f/FILEPATH` +
 e.g. `import-csv-users f/C:/in/users.csv`
+* *Import list of orders from CSV* : `import-csv-orders f/FILEPATH` +
+e.g. `import-csv-orders f/C:/in/orders.csv`
 * *Import entire data from .im file* : `import-im f/FILEPATH` +
 e.g. `import-im f/C:/in/data.im`
-
+// PO
 * *Generate purchase order* : `generate-po` +
 e.g. `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
 * *List all purchase order* : `list po`
@@ -561,6 +587,18 @@ e.g. `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
 e.g. `approve id/12`
 * *Reject purchase order* : `reject` +
 e.g. `reject id/12 d/Only 100 amount is allowed`
+// Items
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Select* : `select INDEX` +
+e.g.`select 2`
 
 == Glossary
 *CLI (Command Line Interface)*

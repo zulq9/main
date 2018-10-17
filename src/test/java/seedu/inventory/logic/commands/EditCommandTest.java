@@ -24,6 +24,8 @@ import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
@@ -34,7 +36,7 @@ import seedu.inventory.testutil.ItemBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +47,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
@@ -57,8 +60,8 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredItemList().size());
         Item lastItem = model.getFilteredItemList().get(indexLastPerson.getZeroBased());
 
-        ItemBuilder personInList = new ItemBuilder(lastItem);
-        Item editedItem = personInList.withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY)
+        ItemBuilder itemInList = new ItemBuilder(lastItem);
+        Item editedItem = itemInList.withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY)
                 .withTags(VALID_TAG_SMARTPHONE).build();
 
         EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY)
@@ -67,7 +70,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.updateItem(lastItem, editedItem);
         expectedModel.commitInventory();
 
@@ -81,7 +85,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +103,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
@@ -118,7 +124,7 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
-        // edit item in filtered list into a duplicate in inventory book
+        // edit item in filtered list into a duplicate in inventory
         Item itemInList = model.getInventory().getItemList().get(INDEX_SECOND_ITEM.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
                 new EditItemDescriptorBuilder(itemInList).build());
@@ -137,13 +143,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of inventory book
+     * but smaller than size of inventory
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
-        // ensures that outOfBoundIndex is still in bounds of inventory book list
+        // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -158,14 +164,15 @@ public class EditCommandTest {
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
         expectedModel.updateItem(itemToEdit, editedItem);
         expectedModel.commitInventory();
 
         // edit -> first item edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -180,10 +187,10 @@ public class EditCommandTest {
         EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> inventory book state not added into model
+        // execution failed -> inventory state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
-        // single inventory book state in model -> undoCommand and redoCommand fail
+        // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -200,7 +207,8 @@ public class EditCommandTest {
         Item editedItem = new ItemBuilder().build();
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
+                new StaffList());
 
         showItemAtIndex(model, INDEX_SECOND_ITEM);
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
@@ -210,7 +218,7 @@ public class EditCommandTest {
         // edit -> edits second item in unfiltered item list / first item in filtered item list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered item list to show all persons
+        // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

@@ -34,8 +34,8 @@ public class StaffTest {
                 .withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
-        // different name -> returns false
-        editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).build();
+        // different password -> returns false
+        editedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
         // same name, same username, different attributes -> returns false

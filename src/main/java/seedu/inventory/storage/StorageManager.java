@@ -10,9 +10,13 @@ import com.google.common.eventbus.Subscribe;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
 
 /**
@@ -23,12 +27,17 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
+    private StaffStorage staffStorage;
+    private SaleListStorage saleListStorage;
 
 
-    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
+                          SaleListStorage saleListStorage, StaffStorage staffStorage) {
         super();
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.saleListStorage = saleListStorage;
+        this.staffStorage = staffStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -78,10 +87,40 @@ public class StorageManager extends ComponentManager implements Storage {
         inventoryStorage.saveInventory(inventory, filePath);
     }
 
+    // ================ Sale List methods ==============================
+
+    @Override
+    public Path getSaleListFilePath() {
+        return saleListStorage.getSaleListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlySaleList> readSaleList(ReadOnlyInventory inventory) throws DataConversionException,
+            IOException {
+        return readSaleList(saleListStorage.getSaleListFilePath(), inventory);
+    }
+
+    @Override
+    public Optional<ReadOnlySaleList> readSaleList(Path filePath, ReadOnlyInventory inventory)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return saleListStorage.readSaleList(filePath, inventory);
+    }
+
+    @Override
+    public void saveSaleList(ReadOnlySaleList saleList) throws IOException {
+        saveSaleList(saleList, saleListStorage.getSaleListFilePath());
+    }
+
+    @Override
+    public void saveSaleList(ReadOnlySaleList saleList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        saleListStorage.saveSaleList(saleList, filePath);
+    }
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(InventoryChangedEvent event) {
+    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveInventory(event.data);
@@ -90,4 +129,54 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    @Override
+    @Subscribe
+    public void handleSaleListChangedEvent(SaleListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveSaleList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListChangedEvent(StaffListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveStaffList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    // ================ Staffs methods ==============================
+
+    @Override
+    public Path getStaffListFilePath() {
+        return staffStorage.getStaffListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyStaffList> readStaffList() throws DataConversionException, IOException {
+        return readStaffList(staffStorage.getStaffListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStaffList> readStaffList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return staffStorage.readStaffList(filePath);
+    }
+
+    @Override
+    public void saveStaffList(ReadOnlyStaffList staffList) throws IOException {
+        saveStaffList(staffList, staffStorage.getStaffListFilePath());
+    }
+
+    @Override
+    public void saveStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        staffStorage.saveStaffList(staffList, filePath);
+    }
 }

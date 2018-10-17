@@ -37,6 +37,16 @@ public class TypicalStaffs {
             .withPassword("fengzhidaoying")
             .withRole(Staff.Role.user).build();
 
+    // Manually added
+    public static final Staff ANGZHIKAI = new StaffBuilder().withName("Ang Zhi Kai")
+            .withUsername("azhikai")
+            .withPassword("aaazeekai")
+            .withRole(Staff.Role.user).build();
+    public static final Staff CHUAENGSOON = new StaffBuilder().withName("Chua Eng Soon")
+            .withUsername("chuaes")
+            .withPassword("arsenalTahi")
+            .withRole(Staff.Role.manager).build();
+
     private TypicalStaffs() {}
 
     /**

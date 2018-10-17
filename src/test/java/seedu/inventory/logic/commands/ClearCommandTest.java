@@ -9,6 +9,8 @@ import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -26,8 +28,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyInventory_success() {
-        Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
+        Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
+        Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
         expectedModel.resetData(new Inventory());
         expectedModel.commitInventory();
 

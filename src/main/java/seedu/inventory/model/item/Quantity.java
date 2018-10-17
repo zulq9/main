@@ -11,7 +11,7 @@ public class Quantity {
 
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
-            "Quantity should only contain numbers, and it should be at least 1 digit long";
+            "Quantity should only contain numbers, and it should not start with a 0";
     public static final String QUANTITY_VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 
@@ -27,7 +27,7 @@ public class Quantity {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
         return test.matches(QUANTITY_VALIDATION_REGEX);

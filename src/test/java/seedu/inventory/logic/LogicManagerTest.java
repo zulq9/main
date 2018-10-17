@@ -15,6 +15,8 @@ import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 
 
@@ -47,9 +49,15 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        logic.getFilteredItemList().remove(0);
+    }
+
+    @Test
+    public void getFilteredPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredPurchaseOrderList().remove(0);
     }
 
     /**
@@ -82,7 +90,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -90,7 +98,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s inventory book was saved to the storage file.
+     *      - {@code expectedModel}'s inventory was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel) {

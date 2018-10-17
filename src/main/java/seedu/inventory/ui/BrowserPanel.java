@@ -12,8 +12,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.LogsCenter;
-import seedu.inventory.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
+import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
 /**
  * The Browser Panel of the App.
@@ -45,6 +47,10 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(SEARCH_PAGE_URL + item.getName().fullName);
     }
 
+    private void loadPurchaseOrderPage(PurchaseOrder po) {
+        loadPage(SEARCH_PAGE_URL + po.getName().fullName);
+    }
+
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
@@ -65,8 +71,14 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handlePurchaseOrderPanelSelectionChangedEvent(PurchaseOrderSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPurchaseOrderPage(event.getNewSelection());
     }
 }

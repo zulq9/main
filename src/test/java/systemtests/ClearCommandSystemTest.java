@@ -18,37 +18,37 @@ public class ClearCommandSystemTest extends InventorySystemTest {
     public void clear() {
         final Model defaultModel = getModel();
 
-        /* Case: clear non-empty inventory book, command with leading spaces and trailing alphanumeric characters and
+        /* Case: clear non-empty inventory, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
-        /* Case: undo clearing inventory book -> original inventory book restored */
+        /* Case: undo clearing inventory -> original inventory restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
-        /* Case: redo clearing inventory book -> cleared */
+        /* Case: redo clearing inventory -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in item list and clears inventory book -> cleared and no card selected */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory book
-        selectPerson(Index.fromOneBased(1));
+        /* Case: selects first card in item list and clears inventory -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory
+        selectItem(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the item list before clearing -> entire inventory book cleared */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory book
-        showPersonsWithName(KEYWORD_MATCHING_SAMSUNG);
+        /* Case: filters the item list before clearing -> entire inventory cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original inventory
+        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: clear empty inventory book -> cleared */
+        /* Case: clear empty inventory -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
