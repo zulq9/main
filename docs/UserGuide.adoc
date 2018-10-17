@@ -234,9 +234,8 @@ Examples:
 * Change user's password with given username as darren96, old password as darren123, new password as darrensinglenus. +
  `change_password u/darren96 o/darren123 n/darrensinglenus`.
 
-=== Sale Orders Management
-
 // tag::salesManagement[]
+=== Sale Orders Management
 
 Staff users and manager users can create sale orders on the system using the commands below.
 

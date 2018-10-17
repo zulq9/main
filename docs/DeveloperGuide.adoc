@@ -17,7 +17,7 @@ endif::[]
 
 By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
-// tag:: settingUp[]
+// tag::settingUp[]
 == Setting up
 
 The steps for developers to setup Inventory Manager locally is described below.
@@ -531,7 +531,7 @@ You should only modify them if you need greater control over the site's layout t
 The SE-EDU team does not provide support for modified template files.
 ====
 
-// tag:: testing[]
+// tag::testing[]
 [[Testing]]
 == Testing
 
@@ -585,7 +585,7 @@ Below is a common error faced during testing.
 
 * Reason: One of its dependencies, such as `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
-// end:: testing[]
+// end::testing[]
 
 == Dev Ops
 
