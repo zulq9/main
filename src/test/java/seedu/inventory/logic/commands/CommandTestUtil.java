@@ -6,7 +6,9 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_REQDATE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SUPPLIER;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -66,6 +68,21 @@ public class CommandTestUtil {
     public static final String VALID_USERNAME_ZUL = "zulq8";
     public static final String VALID_PASSWORD_ZUL = "meowmeowzul";
 
+    public static final String VALID_REQUIRED_DATE_OPPO = "2018-12-31";
+    public static final String VALID_REQUIRED_DATE_SONY = "2018-12-30";
+    public static final String VALID_SUPPLIER_OPPO = "Mobile Square Pte Ltd";
+    public static final String VALID_SUPPLIER_SONY = "Sony Corporation";
+    public static final String VALID_STATUS_OPPO = "PENDING";
+    public static final String VALID_STATUS_SONY = "PENDING";
+
+    public static final String REQUIRED_DATE_DESC_OPPO = " " + PREFIX_REQDATE + VALID_REQUIRED_DATE_OPPO;
+    public static final String REQUIRED_DATE_DESC_SONY = " " + PREFIX_REQDATE + VALID_REQUIRED_DATE_SONY;
+    public static final String SUPPLIER_DESC_OPPO = " " + PREFIX_SUPPLIER + VALID_SUPPLIER_OPPO;
+    public static final String SUPPLIER_DESC_SONY = " " + PREFIX_SUPPLIER + VALID_SUPPLIER_SONY;
+
+    public static final String INVALID_REQUIRED_DATE_DESC = " " + PREFIX_REQDATE + "2012.2.21"; // incorrect format
+    public static final String INVALID_SUPPLIER_DESC = " " + PREFIX_SUPPLIER + ""; // not allowed empty string
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -88,7 +105,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -108,7 +125,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Inventory expectedInventory = new Inventory(actualModel.getInventory());

@@ -7,19 +7,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.inventory.logic.commands.AddCommand;
+import seedu.inventory.logic.commands.AddStaffCommand;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CreateSaleCommand;
 import seedu.inventory.logic.commands.DeleteCommand;
+import seedu.inventory.logic.commands.DeleteStaffCommand;
 import seedu.inventory.logic.commands.EditCommand;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.FindCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ListCommand;
+import seedu.inventory.logic.commands.LoginCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
+import seedu.inventory.logic.parser.purchaseorder.GeneratePurchaseOrderCommandParser;
 
 /**
  * Parses user input.
@@ -47,6 +54,14 @@ public class InventoryParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
+
+        case AddStaffCommand.COMMAND_WORD:
+            return new AddStaffCommandParser().parse(arguments);
+
+        case DeleteStaffCommand.COMMAND_WORD:
+            return new DeleteStaffCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -83,6 +98,15 @@ public class InventoryParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ListPurchaseOrderCommand.COMMAND_WORD:
+            return new ListPurchaseOrderCommand();
+
+        case GeneratePurchaseOrderCommand.COMMAND_WORD:
+            return new GeneratePurchaseOrderCommandParser().parse(arguments);
+
+        case CreateSaleCommand.COMMAND_WORD:
+            return new CreateSaleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -16,6 +16,7 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 
 
@@ -48,9 +49,15 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        logic.getFilteredItemList().remove(0);
+    }
+
+    @Test
+    public void getFilteredPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredPurchaseOrderList().remove(0);
     }
 
     /**
@@ -83,7 +90,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
+        Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

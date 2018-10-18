@@ -7,7 +7,7 @@ import static seedu.inventory.commons.util.AppUtil.checkArgument;
  * Represents a Staff's name in the system.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class StaffName {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -21,11 +21,11 @@ public class Name {
     public final String fullName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code StaffName}.
      *
      * @param name A valid name.
      */
-    public Name(String name) {
+    public StaffName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
         fullName = name;
@@ -46,7 +46,7 @@ public class Name {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Name)) {
+        if (!(other instanceof StaffName)) {
             return false;
         }
 
@@ -54,7 +54,7 @@ public class Name {
             return true;
         }
 
-        return fullName.equals(((Name) other).fullName);
+        return fullName.equals(((StaffName) other).fullName);
     }
 
     @Override

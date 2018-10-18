@@ -15,10 +15,13 @@ import javafx.stage.Stage;
 import seedu.inventory.commons.core.Config;
 import seedu.inventory.commons.core.GuiSettings;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.model.AccessItemEvent;
+import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.ui.purchaseorder.PurchaseOrderListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +39,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private ItemListPanel itemListPanel;
+    private PurchaseOrderListPanel purchaseOrderListPanel;
+
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -87,6 +92,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -122,8 +128,11 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        itemListPanel = new ItemListPanel(logic.getFilteredPersonList());
+        itemListPanel = new ItemListPanel(logic.getFilteredItemList());
         itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+
+        purchaseOrderListPanel = new PurchaseOrderListPanel(logic.getFilteredPurchaseOrderList());
+        //personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -133,6 +142,16 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void setPanelPurchaseOrder() {
+        itemListPanelPlaceholder.getChildren().clear();
+        itemListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
+    }
+
+    private void setPanelPerson() {
+        itemListPanelPlaceholder.getChildren().clear();
+        itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
     }
 
     void hide() {
@@ -193,6 +212,18 @@ public class MainWindow extends UiPart<Stage> {
 
     void releaseResources() {
         browserPanel.freeResources();
+    }
+
+    @Subscribe
+    private void handleAcessItem(AccessItemEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPanelPerson();
+    }
+
+    @Subscribe
+    private void handleAcessPo(AccessPurchaseOrderEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPanelPurchaseOrder();
     }
 
     @Subscribe

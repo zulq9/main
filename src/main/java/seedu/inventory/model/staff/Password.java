@@ -27,7 +27,8 @@ public class Password {
     public Password(String password) {
         requireNonNull(password);
         checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
-        this.password = hash(password);
+        // this.password = hash(password);
+        this.password = password;
     }
 
     /**
@@ -36,7 +37,7 @@ public class Password {
      * @param password the password that users defined
      * @return hashstring
      */
-    private String hash(String password) {
+    private static String hash(String password) {
         byte[] encodehash = new byte[0];
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
