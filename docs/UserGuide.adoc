@@ -446,27 +446,27 @@ Example:
 
 The following commands are mainly used for users to manage the item in the inventory.
 
-==== Adding an item : `add`
+==== Adding an item : `add-item`
 
 Adds an item to the inventory manager +
-Format: `add n/NAME q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
+Format: `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
 
 [TIP]
 An item can have any number of tags (including 0)
 
 Examples:
 
-* `add n/IPhone X q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
+* `add n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
 
-==== Listing all items : `list`
+==== Listing all items : `list-item`
 
 Shows a list of all items in the inventory manager. +
-Format: `list`
+Format: `list-item`
 
-==== Editing an item : `update`
+==== Editing an item : `edit-item`
 
-Edits an existing person in the Inventory Manager. +
-Format: `update INDEX [n/NAME] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
+Edits an existing item in the Inventory Manager. +
+Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
 ****
 * Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
@@ -478,13 +478,13 @@ Format: `update INDEX [n/NAME] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]..
 
 Examples:
 
-* `update 1 l/111-123A q/999` +
-Updates the location and quantity of the 1st item to be `111-123A` and `999` respectively.
+* `edit-item 1 i/docs/images/iphone.jpg q/999` +
+Updates the image location and quantity of the 1st item to be `docs/images/iphone.jpg` and `999` respectively.
 
-==== Locating items by name : `find`
+==== Locating items by name : `find-item`
 
 Finds item whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find-item KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `iphone` will match `IPhone`
@@ -496,13 +496,13 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find iphone` +
+* `find-item iphone` +
 Returns `IPhone X` and `IPhone 10`
 
-==== Deleting an item : `delete`
+==== Deleting an item : `delete-item`
 
 Deletes the specified item from the inventory. +
-Format: `delete INDEX`
+Format: `delete-item INDEX`
 
 ****
 * Deletes the item at the specified `INDEX`.
@@ -512,12 +512,12 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
-`delete 2` +
+* `list-item` +
+`delete-item 2` +
 Deletes the 2nd item in the inventory.
-* `find IPhone X` +
-`delete 1` +
-Deletes the 1st item in the results of the `find` command.
+* `find-item IPhone X` +
+`delete-item 1` +
+Deletes the 1st item in the results of the `find-item` command.
 
 ==== Selecting an item : `select`
 
@@ -532,12 +532,12 @@ Format: `select INDEX`
 
 Examples:
 
-* `list` +
+* `list-item` +
 `select 2` +
 Selects the 2nd item in the inventory.
-* `find IPhone X` +
+* `find-item IPhone X` +
 `select 1` +
-Selects the 1st item in the results of the `find` command.
+Selects the 1st item in the results of the `find-item` command.
 
 == FAQ
 
