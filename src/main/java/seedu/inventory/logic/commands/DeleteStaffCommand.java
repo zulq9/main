@@ -16,7 +16,7 @@ import seedu.inventory.model.staff.Staff;
  */
 public class DeleteStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_staff";
+    public static final String COMMAND_WORD = "delete-staff";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the display item list.\n"

@@ -16,7 +16,7 @@ import seedu.inventory.model.staff.Staff;
  */
 public class AddStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_staff";
+    public static final String COMMAND_WORD = "add-staff";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff to the inventory management system. "
             + "Parameters: "
