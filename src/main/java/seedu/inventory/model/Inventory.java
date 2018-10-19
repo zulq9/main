@@ -64,6 +64,15 @@ public class Inventory implements ReadOnlyInventory {
         this.purchaseOrders.setPurchaseOrders(purchaseOrders);
     }
 
+    /**
+     * Replaces the contents of the staff list with {@code staffs}
+     *
+     * @param staffs must not contain duplicated staffs.
+     */
+    public void setStaffs(List<Staff> staffs) {
+        this.staffs.setStaffs(staffs);
+    }
+
 
     //===================== item-level operations ==========================================
 
@@ -103,15 +112,6 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     // staff-level
-
-    /**
-     * Replaces the contents of the staff list with {@code staffs}
-     *
-     * @param staffs must not contain duplicated staffs.
-     */
-    public void setStaffs(List<Staff> staffs) {
-        this.staffs.setStaffs(staffs);
-    }
 
     /**
      * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
@@ -226,15 +226,15 @@ public class Inventory implements ReadOnlyInventory {
         return purchaseOrders.asUnmodifiableObservableList();
     }
 
+    public ObservableList<Staff> getStaffList() {
+        return staffs.asUnmodifiableObservableList();
+    }
+
     @Override
     public String toString() {
         return items.asUnmodifiableObservableList().size() + " items"
                 + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders"
                 + staffs.asUnmodifiableObservableList().size() + "staffs";
-    }
-
-    public ObservableList<Staff> getStaffList() {
-        return staffs.asUnmodifiableObservableList();
     }
 
     @Override
@@ -248,6 +248,6 @@ public class Inventory implements ReadOnlyInventory {
 
     @Override
     public int hashCode() {
-        return Objects.hash(items, purchaseOrders);
+        return Objects.hash(items, purchaseOrders, staffs);
     }
 }

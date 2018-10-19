@@ -13,6 +13,7 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
+import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
@@ -188,7 +189,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addStaff(Staff staff) {
         requireNonNull(staff);
         versionedInventory.addStaff(staff);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         indicateStaffListChanged();
     }
 
@@ -197,6 +198,19 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedStaff);
         versionedInventory.updateStaff(target, editedStaff);
         indicateStaffListChanged();
+    }
+
+    @Override
+    public void viewStaff() {
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        indicateAccessStaff();
+    }
+
+    /**
+     * Raises an event to indicate accessing item
+     */
+    private void indicateAccessStaff() {
+        raise(new AccessStaffEvent());
     }
 
 

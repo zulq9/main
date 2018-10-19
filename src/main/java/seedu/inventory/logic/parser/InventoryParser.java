@@ -7,12 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.logic.commands.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CreateSaleCommand;
 import seedu.inventory.logic.commands.DeleteCommand;
-import seedu.inventory.logic.commands.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
 import seedu.inventory.logic.commands.EditCommand;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.FindCommand;

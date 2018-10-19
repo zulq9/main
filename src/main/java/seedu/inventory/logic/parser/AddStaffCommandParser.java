@@ -8,7 +8,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;

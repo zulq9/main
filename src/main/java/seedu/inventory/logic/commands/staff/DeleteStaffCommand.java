@@ -1,4 +1,4 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,8 @@ import java.util.List;
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.staff.Staff;

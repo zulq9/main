@@ -24,9 +24,11 @@ public class XmlInventoryStorage implements InventoryStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlInventoryStorage.class);
 
     private Path filePath;
+    private Path staffFilePath;
 
-    public XmlInventoryStorage(Path filePath) {
+    public XmlInventoryStorage(Path filePath, Path staffFilePath) {
         this.filePath = filePath;
+        this.staffFilePath = staffFilePath;
     }
 
     public Path getInventoryFilePath() {
@@ -86,7 +88,7 @@ public class XmlInventoryStorage implements InventoryStorage {
      * @return the file path of the storage for staff list
      */
     public Path getStaffListFilePath() {
-        return filePath;
+        return staffFilePath;
     }
 
     /**
@@ -98,7 +100,7 @@ public class XmlInventoryStorage implements InventoryStorage {
      */
     @Override
     public Optional<ReadOnlyStaffList> readStaffList() throws DataConversionException, IOException {
-        return readStaffList(filePath);
+        return readStaffList(staffFilePath);
     }
 
     /**
@@ -136,7 +138,7 @@ public class XmlInventoryStorage implements InventoryStorage {
      */
     @Override
     public void saveStaffList(ReadOnlyStaffList staffList) throws IOException {
-        saveStaffList(staffList, filePath);
+        saveStaffList(staffList, staffFilePath);
     }
 
     /**

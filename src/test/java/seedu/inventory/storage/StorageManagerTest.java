@@ -36,9 +36,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlInventoryStorage inventoryManagerStorage = new XmlInventoryStorage(getTempFilePath("ab"));
+        XmlInventoryStorage inventoryManagerStorage = new XmlInventoryStorage(
+                getTempFilePath("ab"), getTempFilePath("cd"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        XmlStaffListStorage staffStorage = new XmlStaffListStorage(getTempFilePath("cd"));
         XmlSaleListStorage saleListStorage = new XmlSaleListStorage();
         storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage);
     }
@@ -83,7 +83,8 @@ public class StorageManagerTest {
     @Test
     public void handleInventoryChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(
+                Paths.get("dummy"), Paths.get("staffDummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
                                              new XmlSaleListStorage());
         storage.handleInventoryChangedEvent(new InventoryChangedEvent(new Inventory()));
@@ -105,7 +106,7 @@ public class StorageManagerTest {
 
     @Test
     public void handleStaffListChangedEvent_exceptionThrown_eventRaised() {
-        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
                 new XmlSaleListStorage());
         storage.handleStaffListChangedEvent(new StaffListChangedEvent(new Inventory()));
@@ -118,8 +119,8 @@ public class StorageManagerTest {
      */
     class XmlInventoryStorageExceptionThrowingStub extends XmlInventoryStorage {
 
-        public XmlInventoryStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
+        public XmlInventoryStorageExceptionThrowingStub(Path filePath, Path staffFilePath) {
+            super(filePath, staffFilePath);
         }
 
         @Override
@@ -127,21 +128,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
-    /**
-     * A Stub class to throw an exception when the save method is called
-     */
-    class XmlStaffListStorageExceptionThrowingStub extends XmlStaffListStorage {
-
-        public XmlStaffListStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
-            throw new IOException("dummy exception");
-        }
-    }
-
 
 }
