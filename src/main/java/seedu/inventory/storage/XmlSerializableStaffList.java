@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.StaffList;
 import seedu.inventory.model.staff.Staff;

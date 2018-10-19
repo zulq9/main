@@ -3,7 +3,6 @@ package seedu.inventory.model;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
-import seedu.inventory.model.staff.Staff;
 
 /**
  * Unmodifiable view of an inventory

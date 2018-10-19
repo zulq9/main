@@ -116,7 +116,7 @@ public class Inventory implements ReadOnlyInventory {
     /**
      * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
      */
-    public void resetStaffData(ReadOnlyStaffList newStaffData) {
+    public void resetData(ReadOnlyStaffList newStaffData) {
         requireNonNull(newStaffData);
 
         setStaffs(newStaffData.getStaffList());

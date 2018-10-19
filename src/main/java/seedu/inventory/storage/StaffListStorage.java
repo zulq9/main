@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.inventory.commons.exceptions.DataConversionException;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.staff.Staff;
 
