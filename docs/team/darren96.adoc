@@ -20,6 +20,8 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 == Summary of contributions
 
 * *Major enhancement*:
+** Created user authentication feature
+** Create user management features
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
@@ -44,7 +46,7 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
+include::../UserGuide.adoc[tag=accountsManagement]
 include::../UserGuide.adoc[tag=users-management]
 
 == Contributions to the Developer Guide
@@ -53,15 +55,16 @@ include::../UserGuide.adoc[tag=users-management]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=useCaseLogin]
 include::../DeveloperGuide.adoc[tag=usecaseDeleteStaff]
-
+include::../DeveloperGuide.adoc[tag=testcaseLogin]
 include::../DeveloperGuide.adoc[tag=testcaseDeleteStaff]
 
 
 == PROJECT: PeerNUS
 
 |===
-|_This project is the project I did during the summer holiday for SOC Orbital Programme._
+|_This project is the project I did during the summer holiday for SoC Orbital Programme._
 |===
 
 include::https://github.com/darren96/PeerNUS
