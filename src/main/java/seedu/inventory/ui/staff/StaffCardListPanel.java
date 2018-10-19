@@ -2,12 +2,16 @@ package seedu.inventory.ui.staff;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
 import seedu.inventory.commons.events.ui.StaffPanelSelectionChangedEvent;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.ui.UiPart;
@@ -42,6 +46,22 @@ public class StaffCardListPanel extends UiPart<Region> {
                         raise(new StaffPanelSelectionChangedEvent(newValue));
                     }
                 });
+    }
+
+    /**
+     * Scrolls to the {@code StaffCard} at the {@code index} and selects it.
+     */
+    private void scrollTo(int index) {
+        Platform.runLater(() -> {
+            staffListView.scrollTo(index);
+            staffListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
     }
 
     /**
