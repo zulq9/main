@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.inventory.commons.exceptions.DataConversionException;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.staff.Staff;
 
@@ -12,7 +14,7 @@ import seedu.inventory.model.staff.Staff;
  * @author darren96
  * Represents a storage for {@link Staff}
  */
-public interface StaffStorage {
+public interface StaffListStorage {
 
     /**
      * Returns the file path of the data file.

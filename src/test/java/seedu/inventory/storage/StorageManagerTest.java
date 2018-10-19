@@ -40,7 +40,7 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         XmlStaffListStorage staffStorage = new XmlStaffListStorage(getTempFilePath("cd"));
         XmlSaleListStorage saleListStorage = new XmlSaleListStorage();
-        storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage, staffStorage);
+        storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -85,8 +85,7 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
-                                             new XmlSaleListStorage(),
-                                             new XmlStaffListStorage(Paths.get("dummy")));
+                                             new XmlSaleListStorage());
         storage.handleInventoryChangedEvent(new InventoryChangedEvent(new Inventory()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
@@ -108,9 +107,8 @@ public class StorageManagerTest {
     public void handleStaffListChangedEvent_exceptionThrown_eventRaised() {
         Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
-                new XmlSaleListStorage(),
-                new XmlStaffListStorageExceptionThrowingStub(Paths.get("dummy")));
-        storage.handleStaffListChangedEvent(new StaffListChangedEvent(new StaffList()));
+                new XmlSaleListStorage());
+        storage.handleStaffListChangedEvent(new StaffListChangedEvent(new Inventory()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 

@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.inventory.commons.exceptions.DataConversionException;
+import seedu.inventory.commons.exceptions.UnrecognizableDataException;
+import seedu.inventory.model.item.Item;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.UniqueStaffList;
 

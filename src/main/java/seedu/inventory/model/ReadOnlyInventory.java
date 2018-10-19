@@ -8,7 +8,7 @@ import seedu.inventory.model.staff.Staff;
 /**
  * Unmodifiable view of an inventory
  */
-public interface ReadOnlyInventory {
+public interface ReadOnlyInventory extends ReadOnlyStaffList {
 
     /**
      * Returns an unmodifiable view of the items list.
@@ -20,12 +20,6 @@ public interface ReadOnlyInventory {
      * Returns an unmodifiable view of the purchase order list.
      */
     ObservableList<PurchaseOrder> getPurchaseOrderList();
-
-    /**
-     * Returns an unmodifiable view of the staffs list.
-     * This list will not contain any duplicate staffs.
-     */
-    ObservableList<Staff> getStaffList();
 
     /**
      * Returns the specific item by Sku.

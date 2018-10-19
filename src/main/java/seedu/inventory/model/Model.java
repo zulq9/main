@@ -152,7 +152,7 @@ public interface Model {
      * @param target      the staff to be updated
      * @param editedStaff the staff with updated info
      */
-    void updateStaff(Staff target, Staff editedStaff);
+    void editStaff(Staff target, Staff editedStaff);
 
     /**
      * Returns an unmodifiable view of the filtered staff list

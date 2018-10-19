@@ -13,12 +13,13 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.FileUtil;
+import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
 
 /**
  * A class to access StaffStorage data stored as a xml file on the hard disk.
  */
-public class XmlStaffListStorage implements StaffStorage {
+public class XmlStaffListStorage implements StaffListStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlStaffListStorage.class);
 
     private Path filePath;
