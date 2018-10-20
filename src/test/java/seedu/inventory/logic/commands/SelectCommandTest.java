@@ -21,6 +21,7 @@ import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
@@ -31,8 +32,9 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
-    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
+    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(),
+            new StaffList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
