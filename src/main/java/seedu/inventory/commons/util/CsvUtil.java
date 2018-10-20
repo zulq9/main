@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
-import seedu.inventory.storage.CsvAdaptedData;
+import seedu.inventory.storage.CsvSerializableData;
 /**
  * Helps with reading from and writing to CSV files.
  */
@@ -32,7 +32,7 @@ public class CsvUtil {
      * @throws UnrecognizableDataException Thrown if the file is empty or does not have the correct format.
      */
     @SuppressWarnings("unchecked")
-    public static CsvAdaptedData getDataFromFile(Path file, CsvAdaptedData dataTypeToConvert)
+    public static CsvSerializableData getDataFromFile(Path file, CsvSerializableData dataTypeToConvert)
             throws FileNotFoundException, UnrecognizableDataException {
         if (!Files.exists(file)) {
             throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
@@ -53,7 +53,7 @@ public class CsvUtil {
      * @param dataTypeToConvert The class corresponding to the csv data.
      *                       Cannot be null.
      */
-    public static boolean isDataHeaderRecognizable(Path file, CsvAdaptedData dataTypeToConvert) {
+    public static boolean isDataHeaderRecognizable(Path file, CsvSerializableData dataTypeToConvert) {
         requireNonNull(file);
         requireNonNull(dataTypeToConvert);
         BufferedReader reader;
@@ -86,7 +86,7 @@ public class CsvUtil {
      * @param dataTypeToConvert The class corresponding to the csv data.
      *                       Cannot be null.
      */
-    public static List<List<String>> getDataContentFromFile(Path file, CsvAdaptedData dataTypeToConvert)
+    public static List<List<String>> getDataContentFromFile(Path file, CsvSerializableData dataTypeToConvert)
             throws UnrecognizableDataException {
         requireNonNull(file);
         requireNonNull(dataTypeToConvert);
@@ -120,7 +120,7 @@ public class CsvUtil {
      * @param dataTypeToConvert The class corresponding to the csv data.
      *                          Cannot be null.
      */
-    public static boolean isDataTypeEqual(List<String> dataTypes, CsvAdaptedData dataTypeToConvert) {
+    public static boolean isDataTypeEqual(List<String> dataTypes, CsvSerializableData dataTypeToConvert) {
         requireNonNull(dataTypes);
         requireNonNull(dataTypeToConvert);
         return dataTypes.size() == 1 && dataTypes.get(0).equals(dataTypeToConvert.getDataType());
@@ -134,7 +134,7 @@ public class CsvUtil {
      * @param dataTypeToConvert  The class corresponding to the csv data.
      *                           Cannot be null.
      */
-    public static boolean isDataFieldsEqual(List<String> dataFields, CsvAdaptedData dataTypeToConvert) {
+    public static boolean isDataFieldsEqual(List<String> dataFields, CsvSerializableData dataTypeToConvert) {
         requireNonNull(dataFields);
         requireNonNull(dataTypeToConvert);
         return dataFields.equals(new LinkedList<>(Arrays.asList(dataTypeToConvert.getDataFields())));
@@ -203,7 +203,7 @@ public class CsvUtil {
      * @throws FileNotFoundException Thrown if the file is missing.
      * @throws IOException           Thrown if there is an error during writing data to the file.
      */
-    public static <T> void saveDataToFile(Path file, CsvAdaptedData data) throws FileNotFoundException, IOException {
+    public static <T> void saveDataToFile(Path file, CsvSerializableData data) throws FileNotFoundException, IOException {
 
         requireNonNull(file);
         requireNonNull(data);
