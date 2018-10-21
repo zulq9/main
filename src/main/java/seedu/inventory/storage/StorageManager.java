@@ -203,6 +203,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    @Override
     @Subscribe
     public void handleItemListExportEvent(ItemListExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export item list to file"));

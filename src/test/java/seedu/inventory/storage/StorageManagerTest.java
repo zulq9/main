@@ -16,13 +16,10 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
-import seedu.inventory.model.Inventory;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
-import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.*;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
@@ -103,6 +100,15 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void itemListImportExport() throws Exception {
+        Path tempFile = getTempFilePath("tempItemList.csv");
+        ItemList original = new ItemList(getTypicalInventory());
+        storageManager.exportItemList(original, tempFile);
+        ReadOnlyItemList retrieved = storageManager.importItemList(tempFile).get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
     public void getStaffListFilePath() {
         assertNotNull(storageManager.getStaffListFilePath());
     }
@@ -118,6 +124,17 @@ public class StorageManagerTest {
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
+    @Test
+    public void handleItemListExportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new XmlStaffListStorage(Paths.get("dummy")),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleItemListExportEvent(new ItemListExportEvent(new ItemList(), Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
+    }
+
 
     /**
      * A Stub class to throw an exception when the save method is called
@@ -130,6 +147,21 @@ public class StorageManagerTest {
 
         @Override
         public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
+
+    /**
+     * A Stub class to throw an exception when the export method is called
+     */
+    class CsvReportingStorageExceptionThrowingStub extends CsvReportingStorage {
+
+        public CsvReportingStorageExceptionThrowingStub() {
+
+        }
+
+        @Override
+        public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

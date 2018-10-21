@@ -47,13 +47,13 @@ public class CsvReportingStorageTest {
 
     @Test
     public void importItemList_missingFile_emptyResult() throws Exception {
-        assertFalse(importItemList("NonExistentFile.csv").isPresent());
+        assertFalse(importItemList("nonExistentFile.csv").isPresent());
     }
 
     @Test
     public void importItemList_unrecognizable_exceptionThrown() throws Exception {
         thrown.expect(DataConversionException.class);
-        importItemList("NotRecognizableItemList.csv");
+        importItemList("notRecognizableItemList.csv");
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CsvReportingStorageTest {
 
     @Test
     public void importAndExportInventory_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempItemList.xml");
+        Path filePath = testFolder.getRoot().toPath().resolve("tempItemList.csv");
         ItemList original = new ItemList(getTypicalInventory());
         CsvReportingStorage csvReportingStorage = new CsvReportingStorage();
 
@@ -90,7 +90,7 @@ public class CsvReportingStorageTest {
     @Test
     public void exportItemList_nullItemList_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        exportItemList(null, "SomeFile.csv");
+        exportItemList(null, "someFile.csv");
     }
 
     /**
