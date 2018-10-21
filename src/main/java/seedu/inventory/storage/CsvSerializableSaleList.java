@@ -15,7 +15,7 @@ public class CsvSerializableSaleList implements CsvSerializableData {
         this.contents = contents;
     }
 
-    private CsvSerializableSaleList() {}
+    public CsvSerializableSaleList() {}
 
     @Override
     public List<List<String>> getContents() {

@@ -1,6 +1,7 @@
 package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +15,7 @@ import seedu.inventory.commons.util.CsvUtil;
 import seedu.inventory.model.ItemList;
 import seedu.inventory.testutil.TypicalItems;
 
-public class CsvSerializableInventoryTest {
+public class CsvSerializableItemListTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvSerializableItemListTest");
     private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemList.csv");
@@ -31,6 +32,7 @@ public class CsvSerializableInventoryTest {
         ItemList itemListFromFile = dataFromFile.toModelType();
         ItemList typicalItemList = new ItemList(TypicalItems.getTypicalInventory());
         assertEquals(itemListFromFile, typicalItemList);
+        assertEquals(dataFromFile, new CsvSerializableItemList(TypicalItems.getTypicalInventory()));
     }
 
     @Test
@@ -48,6 +50,13 @@ public class CsvSerializableInventoryTest {
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(CsvSerializableItemList.MESSAGE_DUPLICATE_ITEM);
         dataFromFile.toModelType();
+    }
+
+    @Test
+    public void equals() {
+        CsvSerializableItemList itemList = new CsvSerializableItemList();
+        assertEquals(itemList, itemList);
+        assertNotEquals(itemList, new CsvSerializableSaleList());
     }
 
 }
