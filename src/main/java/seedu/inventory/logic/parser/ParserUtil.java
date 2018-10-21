@@ -253,6 +253,12 @@ public class ParserUtil {
     }
 
     //=================== Reporting variable parser ====================================================
+    /**
+     * Parses a {@code String path} into an {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
     public static Path parsePath(String path) throws ParseException {
         requireNonNull(path);
         String trimmedPath = path.trim();
