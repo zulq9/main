@@ -1,26 +1,28 @@
 package seedu.inventory.model;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.UniqueItemList;
+import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.sale.UniqueSaleList;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
-import seedu.inventory.model.sale.Sale;
-import seedu.inventory.model.sale.UniqueSaleList;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the sale-list level
  */
-public class SaleList implements ReadOnlySaleList {
+public class ItemList implements ReadOnlyItemList {
 
-    private final UniqueSaleList uniqueSaleList = new UniqueSaleList();
+    private final UniqueItemList items = new UniqueItemList();
 
-    public SaleList() {}
+    public ItemList() {}
 
     /**
      * Creates a UniqueSaleList using the sales in the {@code toBeCopied}
      */
-    public SaleList(ReadOnlySaleList toBeCopied) {
+    public ItemList(ReadOnlyItemList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -28,75 +30,81 @@ public class SaleList implements ReadOnlySaleList {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the sale list with {@code sales}.
-     * {@code sales} can contain any number of valid sales
+     * Replaces the contents of the item list with {@code items}.
+     * {@code items} must not contain duplicate items.
      */
-    public void setSales(List<Sale> sales) {
-        this.uniqueSaleList.setSales(sales);
+    public void setItems(List<Item> items) {
+        this.items.setItems(items);
     }
 
+
     /**
-     * Resets the existing data of this {@code UniqueSaleList} with {@code newData}.
+     * Resets the existing data of this {@code UniqueItemList} with {@code newData}.
      */
-    public void resetData(ReadOnlySaleList newData) {
+    public void resetData(ReadOnlyItemList newData) {
         requireNonNull(newData);
 
-        setSales(newData.getSaleList());
+        setItems(newData.getItemList());
     }
 
-    //// sale-level operations
+    //===================== item-level operations ==========================================
 
     /**
-     * Returns true if a sale with the same ID as {@code sale} exists in the list.
+     * Returns true if a item with the same identity as {@code item} exists in the inventory.
      */
-    public boolean hasSale(Sale sale) {
-        requireNonNull(sale);
-        return uniqueSaleList.contains(sale);
-    }
-
-    /**
-     * Adds a sale to the sale list.
-     */
-    public void addSale(Sale sale) {
-        uniqueSaleList.add(sale);
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return items.contains(item);
     }
 
     /**
-     * Removes {@code key} from this {@code UniqueSaleList}.
-     * {@code key} must exist in the UniqueSaleList.
+     * Adds an item to the inventory.
+     * The item must not already exist in the inventory.
      */
-    public void removeSale(Sale key) {
-        uniqueSaleList.remove(key);
+    public void addItem(Item p) {
+        items.add(p);
     }
 
     /**
-     * Get next available sale ID
+     * Replaces the given item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the inventory.
+     * The item identity of {@code editedItem} must not be the same as another existing item in the inventory.
      */
-    public String getNextSaleId() {
-        return uniqueSaleList.getNextSaleId();
+    public void updateItem(Item target, Item editedItem) {
+        requireNonNull(editedItem);
+
+        items.setItem(target, editedItem);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Inventory}.
+     * {@code key} must exist in the inventory.
+     */
+    public void removeItem(Item key) {
+        items.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return uniqueSaleList.asUnmodifiableObservableList().size() + " sales.";
+        return items.asUnmodifiableObservableList().size() + " items.";
     }
 
     @Override
-    public ObservableList<Sale> getSaleList() {
-        return uniqueSaleList.asUnmodifiableObservableList();
+    public ObservableList<Item> getItemList() {
+        return items.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SaleList // instanceof handles nulls
-                && uniqueSaleList.equals(((SaleList) other).uniqueSaleList));
+                || (other instanceof ItemList // instanceof handles nulls
+                && items.equals(((ItemList) other).items));
     }
 
     @Override
     public int hashCode() {
-        return uniqueSaleList.hashCode();
+        return items.hashCode();
     }
 }

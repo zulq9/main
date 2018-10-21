@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.Inventory;
-import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ItemList;
+import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.item.Item;
 
 /**
@@ -35,10 +35,18 @@ public class CsvSerializableItemList implements CsvSerializableData {
     }
 
     /**
+     * Creates CsvSerializableItemList from CsvSerializableData.
+     */
+    public CsvSerializableItemList(CsvSerializableData data) {
+        this.contents = data.getContents();
+    }
+
+    /**
      * Conversion
      */
-    public CsvSerializableItemList(ReadOnlyInventory src) {
+    public CsvSerializableItemList(ReadOnlyItemList src) {
         items = src.getItemList().stream().map(CsvAdaptedItem::new).collect(Collectors.toList());
+        contents = getContentsFromItemList(items);
     }
 
     /**
@@ -47,17 +55,43 @@ public class CsvSerializableItemList implements CsvSerializableData {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      *                               {@code CsvAdaptedItem}.
      */
-    public Inventory toModelType() throws IllegalValueException {
-        Inventory inventory = new Inventory();
+    public ItemList toModelType() throws IllegalValueException {
+        items = splitContentsToItemList(contents);
+        ItemList itemlist = new ItemList();
 
         for (CsvAdaptedItem p : items) {
             Item item = p.toModelType();
-            if (inventory.hasItem(item)) {
+            if (itemlist.hasItem(item)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            inventory.addItem(item);
+            itemlist.addItem(item);
         }
-        return inventory;
+        return itemlist;
+    }
+
+    /**
+     * Combine a list of Csv-friendly adapted item into a list of list of string representing the contents.
+     *
+     * @param items A list of Csv-friendly item
+     * @return contents A list of list of string representing the contents.
+     */
+    public static List<List<String>> getContentsFromItemList(List<CsvAdaptedItem> items) {
+        return items.stream().map(CsvAdaptedItem::getContentFromItem).collect(Collectors.toList());
+    }
+
+    /**
+     * Split a list of list of string representing the contents of item list into a list of Csv-friendly adapted item
+     *
+     * @param contents A list of list of string representing the contents of item list
+     * @return A list of Csv-friendly adapted item containing the content of the list.
+     */
+    public static List<CsvAdaptedItem> splitContentsToItemList(List<List<String>> contents)
+            throws IllegalValueException {
+        List<CsvAdaptedItem> items = new ArrayList<>();
+        for(List<String> content : contents) {
+            items.add(CsvAdaptedItem.splitContentToItem(content));
+        }
+        return items;
     }
 
     @Override
@@ -88,12 +122,9 @@ public class CsvSerializableItemList implements CsvSerializableData {
     }
 
     @Override
-    public CsvSerializableData getInstance() {
-        return new CsvSerializableItemList();
-    }
-
-    @Override
     public CsvSerializableData createInstance(List<List<String>> contents) {
         return new CsvSerializableItemList(contents);
     }
+
+
 }

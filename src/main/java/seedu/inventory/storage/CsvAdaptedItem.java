@@ -145,7 +145,7 @@ public class CsvAdaptedItem {
      * @param item A Csv-friendly item
      * @return content A list of string representing the content.
      */
-    public static List<String> getContentList(CsvAdaptedItem item) {
+    public static List<String> getContentFromItem(CsvAdaptedItem item) {
         List<String> content = new ArrayList<>();
         content.add(item.name);
         content.add(item.price);

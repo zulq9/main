@@ -30,16 +30,7 @@ import seedu.inventory.model.SaleList;
 import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.util.SampleDataUtil;
-import seedu.inventory.storage.InventoryStorage;
-import seedu.inventory.storage.JsonUserPrefsStorage;
-import seedu.inventory.storage.SaleListStorage;
-import seedu.inventory.storage.StaffStorage;
-import seedu.inventory.storage.Storage;
-import seedu.inventory.storage.StorageManager;
-import seedu.inventory.storage.UserPrefsStorage;
-import seedu.inventory.storage.XmlInventoryStorage;
-import seedu.inventory.storage.XmlSaleListStorage;
-import seedu.inventory.storage.XmlStaffListStorage;
+import seedu.inventory.storage.*;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 
@@ -73,7 +64,9 @@ public class MainApp extends Application {
         InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath());
         StaffStorage staffStorage = new XmlStaffListStorage(userPrefs.getStaffListFilePath());
         SaleListStorage saleListStorage = new XmlSaleListStorage();
-        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage, staffStorage);
+        ReportingStorage reportingStorage = new CsvReportingStorage();
+        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage, staffStorage,
+                reportingStorage);
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);

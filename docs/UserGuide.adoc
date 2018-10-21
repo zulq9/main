@@ -358,7 +358,7 @@ Format: `export-im f/FILEPATH`
 * Imports the data from the file specified by `FILEPATH`.
 * `FILEPATH` must end with an extension of `.csv`.
 * `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
-* Data that already exist in *Inventory Manager* will not be imported.
+* Original data in *Inventory Manager* will be overwritten.
 * Data in the CSV file must be recognizable by *Inventory Manager*.
 ****
 ===== Import sales report from CSV: `import-csv-sales`
@@ -388,7 +388,7 @@ Format: `import-im f/FILEPATH`
 * The .im is a format that the *Inventory Manager* use to tranfer the entire data.
 * `FILEPATH` must end with an extension of `.im`.
 * `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
-* Data that already exist in *Inventory Manager* will not be imported.
+* Original data in *Inventory Manager* will be overwritten.
 * Data in the .im file must be recognizable by *Inventory Manager*.
 ****
 // end::exportimport[]

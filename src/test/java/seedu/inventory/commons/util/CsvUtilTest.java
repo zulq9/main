@@ -31,7 +31,7 @@ public class CsvUtilTest {
     private static final Path INVALID_CONTENT_FILE = TEST_DATA_FOLDER.resolve("invalidContent.csv");
     private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempData.csv");
-    private static final CsvSerializableData DATA_TYPE_TO_TRANSFER = new CsvSerializableDataStub().getInstance();
+    private static final CsvSerializableData DATA_TYPE_TO_TRANSFER = new CsvSerializableDataStub();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -253,10 +253,6 @@ class CsvSerializableDataStub implements CsvSerializableData {
         return FIELDS;
     }
 
-    @Override
-    public CsvSerializableData getInstance() {
-        return new CsvSerializableDataStub();
-    }
 
     @Override
     public CsvSerializableData createInstance(List<List<String>> contents) {

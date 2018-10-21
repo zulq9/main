@@ -33,11 +33,6 @@ public class CsvSerializableSaleList implements CsvSerializableData {
     }
 
     @Override
-    public CsvSerializableData getInstance() {
-        return new CsvSerializableSaleList();
-    }
-
-    @Override
     public CsvSerializableData createInstance(List<List<String>> contents) {
         return new CsvSerializableSaleList(contents);
     }

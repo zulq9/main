@@ -1,5 +1,6 @@
 package seedu.inventory.storage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +51,9 @@ public class CsvAdaptedTag {
      */
     public static String combineTags(List<CsvAdaptedTag> tags) {
         String combinedTags = "";
+        if(tags.size() == 0) {
+            return combinedTags;
+        }
         for (int i = 0; i < tags.size() - 1; i++) {
             combinedTags += tags.get(i).tagName + ",";
         }
@@ -63,6 +67,9 @@ public class CsvAdaptedTag {
      * @param combinedTags A single string representing a list of Csv-friendly adapted tags
      */
     public static List<CsvAdaptedTag> splitToTags(String combinedTags) {
+        if("".equals(combinedTags)) {
+            return new ArrayList<>();
+        }
         return Arrays.stream(combinedTags.split(",")).map(CsvAdaptedTag::new).collect(Collectors.toList());
     }
 

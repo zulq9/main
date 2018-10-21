@@ -169,7 +169,7 @@ public class CsvAdaptedItemTest {
 
         assertEquals(validItem, anotherValidItem);
         assertEquals(validItem, validItem);
-        assertNotEquals(validItem, CsvAdaptedItem.getContentList(validItem));
+        assertNotEquals(validItem, CsvAdaptedItem.getContentFromItem(validItem));
         assertNotEquals(validItem, inValidItem);
     }
 
@@ -200,7 +200,7 @@ public class CsvAdaptedItemTest {
     }
 
     @Test
-    public void getContentList() throws Exception {
+    public void getContentFromItem() throws Exception {
         List<String> validContent = new ArrayList<>();
         validContent.add(VALID_NAME);
         validContent.add(VALID_PRICE);
@@ -211,7 +211,7 @@ public class CsvAdaptedItemTest {
         CsvAdaptedItem validItem =
                 new CsvAdaptedItem(VALID_NAME, VALID_PRICE, VALID_QUANTITY, VALID_SKU, VALID_IMAGE, VALID_TAGS);
 
-        assertEquals(CsvAdaptedItem.getContentList(validItem), validContent);
+        assertEquals(CsvAdaptedItem.getContentFromItem(validItem), validContent);
     }
 
 }

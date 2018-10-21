@@ -12,7 +12,5 @@ public interface CsvSerializableData {
 
     String[] getDataFields();
 
-    CsvSerializableData getInstance();
-
     CsvSerializableData createInstance(List<List<String>> contents);
 }
