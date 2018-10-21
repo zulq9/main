@@ -203,7 +203,7 @@ public class CsvUtil {
      * @throws FileNotFoundException Thrown if the file is missing.
      * @throws IOException           Thrown if there is an error during writing data to the file.
      */
-    public static <T> void saveDataToFile(Path file, CsvSerializableData data) throws FileNotFoundException, IOException {
+    public static void saveDataToFile(Path file, CsvSerializableData data) throws FileNotFoundException, IOException {
 
         requireNonNull(file);
         requireNonNull(data);

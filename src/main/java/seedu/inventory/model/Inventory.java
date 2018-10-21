@@ -18,7 +18,7 @@ import seedu.inventory.model.staff.UniqueStaffList;
  * Wraps all data at the inventory-list level
  * Duplicates are not allowed (by .isSameItem comparison)
  */
-public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
+public class Inventory implements ReadOnlyInventory {
 
     private final UniqueItemList items = new UniqueItemList();
     private final NonUniquePurchaseOrderList purchaseOrders = new NonUniquePurchaseOrderList();
