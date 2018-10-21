@@ -2,6 +2,8 @@ package seedu.inventory.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -248,6 +250,13 @@ public class ParserUtil {
         } else {
             throw new ParseException(Staff.Role.MESSAGE_ROLE_CONSTRAINTS);
         }
+    }
+
+    //=================== Reporting variable parser ====================================================
+    public static Path parsePath(String path) throws ParseException {
+        requireNonNull(path);
+        String trimmedPath = path.trim();
+        return Paths.get(trimmedPath);
     }
 
 }

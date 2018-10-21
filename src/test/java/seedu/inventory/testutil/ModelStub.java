@@ -1,5 +1,6 @@
 package seedu.inventory.testutil;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -32,6 +33,11 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyInventory getInventory() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void exportItemList(Path filePath) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -51,7 +51,7 @@ public class CsvAdaptedTag {
      */
     public static String combineTags(List<CsvAdaptedTag> tags) {
         String combinedTags = "";
-        if(tags.size() == 0) {
+        if (tags.size() == 0) {
             return combinedTags;
         }
         for (int i = 0; i < tags.size() - 1; i++) {
@@ -67,7 +67,7 @@ public class CsvAdaptedTag {
      * @param combinedTags A single string representing a list of Csv-friendly adapted tags
      */
     public static List<CsvAdaptedTag> splitToTags(String combinedTags) {
-        if("".equals(combinedTags)) {
+        if ("".equals(combinedTags)) {
             return new ArrayList<>();
         }
         return Arrays.stream(combinedTags.split(",")).map(CsvAdaptedTag::new).collect(Collectors.toList());

@@ -88,7 +88,7 @@ public class CsvSerializableItemList implements CsvSerializableData {
     public static List<CsvAdaptedItem> splitContentsToItemList(List<List<String>> contents)
             throws IllegalValueException {
         List<CsvAdaptedItem> items = new ArrayList<>();
-        for(List<String> content : contents) {
+        for (List<String> content : contents) {
             items.add(CsvAdaptedItem.splitContentToItem(content));
         }
         return items;

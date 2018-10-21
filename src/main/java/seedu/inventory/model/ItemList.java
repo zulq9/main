@@ -1,14 +1,16 @@
 package seedu.inventory.model;
 
-import javafx.collections.ObservableList;
-import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.UniqueItemList;
-import seedu.inventory.model.sale.Sale;
-import seedu.inventory.model.sale.UniqueSaleList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+
+import seedu.inventory.model.item.Item;
+import seedu.inventory.model.item.UniqueItemList;
+
+
+
 
 /**
  * Wraps all data at the sale-list level

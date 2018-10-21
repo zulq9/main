@@ -10,11 +10,13 @@ import com.google.common.eventbus.Subscribe;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
@@ -121,39 +123,6 @@ public class StorageManager extends ComponentManager implements Storage {
         saleListStorage.saveSaleList(saleList, filePath);
     }
 
-    @Override
-    @Subscribe
-    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveInventory(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handleSaleListChangedEvent(SaleListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveSaleList(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handleStaffListChangedEvent(StaffListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveStaffList(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
-
     // ================ Staffs methods ==============================
 
     @Override
@@ -181,5 +150,66 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         staffStorage.saveStaffList(staffList, filePath);
+    }
+
+    // ================ Reporting methods ==============================
+    @Override
+    public Optional<ReadOnlyItemList> importItemList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to import item list from file: " + filePath);
+        return reportingStorage.importItemList(filePath);
+    }
+
+    @Override
+    public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
+        logger.fine("Attempting to export item list to file: " + filePath);
+        reportingStorage.exportItemList(itemList, filePath);
+    }
+
+
+
+
+    // ================ Event handler ==================================
+
+    @Override
+    @Subscribe
+    public void handleSaleListChangedEvent(SaleListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveSaleList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListChangedEvent(StaffListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveStaffList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveInventory(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Subscribe
+    public void handleItemListExportEvent(ItemListExportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export item list to file"));
+        try {
+            exportItemList(event.data, event.filePath);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 }

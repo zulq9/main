@@ -3,6 +3,7 @@ package seedu.inventory.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -86,6 +88,11 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AccessPurchaseOrderEvent());
     }
 
+    //=========== Reporting  ===============================================================================
+    @Override
+    public void exportItemList(Path filePath) {
+        raise(new ItemListExportEvent(versionedInventory, filePath));
+    }
 
     //=========== Item  ====================================================================================
 

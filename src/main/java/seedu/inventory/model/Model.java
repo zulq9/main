@@ -1,5 +1,6 @@
 package seedu.inventory.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -31,6 +32,14 @@ public interface Model {
      * Returns the Inventory
      */
     ReadOnlyInventory getInventory();
+
+    //=========== Reporting API ========================================================
+
+    /**
+     * Export the item list to the file path.
+     * @param filePath The path to export.
+     */
+    void exportItemList(Path filePath);
 
     //=========== Item API =============================================================
 
@@ -215,4 +224,6 @@ public interface Model {
      * List sales.
      */
     void listSales(String records);
+
+
 }

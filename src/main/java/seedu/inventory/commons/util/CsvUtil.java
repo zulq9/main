@@ -240,6 +240,7 @@ public class CsvUtil {
             writer.write(csvStandardContent.get(fieldsLength - 1) + "\n");
         }
         writer.flush();
+        writer.close();
     }
 
     public static List<String> getCsvStandardContent(List<String> content) {
