@@ -109,35 +109,43 @@ Below you start coding, do take note of the below two points.
 
 == Design
 
+This section describes and explains the design and structure behind the App, as well as all the core components that form the entire structure.
+
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the application. There are a total of 6 major components:
+`Main`, `Commons`, `UI`, `Logic`, `Model`, and `Storage`. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/image/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/image/MainApp.java[`MainApp`]. It is responsible for:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Classes used by multiple components are in the `seedu.inventory.commons` package.
+
+Two of those classes play important roles at the architecture level:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+<<Design-Ui, *`UI`*>> consists of the different parts that make up the User Interface (UI) of the App.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+<<Design-Logic, *`Logic`*>> is the App's command executor.
+It takes care of parsing, executing and processing commands entered by the users.
 
-Each of the four components
+<<Design-Model, *`Model`*>> holds the data of the App in-memory.
+
+<<Design-Storage, *`Storage`*>> reads data from, and writes data to, the hard disk.
+It is responsible for storing data used by the App.
+
+Each of the four components `Ui`, `Logic`, `Model`, and `Storage`:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -156,7 +164,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises an `InventoryChangedEvent` when the Inventory List data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -166,7 +174,7 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The sections below give more details of each component.
+The sections below give more details of the `UI`, `Logic`, `Model`, `Storage` components.
 
 [[Design-Ui]]
 === UI component
@@ -176,7 +184,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/image/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ItemListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/image/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -196,7 +204,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/image/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InventoryParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a item) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -218,11 +226,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Inventory`, which `Item` can reference. This would allow `Inventory` to only require one `Tag` object per unique `Tag`, instead of each `Item` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -238,11 +246,6 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.inventorybook.commons` package.
 
 == Implementation
 
@@ -429,18 +432,26 @@ Need to raise an additional event for invalid file path. +
 
 == Documentation
 
-We use asciidoc for writing documentation.
+The documentation for this project is written and maintained using asciidoc, it can found in the docs folder.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc provides more flexibility in formatting.
+
+
 
 === Editing Documentation
 
+We use IntelliJ to edit the documentation. The documentation can be rendered and previewed on IntelliJ.
+
+[TIP]
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
+We use Travis as an automation tool to deploy the documentation to Github Page.
+
+[TIP]
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
 === Converting Documentation to PDF format
@@ -451,16 +462,16 @@ Here are the steps to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Click on the `Print` option in Google Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Changing Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+We specify project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] in link:{repoURL}/build.gradle[`build.gradle`] file which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -476,21 +487,21 @@ If set, the name will be displayed near the top of the page.
 |_not set_
 
 |`site-githuburl`
-|URL to the site's repository on https://github.com[GitHub].
+|The URL to the site's repository on https://github.com[GitHub].
 Setting this will add a "View on GitHub" link in the navigation bar.
 |_not set_
 
 |`site-seedu`
-|Define this attribute if the project is an official SE-EDU project.
+|The attribute to indicate if the project is an official SE-EDU project.
 This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
 |_not set_
 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Specifying Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+We specify the file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] in each `.adoc` file which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
@@ -516,7 +527,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Modifying Site Template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -589,20 +600,30 @@ Below is a common error faced during testing.
 
 == Dev Ops
 
+This part will guide you through on the approach of integration we used.
+
 === Build Automation
 
+We use https://gradle.org[Gradle] as our build automation tool to automate the build process.
+
+[TIP]
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects.
+[TIP]
+See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
 === Coverage Reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged.
+[TIP]
+See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
@@ -1379,18 +1400,35 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-[tag::testcaseDeleteStaff]
+// tag::testcaseLogin[]
+=== Login
+
+. Login
+
+.. Prerequisites: The username and password of the staff must be in the staffs record.
+.. Test case: `login u/user1 p/password1` +
+   Expected: User will be logged in and granted access on using other functions of the application.
+.. Test case: `login u/asd1231 p/` +
+   Expected: User will be prompted to fill in the empty password field.
+.. Test case: `login` , `login u/ p/password` +
+   Expected: Similar to previous.
+
+// end::testcaseLogin[]
+
+// tag::testcaseDeleteStaff[]
 === Deleting a staff
 
 . Deleting a staff
 
-.. Prerequisites: The username provided must be the username of the existing user
-.. Test case: `remove_user u/johnd1912` +
-   Expected: User with username, johnd1912, will be deleted. Details of the deleted staff shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `remove_user u/` +
+.. Prerequisites: The index provided must be the index in the existing list of staff shown
+.. Test case: `delete-staff i/2` +
+   Expected: Staff listed as second in the list will be deleted. Details of the deleted staff shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-staff i/` +
    Expected: No staff is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `remove_user`, `remove_user ,,,`_ +
+.. Other incorrect delete commands to try: `delete-staff`, `delete-staff ,,,`_ +
    Expected: Similar to previous.
+
+// end::testcaseDeleteStaff[]
 
 === Deleting a person
 
