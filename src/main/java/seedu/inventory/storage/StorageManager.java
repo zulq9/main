@@ -1,5 +1,6 @@
 package seedu.inventory.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -11,10 +12,15 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataExportingSuccessEvent;
+import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
+import seedu.inventory.commons.events.storage.DataImportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
@@ -212,7 +218,26 @@ public class StorageManager extends ComponentManager implements Storage {
             exportItemList(event.data, event.filePath);
             raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+            raise(new DataExportingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleItemListImportEvent(ItemListImportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import item list from file"));
+        try {
+            Optional<ReadOnlyItemList> itemList = importItemList(event.filePath);
+            if (itemList.isPresent()) {
+                raise(new ItemListUpdateEvent(itemList.get()));
+                raise(new DataImportingSuccessEvent());
+            } else {
+                raise(new DataImportingExceptionEvent(new FileNotFoundException()));
+            }
+        } catch (IOException ioe) {
+            raise(new DataImportingExceptionEvent(ioe));
+        } catch (DataConversionException dce) {
+            raise(new DataImportingExceptionEvent(dce));
         }
     }
 }

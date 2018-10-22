@@ -19,6 +19,7 @@ import seedu.inventory.logic.commands.ExportCsvItemsCommand;
 import seedu.inventory.logic.commands.FindCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
+import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.LoginCommand;
 import seedu.inventory.logic.commands.RedoCommand;
@@ -111,6 +112,9 @@ public class InventoryParser {
 
         case ExportCsvItemsCommand.COMMAND_WORD:
             return new ExportCsvItemsCommandParser().parse(arguments);
+
+        case ImportCsvItemsCommand.COMMAND_WORD:
+            return new ImportCsvItemsCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

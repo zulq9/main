@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,7 +18,9 @@ import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -63,6 +67,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetItemList(ReadOnlyItemList newItemList) {
+        versionedInventory.resetItemList(newItemList);
+        indicateInventoryChanged();
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         return versionedInventory;
     }
@@ -92,6 +102,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void exportItemList(Path filePath) {
         raise(new ItemListExportEvent(versionedInventory, filePath));
+    }
+
+    @Override
+    public void importItemList(Path filePath) {
+        raise(new ItemListImportEvent(filePath));
     }
 
     //=========== Item  ====================================================================================
@@ -324,5 +339,11 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));
+    }
+
+    @Override
+    @Subscribe
+    public void handleItemListUpdateEvent(ItemListUpdateEvent event) {
+        resetItemList(event.itemList);
     }
 }

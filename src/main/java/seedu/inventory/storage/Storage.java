@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
@@ -72,7 +73,13 @@ public interface Storage extends InventoryStorage, SaleListStorage, StaffStorage
     /**
      * Export the current version of the Item List to the hard disk.
      *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Raises DataExportingExceptionEvent if there was an error during saving.
      */
     void handleItemListExportEvent(ItemListExportEvent ilee);
+
+    /**
+     * Import the Item List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during saving.
+     */
+    void handleItemListImportEvent(ItemListImportEvent iie);
 }
