@@ -7,10 +7,6 @@ import seedu.inventory.commons.events.BaseEvent;
  */
 public class DataExportingSuccessEvent extends BaseEvent {
 
-    public DataExportingSuccessEvent() {
-
-    }
-
     @Override
     public String toString() {
         return "Data exporting successful.";

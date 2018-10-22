@@ -163,10 +163,6 @@ public class StorageManagerTest {
      */
     class CsvReportingStorageExceptionThrowingStub extends CsvReportingStorage {
 
-        public CsvReportingStorageExceptionThrowingStub() {
-
-        }
-
         @Override
         public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
