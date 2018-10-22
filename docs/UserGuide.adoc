@@ -65,7 +65,7 @@ A good start is entering the command *`help`* and pressing kbd:[Enter], it will 
 
 Some example commands you can try:
 
-* *`list-items`* : lists all items
+* *`list-item`* : lists all items
 * **`add-item`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
 * *`exit`* : exits the app
 
@@ -280,11 +280,11 @@ Examples:
 * User wishes to delete sale ID 123. +
 `delete-sale id/123`
 
-==== Listing sale orders : `list-sales`
+==== Listing sale orders : `list-sale`
 
 This command allows the user to list a specific number of recently recorded sale orders in Inventory Manager.
 
-Format: `list-sales r/RECORDS`
+Format: `list-sale`
 
 Examples:
 
@@ -580,7 +580,7 @@ The following table summarises Inventory Manager commands along with examples:
 // Sales Management
 |`Add Sale Order`|`add-sale s/SKU q/QTY`|`add-sale s/0123 q/1`
 |`Delete Sale Order`| `delete-sale id/ID` | `delete-sale id/1`
-|`List Sale Orders`| `list-sales r/RECORD` | `list-sales r/50`
+|`List Sale Orders`| `list-sale` | `list-sales`
 |`Find Sale Orders`| `find-sales [d/YYYY-mm-dd] [id/ID]` | `find-sales id/2
 // Purchase order management
 |`Generate purchase order`| `generate-po` | `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
