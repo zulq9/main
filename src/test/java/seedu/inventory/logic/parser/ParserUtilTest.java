@@ -231,4 +231,11 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parsePath_validValueWithWhitespace_returnsTrimmedSku() throws Exception {
+        String skuWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
+        Sku expectedSku = new Sku(VALID_SKU);
+        assertEquals(expectedSku, ParserUtil.parseSku(skuWithWhitespace));
+    }
 }

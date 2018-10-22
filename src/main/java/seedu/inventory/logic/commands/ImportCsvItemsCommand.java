@@ -5,6 +5,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_FILEPATH;
 
 import java.nio.file.Path;
 
+import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
@@ -25,6 +26,8 @@ public class ImportCsvItemsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Item list is importing from %s";
 
+    public static final String MESSAGE_INVALID_CSV_FILEPATH = "%s is not a valid csv file path";
+
     private final Path filePath;
 
     /**
@@ -38,6 +41,10 @@ public class ImportCsvItemsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (!FileUtil.isValidCsvFile(filePath)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_CSV_FILEPATH, filePath));
+        }
 
         model.importItemList(filePath);
 

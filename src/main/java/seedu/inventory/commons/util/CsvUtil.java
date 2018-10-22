@@ -31,7 +31,6 @@ public class CsvUtil {
      * @throws FileNotFoundException Thrown if the file is missing.
      * @throws UnrecognizableDataException Thrown if the file is empty or does not have the correct format.
      */
-    @SuppressWarnings("unchecked")
     public static CsvSerializableData getDataFromFile(Path file, CsvSerializableData dataTypeToConvert)
             throws FileNotFoundException, UnrecognizableDataException {
         if (!Files.exists(file)) {
@@ -70,6 +69,7 @@ public class CsvUtil {
             if (!isDataFieldsEqual(dataFields, dataTypeToConvert)) {
                 return false;
             }
+            reader.close();
         } catch (IOException e) {
             return false;
         } catch (NullPointerException e) {
@@ -104,6 +104,7 @@ public class CsvUtil {
                 }
                 contents.add(content);
             }
+            reader.close();
         } catch (IOException e) {
             throw new UnrecognizableDataException("File content format can not be recognized");
         } catch (NullPointerException e) {

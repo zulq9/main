@@ -2,6 +2,7 @@ package seedu.inventory.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -30,6 +31,7 @@ import seedu.inventory.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_FILEPATH_CONSTRAINTS = "Filepath should be a valid path.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -262,7 +264,10 @@ public class ParserUtil {
     public static Path parsePath(String path) throws ParseException {
         requireNonNull(path);
         String trimmedPath = path.trim();
-        return Paths.get(trimmedPath);
+        try {
+            return Paths.get(trimmedPath);
+        } catch (InvalidPathException e) {
+            throw new ParseException(MESSAGE_FILEPATH_CONSTRAINTS);
+        }
     }
-
 }
