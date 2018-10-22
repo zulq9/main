@@ -24,7 +24,7 @@ public class ExportCsvItemsCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILEPATH + "E:/out/items.csv";
 
-    public static final String MESSAGE_SUCCESS = "Item list successfully exported to %s";
+    public static final String MESSAGE_SUCCESS = "Item list is exporting to %s";
 
     private final Path filePath;
 

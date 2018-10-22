@@ -13,6 +13,7 @@ import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.storage.DataExportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
@@ -209,6 +210,7 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export item list to file"));
         try {
             exportItemList(event.data, event.filePath);
+            raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

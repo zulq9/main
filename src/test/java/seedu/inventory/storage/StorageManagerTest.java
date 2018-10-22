@@ -19,7 +19,13 @@ import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
-import seedu.inventory.model.*;
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.ItemList;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.model.StaffList;
+import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {

@@ -9,10 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.Config;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.storage.DataExportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.Logic;
@@ -28,6 +30,11 @@ public class UiManager extends ComponentManager implements Ui {
     public static final String FILE_OPS_ERROR_DIALOG_STAGE_TITLE = "File Op Error";
     public static final String FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE = "Could not save data";
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
+
+    public static final String FILE_OPS_INFORMATION_DIALOG_STAGE_TITLE = "File Op Success";
+    public static final String FILE_OPS_INFORMATION_DIALOG_HEADER_MESSAGE = "File Operation Success";
+    public static final String FILE_EXPORT_INFORMATION_DIALOG_CONTENT_MESSAGE = "Successfully export data to file";
+    public static final String FILE_IMPORT_INFORMATION_DIALOG_CONTENT_MESSAGE = "Successfully import data to file";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/inventory_manager_32.png";
@@ -67,6 +74,10 @@ public class UiManager extends ComponentManager implements Ui {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
+    }
+
+    private void showFileOperationInformationAndWait(String description, String details) {
+        showAlertDialogAndWait(AlertType.INFORMATION, FILE_OPS_INFORMATION_DIALOG_STAGE_TITLE, description, details);
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -116,5 +127,12 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
                 event.exception);
+    }
+
+    @Subscribe
+    private void handleDataExportingSuccessEvent(DataExportingSuccessEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationInformationAndWait(FILE_OPS_INFORMATION_DIALOG_HEADER_MESSAGE,
+                FILE_EXPORT_INFORMATION_DIALOG_CONTENT_MESSAGE);
     }
 }
