@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;

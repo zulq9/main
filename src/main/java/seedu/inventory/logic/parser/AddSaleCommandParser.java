@@ -6,7 +6,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.AddSaleCommand;
+import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;

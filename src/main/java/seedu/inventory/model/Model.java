@@ -202,6 +202,11 @@ public interface Model {
     ReadOnlySaleList getSaleList();
 
     /**
+     * Returns the sale list.
+     */
+    ObservableList<Sale> getObservableSaleList();
+
+    /**
      * Add a new sale.
      */
     void addSale(Sale sale);
@@ -214,7 +219,7 @@ public interface Model {
     /**
      * List sales.
      */
-    void listSales(String records);
+    void listSales();
 
     /**
      * Find sales.

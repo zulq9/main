@@ -4,8 +4,10 @@ import javafx.collections.ObservableList;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
 
 /**
  * API of the Logic component
@@ -25,6 +27,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of purchase order */
     ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();
+
+    /** Returns an unmodifiable view of the sale orders */
+    ObservableList<Sale> getObservableSaleList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

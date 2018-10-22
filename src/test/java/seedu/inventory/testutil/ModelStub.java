@@ -121,6 +121,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Sale> getObservableSaleList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addSale(Sale sale) {
         throw new AssertionError("This method should not be called.");
     }
@@ -131,7 +136,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void listSales(String records) {
+    public void findSales(String id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void listSales() {
         throw new AssertionError("This method should not be called.");
     }
 

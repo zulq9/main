@@ -13,6 +13,7 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
+import seedu.inventory.commons.events.model.AccessSaleEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.model.item.Item;
@@ -299,6 +300,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Sale> getObservableSaleList() {
+        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+    }
+
+    @Override
     public void addSale(Sale sale) {
         saleList.addSale(sale);
         indicateSaleListChanged();
@@ -310,12 +316,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void listSales(String records) {
+    public void listSales() {
+        indicateAccessSale();
+    }
+
+    @Override
+    public void findSales(String records) {
 
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));
+    }
+
+    /**
+     * Raises an event to indicate accessing sale
+     */
+    private void indicateAccessSale() {
+        raise(new AccessSaleEvent());
     }
 }

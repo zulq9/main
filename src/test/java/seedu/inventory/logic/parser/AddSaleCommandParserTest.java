@@ -8,7 +8,7 @@ import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSucc
 
 import org.junit.Test;
 
-import seedu.inventory.logic.commands.AddSaleCommand;
+import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 
