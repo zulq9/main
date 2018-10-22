@@ -3,6 +3,7 @@ package seedu.inventory.commons.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Test;
@@ -10,6 +11,8 @@ import org.junit.Test;
 import seedu.inventory.testutil.Assert;
 
 public class FileUtilTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "FileUtilTest");
+    private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.file");
 
     @Test
     public void isValidPath() {
@@ -21,6 +24,19 @@ public class FileUtilTest {
 
         // null path -> throws NullPointerException
         Assert.assertThrows(NullPointerException.class, () -> FileUtil.isValidPath(null));
+    }
+
+    @Test
+    public void createIfMissing() throws Exception{
+
+        assertTrue(!MISSING_FILE.toFile().exists());
+
+        FileUtil.createIfMissing(MISSING_FILE);
+        assertTrue(MISSING_FILE.toFile().exists());
+
+        MISSING_FILE.toFile().delete();
+        assertTrue(!MISSING_FILE.toFile().exists());
+
     }
 
     @Test

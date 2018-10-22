@@ -261,6 +261,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code role} is invalid.
      */
+    //TODO @Test
     public static Path parsePath(String path) throws ParseException {
         requireNonNull(path);
         String trimmedPath = path.trim();

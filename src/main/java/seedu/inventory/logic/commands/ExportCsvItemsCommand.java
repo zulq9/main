@@ -15,6 +15,7 @@ import seedu.inventory.model.Model;
 /**
  * Export the item list to a Csv file.
  */
+//TODO
 public class ExportCsvItemsCommand extends Command {
 
     public static final String COMMAND_WORD = "export-csv-items";

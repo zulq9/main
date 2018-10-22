@@ -9,12 +9,10 @@ import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.UniqueItemList;
 
-
-
-
 /**
- * Wraps all data at the sale-list level
+ * Wraps all data at the item list level
  */
+//TODO @Test
 public class ItemList implements ReadOnlyItemList {
 
     private final UniqueItemList items = new UniqueItemList();
