@@ -239,23 +239,22 @@ Examples:
 
 Staff users and manager users can create sale orders on the system using the commands below.
 
-==== Creating a sale order : `create-sale`
+==== Creating a sale order : `add-sale`
 
-This command allows the user to create a new sale order in Inventory Manager. Creating a sale order will deduct the
-inventory quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
+This command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
+item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
 
 Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
-Entering a quantity that is greater than the available item quantity will result in an error shown
-on screen too.
+Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
 
-Format: `create-sale s/SKU q/QTY`
+Format: `add-sale s/SKU q/QTY`
 
 Examples:
 
 * User sold 5 quantity of a product with SKU 0123. +
-`create-sale s/0123 q/5`
+`add-sale s/0123 q/5`
 * User sold 1 quantity of a product with SKU 456. +
-`create-sale s/456 q/1`
+`add-sale s/456 q/1`
 
 ==== Deleting a sale order : `delete-sale`
 

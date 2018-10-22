@@ -21,23 +21,24 @@ import seedu.inventory.model.sale.SaleId;
 /**
  * Adds a sale to the sale list.
  */
-public class CreateSaleCommand extends Command {
-    public static final String COMMAND_WORD = "createSale";
+public class AddSaleCommand extends Command {
+    public static final String COMMAND_WORD = "add-sale";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a sale to the system. "
             + "Parameters: "
             + PREFIX_SKU + "SKU "
             + PREFIX_QUANTITY + "QUANTITY";
-    public static final String MESSAGE_FAILED = "Sale creation failed. SKU %1$s not found.";
+    public static final String MESSAGE_ITEM_NOT_FOUND = "Sale creation failed. SKU %1$s not found.";
+    public static final String MESSAGE_QUANTITY_INSUFFICIENT = "Quantity insufficient. Only %1$s available.";
     public static final String MESSAGE_SUCCESS = "New sale created, sale ID %1$s, item %2$s.";
 
     private final Sku sku;
     private final Quantity quantity;
 
     /**
-     * Creates an CreateSaleCommand to add the specified {@code Item}
+     * Creates an AddSaleCommand to add the specified {@code Item}
      */
-    public CreateSaleCommand(Sku sku, Quantity quantity) {
+    public AddSaleCommand(Sku sku, Quantity quantity) {
         requireAllNonNull(sku, quantity);
 
         this.sku = sku;
@@ -55,13 +56,19 @@ public class CreateSaleCommand extends Command {
         Item item = model.getInventory().getItemBySku(sku.toString());
         SaleDate saleDate = new SaleDate(formatter.format(date));
 
+        // Check if item exists
         if (item == null) {
-            throw new CommandException(String.format(MESSAGE_FAILED, sku.toString()));
+            throw new CommandException(String.format(MESSAGE_ITEM_NOT_FOUND, sku.toString()));
+        }
+
+        // Check if item quantity enough
+        if (Integer.parseInt(item.getQuantity().toString()) < Integer.parseInt(quantity.toString())) {
+            throw new CommandException(String.format(MESSAGE_QUANTITY_INSUFFICIENT, item.getQuantity()));
         }
 
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
-        model.createSale(sale);
+        model.addSale(sale);
 
         int newIntQuantity = Integer.parseInt(item.getQuantity().toString()) - Integer.parseInt(quantity.toString());
         Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
@@ -76,8 +83,8 @@ public class CreateSaleCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CreateSaleCommand // instanceof handles nulls
-                && sku.equals(((CreateSaleCommand) other).sku)
-                && quantity.equals(((CreateSaleCommand) other).quantity));
+                || (other instanceof AddSaleCommand // instanceof handles nulls
+                && sku.equals(((AddSaleCommand) other).sku)
+                && quantity.equals(((AddSaleCommand) other).quantity));
     }
 }

@@ -299,7 +299,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void createSale(Sale sale) {
+    public void addSale(Sale sale) {
         saleList.addSale(sale);
         indicateSaleListChanged();
     }

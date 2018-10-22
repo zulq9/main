@@ -31,7 +31,7 @@ import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.ModelStub;
 import seedu.inventory.testutil.TypicalItems;
 
-public class CreateSaleCommandTest {
+public class AddSaleCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -43,7 +43,7 @@ public class CreateSaleCommandTest {
     @Test
     public void constructor_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new CreateSaleCommand(null, null);
+        new AddSaleCommand(null, null);
     }
 
     @Test
@@ -59,9 +59,9 @@ public class CreateSaleCommandTest {
 
         Sale sale = new Sale(new SaleId("1"), IPHONE, saleQuantity, saleDate);
 
-        CommandResult commandResult = new CreateSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(CreateSaleCommand.MESSAGE_SUCCESS, "1", IPHONE.getName().toString()),
+        assertEquals(String.format(AddSaleCommand.MESSAGE_SUCCESS, "1", IPHONE.getName().toString()),
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(sale), modelStub.salesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -76,7 +76,7 @@ public class CreateSaleCommandTest {
 
         Integer expectedQuantity = Integer.parseInt(IPHONE.getQuantity().toString()) - 1;
 
-        new CreateSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
+        new AddSaleCommand(sku, saleQuantity).execute(modelStub, commandHistory);
 
         Quantity newQuantity = modelStub.getInventory().getItemBySku(IPHONE.getSku().toString()).getQuantity();
 
@@ -87,38 +87,49 @@ public class CreateSaleCommandTest {
     public void execute_itemNotFound_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubCreateSale();
 
-        CreateSaleCommand createSaleCommand = new CreateSaleCommand(new Sku("abc"), new Quantity("1"));
+        AddSaleCommand addSaleCommand = new AddSaleCommand(new Sku("abc"), new Quantity("1"));
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(String.format(CreateSaleCommand.MESSAGE_FAILED, "abc"));
-        createSaleCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(String.format(AddSaleCommand.MESSAGE_ITEM_NOT_FOUND, "abc"));
+        addSaleCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_quantityInsufficient_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubCreateSale();
+
+        AddSaleCommand addSaleCommand = new AddSaleCommand(IPHONE.getSku(), new Quantity("1000"));
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(AddSaleCommand.MESSAGE_QUANTITY_INSUFFICIENT, IPHONE.getQuantity()));
+        addSaleCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        CreateSaleCommand createSaleCommand = new CreateSaleCommand(IPHONE.getSku(), new Quantity("1"));
-        CreateSaleCommand createSaleCommandDifferentSku = new CreateSaleCommand(SONY.getSku(), new Quantity("2"));
-        CreateSaleCommand createSaleCommandDifferentQuantity = new CreateSaleCommand(IPHONE.getSku(),
+        AddSaleCommand addSaleCommand = new AddSaleCommand(IPHONE.getSku(), new Quantity("1"));
+        AddSaleCommand addSaleCommandDifferentSku = new AddSaleCommand(SONY.getSku(), new Quantity("2"));
+        AddSaleCommand addSaleCommandDifferentQuantity = new AddSaleCommand(IPHONE.getSku(),
                 new Quantity("2"));
 
         // same object -> returns true
-        assertTrue(createSaleCommand.equals(createSaleCommand));
+        assertTrue(addSaleCommand.equals(addSaleCommand));
 
         // same values -> returns true
-        CreateSaleCommand createSaleCommandCopy = new CreateSaleCommand(IPHONE.getSku(), new Quantity("1"));
-        assertTrue(createSaleCommand.equals(createSaleCommandCopy));
+        AddSaleCommand addSaleCommandCopy = new AddSaleCommand(IPHONE.getSku(), new Quantity("1"));
+        assertTrue(addSaleCommand.equals(addSaleCommandCopy));
 
         // different types -> returns false
-        assertFalse(createSaleCommand.equals(1));
+        assertFalse(addSaleCommand.equals(1));
 
         // null -> returns false
-        assertFalse(createSaleCommand.equals(null));
+        assertFalse(addSaleCommand.equals(null));
 
         // different sku -> returns false
-        assertFalse(createSaleCommand.equals(createSaleCommandDifferentSku));
+        assertFalse(addSaleCommand.equals(addSaleCommandDifferentSku));
 
         // different quantity -> returns false
-        assertFalse(createSaleCommand.equals(createSaleCommandDifferentQuantity));
+        assertFalse(addSaleCommand.equals(addSaleCommandDifferentQuantity));
     }
 
     /**
@@ -142,7 +153,7 @@ public class CreateSaleCommandTest {
         }
 
         @Override
-        public void createSale(Sale sale) {
+        public void addSale(Sale sale) {
             requireNonNull(sale);
             salesAdded.add(sale);
         }
@@ -178,7 +189,7 @@ public class CreateSaleCommandTest {
         }
 
         @Override
-        public void createSale(Sale sale) {
+        public void addSale(Sale sale) {
             requireNonNull(sale);
             salesAdded.add(sale);
         }

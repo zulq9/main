@@ -202,9 +202,9 @@ public interface Model {
     ReadOnlySaleList getSaleList();
 
     /**
-     * Create a new sale.
+     * Add a new sale.
      */
-    void createSale(Sale sale);
+    void addSale(Sale sale);
 
     /**
      * Delete a sale.
@@ -215,4 +215,9 @@ public interface Model {
      * List sales.
      */
     void listSales(String records);
+
+    /**
+     * Find sales.
+     */
+    void findSales(String records);
 }
