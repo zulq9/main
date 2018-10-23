@@ -46,6 +46,16 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses {@code string} into a {@code String} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     */
+    public static String parseString(String string) throws ParseException {
+        String trimmedString = string.trim();
+
+        return trimmedString;
+    }
+
     //=================== Item variable parser =========================================================
 
     /**

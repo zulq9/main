@@ -16,6 +16,7 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
+import seedu.inventory.commons.events.model.AccessSaleEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
@@ -321,24 +322,37 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void createSale(Sale sale) {
+    public ObservableList<Sale> getObservableSaleList() {
+        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+    }
+
+    @Override
+    public void addSale(Sale sale) {
         saleList.addSale(sale);
         indicateSaleListChanged();
     }
 
     @Override
-    public void deleteSale(String id) {
-
+    public void deleteSale(Sale sale) {
+        saleList.removeSale(sale);
+        indicateSaleListChanged();
     }
 
     @Override
-    public void listSales(String records) {
-
+    public void listSales() {
+        indicateAccessSale();
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));
+    }
+  
+    /**
+     * Raises an event to indicate accessing sale
+     */
+    private void indicateAccessSale() {
+        raise(new AccessSaleEvent());
     }
 
     @Override
@@ -346,4 +360,5 @@ public class ModelManager extends ComponentManager implements Model {
     public void handleItemListUpdateEvent(ItemListUpdateEvent event) {
         resetItemList(event.itemList);
     }
+    
 }
