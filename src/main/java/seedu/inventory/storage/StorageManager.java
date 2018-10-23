@@ -28,7 +28,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
     private SaleListStorage saleListStorage;
-    private StaffListStorage staffListStorage;
 
     public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
                           SaleListStorage saleListStorage) {
@@ -36,7 +35,6 @@ public class StorageManager extends ComponentManager implements Storage {
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.saleListStorage = saleListStorage;
-        this.staffListStorage = inventoryStorage;
     }
 
     // ================ UserPrefs methods ==============================
