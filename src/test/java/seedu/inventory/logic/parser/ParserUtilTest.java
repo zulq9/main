@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -31,6 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_QUANTITY = "+651234";
     private static final String INVALID_SKU = "asd!asd";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FILEPATH = "//";
 
     private static final String VALID_IMAGE = "docs/images/iphone.jpg";
     private static final String VALID_NAME = "iPhone XR";
@@ -39,6 +42,7 @@ public class ParserUtilTest {
     private static final String VALID_SKU = "iphone-xr";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_FILEPATH = "/csv";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -237,5 +241,28 @@ public class ParserUtilTest {
         String skuWithWhitespace = WHITESPACE + VALID_SKU + WHITESPACE;
         Sku expectedSku = new Sku(VALID_SKU);
         assertEquals(expectedSku, ParserUtil.parseSku(skuWithWhitespace));
+    }
+
+    @Test
+    public void parsePath_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePath((String) null));
+    }
+
+    @Test
+    public void parsePath_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePath(INVALID_FILEPATH));
+    }
+
+    @Test
+    public void parsePath_validValueWithoutWhitespace_returnsPath() throws Exception {
+        Path expectedPath = Paths.get(VALID_FILEPATH);
+        assertEquals(expectedPath, ParserUtil.parsePath(VALID_FILEPATH));
+    }
+
+    @Test
+    public void parsePath_validValueWithWhitespace_returnsTrimmedPath() throws Exception {
+        String filePathWithWhitespace = WHITESPACE + VALID_FILEPATH + WHITESPACE;
+        Path expectedPath = Paths.get(VALID_FILEPATH);
+        assertEquals(expectedPath, ParserUtil.parsePath(filePathWithWhitespace));
     }
 }

@@ -132,13 +132,13 @@ public class InventoryParserTest {
     }
 
     @Test
-    public void parseCommand_export_csv_items() throws Exception {
+    public void parseCommand_exportCsvItems() throws Exception {
         assertTrue(parser.parseCommand(ExportCsvItemsCommand.COMMAND_WORD + " f/.csv")
                 instanceof ExportCsvItemsCommand);
     }
 
     @Test
-    public void parseCommand_import_csv_items() throws Exception {
+    public void parseCommand_importCsvItems() throws Exception {
         assertTrue(parser.parseCommand(ImportCsvItemsCommand.COMMAND_WORD + " f/.csv")
                 instanceof ImportCsvItemsCommand);
     }

@@ -224,7 +224,6 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    //TODO @Test
     public void handleItemListImportEvent(ItemListImportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import item list from file"));
         try {

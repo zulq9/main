@@ -51,7 +51,6 @@ public class Inventory implements ReadOnlyInventory {
     /**
      * Resets the existing item list of this {@code Inventory} with {@code newItemList}.
      */
-    //TODO @Test
     public void resetItemList(ReadOnlyItemList newItemList) {
         requireNonNull(newItemList);
 

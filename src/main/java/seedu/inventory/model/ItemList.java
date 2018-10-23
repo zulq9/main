@@ -12,7 +12,6 @@ import seedu.inventory.model.item.UniqueItemList;
 /**
  * Wraps all data at the item list level
  */
-//TODO @Test
 public class ItemList implements ReadOnlyItemList {
 
     private final UniqueItemList items = new UniqueItemList();
@@ -24,7 +23,7 @@ public class ItemList implements ReadOnlyItemList {
      */
     public ItemList(ReadOnlyItemList toBeCopied) {
         this();
-        resetData(toBeCopied);
+        resetItemList(toBeCopied);
     }
 
     //// list overwrite operations
@@ -39,12 +38,12 @@ public class ItemList implements ReadOnlyItemList {
 
 
     /**
-     * Resets the existing data of this {@code UniqueItemList} with {@code newData}.
+     * Resets the existing data of this {@code UniqueItemList} with {@code itemList}.
      */
-    public void resetData(ReadOnlyItemList newData) {
-        requireNonNull(newData);
+    public void resetItemList(ReadOnlyItemList itemList) {
+        requireNonNull(itemList);
 
-        setItems(newData.getItemList());
+        setItems(itemList.getItemList());
     }
 
     //===================== item-level operations ==========================================

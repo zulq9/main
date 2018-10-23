@@ -17,8 +17,10 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
+import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ItemList;
@@ -140,6 +142,17 @@ public class StorageManagerTest {
                 new CsvReportingStorageExceptionThrowingStub());
         storage.handleItemListExportEvent(new ItemListExportEvent(new ItemList(), Paths.get("dummy")));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataExportingExceptionEvent);
+    }
+
+    @Test
+    public void handleItemListImportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new XmlStaffListStorage(Paths.get("dummy")),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleItemListImportEvent(new ItemListImportEvent(Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
     }
 
 

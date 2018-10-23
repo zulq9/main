@@ -67,7 +67,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    //TODO @Test
     public void resetItemList(ReadOnlyItemList newItemList) {
         versionedInventory.resetItemList(newItemList);
         indicateInventoryChanged();
