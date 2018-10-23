@@ -361,8 +361,4 @@ public class ModelManager extends ComponentManager implements Model {
         resetItemList(event.itemList);
     }
 
-    /**
-     * Raises an event to indicate accessing sale
-     */
-
 }
