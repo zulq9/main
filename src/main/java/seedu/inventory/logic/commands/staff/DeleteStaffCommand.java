@@ -9,6 +9,7 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
+import seedu.inventory.logic.commands.DeleteCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.staff.Staff;
@@ -46,5 +47,12 @@ public class DeleteStaffCommand extends Command {
         model.deleteStaff(staffToDelete);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_STAFF_SUCCESS, staffToDelete));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteStaffCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteStaffCommand) other).targetIndex)); // state check
     }
 }

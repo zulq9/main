@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.testutil.TypicalStaffs;
+import seedu.inventory.testutil.staff.TypicalStaffs;
 
 public class XmlSerializableStaffListTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableStaffListTest");

@@ -1,4 +1,4 @@
-package seedu.inventory.testutil;
+package seedu.inventory.testutil.staff;
 
 import java.util.ArrayList;
 import java.util.Arrays;

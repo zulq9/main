@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.storage.XmlAdaptedStaff.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
+import static seedu.inventory.testutil.staff.TypicalStaffs.TENGXIONG;
 
 import org.junit.Test;
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
-import static seedu.inventory.testutil.TypicalStaffs.getTypicalStaffList;
+import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.io.IOException;
 import java.nio.file.Path;

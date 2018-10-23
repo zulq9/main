@@ -8,8 +8,8 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
-import static seedu.inventory.testutil.TypicalStaffs.ZUL;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +28,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.testutil.ItemBuilder;
-import seedu.inventory.testutil.StaffBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class InventoryTest {
 
