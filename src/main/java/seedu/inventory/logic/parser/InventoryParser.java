@@ -109,7 +109,7 @@ public class InventoryParser {
 
         case CreateSaleCommand.COMMAND_WORD:
             return new CreateSaleCommandParser().parse(arguments);
-        //TODO @Test
+
         case ExportCsvItemsCommand.COMMAND_WORD:
             return new ExportCsvItemsCommandParser().parse(arguments);
 

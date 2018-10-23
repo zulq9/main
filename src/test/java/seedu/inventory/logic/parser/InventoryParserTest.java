@@ -21,9 +21,11 @@ import seedu.inventory.logic.commands.DeleteCommand;
 import seedu.inventory.logic.commands.EditCommand;
 import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.inventory.logic.commands.ExitCommand;
+import seedu.inventory.logic.commands.ExportCsvItemsCommand;
 import seedu.inventory.logic.commands.FindCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
+import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
@@ -127,6 +129,18 @@ public class InventoryParserTest {
         assertTrue(parser.parseCommand(ListPurchaseOrderCommand.COMMAND_WORD) instanceof ListPurchaseOrderCommand);
         assertTrue(parser.parseCommand(ListPurchaseOrderCommand.COMMAND_WORD + " 3")
                 instanceof ListPurchaseOrderCommand);
+    }
+
+    @Test
+    public void parseCommand_export_csv_items() throws Exception {
+        assertTrue(parser.parseCommand(ExportCsvItemsCommand.COMMAND_WORD + " f/.csv")
+                instanceof ExportCsvItemsCommand);
+    }
+
+    @Test
+    public void parseCommand_import_csv_items() throws Exception {
+        assertTrue(parser.parseCommand(ImportCsvItemsCommand.COMMAND_WORD + " f/.csv")
+                instanceof ImportCsvItemsCommand);
     }
 
     @Test
