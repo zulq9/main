@@ -26,6 +26,8 @@
     nav.navbar.navbar-light.bg-light
       .container
         - if attr? 'site-name'
+            a.navbar-brand href=(site_url 'index.html')
+              img src=(site_url 'images/InventoryManagerLogo.png') alt='Inventory manager logo'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
         ul.navbar-nav
           li.nav-item
