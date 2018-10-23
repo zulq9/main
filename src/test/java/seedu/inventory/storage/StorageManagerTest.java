@@ -20,7 +20,6 @@ import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
@@ -92,10 +91,12 @@ public class StorageManagerTest {
 
     @Test
     public void staffListReadSave() throws Exception {
-        StaffList original = getTypicalStaffList();
+        ReadOnlyStaffList original = getTypicalStaffList();
         storageManager.saveStaffList(original);
         ReadOnlyStaffList retrieved = storageManager.readStaffList().get();
-        assertEquals(original, new StaffList(retrieved));
+        ReadOnlyStaffList expected = new Inventory();
+        expected.resetData(retrieved);
+        assertEquals(original, expected);
     }
 
     @Test

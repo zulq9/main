@@ -82,7 +82,6 @@ public class ModelManagerTest {
         Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
         SaleList saleList = new SaleList();
-        StaffList staffList = new StaffList();
 
         // same values -> returns true
         modelManager = new ModelManager(inventory, userPrefs, saleList);

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.inventory.model.StaffList;
+import seedu.inventory.model.Inventory;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -52,8 +53,8 @@ public class TypicalStaffs {
     /**
      * Returns an {@code StaffList} with all the typical staffs.
      */
-    public static StaffList getTypicalStaffList() {
-        StaffList staffList = new StaffList();
+    public static ReadOnlyStaffList getTypicalStaffList() {
+        Inventory staffList = new Inventory();
         for (Staff staff : getTypicalStaffs()) {
             staffList.addStaff(staff);
         }
