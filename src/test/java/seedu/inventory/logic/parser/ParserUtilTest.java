@@ -59,6 +59,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseString_success() throws Exception {
+        // Removes whitespace
+        assertEquals("1", ParserUtil.parseString(" 1 "));
+    }
+
+    @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
         assertEquals(INDEX_FIRST_ITEM, ParserUtil.parseIndex("1"));
