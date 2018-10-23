@@ -14,7 +14,6 @@ import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
-import seedu.inventory.commons.events.ui.SalePanelSelectionChangedEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
