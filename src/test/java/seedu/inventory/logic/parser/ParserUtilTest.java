@@ -250,7 +250,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePath_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePath(INVALID_FILEPATH));
+        Assert.assertThrows(Exception.class, () -> ParserUtil.parsePath(INVALID_FILEPATH));
     }
 
     @Test
