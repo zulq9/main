@@ -41,7 +41,12 @@ public class SaleCard extends UiPart<Region> {
         saleId.setText(sale.getSaleId() + ". ");
         saleDate.setText(sale.getSaleDate().toString());
         item.setText(sale.getSaleQuantity().toString() + "x " + sale.getItem().getName().toString());
-        itemPrice.setText("$" + sale.getItem().getPrice().toString());
+
+        Double price = Double.parseDouble((sale.getItem().getPrice().toString()));
+        Integer quantity = Integer.parseInt(sale.getSaleQuantity().toString());
+        Double totalPrice = price * quantity;
+
+        itemPrice.setText("$" + String.format("%.2f", totalPrice));
     }
 
     @Override

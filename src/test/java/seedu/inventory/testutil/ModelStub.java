@@ -131,7 +131,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteSale(String id) {
+    public void deleteSale(Sale sale) {
         throw new AssertionError("This method should not be called.");
     }
 

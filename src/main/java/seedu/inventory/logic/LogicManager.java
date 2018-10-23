@@ -11,7 +11,6 @@ import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.InventoryParser;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
-import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;

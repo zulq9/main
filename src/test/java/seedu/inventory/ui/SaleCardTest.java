@@ -3,20 +3,15 @@ package seedu.inventory.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysItem;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertCardDisplaysSale;
 
-import guitests.guihandles.SaleCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.ItemCardHandle;
-
-import seedu.inventory.model.item.Item;
+import guitests.guihandles.SaleCardHandle;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
-import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.TypicalItems;
 import seedu.inventory.ui.sale.SaleCard;
 

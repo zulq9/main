@@ -311,8 +311,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteSale(String id) {
-
+    public void deleteSale(Sale sale) {
+        saleList.removeSale(sale);
+        indicateSaleListChanged();
     }
 
     @Override

@@ -11,10 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.inventory.commons.core.LogsCenter;
-import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
 import seedu.inventory.commons.events.ui.SalePanelSelectionChangedEvent;
-import seedu.inventory.model.item.Item;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.ui.UiPart;
 

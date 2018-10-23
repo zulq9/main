@@ -271,27 +271,25 @@ the inventory quantity deducted automatically. User will need to ensure that the
 
 Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
 
-Format: `delete-sale id/ID`
+Format: `delete-sale SALE-ID`
 
 Examples:
 
 * User wishes to delete sale ID 12. +
-`delete-sale id/12`
+`delete-sale 12`
 * User wishes to delete sale ID 123. +
-`delete-sale id/123`
+`delete-sale 123`
 
 ==== Listing sale orders : `list-sale`
 
-This command allows the user to list a specific number of recently recorded sale orders in Inventory Manager.
+This command allows the user to list all sale orders in Inventory Manager.
 
 Format: `list-sale`
 
-Examples:
+Example:
 
-* User wishes to list the latest 50 sale orders. +
-`list-sales r/50`
-* User wishes to list the latest 20 sale orders. +
-`list-sales r/20`
+* User wishes to list all sale orders. +
+`list-sale`
 
 ==== Finding sale orders : `find-sales`
 
@@ -579,8 +577,8 @@ The following table summarises Inventory Manager commands along with examples:
 |`Remove User` |`delete-user i/INDEX` |`delete-user i/3`
 // Sales Management
 |`Add Sale Order`|`add-sale s/SKU q/QTY`|`add-sale s/0123 q/1`
-|`Delete Sale Order`| `delete-sale id/ID` | `delete-sale id/1`
-|`List Sale Orders`| `list-sale` | `list-sales`
+|`Delete Sale Order`| `delete-sale SALE-ID` | `delete-sale 1`
+|`List Sale Orders`| `list-sale` | `list-sale`
 |`Find Sale Orders`| `find-sales [d/YYYY-mm-dd] [id/ID]` | `find-sales id/2
 // Purchase order management
 |`Generate purchase order`| `generate-po` | `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`

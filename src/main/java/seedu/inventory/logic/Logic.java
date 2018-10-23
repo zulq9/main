@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
-import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;

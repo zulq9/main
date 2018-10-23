@@ -214,7 +214,7 @@ public interface Model {
     /**
      * Delete a sale.
      */
-    void deleteSale(String id);
+    void deleteSale(Sale sale);
 
     /**
      * List sales.
