@@ -223,19 +223,24 @@ public interface Model {
     ReadOnlySaleList getSaleList();
 
     /**
-     * Create a new sale.
+     * Returns the sale list.
      */
-    void createSale(Sale sale);
+    ObservableList<Sale> getObservableSaleList();
+
+    /**
+     * Add a new sale.
+     */
+    void addSale(Sale sale);
 
     /**
      * Delete a sale.
      */
-    void deleteSale(String id);
+    void deleteSale(Sale sale);
 
     /**
      * List sales.
      */
-    void listSales(String records);
+    void listSales();
 
     /**
      * Handler function of ItemListUpdateEvent.
