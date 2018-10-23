@@ -27,7 +27,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void createIfMissing() throws Exception{
+    public void createIfMissing() throws Exception {
 
         assertFalse(MISSING_FILE.toFile().exists());
 
