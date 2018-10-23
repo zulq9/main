@@ -18,7 +18,7 @@ public class ItemListImportEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Data exporting successful.";
+        return "Data is importing from " + filePath;
     }
 
 }

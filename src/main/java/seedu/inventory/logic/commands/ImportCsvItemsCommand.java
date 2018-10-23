@@ -14,7 +14,6 @@ import seedu.inventory.model.Model;
 /**
  * Import the item list from a Csv file.
  */
-//TODO
 public class ImportCsvItemsCommand extends Command {
 
     public static final String COMMAND_WORD = "import-csv-items";
