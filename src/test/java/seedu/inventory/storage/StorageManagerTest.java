@@ -94,7 +94,7 @@ public class StorageManagerTest {
         ReadOnlyStaffList original = getTypicalStaffList();
         storageManager.saveStaffList(original);
         ReadOnlyStaffList retrieved = storageManager.readStaffList().get();
-        ReadOnlyStaffList expected = new Inventory();
+        Inventory expected = new Inventory();
         expected.resetData(retrieved);
         assertEquals(original, expected);
     }

@@ -118,7 +118,7 @@ public class MainApp extends Application {
                 logger.info("Staff data file not found. Will be starting with a sample Staff List");
             }
             initialStaffListData = staffListOptional.orElseGet(SampleDataUtil::getSampleStaffList);
-            initialData.resetData(initialStaffListData);
+            Inventory.class.cast(initialData).resetData(initialStaffListData);
         } catch (DataConversionException e) {
             logger.warning("Staff Data file not in the correct format. Will be starting with an empty StaffList");
         } catch (IOException e) {

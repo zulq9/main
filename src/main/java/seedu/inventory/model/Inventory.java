@@ -210,7 +210,6 @@ public class Inventory implements ReadOnlyInventory {
     /**
      * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
      */
-    @Override
     public void resetData(ReadOnlyStaffList newStaffData) {
         requireNonNull(newStaffData);
 

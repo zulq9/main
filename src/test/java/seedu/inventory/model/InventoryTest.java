@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
+import static seedu.inventory.testutil.TypicalStaffs.ZUL;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
 
 import java.util.Arrays;
@@ -24,7 +26,9 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.StaffBuilder;
 
 public class InventoryTest {
 
@@ -60,7 +64,8 @@ public class InventoryTest {
                 .build();
         List<Item> newItems = Arrays.asList(IPHONE, editedAlice);
         List<PurchaseOrder> newPurchaseOrder = Arrays.asList(IPHONEPO);
-        InventoryStub newData = new InventoryStub(newItems, newPurchaseOrder);
+        List<Staff> newStaff = Arrays.asList(ZUL);
+        InventoryStub newData = new InventoryStub(newItems, newPurchaseOrder, newStaff);
 
         thrown.expect(DuplicateItemException.class);
         inventory.resetData(newData);
@@ -122,6 +127,53 @@ public class InventoryTest {
         inventory.getPurchaseOrderList().remove(0);
     }
 
+    ////===================== Staff ==================================================================
+
+    @Test
+    public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
+        // Two items with the same identity fields
+        Staff editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).withRole(Staff.Role.user)
+                .build();
+        List<Item> newItems = Arrays.asList(IPHONE);
+        List<PurchaseOrder> newPurchaseOrder = Arrays.asList(IPHONEPO);
+        List<Staff> newStaffs = Arrays.asList(ZUL, editedZul);
+        InventoryStub newData = new InventoryStub(newItems, newPurchaseOrder, newStaffs);
+
+        thrown.expect(DuplicateStaffException.class);
+        inventory.resetData(newData);
+    }
+
+    @Test
+    public void hasStaff_nullStaff_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        inventory.hasStaff(null);
+    }
+
+    @Test
+    public void hasStaff_staffNotInInventory_returnsFalse() {
+        assertFalse(inventory.hasStaff(ZUL));
+    }
+
+    @Test
+    public void hasStaff_staffInInventory_returnsTrue() {
+        inventory.addStaff(ZUL);
+        assertTrue(inventory.hasStaff(ZUL));
+    }
+
+    @Test
+    public void hasStaff_staffWithSameIdentityFieldsInInventory_returnsTrue() {
+        inventory.addStaff(ZUL);
+        Staff editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_ZUL).withRole(Staff.Role.user)
+                .build();
+        assertTrue(inventory.hasStaff(editedZul));
+    }
+
+    @Test
+    public void getStaffList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        inventory.getStaffList().remove(0);
+    }
+
     /**
      * A stub ReadOnlyInventory whose items list can violate interface constraints.
      */
@@ -130,9 +182,10 @@ public class InventoryTest {
         private final ObservableList<PurchaseOrder> purchaseOrders = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
 
-        InventoryStub(Collection<Item> items, Collection<PurchaseOrder> purchaseOrders) {
+        InventoryStub(Collection<Item> items, Collection<PurchaseOrder> purchaseOrders, Collection<Staff> staffs) {
             this.items.setAll(items);
             this.purchaseOrders.setAll(purchaseOrders);
+            this.staffs.setAll(staffs);
         }
 
         @Override
@@ -147,11 +200,6 @@ public class InventoryTest {
 
         public ObservableList<Staff> getStaffList() {
             return staffs;
-        }
-
-        @Override
-        public void resetData(ReadOnlyStaffList staffList) {
-
         }
 
         @Override
