@@ -33,7 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_QUANTITY = "+651234";
     private static final String INVALID_SKU = "asd!asd";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_FILEPATH = "//";
+    private static final String INVALID_FILEPATH = "csv/:csv";
 
     private static final String VALID_IMAGE = "docs/images/iphone.jpg";
     private static final String VALID_NAME = "iPhone XR";

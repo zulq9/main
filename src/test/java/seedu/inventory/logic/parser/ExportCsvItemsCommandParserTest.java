@@ -24,11 +24,12 @@ public class ExportCsvItemsCommandParserTest {
         expectedPath = Paths.get("valid/valid.jpg");
         assertParseSuccess(parser, " f/valid/valid.jpg", new ExportCsvItemsCommand(expectedPath));
     }
+
     @Test
     public void parse_invalidPath_failure() {
-        assertParseFailure(parser, " f///valid.csv", ParserUtil.MESSAGE_FILEPATH_CONSTRAINTS);
-        assertParseFailure(parser, " f/:", ParserUtil.MESSAGE_FILEPATH_CONSTRAINTS);
+        assertParseFailure(parser, " f/ csv/:csv", ParserUtil.MESSAGE_FILEPATH_CONSTRAINTS);
     }
+
     @Test
     public void parse_invalidField_success() {
         assertParseFailure(parser, " d/valid.csv", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
