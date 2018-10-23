@@ -321,11 +321,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAccessSale();
     }
 
-    @Override
-    public void findSales(String records) {
-
-    }
-
     /** Raises an event to indicate the model has changed */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));

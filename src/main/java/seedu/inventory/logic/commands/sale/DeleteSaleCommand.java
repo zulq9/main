@@ -1,6 +1,7 @@
 package seedu.inventory.logic.commands.sale;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 
@@ -31,6 +32,8 @@ public class DeleteSaleCommand extends Command {
     private final String saleId;
 
     public DeleteSaleCommand(String saleId) {
+        requireAllNonNull(saleId);
+
         this.saleId = saleId;
     }
 
@@ -49,13 +52,18 @@ public class DeleteSaleCommand extends Command {
 
         Item item = sale.getItem();
 
-        int newIntQuantity = Integer.parseInt(item.getQuantity().toString())
-                + Integer.parseInt(sale.getSaleQuantity().toString());
-        Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
+        // Add quantity only if item still exists
+        Item searchedItem = model.getInventory().getItemBySku(item.getSku().toString());
 
-        // Add item quantity
-        model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
-                item.getImage(), item.getTags()));
+        if (searchedItem != null) {
+            int newIntQuantity = Integer.parseInt(item.getQuantity().toString())
+                    + Integer.parseInt(sale.getSaleQuantity().toString());
+            Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
+
+            // Add item quantity
+            model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
+                    item.getImage(), item.getTags()));
+        }
 
         // Delete sale
         model.deleteSale(sale);

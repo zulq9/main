@@ -220,9 +220,4 @@ public interface Model {
      * List sales.
      */
     void listSales();
-
-    /**
-     * Find sales.
-     */
-    void findSales(String records);
 }

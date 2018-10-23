@@ -1,4 +1,4 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.sale;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -9,7 +9,6 @@ import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSucc
 import org.junit.Test;
 
 import seedu.inventory.logic.commands.sale.AddSaleCommand;
-import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 

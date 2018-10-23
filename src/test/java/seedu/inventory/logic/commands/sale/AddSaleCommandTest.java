@@ -1,4 +1,4 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.sale;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
-import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
@@ -161,7 +161,7 @@ public class AddSaleCommandTest {
     }
 
     /**
-     * A Model stub that is used for testing deducting quantity.
+     * A Model stub that is used for testing adding quantity.
      */
     private class ModelStubCreateSaleQuantityTest extends ModelStub {
         private final ArrayList<Sale> salesAdded = new ArrayList<>();
