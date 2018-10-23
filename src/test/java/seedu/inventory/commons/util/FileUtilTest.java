@@ -29,13 +29,13 @@ public class FileUtilTest {
     @Test
     public void createIfMissing() throws Exception{
 
-        assertTrue(!MISSING_FILE.toFile().exists());
+        assertFalse(MISSING_FILE.toFile().exists());
 
         FileUtil.createIfMissing(MISSING_FILE);
         assertTrue(MISSING_FILE.toFile().exists());
 
         MISSING_FILE.toFile().delete();
-        assertTrue(!MISSING_FILE.toFile().exists());
+        assertFalse(MISSING_FILE.toFile().exists());
 
     }
 

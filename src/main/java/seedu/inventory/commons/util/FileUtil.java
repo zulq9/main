@@ -40,10 +40,7 @@ public class FileUtil {
             return false;
         }
         String[] content = path.split("\\.");
-        if (!"csv".equals(content[content.length - 1])) {
-            return false;
-        }
-        return true;
+        return "csv".equals(content[content.length - 1]);
     }
 
     /**
