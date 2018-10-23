@@ -63,7 +63,7 @@ public class CsvReportingStorageTest {
     }
 
     @Test
-    public void importItemList_invalidAndValidItemInventory_throwDataConversionException() throws Exception {
+    public void importItemList_invalidAndValidItemList_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         importItemList("invalidAndValidItemList.csv");
     }

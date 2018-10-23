@@ -1,9 +1,0 @@
-Item,,,,,
-name,price,quantity,sku,image,tags
-iPhone XR,1500.00,30,apple-iphone-xr,docs/images/iphone.jpg,apple
-Google Pixel XL,1459.99,3,google-pixel-xl,docs/images/google.jpg,
-LG G7,1099.00,20,lg-g7,docs/images/lg.jpg,smartphone
-Samsung Note 9,1590.00,1000,samsung-note-9,docs/images/huawei.jpg,
-OnePlus 6,1234.56,10,oneplus-6,docs/images/oneplus.jpg,
-HTC U6,980.00,75,htc@@u6,docs/images/htc.jpg,
-Samsung S9,1299.99,100,samsung-s9,docs/images/samsung.jpg,
