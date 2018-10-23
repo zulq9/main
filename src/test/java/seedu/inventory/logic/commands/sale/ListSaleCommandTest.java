@@ -10,7 +10,6 @@ import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 
 /**
@@ -24,8 +23,8 @@ public class ListSaleCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
-        expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList(), new StaffList());
+        model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
+        expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
     }
 
     @Test
