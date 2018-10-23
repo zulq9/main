@@ -36,7 +36,7 @@ public class XmlInventoryStorageTest {
     }
 
     private java.util.Optional<ReadOnlyInventory> readInventory(String filePath) throws Exception {
-        return new XmlInventoryStorage(Paths.get(filePath)).readInventory(addToTestDataPathIfNotNull(filePath));
+        return new XmlInventoryStorage(Paths.get(filePath), null).readInventory(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -76,8 +76,9 @@ public class XmlInventoryStorageTest {
     @Test
     public void readAndSaveInventory_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempInventory.xml");
+        Path staffFilePath = testFolder.getRoot().toPath().resolve("TempStaffList.xml");
         Inventory original = getTypicalInventory();
-        XmlInventoryStorage xmlInventoryStorage = new XmlInventoryStorage(filePath);
+        XmlInventoryStorage xmlInventoryStorage = new XmlInventoryStorage(filePath, staffFilePath);
 
         //Save in new file and read back
         xmlInventoryStorage.saveInventory(original, filePath);
@@ -110,7 +111,7 @@ public class XmlInventoryStorageTest {
      */
     private void saveInventory(ReadOnlyInventory inventory, String filePath) {
         try {
-            new XmlInventoryStorage(Paths.get(filePath))
+            new XmlInventoryStorage(Paths.get(filePath), null)
                     .saveInventory(inventory, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

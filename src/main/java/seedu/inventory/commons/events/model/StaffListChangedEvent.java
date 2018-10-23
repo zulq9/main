@@ -1,7 +1,6 @@
 package seedu.inventory.commons.events.model;
 
 import seedu.inventory.commons.events.BaseEvent;
-import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
 
 /**
@@ -15,7 +14,7 @@ public class StaffListChangedEvent extends BaseEvent {
      * Constructs the StaffListChangedEvent.
      * @param data the staff list
      */
-    public StaffListChangedEvent(ReadOnlyInventory data) {
+    public StaffListChangedEvent(ReadOnlyStaffList data) {
         this.data = data;
     }
 

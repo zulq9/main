@@ -36,19 +36,6 @@ public class Inventory implements ReadOnlyInventory {
         resetData(toBeCopied);
     }
 
-    //===================== list overwrite operations ==============================
-
-    /**
-     * Resets the existing data of this {@code Inventory} with {@code newData}.
-     */
-    public void resetData(ReadOnlyInventory newData) {
-        requireNonNull(newData);
-
-        setItems(newData.getItemList());
-        setPurchaseOrders(newData.getPurchaseOrderList());
-        setStaffs(newData.getStaffList());
-    }
-
     /**
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
@@ -112,15 +99,6 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     // staff-level
-
-    /**
-     * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
-     */
-    public void resetData(ReadOnlyStaffList newStaffData) {
-        requireNonNull(newStaffData);
-
-        setStaffs(newStaffData.getStaffList());
-    }
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the inventory.
@@ -216,6 +194,29 @@ public class Inventory implements ReadOnlyInventory {
 
     //===================== util methods =======================================================
 
+    //===================== list overwrite operations ==============================
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     */
+    public void resetData(ReadOnlyInventory newData) {
+        requireNonNull(newData);
+
+        setItems(newData.getItemList());
+        setPurchaseOrders(newData.getPurchaseOrderList());
+        setStaffs(newData.getStaffList());
+    }
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
+     */
+    @Override
+    public void resetData(ReadOnlyStaffList newStaffData) {
+        requireNonNull(newStaffData);
+
+        setStaffs(newStaffData.getStaffList());
+    }
+
     @Override
     public ObservableList<Item> getItemList() {
         return items.asUnmodifiableObservableList();
@@ -232,9 +233,9 @@ public class Inventory implements ReadOnlyInventory {
 
     @Override
     public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items"
-                + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders"
-                + staffs.asUnmodifiableObservableList().size() + "staffs";
+        return items.asUnmodifiableObservableList().size() + " items\n"
+                + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders\n"
+                + staffs.asUnmodifiableObservableList().size() + " staffs";
     }
 
     @Override

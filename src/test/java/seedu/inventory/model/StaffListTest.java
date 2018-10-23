@@ -148,5 +148,10 @@ public class StaffListTest {
         public ObservableList<Staff> getStaffList() {
             return staffs;
         }
+
+        @Override
+        public void resetData(ReadOnlyStaffList staffList) {
+
+        }
     }
 }

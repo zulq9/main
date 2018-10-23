@@ -150,6 +150,11 @@ public class InventoryTest {
         }
 
         @Override
+        public void resetData(ReadOnlyStaffList staffList) {
+
+        }
+
+        @Override
         public Item getItemBySku(String sku) {
             return null;
         }

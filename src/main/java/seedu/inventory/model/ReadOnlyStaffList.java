@@ -14,6 +14,10 @@ public interface ReadOnlyStaffList {
      */
     ObservableList<Staff> getStaffList();
 
+    /**
+     * Resets the staff data
+     * @param staffList
+     */
     void resetData(ReadOnlyStaffList staffList);
 
 }

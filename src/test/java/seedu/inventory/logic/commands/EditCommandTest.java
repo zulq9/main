@@ -25,7 +25,6 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
@@ -36,7 +35,7 @@ import seedu.inventory.testutil.ItemBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -47,8 +46,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
         expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
@@ -70,8 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
         expectedModel.updateItem(lastItem, editedItem);
         expectedModel.commitInventory();
 
@@ -85,8 +82,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
         expectedModel.commitInventory();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -103,8 +99,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
         expectedModel.updateItem(model.getFilteredItemList().get(0), editedItem);
         expectedModel.commitInventory();
 
@@ -164,8 +159,7 @@ public class EditCommandTest {
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
         expectedModel.updateItem(itemToEdit, editedItem);
         expectedModel.commitInventory();
 
@@ -207,8 +201,7 @@ public class EditCommandTest {
         Item editedItem = new ItemBuilder().build();
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder(editedItem).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM, descriptor);
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList(),
-                new StaffList());
+        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
 
         showItemAtIndex(model, INDEX_SECOND_ITEM);
         Item itemToEdit = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
