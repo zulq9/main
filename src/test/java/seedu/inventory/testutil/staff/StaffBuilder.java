@@ -1,4 +1,4 @@
-package seedu.inventory.testutil;
+package seedu.inventory.testutil.staff;
 
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;

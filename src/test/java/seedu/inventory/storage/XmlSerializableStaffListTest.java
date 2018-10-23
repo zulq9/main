@@ -11,8 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.XmlUtil;
-import seedu.inventory.model.StaffList;
-import seedu.inventory.testutil.TypicalStaffs;
+import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.testutil.staff.TypicalStaffs;
 
 public class XmlSerializableStaffListTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableStaffListTest");
@@ -27,8 +27,8 @@ public class XmlSerializableStaffListTest {
     public void toModelType_typicalStaffsFile_success() throws Exception {
         XmlSerializableStaffList dataFromFile = XmlUtil.getDataFromFile(TYPICAL_STAFFS_FILE,
                 XmlSerializableStaffList.class);
-        StaffList staffListFromFile = dataFromFile.toModelType();
-        StaffList typicalStaffsStaffList = TypicalStaffs.getTypicalStaffList();
+        ReadOnlyStaffList staffListFromFile = dataFromFile.toModelType();
+        ReadOnlyStaffList typicalStaffsStaffList = TypicalStaffs.getTypicalStaffList();
         assertEquals(staffListFromFile, typicalStaffsStaffList);
     }
 

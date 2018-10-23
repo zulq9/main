@@ -7,6 +7,7 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * API of the Logic component
@@ -26,6 +27,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of purchase order */
     ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of staffs
+     */
+    ObservableList<Staff> getFilteredStaffList();
 
     /** Returns an unmodifiable view of the sale orders */
     ObservableList<Sale> getObservableSaleList();

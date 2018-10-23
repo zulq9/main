@@ -8,7 +8,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
@@ -34,7 +34,7 @@ public class AddStaffCommandParser implements Parser<AddStaffCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE));
         }
 
-        Username username = ParserUtil.parseUsername(argumentMultimap.getValue(PREFIX_NAME).get());
+        Username username = ParserUtil.parseUsername(argumentMultimap.getValue(PREFIX_USERNAME).get());
         Password password = ParserUtil.parsePassword(argumentMultimap.getValue(PREFIX_PASSWORD).get());
         StaffName staffName = ParserUtil.parseStaffName(argumentMultimap.getValue(PREFIX_NAME).get());
         Staff.Role role = ParserUtil.parseRole(argumentMultimap.getValue(PREFIX_ROLE).get());

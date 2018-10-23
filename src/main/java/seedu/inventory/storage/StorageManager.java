@@ -27,17 +27,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
-    private StaffStorage staffStorage;
     private SaleListStorage saleListStorage;
 
-
     public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
-                          SaleListStorage saleListStorage, StaffStorage staffStorage) {
+                          SaleListStorage saleListStorage) {
         super();
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.saleListStorage = saleListStorage;
-        this.staffStorage = staffStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -143,7 +140,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleStaffListChangedEvent(StaffListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Staff data changed, saving to file"));
         try {
             saveStaffList(event.data);
         } catch (IOException e) {
@@ -155,28 +152,28 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Path getStaffListFilePath() {
-        return staffStorage.getStaffListFilePath();
+        return inventoryStorage.getStaffListFilePath();
     }
 
     @Override
     public Optional<ReadOnlyStaffList> readStaffList() throws DataConversionException, IOException {
-        return readStaffList(staffStorage.getStaffListFilePath());
+        return readStaffList(inventoryStorage.getStaffListFilePath());
     }
 
     @Override
     public Optional<ReadOnlyStaffList> readStaffList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return staffStorage.readStaffList(filePath);
+        return inventoryStorage.readStaffList(filePath);
     }
 
     @Override
     public void saveStaffList(ReadOnlyStaffList staffList) throws IOException {
-        saveStaffList(staffList, staffStorage.getStaffListFilePath());
+        saveStaffList(staffList, inventoryStorage.getStaffListFilePath());
     }
 
     @Override
     public void saveStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        staffStorage.saveStaffList(staffList, filePath);
+        inventoryStorage.saveStaffList(staffList, filePath);
     }
 }

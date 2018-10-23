@@ -1,4 +1,4 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
@@ -7,6 +7,8 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.staff.Staff;
@@ -16,7 +18,7 @@ import seedu.inventory.model.staff.Staff;
  */
 public class AddStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_staff";
+    public static final String COMMAND_WORD = "add-staff";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff to the inventory management system. "
             + "Parameters: "

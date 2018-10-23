@@ -12,7 +12,7 @@ import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.model.staff.exceptions.StaffNotFoundException;
 
 /**
- * A list of staffs that enforces uniqueness between its elements and does not allown nulls.
+ * A list of staffs that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing user {@code Staff#isSameStaff(Staff)}. As such,
  * adding and updating of staffs uses Staff#isSameStaff(Staff) for equality so as to ensure that
  * the staff being ensure that the staff being added or updated is as to ensure that the staff

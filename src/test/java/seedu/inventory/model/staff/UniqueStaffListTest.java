@@ -3,10 +3,10 @@ package seedu.inventory.model.staff;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.testutil.TypicalStaffs.DARREN;
-import static seedu.inventory.testutil.TypicalStaffs.ESMOND;
-import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
-import static seedu.inventory.testutil.TypicalStaffs.ZUL;
+import static seedu.inventory.testutil.staff.TypicalStaffs.DARREN;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ESMOND;
+import static seedu.inventory.testutil.staff.TypicalStaffs.TENGXIONG;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.model.staff.exceptions.StaffNotFoundException;
-import seedu.inventory.testutil.StaffBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class UniqueStaffListTest {
 
