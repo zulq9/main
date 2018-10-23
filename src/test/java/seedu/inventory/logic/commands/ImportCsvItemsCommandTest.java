@@ -71,7 +71,7 @@ public class ImportCsvItemsCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertFalse(standardCommand.equals((ImportCsvItemsCommand) null));
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
