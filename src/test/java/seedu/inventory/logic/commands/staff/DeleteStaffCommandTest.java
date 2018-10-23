@@ -8,7 +8,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.inventory.logic.commands.CommandTestUtil.showStaffAtIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
+import static seedu.inventory.testutil.TypicalItems.getTypicalInventoryWithStaff;
 
 import org.junit.Test;
 
@@ -28,12 +28,11 @@ import seedu.inventory.model.staff.Staff;
  * {@code DeleteStaffCommand}.
  */
 public class DeleteStaffCommandTest {
-
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
+    private Model model = new ModelManager(getTypicalInventoryWithStaff(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_ValidIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() {
         Staff staffToDelete = model.getFilteredStaffList().get(INDEX_FIRST_ITEM.getZeroBased());
         DeleteStaffCommand deleteStaffCommand = new DeleteStaffCommand(INDEX_FIRST_ITEM);
 

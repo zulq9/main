@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.inventory.commons.util.StringUtil;
-import seedu.inventory.model.item.Item;
 
 /**
  * Tests that a {@code Item}'s {@code Name} matches any of the keywords given.

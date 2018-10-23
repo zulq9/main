@@ -72,6 +72,16 @@ public class TypicalItems {
         for (Item item : getTypicalItems()) {
             inventory.addItem(item);
         }
+
+        return inventory;
+    }
+
+    /**
+     * Returns an {@code Inventory} with all the typical items and staffs.
+     * @return
+     */
+    public static Inventory getTypicalInventoryWithStaff() {
+        Inventory inventory = getTypicalInventory();
         inventory.resetData(getTypicalStaffList());
         return inventory;
     }
