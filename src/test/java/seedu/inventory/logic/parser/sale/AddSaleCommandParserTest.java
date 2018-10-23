@@ -1,4 +1,4 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.sale;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -8,23 +8,23 @@ import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSucc
 
 import org.junit.Test;
 
-import seedu.inventory.logic.commands.CreateSaleCommand;
+import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 
-public class CreateSaleCommandParserTest {
-    private CreateSaleCommandParser parser = new CreateSaleCommandParser();
+public class AddSaleCommandParserTest {
+    private AddSaleCommandParser parser = new AddSaleCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + " s/apple q/1",
-                new CreateSaleCommand(new Sku("apple"), new Quantity("1")));
+                new AddSaleCommand(new Sku("apple"), new Quantity("1")));
 
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateSaleCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaleCommand.MESSAGE_USAGE);
 
         // missing sku prefix
         assertParseFailure(parser, PREAMBLE_WHITESPACE + " q/1", expectedMessage);
@@ -49,6 +49,6 @@ public class CreateSaleCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + " s/apple q/1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateSaleCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaleCommand.MESSAGE_USAGE));
     }
 }
