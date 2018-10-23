@@ -148,4 +148,16 @@ public class UniqueSaleListTest {
         thrown.expect(UnsupportedOperationException.class);
         uniqueSaleList.asUnmodifiableObservableList().remove(0);
     }
+
+    @Test
+    public void getNextSaleId_returnsEqual() {
+        // No sales, except sale ID 1
+        assertEquals(uniqueSaleList.getNextSaleId(), "1");
+
+        // Added 1 sale, next ID 2
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
+        uniqueSaleList.add(sale);
+
+        assertEquals(uniqueSaleList.getNextSaleId(), "2");
+    }
 }

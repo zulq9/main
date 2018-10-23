@@ -6,6 +6,7 @@ import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -31,6 +32,9 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of staffs
      */
     ObservableList<Staff> getFilteredStaffList();
+
+    /** Returns an unmodifiable view of the sale orders */
+    ObservableList<Sale> getObservableSaleList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

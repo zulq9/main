@@ -65,7 +65,7 @@ A good start is entering the command *`help`* and pressing kbd:[Enter], it will 
 
 Some example commands you can try:
 
-* *`list-items`* : lists all items
+* *`list-item`* : lists all items
 * **`add-item`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
 * *`exit`* : exits the app
 
@@ -247,23 +247,22 @@ Examples:
 
 Staff users and manager users can create sale orders on the system using the commands below.
 
-==== Creating a sale order : `create-sale`
+==== Creating a sale order : `add-sale`
 
-This command allows the user to create a new sale order in Inventory Manager. Creating a sale order will deduct the
-inventory quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
+This command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
+item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
 
 Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
-Entering a quantity that is greater than the available item quantity will result in an error shown
-on screen too.
+Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
 
-Format: `create-sale s/SKU q/QTY`
+Format: `add-sale s/SKU q/QTY`
 
 Examples:
 
 * User sold 5 quantity of a product with SKU 0123. +
-`create-sale s/0123 q/5`
+`add-sale s/0123 q/5`
 * User sold 1 quantity of a product with SKU 456. +
-`create-sale s/456 q/1`
+`add-sale s/456 q/1`
 
 ==== Deleting a sale order : `delete-sale`
 
@@ -272,41 +271,25 @@ the inventory quantity deducted automatically. User will need to ensure that the
 
 Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
 
-Format: `delete-sale id/ID`
+Format: `delete-sale SALE-ID`
 
 Examples:
 
 * User wishes to delete sale ID 12. +
-`delete-sale id/12`
+`delete-sale 12`
 * User wishes to delete sale ID 123. +
-`delete-sale id/123`
+`delete-sale 123`
 
-==== Listing sale orders : `list-sales`
+==== Listing sale orders : `list-sale`
 
-This command allows the user to list a specific number of recently recorded sale orders in Inventory Manager.
+This command allows the user to list all sale orders in Inventory Manager.
 
-Format: `list-sales r/RECORDS`
+Format: `list-sale`
 
-Examples:
+Example:
 
-* User wishes to list the latest 50 sale orders. +
-`list-sales r/50`
-* User wishes to list the latest 20 sale orders. +
-`list-sales r/20`
-
-==== Finding sale orders : `find-sales`
-
-This command allows the user to search for a specific sale order based on the sale ID or for all sale orders created on
-a specific date. Either a valid sale order ID or date is required for this command.
-
-Format: `search-sale [d/YYYY-mm-dd] [id/ID]`
-
-Examples:
-
-* User wishes to search for sale order ID 12. +
-`search-sale id/12`
-* User wishes to search for sale orders created on 01 October 2018. +
-`search-sale d/2018-10-01`
+* User wishes to list all sale orders. +
+`list-sale`
 // end::salesManagement[]
 
 === Reports Management
@@ -580,9 +563,8 @@ The following table summarises Inventory Manager commands along with examples:
 |`Remove User` |`delete-user i/INDEX` |`delete-user i/3`
 // Sales Management
 |`Add Sale Order`|`add-sale s/SKU q/QTY`|`add-sale s/0123 q/1`
-|`Delete Sale Order`| `delete-sale id/ID` | `delete-sale id/1`
-|`List Sale Orders`| `list-sales r/RECORD` | `list-sales r/50`
-|`Find Sale Orders`| `find-sales [d/YYYY-mm-dd] [id/ID]` | `find-sales id/2
+|`Delete Sale Order`| `delete-sale SALE-ID` | `delete-sale 1`
+|`List Sale Orders`| `list-sale` | `list-sale`
 // Purchase order management
 |`Generate purchase order`| `generate-po` | `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
 |`List all purchase order`|  `list-po` |  `list-po`

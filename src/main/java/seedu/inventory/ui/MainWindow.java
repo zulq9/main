@@ -17,12 +17,14 @@ import seedu.inventory.commons.core.GuiSettings;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
+import seedu.inventory.commons.events.model.AccessSaleEvent;
 import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.purchaseorder.PurchaseOrderListPanel;
+import seedu.inventory.ui.sale.SaleListPanel;
 import seedu.inventory.ui.staff.StaffCardListPanel;
 
 /**
@@ -42,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private ItemListPanel itemListPanel;
     private PurchaseOrderListPanel purchaseOrderListPanel;
+    private SaleListPanel saleListPanel;
     private StaffCardListPanel staffCardListPanel;
 
     private Config config;
@@ -137,7 +140,10 @@ public class MainWindow extends UiPart<Stage> {
         purchaseOrderListPanel = new PurchaseOrderListPanel(logic.getFilteredPurchaseOrderList());
         //personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
 
+
         staffCardListPanel = new StaffCardListPanel(logic.getFilteredStaffList());
+
+        saleListPanel = new SaleListPanel(logic.getObservableSaleList());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -159,9 +165,15 @@ public class MainWindow extends UiPart<Stage> {
         itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
     }
 
+
     private void setPanelStaff() {
         itemListPanelPlaceholder.getChildren().clear();
         itemListPanelPlaceholder.getChildren().add(staffCardListPanel.getRoot());
+    }
+
+    private void setPanelSale() {
+        itemListPanelPlaceholder.getChildren().clear();
+        itemListPanelPlaceholder.getChildren().add(saleListPanel.getRoot());
     }
 
     void hide() {
@@ -240,6 +252,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleAccessStaff(AccessStaffEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setPanelStaff();
+    }
+
+    @Subscribe
+    private void handleAcessSale(AccessSaleEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPanelSale();
     }
 
     @Subscribe
