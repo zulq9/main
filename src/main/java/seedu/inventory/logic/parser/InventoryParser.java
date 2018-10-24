@@ -33,17 +33,6 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.GeneratePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
-import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
-import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
-import seedu.inventory.logic.commands.sale.AddSaleCommand;
-import seedu.inventory.logic.commands.sale.DeleteSaleCommand;
-import seedu.inventory.logic.commands.sale.ListSaleCommand;
-import seedu.inventory.logic.commands.staff.AddStaffCommand;
-import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
-import seedu.inventory.logic.parser.exceptions.ParseException;
-import seedu.inventory.logic.parser.purchaseorder.GeneratePurchaseOrderCommandParser;
-import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
-import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
 
 /**
  * Parses user input.
