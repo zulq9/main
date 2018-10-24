@@ -7,6 +7,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_IMAGE_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.testutil.TypicalItems.NOKIA;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
 import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
@@ -55,6 +56,19 @@ public class InventoryTest {
         assertEquals(newData, inventory);
     }
 
+    @Test
+    public void resetItemList_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        inventory.resetItemList(null);
+    }
+
+    @Test
+    public void resetItemList_withValidReadOnlyInventory_replacesData() {
+        ReadOnlyItemList itemList = getTypicalInventory();
+        inventory.resetItemList(itemList);
+        assertEquals(itemList, inventory);
+    }
+
     ////===================== Item ==================================================================
 
     @Test
@@ -100,6 +114,25 @@ public class InventoryTest {
     public void getItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         inventory.getItemList().remove(0);
+    }
+
+    @Test
+    public void removeItem() {
+        assertFalse(inventory.hasItem(IPHONE));
+        inventory.addItem(IPHONE);
+        assertTrue(inventory.hasItem(IPHONE));
+        inventory.removeItem(IPHONE);
+        assertFalse(inventory.hasItem(IPHONE));
+    }
+
+    @Test
+    public void updateItem() {
+        inventory.addItem(IPHONE);
+        assertTrue(inventory.hasItem(IPHONE));
+        assertFalse(inventory.hasItem(NOKIA));
+        inventory.updateItem(IPHONE, NOKIA);
+        assertFalse(inventory.hasItem(IPHONE));
+        assertTrue(inventory.hasItem(NOKIA));
     }
 
     ////===================== Purchase Order ==================================================================

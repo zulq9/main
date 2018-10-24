@@ -61,7 +61,7 @@ public class DeleteSaleCommand extends Command {
             Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
 
             // Add item quantity
-            model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
+            model.updateItem(searchedItem, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
                     item.getImage(), item.getTags()));
         }
 
