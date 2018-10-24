@@ -1,13 +1,15 @@
 package seedu.inventory.model;
 
 import javafx.collections.ObservableList;
+
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
-
 /**
  * Unmodifiable view of an inventory
  */
-public interface ReadOnlyInventory extends ReadOnlyStaffList {
+
+public interface ReadOnlyInventory extends ReadOnlyItemList, ReadOnlyPurchaseOrderList, ReadOnlyStaffList {
+
 
     /**
      * Returns an unmodifiable view of the items list.
@@ -20,9 +22,9 @@ public interface ReadOnlyInventory extends ReadOnlyStaffList {
      */
     ObservableList<PurchaseOrder> getPurchaseOrderList();
 
+
     /**
      * Returns the specific item by Sku.
      */
     Item getItemBySku(String sku);
-
 }
