@@ -11,7 +11,7 @@ import seedu.inventory.model.item.NameContainsKeywordsPredicate;
  * Finds and lists all items in inventory whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindItemCommand extends Command {
 
     public static final String COMMAND_WORD = "find-item";
 
@@ -22,7 +22,7 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindItemCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -37,7 +37,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindItemCommand // instanceof handles nulls
+                && predicate.equals(((FindItemCommand) other).predicate)); // state check
     }
 }

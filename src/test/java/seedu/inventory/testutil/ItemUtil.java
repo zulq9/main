@@ -9,8 +9,8 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.AddItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.tag.Tag;
 
@@ -23,7 +23,7 @@ public class ItemUtil {
      * Returns an add command string for adding the {@code item}.
      */
     public static String getAddCommand(Item item) {
-        return AddCommand.COMMAND_WORD + " " + getItemDetails(item);
+        return AddItemCommand.COMMAND_WORD + " " + getItemDetails(item);
     }
 
     /**

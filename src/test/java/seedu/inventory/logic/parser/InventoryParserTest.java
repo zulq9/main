@@ -15,21 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.inventory.logic.commands.AddCommand;
-import seedu.inventory.logic.commands.ClearCommand;
-import seedu.inventory.logic.commands.DeleteCommand;
-import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
-import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
-import seedu.inventory.logic.commands.FindCommand;
-import seedu.inventory.logic.commands.HelpCommand;
-import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ImportCsvItemsCommand;
-import seedu.inventory.logic.commands.ListCommand;
-import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
-import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.*;
+import seedu.inventory.logic.commands.AddItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
@@ -51,8 +39,8 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Item item = new ItemBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
-        assertEquals(new AddCommand(item), command);
+        AddItemCommand command = (AddItemCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
+        assertEquals(new AddItemCommand(item), command);
     }
 
     @Test
@@ -71,18 +59,18 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_ITEM), command);
+        DeleteItemCommand command = (DeleteItemCommand) parser.parseCommand(
+                DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new DeleteItemCommand(INDEX_FIRST_ITEM), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Item item = new ItemBuilder().build();
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder(item).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditItemCommand command = (EditItemCommand) parser.parseCommand(EditItemCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ITEM.getOneBased() + " " + ItemUtil.getEditItemDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_ITEM, descriptor), command);
+        assertEquals(new EditItemCommand(INDEX_FIRST_ITEM, descriptor), command);
     }
 
     @Test
@@ -94,9 +82,9 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindItemCommand command = (FindItemCommand) parser.parseCommand(
+                FindItemCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindItemCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -120,8 +108,8 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListItemCommand.COMMAND_WORD) instanceof ListItemCommand);
+        assertTrue(parser.parseCommand(ListItemCommand.COMMAND_WORD + " 3") instanceof ListItemCommand);
     }
 
     @Test

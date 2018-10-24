@@ -8,7 +8,7 @@ import seedu.inventory.model.Model;
 /**
  * Lists all items in the inventory to the user.
  */
-public class ListCommand extends Command {
+public class ListItemCommand extends Command {
 
     public static final String COMMAND_WORD = "list-item";
 

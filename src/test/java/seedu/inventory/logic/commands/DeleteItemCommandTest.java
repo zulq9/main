@@ -23,9 +23,9 @@ import seedu.inventory.model.item.Item;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteItemCommand}.
  */
-public class DeleteCommandTest {
+public class DeleteItemCommandTest {
 
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
@@ -33,23 +33,23 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST_ITEM);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
+        String expectedMessage = String.format(DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteItemCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
@@ -57,16 +57,16 @@ public class DeleteCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST_ITEM);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
+        String expectedMessage = String.format(DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
         Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteItemCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -77,21 +77,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST_ITEM);
         Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitInventory();
 
         // delete -> first item deleted
-        deleteCommand.execute(model, commandHistory);
+        deleteItemCommand.execute(model, commandHistory);
 
         // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
@@ -105,10 +105,10 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
 
         // execution failed -> inventory state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         // single inventory state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -124,7 +124,7 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameItemDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST_ITEM);
         Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
 
         showItemAtIndex(model, INDEX_SECOND_ITEM);
@@ -133,7 +133,7 @@ public class DeleteCommandTest {
         expectedModel.commitInventory();
 
         // delete -> deletes second item in unfiltered item list / first item in filtered item list
-        deleteCommand.execute(model, commandHistory);
+        deleteItemCommand.execute(model, commandHistory);
 
         // undo -> reverts inventory back to previous state and filtered item list to show all items
         expectedModel.undoInventory();
@@ -147,14 +147,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_ITEM);
+        DeleteItemCommand deleteFirstCommand = new DeleteItemCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteSecondCommand = new DeleteItemCommand(INDEX_SECOND_ITEM);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteItemCommand deleteFirstCommandCopy = new DeleteItemCommand(INDEX_FIRST_ITEM);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

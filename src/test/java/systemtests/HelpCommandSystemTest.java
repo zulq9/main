@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.inventory.logic.commands.DeleteCommand;
+import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.ui.BrowserPanel;
@@ -69,7 +69,7 @@ public class HelpCommandSystemTest extends InventorySystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        executeCommand(DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
