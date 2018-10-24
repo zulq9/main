@@ -49,14 +49,14 @@ This section will help you get started with Inventory Manager in 4 easy steps:
 .  Double-click the file to start the application. Inventory Manager should show up on your screen in a couple of seconds.
 +
 image::doc-ui.png[width="790"]
-Figure 1. The Graphical User Interface on starting up.
+_Figure 1. The Graphical User Interface on starting up._
 
 *Congratulation! you have successfully set up Inventory Manager*. +
 
 You can now type a command in the command box and press kbd:[Enter] to execute it. +
 
 image::doc-command-box.png[width="790"]
-Figure 2. The command box in Inventory Manager.
+_Figure 2. The command box in Inventory Manager._
 
 A good start is entering the command *`help`* and pressing kbd:[Enter], it will open the help window.
 
@@ -354,7 +354,7 @@ Entering an invalid SKU that cannot be found in Inventory Manager will result in
 Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
 
 image::doc-add-sale-failed.png[width="790"]
-Figure X. Error shown on screen when creating a sale order with invalid SKU.
+_Figure X. Error shown on screen when creating a sale order with invalid SKU._
 
 Format: `add-sale s/SKU q/QTY`
 
@@ -371,7 +371,7 @@ the inventory quantity deducted automatically. User will need to ensure that the
 Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
 
 image::doc-delete-sale-failed.png[width="790"]
-Figure X. Error shown on screen when deleting a sale order that cannot be found.
+_Figure X. Error shown on screen when deleting a sale order that cannot be found._
 
 Format: `delete-sale SALE-ID`
 
@@ -385,7 +385,7 @@ Example:
 The `list-sale` command allows the user to list all sale orders in Inventory Manager.
 
 image::doc-list-sale.png[width="790"]
-Figure X. All sales in Inventory Manager listed on screen.
+_Figure X. All sales in Inventory Manager listed on screen._
 
 Format: `list-sale`
 
