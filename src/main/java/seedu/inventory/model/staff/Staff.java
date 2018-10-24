@@ -69,10 +69,7 @@ public class Staff {
         }
 
         return otherStaff != null
-                && otherStaff.getUsername().equals(getUsername())
-                && otherStaff.getPassword().equals(getPassword())
-                && (otherStaff.getStaffName().equals(getStaffName())
-                || otherStaff.getRole().equals(getRole()));
+                && otherStaff.getUsername().equals(getUsername());
     }
 
     /**

@@ -5,13 +5,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
-import static seedu.inventory.testutil.TypicalStaffs.TENGXIONG;
-import static seedu.inventory.testutil.TypicalStaffs.ZUL;
+import static seedu.inventory.testutil.staff.TypicalStaffs.TENGXIONG;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import org.junit.Test;
 
 import seedu.inventory.testutil.Assert;
-import seedu.inventory.testutil.StaffBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class StaffTest {
 
@@ -34,18 +34,8 @@ public class StaffTest {
                 .withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
-        // different password -> returns false
-        editedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_ZUL).build();
-        assertFalse(ZUL.isSameStaff(editedZul));
-
-        // same name, same username, different attributes -> returns false
-        editedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_ZUL).withRole(Staff.Role.manager)
-                .build();
-        assertFalse(ZUL.isSameStaff(editedZul));
-
-        // same name, same password, different attributes -> returns false
-        editedZul = new StaffBuilder(ZUL).withUsername(VALID_USERNAME_ZUL).withRole(Staff.Role.user)
-                .build();
+        // different username -> returns false
+        editedZul = new StaffBuilder(ZUL).withUsername(VALID_USERNAME_ZUL).build();
         assertFalse(ZUL.isSameStaff(editedZul));
 
         // same name, same username, same password, different attributes -> returns true

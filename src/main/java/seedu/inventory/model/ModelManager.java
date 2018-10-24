@@ -3,8 +3,11 @@ package seedu.inventory.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,8 +16,14 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
+import seedu.inventory.commons.events.model.AccessSaleEvent;
+import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -36,10 +45,9 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList,
-                        ReadOnlyStaffList readOnlyStaffList) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList) {
         super();
-        requireAllNonNull(inventory, userPrefs, readOnlySaleList, readOnlyStaffList);
+        requireAllNonNull(inventory, userPrefs, readOnlySaleList);
 
         logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
@@ -51,12 +59,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new Inventory(), new UserPrefs(), new SaleList(), new StaffList());
+        this(new Inventory(), new UserPrefs(), new SaleList());
     }
 
     @Override
     public void resetData(ReadOnlyInventory newData) {
         versionedInventory.resetData(newData);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void resetItemList(ReadOnlyItemList newItemList) {
+        versionedInventory.resetItemList(newItemList);
         indicateInventoryChanged();
     }
 
@@ -86,6 +100,16 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AccessPurchaseOrderEvent());
     }
 
+    //=========== Reporting  ===============================================================================
+    @Override
+    public void exportItemList(Path filePath) {
+        raise(new ItemListExportEvent(versionedInventory, filePath));
+    }
+
+    @Override
+    public void importItemList(Path filePath) {
+        raise(new ItemListImportEvent(filePath));
+    }
 
     //=========== Item  ====================================================================================
 
@@ -147,6 +171,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addPurchaseOrder(PurchaseOrder po) {
+        versionedInventory.addPurchaseOrder(po);
+        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+    }
+
+    @Override
     public void viewPurchaseOrder() {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         indicatePurchaseOrder();
@@ -175,29 +205,35 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteStaff(Staff target) {
         requireNonNull(target);
         versionedInventory.removeStaff(target);
-        indicateInventoryChanged();
-    }
-
-
-    @Override
-    public void addPurchaseOrder(PurchaseOrder po) {
-        versionedInventory.addPurchaseOrder(po);
-        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        indicateStaffListChanged();
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
         versionedInventory.addStaff(staff);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
-        indicateInventoryChanged();
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        indicateStaffListChanged();
     }
 
     @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
+    public void editStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
         versionedInventory.updateStaff(target, editedStaff);
-        indicateInventoryChanged();
+        indicateStaffListChanged();
+    }
+
+    @Override
+    public void viewStaff() {
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        indicateAccessStaff();
+    }
+
+    /**
+     * Raises an event to indicate accessing item
+     */
+    private void indicateAccessStaff() {
+        raise(new AccessStaffEvent());
     }
 
 
@@ -234,6 +270,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredStaffList(Predicate<Staff> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
+    }
+
+    /**
+     * Raises an event to indicate the model has changed
+     */
+    private void indicateStaffListChanged() {
+        raise(new StaffListChangedEvent(versionedInventory));
     }
 
     //================ Authentication ========================
@@ -299,23 +342,43 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void createSale(Sale sale) {
+    public ObservableList<Sale> getObservableSaleList() {
+        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+    }
+
+    @Override
+    public void addSale(Sale sale) {
         saleList.addSale(sale);
         indicateSaleListChanged();
     }
 
     @Override
-    public void deleteSale(String id) {
-
+    public void deleteSale(Sale sale) {
+        saleList.removeSale(sale);
+        indicateSaleListChanged();
     }
 
     @Override
-    public void listSales(String records) {
+    public void listSales() {
+        indicateAccessSale();
+    }
 
+    /**
+     * Raises an event to indicate accessing sale
+     */
+    private void indicateAccessSale() {
+        raise(new AccessSaleEvent());
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));
     }
+
+    @Override
+    @Subscribe
+    public void handleItemListUpdateEvent(ItemListUpdateEvent event) {
+        resetItemList(event.itemList);
+    }
+
 }

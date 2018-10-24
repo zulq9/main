@@ -27,19 +27,19 @@ import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.util.SampleDataUtil;
+
+import seedu.inventory.storage.CsvReportingStorage;
 import seedu.inventory.storage.InventoryStorage;
 import seedu.inventory.storage.JsonUserPrefsStorage;
+import seedu.inventory.storage.ReportingStorage;
 import seedu.inventory.storage.SaleListStorage;
-import seedu.inventory.storage.StaffStorage;
 import seedu.inventory.storage.Storage;
 import seedu.inventory.storage.StorageManager;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlInventoryStorage;
 import seedu.inventory.storage.XmlSaleListStorage;
-import seedu.inventory.storage.XmlStaffListStorage;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 
@@ -70,10 +70,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath());
-        StaffStorage staffStorage = new XmlStaffListStorage(userPrefs.getStaffListFilePath());
+        InventoryStorage inventoryStorage = new XmlInventoryStorage(userPrefs.getInventoryFilePath(),
+                userPrefs.getStaffListFilePath());
         SaleListStorage saleListStorage = new XmlSaleListStorage();
-        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage, staffStorage);
+        ReportingStorage reportingStorage = new CsvReportingStorage();
+        storage = new StorageManager(inventoryStorage, userPrefsStorage, saleListStorage, reportingStorage);
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
@@ -93,6 +94,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyInventory> inventoryOptional;
         ReadOnlyInventory initialData;
+
         try {
             inventoryOptional = storage.readInventory();
 
@@ -115,19 +117,16 @@ public class MainApp extends Application {
 
         try {
             staffListOptional = storage.readStaffList();
+
             if (!staffListOptional.isPresent()) {
                 logger.info("Staff data file not found. Will be starting with a sample Staff List");
             }
             initialStaffListData = staffListOptional.orElseGet(SampleDataUtil::getSampleStaffList);
+            Inventory.class.cast(initialData).resetData(initialStaffListData);
         } catch (DataConversionException e) {
-            logger.warning("Data file for staff not in the correct format."
-                    + " Will be starting with an empty staff list");
-
-            initialStaffListData = new StaffList();
+            logger.warning("Staff Data file not in the correct format. Will be starting with an empty StaffList");
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty staff list");
-
-            initialStaffListData = new StaffList();
+            logger.warning("Problem while reading staff from the file. Will be starting with an empty StaffList");
         }
 
         // Sale List
@@ -152,7 +151,7 @@ public class MainApp extends Application {
             readOnlySaleList = new SaleList();
         }
 
-        return new ModelManager(initialData, userPrefs, readOnlySaleList, initialStaffListData);
+        return new ModelManager(initialData, userPrefs, readOnlySaleList);
     }
 
     private void initLogging(Config config) {

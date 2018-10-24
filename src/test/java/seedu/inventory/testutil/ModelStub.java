@@ -1,10 +1,13 @@
 package seedu.inventory.testutil;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -31,7 +34,22 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetItemList(ReadOnlyItemList newData) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void exportItemList(Path filePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void importItemList(Path filePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -121,17 +139,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void createSale(Sale sale) {
+    public ObservableList<Sale> getObservableSaleList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteSale(String id) {
+    public void addSale(Sale sale) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void listSales(String records) {
+    public void deleteSale(Sale sale) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void listSales() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -151,12 +174,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void viewStaff() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteStaff(Staff target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
+    public void editStaff(Staff target, Staff editedStaff) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -174,4 +202,10 @@ public class ModelStub implements Model {
     public void authenticateUser(Staff toLogin) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void handleItemListUpdateEvent(ItemListUpdateEvent iue) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 }

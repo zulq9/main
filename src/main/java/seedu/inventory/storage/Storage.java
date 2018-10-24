@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
@@ -17,7 +19,7 @@ import seedu.inventory.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends InventoryStorage, SaleListStorage, StaffStorage, UserPrefsStorage {
+public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsStorage, ReportingStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -66,5 +68,23 @@ public interface Storage extends InventoryStorage, SaleListStorage, StaffStorage
      */
     void handleSaleListChangedEvent(SaleListChangedEvent abce);
 
+    /**
+     * Saves the current version of the Staff List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
     void handleStaffListChangedEvent(StaffListChangedEvent abce);
+
+    /**
+     * Export the current version of the Item List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during saving.
+     */
+    void handleItemListExportEvent(ItemListExportEvent ilee);
+
+    /**
+     * Import the Item List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during saving.
+     */
+    void handleItemListImportEvent(ItemListImportEvent iie);
 }

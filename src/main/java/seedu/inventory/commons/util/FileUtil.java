@@ -32,6 +32,18 @@ public class FileUtil {
     }
 
     /**
+     * Returns true if {@code file} has a .csv extension
+     */
+    public static boolean isValidCsvFile (Path file) {
+        String path = file.toAbsolutePath().toString();
+        if (!path.contains(".")) {
+            return false;
+        }
+        String[] content = path.split("\\.");
+        return "csv".equals(content[content.length - 1]);
+    }
+
+    /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */

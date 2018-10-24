@@ -12,15 +12,12 @@ import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(),
-            new StaffList());
-    private final Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(),
-            new StaffList());
+    private final Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
+    private final Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

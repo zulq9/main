@@ -18,7 +18,7 @@ import seedu.inventory.model.staff.UniqueStaffList;
  * Wraps all data at the inventory-list level
  * Duplicates are not allowed (by .isSameItem comparison)
  */
-public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
+public class Inventory implements ReadOnlyInventory {
 
     private final UniqueItemList items = new UniqueItemList();
     private final NonUniquePurchaseOrderList purchaseOrders = new NonUniquePurchaseOrderList();
@@ -36,16 +36,13 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
         resetData(toBeCopied);
     }
 
-    //===================== list overwrite operations ==============================
-
     /**
-     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     * Resets the existing item list of this {@code Inventory} with {@code newItemList}.
      */
-    public void resetData(ReadOnlyInventory newData) {
-        requireNonNull(newData);
+    public void resetItemList(ReadOnlyItemList newItemList) {
+        requireNonNull(newItemList);
 
-        setItems(newData.getItemList());
-        setPurchaseOrders(newData.getPurchaseOrderList());
+        setItems(newItemList.getItemList());
     }
 
     /**
@@ -61,6 +58,15 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
      */
     public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
         this.purchaseOrders.setPurchaseOrders(purchaseOrders);
+    }
+
+    /**
+     * Replaces the contents of the staff list with {@code staffs}
+     *
+     * @param staffs must not contain duplicated staffs.
+     */
+    public void setStaffs(List<Staff> staffs) {
+        this.staffs.setStaffs(staffs);
     }
 
 
@@ -102,24 +108,6 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
     }
 
     // staff-level
-
-    /**
-     * Replaces the contents of the staff list with {@code staffs}
-     *
-     * @param staffs must not contain duplicated staffs.
-     */
-    public void setStaffs(List<Staff> staffs) {
-        this.staffs.setStaffs(staffs);
-    }
-
-    /**
-     * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
-     */
-    public void resetStaffData(ReadOnlyStaffList newStaffData) {
-        requireNonNull(newStaffData);
-
-        setStaffs(newStaffData.getStaffList());
-    }
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the inventory.
@@ -215,6 +203,28 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     //===================== util methods =======================================================
 
+    //===================== list overwrite operations ==============================
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     */
+    public void resetData(ReadOnlyInventory newData) {
+        requireNonNull(newData);
+
+        setItems(newData.getItemList());
+        setPurchaseOrders(newData.getPurchaseOrderList());
+        setStaffs(newData.getStaffList());
+    }
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newStaffData}.
+     */
+    public void resetData(ReadOnlyStaffList newStaffData) {
+        requireNonNull(newStaffData);
+
+        setStaffs(newStaffData.getStaffList());
+    }
+
     @Override
     public ObservableList<Item> getItemList() {
         return items.asUnmodifiableObservableList();
@@ -225,15 +235,15 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
         return purchaseOrders.asUnmodifiableObservableList();
     }
 
-    @Override
-    public String toString() {
-        return items.asUnmodifiableObservableList().size() + " items"
-                + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders"
-                + staffs.asUnmodifiableObservableList().size() + "staffs";
-    }
-
     public ObservableList<Staff> getStaffList() {
         return staffs.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public String toString() {
+        return items.asUnmodifiableObservableList().size() + " items\n"
+                + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders\n"
+                + staffs.asUnmodifiableObservableList().size() + " staffs";
     }
 
     @Override
@@ -247,6 +257,6 @@ public class Inventory implements ReadOnlyInventory, ReadOnlyStaffList {
 
     @Override
     public int hashCode() {
-        return Objects.hash(items, purchaseOrders);
+        return Objects.hash(items, purchaseOrders, staffs);
     }
 }

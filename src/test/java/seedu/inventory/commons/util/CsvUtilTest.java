@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
-import seedu.inventory.storage.CsvAdaptedData;
+import seedu.inventory.storage.CsvSerializableData;
 import seedu.inventory.testutil.TestUtil;
 
 public class CsvUtilTest {
@@ -31,7 +31,7 @@ public class CsvUtilTest {
     private static final Path INVALID_CONTENT_FILE = TEST_DATA_FOLDER.resolve("invalidContent.csv");
     private static final Path VALID_TEST_FILE = TEST_DATA_FOLDER.resolve("validTest.csv");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempData.csv");
-    private static final CsvAdaptedData DATA_TYPE_TO_TRANSFER = new CsvAdaptedDataStub().getInstance();
+    private static final CsvSerializableData DATA_TYPE_TO_TRANSFER = new CsvSerializableDataStub();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -92,7 +92,7 @@ public class CsvUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        CsvAdaptedData data = CsvUtil.getDataFromFile(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER);
+        CsvSerializableData data = CsvUtil.getDataFromFile(VALID_TEST_FILE, DATA_TYPE_TO_TRANSFER);
         assertEquals(5, data.getContents().size());
     }
 
@@ -192,9 +192,9 @@ public class CsvUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        CsvAdaptedData dataToWrite = new CsvAdaptedDataStub();
+        CsvSerializableData dataToWrite = new CsvSerializableDataStub();
         CsvUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        CsvAdaptedData dataFromFile = CsvUtil.getDataFromFile(TEMP_FILE, DATA_TYPE_TO_TRANSFER);
+        CsvSerializableData dataFromFile = CsvUtil.getDataFromFile(TEMP_FILE, DATA_TYPE_TO_TRANSFER);
         assertEquals(dataToWrite, dataFromFile);
 
         FileUtil.createFile(TEMP_FILE);
@@ -207,7 +207,7 @@ public class CsvUtilTest {
     @Test
     public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        CsvUtil.saveDataToFile(null, new CsvAdaptedDataStub());
+        CsvUtil.saveDataToFile(null, new CsvSerializableDataStub());
     }
 
     @Test
@@ -219,22 +219,22 @@ public class CsvUtilTest {
     @Test
     public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        CsvUtil.saveDataToFile(MISSING_FILE, new CsvAdaptedDataStub());
+        CsvUtil.saveDataToFile(MISSING_FILE, new CsvSerializableDataStub());
     }
 
 }
 
-class CsvAdaptedDataStub implements CsvAdaptedData {
+class CsvSerializableDataStub implements CsvSerializableData {
     public static final String DATA_TYPE = "Test";
     public static final String[] FIELDS = {"firstField", "secondField", "thirdField"};
 
     private List<List<String>> contents;
 
-    public CsvAdaptedDataStub(List<List<String>> contents) {
+    public CsvSerializableDataStub(List<List<String>> contents) {
         this.contents = contents;
     }
 
-    public CsvAdaptedDataStub() {
+    public CsvSerializableDataStub() {
         this.contents = new LinkedList<>();
     }
 
@@ -253,14 +253,10 @@ class CsvAdaptedDataStub implements CsvAdaptedData {
         return FIELDS;
     }
 
-    @Override
-    public CsvAdaptedData getInstance() {
-        return new CsvAdaptedDataStub();
-    }
 
     @Override
-    public CsvAdaptedData createInstance(List<List<String>> contents) {
-        return new CsvAdaptedDataStub(contents);
+    public CsvSerializableData createInstance(List<List<String>> contents) {
+        return new CsvSerializableDataStub(contents);
     }
 
     @Override
@@ -268,10 +264,10 @@ class CsvAdaptedDataStub implements CsvAdaptedData {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CsvAdaptedDataStub)) {
+        if (!(o instanceof CsvSerializableDataStub)) {
             return false;
         }
-        CsvAdaptedDataStub that = (CsvAdaptedDataStub) o;
+        CsvSerializableDataStub that = (CsvSerializableDataStub) o;
         return contents.equals(that.contents);
     }
 }

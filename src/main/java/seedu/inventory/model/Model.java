@@ -1,8 +1,10 @@
 package seedu.inventory.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -23,14 +25,38 @@ public interface Model {
     Predicate<PurchaseOrder> PREDICATE_SHOW_ALL_PURCHASE_ORDER = unused -> true;
 
     /**
+     *
+     */
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+
+    /**
      * Clears existing backing model and replaces with the provided new data.
      */
     void resetData(ReadOnlyInventory newData);
 
     /**
+     * Replaces the item list in backing model with the provided new item list.
+     */
+    void resetItemList(ReadOnlyItemList newItemList);
+
+    /**
      * Returns the Inventory
      */
     ReadOnlyInventory getInventory();
+
+    //=========== Reporting API ========================================================
+
+    /**
+     * Export the item list to the file path.
+     * @param filePath The path to export.
+     */
+    void exportItemList(Path filePath);
+
+    /**
+     * Import the item list from the file path.
+     * @param filePath The path to import.
+     */
+    void importItemList(Path filePath);
 
     //=========== Item API =============================================================
 
@@ -152,7 +178,12 @@ public interface Model {
      * @param target      the staff to be updated
      * @param editedStaff the staff with updated info
      */
-    void updateStaff(Staff target, Staff editedStaff);
+    void editStaff(Staff target, Staff editedStaff);
+
+    /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the staff list.
+     */
+    void viewStaff();
 
     /**
      * Returns an unmodifiable view of the filtered staff list
@@ -202,17 +233,28 @@ public interface Model {
     ReadOnlySaleList getSaleList();
 
     /**
-     * Create a new sale.
+     * Returns the sale list.
      */
-    void createSale(Sale sale);
+    ObservableList<Sale> getObservableSaleList();
+
+    /**
+     * Add a new sale.
+     */
+    void addSale(Sale sale);
 
     /**
      * Delete a sale.
      */
-    void deleteSale(String id);
+    void deleteSale(Sale sale);
 
     /**
      * List sales.
      */
-    void listSales(String records);
+    void listSales();
+
+    /**
+     * Handler function of ItemListUpdateEvent.
+     */
+    void handleItemListUpdateEvent(ItemListUpdateEvent event);
+
 }

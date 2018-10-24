@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
-import static seedu.inventory.testutil.TypicalStaffs.getTypicalStaffList;
+import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,12 +16,16 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
-import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
+import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.model.Inventory;
+import seedu.inventory.model.ItemList;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
@@ -36,11 +40,13 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlInventoryStorage inventoryManagerStorage = new XmlInventoryStorage(getTempFilePath("ab"));
+        XmlInventoryStorage inventoryManagerStorage = new XmlInventoryStorage(
+                getTempFilePath("ab"), getTempFilePath("cd"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        XmlStaffListStorage staffStorage = new XmlStaffListStorage(getTempFilePath("cd"));
         XmlSaleListStorage saleListStorage = new XmlSaleListStorage();
-        storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage, staffStorage);
+        CsvReportingStorage reportingStorage = new CsvReportingStorage();
+        storageManager = new StorageManager(inventoryManagerStorage, userPrefsStorage, saleListStorage,
+                reportingStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -83,20 +89,32 @@ public class StorageManagerTest {
     @Test
     public void handleInventoryChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlInventoryStorageExceptionThrowingStub(
+                Paths.get("dummy"), Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
                                              new XmlSaleListStorage(),
-                                             new XmlStaffListStorage(Paths.get("dummy")));
+                                             new CsvReportingStorage());
         storage.handleInventoryChangedEvent(new InventoryChangedEvent(new Inventory()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
     @Test
     public void staffListReadSave() throws Exception {
-        StaffList original = getTypicalStaffList();
+        ReadOnlyStaffList original = getTypicalStaffList();
         storageManager.saveStaffList(original);
         ReadOnlyStaffList retrieved = storageManager.readStaffList().get();
-        assertEquals(original, new StaffList(retrieved));
+        Inventory expected = new Inventory();
+        expected.resetData(retrieved);
+        assertEquals(original, expected);
+    }
+
+    @Test
+    public void itemListImportExport() throws Exception {
+        Path tempFile = getTempFilePath("tempItemList.csv");
+        ItemList original = new ItemList(getTypicalInventory());
+        storageManager.exportItemList(original, tempFile);
+        ReadOnlyItemList retrieved = storageManager.importItemList(tempFile).get();
+        assertEquals(original, retrieved);
     }
 
     @Test
@@ -105,13 +123,23 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void handleStaffListChangedEvent_exceptionThrown_eventRaised() {
-        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy")),
+    public void handleItemListExportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")),
                 new XmlSaleListStorage(),
-                new XmlStaffListStorageExceptionThrowingStub(Paths.get("dummy")));
-        storage.handleStaffListChangedEvent(new StaffListChangedEvent(new StaffList()));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleItemListExportEvent(new ItemListExportEvent(new ItemList(), Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataExportingExceptionEvent);
+    }
+
+    @Test
+    public void handleItemListImportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleItemListImportEvent(new ItemListImportEvent(Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
     }
 
 
@@ -120,8 +148,8 @@ public class StorageManagerTest {
      */
     class XmlInventoryStorageExceptionThrowingStub extends XmlInventoryStorage {
 
-        public XmlInventoryStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
+        public XmlInventoryStorageExceptionThrowingStub(Path filePath, Path path) {
+            super(filePath, path);
         }
 
         @Override
@@ -131,19 +159,14 @@ public class StorageManagerTest {
     }
 
     /**
-     * A Stub class to throw an exception when the save method is called
+     * A Stub class to throw an exception when the export method is called
      */
-    class XmlStaffListStorageExceptionThrowingStub extends XmlStaffListStorage {
-
-        public XmlStaffListStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
+    class CsvReportingStorageExceptionThrowingStub extends CsvReportingStorage {
 
         @Override
-        public void saveStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
+        public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

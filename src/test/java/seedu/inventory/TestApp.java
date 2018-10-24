@@ -15,11 +15,12 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlSerializableInventory;
+import seedu.inventory.storage.XmlSerializableStaffList;
 import seedu.inventory.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -30,12 +31,15 @@ import systemtests.ModelHelper;
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_STAFF =
+            TestUtil.getFilePathInSandboxFolder("sampleStaffData.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyInventory> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveStaffFileLocation = SAVE_LOCATION_FOR_STAFF;
 
     public TestApp() {
     }
@@ -49,6 +53,8 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableInventory(this.initialDataSupplier.get()),
                     this.saveFileLocation);
+            createDataFileWithData(new XmlSerializableStaffList(this.initialDataSupplier.get()),
+                    this.saveStaffFileLocation);
         }
     }
 
@@ -67,6 +73,7 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setInventoryFilePath(saveFileLocation);
+        userPrefs.setStaffListFilePath(saveStaffFileLocation);
         return userPrefs;
     }
 
@@ -75,7 +82,9 @@ public class TestApp extends MainApp {
      */
     public Inventory readStorageInventory() {
         try {
-            return new Inventory(storage.readInventory().get());
+            Inventory inventory = new Inventory(storage.readInventory().get());
+            inventory.resetData(readStorageStaffList());
+            return inventory;
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the Inventory format.", dce);
         } catch (IOException ioe) {
@@ -91,11 +100,25 @@ public class TestApp extends MainApp {
     }
 
     /**
+     * Returns a defensive copy of the staff list data stored inside the storage file.
+     * @return the staff list
+     */
+    public ReadOnlyStaffList readStorageStaffList() {
+        try {
+            return storage.readStaffList().get();
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the StaffList format.", dce);
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
+
+    /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getInventory()), new UserPrefs(), new SaleList(), new StaffList());
-        ModelHelper.setFilteredList(copy, model.getFilteredItemList());
+        Model copy = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
+        ModelHelper.setFilteredList(copy, model.getFilteredItemList(), model.getFilteredStaffList());
         return copy;
     }
 

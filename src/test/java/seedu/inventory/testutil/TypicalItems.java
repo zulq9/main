@@ -12,6 +12,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_GADGET;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
+import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,6 +72,17 @@ public class TypicalItems {
         for (Item item : getTypicalItems()) {
             inventory.addItem(item);
         }
+
+        return inventory;
+    }
+
+    /**
+     * Returns an {@code Inventory} with all the typical items and staffs.
+     * @return
+     */
+    public static Inventory getTypicalInventoryWithStaff() {
+        Inventory inventory = getTypicalInventory();
+        inventory.resetData(getTypicalStaffList());
         return inventory;
     }
 
