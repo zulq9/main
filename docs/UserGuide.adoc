@@ -43,18 +43,20 @@ Please check the FAQ section for frequent user issues.
 
 This section will help you get started with Inventory Manager in 4 easy steps:
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have link:https://www.java.com/en/download/help/version_manual.xml[Java version 9] or later installed in your Computer.
 .  Download the latest `InventoryManager.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Inventory Manager.
-.  Double-click the file to start the application. The GUI should appear in a couple of seconds.
+.  Double-click the file to start the application. Inventory Manager should show up on your screen in a couple of seconds.
 +
-image::Ui.png[width="790"]
-+
+image::doc-ui.png[width="790"]
 Figure 1. The Graphical User Interface on starting up.
 
 *Congratulation! you have successfully set up Inventory Manager*. +
 
 You can now type a command in the command box and press kbd:[Enter] to execute it. +
+
+image::doc-command-box.png[width="790"]
+Figure 2. The command box in Inventory Manager.
 
 A good start is entering the command *`help`* and pressing kbd:[Enter], it will open the help window.
 
@@ -345,40 +347,45 @@ All authenticated users can manage sale orders on the system using the commands 
 
 ==== Creating a sale order : `add-sale`
 
-This command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
+The `add-sale` command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
 item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
 
 Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
 Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
 
+image::doc-add-sale-failed.png[width="790"]
+Figure X. Error shown on screen when creating a sale order with invalid SKU.
+
 Format: `add-sale s/SKU q/QTY`
 
-Examples:
+Example:
 
 * User sold 5 quantity of a product with SKU 0123. +
 `add-sale s/0123 q/5`
-* User sold 1 quantity of a product with SKU 456. +
-`add-sale s/456 q/1`
 
 ==== Deleting a sale order : `delete-sale`
 
-This command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
+The `delete-sale` command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
 the inventory quantity deducted automatically. User will need to ensure that the entered sale ID is valid.
 
 Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
 
+image::doc-delete-sale-failed.png[width="790"]
+Figure X. Error shown on screen when deleting a sale order that cannot be found.
+
 Format: `delete-sale SALE-ID`
 
-Examples:
+Example:
 
 * User wishes to delete sale ID 12. +
 `delete-sale 12`
-* User wishes to delete sale ID 123. +
-`delete-sale 123`
 
 ==== Listing sale orders : `list-sale`
 
-This command allows the user to list all sale orders in Inventory Manager.
+The `list-sale` command allows the user to list all sale orders in Inventory Manager.
+
+image::doc-list-sale.png[width="790"]
+Figure X. All sales in Inventory Manager listed on screen.
 
 Format: `list-sale`
 
@@ -533,7 +540,7 @@ Format: `import-im f/FILEPATH`
 *Q*: _How can I report a bug or suggest improvements to this application?_ +
 *A*: You can open an issue https://github.com/CS2103-AY1819S1-W14-4/main/issues[here].
 
-*Q*: _I forgot my password, how do I reset?_
+*Q*: _I forgot my password, how do I reset?_ +
 *A*: Please contact your administrator to assist you in resetting your password.
 
 == Command Summary
@@ -597,19 +604,23 @@ The following table summarises commands available in Inventory Manager, along wi
 
 
 == Glossary
-*User*
-
-Refers to everyone that is using the application; Admin, Staff and Manager.
-
 *CLI (Command Line Interface)*
 
 A command line interface (CLI) is an interface where you can input commands to interact with the software.
-
-*GUI (Graphical User Interface)*
-
-A graphical user interface (GUI) is an interface through which a user interacts with the software.
 
 *CSV (Comma Separated Values)*
 
 A Comma Separated Values file is a delimited text file that uses a comma to separate values. The file can be open using
 an Excel software.
+
+*GUI (Graphical User Interface)*
+
+A graphical user interface (GUI) is an interface through which a user interacts with the software.
+
+*SKU (Stock Keeping Unit)*
+
+A Stock Keeping Unit is a product identification code assigned to a product.
+
+*User*
+
+Refers to everyone that is using the application; Admin, Staff and Manager.
