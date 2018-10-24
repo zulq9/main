@@ -13,7 +13,7 @@ import seedu.inventory.model.item.NameContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "find-item";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all items which names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
