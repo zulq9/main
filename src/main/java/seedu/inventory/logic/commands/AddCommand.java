@@ -18,7 +18,7 @@ import seedu.inventory.model.item.Item;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-item";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the inventory. "
             + "Parameters: "
