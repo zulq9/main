@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
-import static seedu.inventory.testutil.TypicalStaffs.ZUL;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import org.junit.Test;
 
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.Assert;
-import seedu.inventory.testutil.StaffBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class UserSessionTest {
 

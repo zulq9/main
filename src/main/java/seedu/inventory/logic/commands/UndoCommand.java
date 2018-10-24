@@ -2,6 +2,7 @@ package seedu.inventory.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.inventory.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
@@ -26,6 +27,7 @@ public class UndoCommand extends Command {
 
         model.undoInventory();
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

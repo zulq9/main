@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
+import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.staff.Staff;
 
 /**
@@ -48,8 +48,8 @@ public class XmlSerializableStaffList {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedStaff}.
      */
-    public StaffList toModelType() throws IllegalValueException {
-        StaffList staffList = new StaffList();
+    public ReadOnlyStaffList toModelType() throws IllegalValueException {
+        Inventory staffList = new Inventory();
         for (XmlAdaptedStaff s : staffs) {
             Staff staff = s.toModelType();
             if (staffList.hasStaff(staff)) {

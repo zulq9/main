@@ -19,7 +19,6 @@ import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 
@@ -27,9 +26,8 @@ import seedu.inventory.model.item.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(), new StaffList());
-    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList(),
-            new StaffList());
+    private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
+    private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

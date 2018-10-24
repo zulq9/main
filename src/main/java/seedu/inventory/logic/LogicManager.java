@@ -14,6 +14,7 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * The main LogicManager of the app.
@@ -50,6 +51,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<PurchaseOrder> getFilteredPurchaseOrderList() {
         return model.getFilteredPurchaseOrderList();
+    }
+
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
+        return model.getFilteredStaffList();
     }
 
     @Override

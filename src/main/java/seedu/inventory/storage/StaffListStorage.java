@@ -12,7 +12,7 @@ import seedu.inventory.model.staff.Staff;
  * @author darren96
  * Represents a storage for {@link Staff}
  */
-public interface StaffStorage {
+public interface StaffListStorage {
 
     /**
      * Returns the file path of the data file.

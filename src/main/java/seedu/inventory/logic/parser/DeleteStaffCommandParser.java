@@ -3,7 +3,7 @@ package seedu.inventory.logic.parser;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 
 /**

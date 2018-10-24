@@ -20,6 +20,6 @@ public class StaffListChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of items " + data.getStaffList().size();
+        return "number of staffs " + data.getStaffList().size();
     }
 }

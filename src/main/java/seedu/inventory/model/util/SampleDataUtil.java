@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
@@ -71,7 +70,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyStaffList getSampleStaffList() {
-        StaffList sampleStaffList = new StaffList();
+        Inventory sampleStaffList = new Inventory();
         for (Staff sampleStaff : getSampleStaffs()) {
             sampleStaffList.addStaff(sampleStaff);
         }

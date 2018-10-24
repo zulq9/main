@@ -23,6 +23,11 @@ public interface Model {
     Predicate<PurchaseOrder> PREDICATE_SHOW_ALL_PURCHASE_ORDER = unused -> true;
 
     /**
+     *
+     */
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+
+    /**
      * Clears existing backing model and replaces with the provided new data.
      */
     void resetData(ReadOnlyInventory newData);
@@ -152,7 +157,12 @@ public interface Model {
      * @param target      the staff to be updated
      * @param editedStaff the staff with updated info
      */
-    void updateStaff(Staff target, Staff editedStaff);
+    void editStaff(Staff target, Staff editedStaff);
+
+    /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the staff list.
+     */
+    void viewStaff();
 
     /**
      * Returns an unmodifiable view of the filtered staff list
