@@ -31,12 +31,14 @@ public class ListItemCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListItemCommand(), model, commandHistory, ListItemCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListItemCommand(), model, commandHistory,
+                ListItemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
-        assertCommandSuccess(new ListItemCommand(), model, commandHistory, ListItemCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListItemCommand(), model, commandHistory,
+                ListItemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
