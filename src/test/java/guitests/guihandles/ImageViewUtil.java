@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**

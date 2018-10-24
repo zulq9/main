@@ -78,6 +78,15 @@ public class BrowserPanel extends UiPart<Region> {
         //loadPage(SEARCH_PAGE_URL + po.getName().fullName);
     }
 
+    /**
+     * Display the page which shows the Item's information
+     *
+     * @param url the image path of the item
+     * @param name the name of the item
+     * @param price the price of the item
+     * @param quantity the quantity of the item
+     * @param sku the SKU of the item
+     */
     public void loadPage(String url, String name, String price, String quantity, String sku) {
         File file = new File(url);
 

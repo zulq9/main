@@ -11,25 +11,21 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#photo";
 
-    private boolean isWebViewLoaded = true;
-
     private String lastRememberedImage;
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
-
-        ImageView imageView = getChildNode(BROWSER_ID);
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * Returns the {@code URL} of the currently loaded image.
      */
     public String getLoadedUrl() {
         return ImageViewUtil.getLoadedImage(getChildNode(BROWSER_ID));
     }
 
     /**
-     * Remembers the {@code URL} of the currently loaded page.
+     * Remembers the {@code URL} of the currently loaded image.
      */
     public void rememberUrl() {
         lastRememberedImage = getLoadedUrl();
@@ -48,6 +44,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
      */
     public boolean isLoaded() {
-        return isWebViewLoaded;
+        return true;
     }
 }

@@ -52,11 +52,8 @@ public class Image {
 
                     return false;
                 }
-            } else if (Image.class.getResource(test) != null && (test.endsWith("png") || test.endsWith("jpg")
-                || test.endsWith("jpeg"))) {
-                return true;
             } else {
-                return false;
+                return (Image.class.getResource(test) != null && (test.endsWith("png") || test.endsWith("jpg")));
             }
         } else {
             return false;
