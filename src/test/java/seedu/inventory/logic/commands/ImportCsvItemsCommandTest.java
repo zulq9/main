@@ -21,7 +21,8 @@ import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditItemCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditItemCommand.
  */
 public class ImportCsvItemsCommandTest {
 

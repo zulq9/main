@@ -31,7 +31,8 @@ public class DeleteItemCommandSystemTest extends InventorySystemTest {
 
         /* Case: delete the first item in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteItemCommand.COMMAND_WORD + "      " + INDEX_FIRST_ITEM.getOneBased() + "       ";
+        String command = "     " + DeleteItemCommand.COMMAND_WORD + "      "
+                + INDEX_FIRST_ITEM.getOneBased() + "       ";
         Item deletedItem = removeItem(expectedModel, INDEX_FIRST_ITEM);
         String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -105,7 +106,8 @@ public class DeleteItemCommandSystemTest extends InventorySystemTest {
         assertCommandFailure(DeleteItemCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteItemCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(DeleteItemCommand.COMMAND_WORD + " 1 abc",
+                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE-iTEM 1", MESSAGE_UNKNOWN_COMMAND);
@@ -132,7 +134,8 @@ public class DeleteItemCommandSystemTest extends InventorySystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
 
         assertCommandSuccess(
-                DeleteItemCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+                DeleteItemCommand.COMMAND_WORD + " " + toDelete.getOneBased(),
+                expectedModel, expectedResultMessage);
     }
 
     /**

@@ -82,7 +82,8 @@ public class AddItemCommandParserTest {
         Item expectedItemMultipleTags = new ItemBuilder(SONY).withTags(VALID_TAG_GADGET, VALID_TAG_SMARTPHONE)
                 .build();
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET, new AddItemCommand(expectedItemMultipleTags));
+                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET,
+                new AddItemCommand(expectedItemMultipleTags));
     }
 
     @Test

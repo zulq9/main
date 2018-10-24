@@ -31,7 +31,8 @@ import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditItemCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditItemCommand.
  */
 public class EditItemCommandTest {
 
@@ -130,7 +131,8 @@ public class EditItemCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        EditItemCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
+        EditItemCommand.EditItemDescriptor descriptor =
+                new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
         EditItemCommand editItemCommand = new EditItemCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -178,7 +180,8 @@ public class EditItemCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        EditItemCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
+        EditItemCommand.EditItemDescriptor descriptor =
+                new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
         EditItemCommand editItemCommand = new EditItemCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> inventory state not added into model

@@ -4,16 +4,11 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.testutil.EventsUtil.postNow;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
-import static seedu.inventory.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.inventory.ui.UiPart.FXML_FILE_FOLDER;
-
-import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
-import seedu.inventory.MainApp;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {

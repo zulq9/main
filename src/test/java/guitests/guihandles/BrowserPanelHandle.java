@@ -1,8 +1,6 @@
 package guitests.guihandles;
 
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
