@@ -1,4 +1,4 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,8 @@ import java.util.List;
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.staff.Staff;
@@ -16,7 +18,7 @@ import seedu.inventory.model.staff.Staff;
  */
 public class DeleteStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_staff";
+    public static final String COMMAND_WORD = "delete-staff";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the display item list.\n"
@@ -44,5 +46,12 @@ public class DeleteStaffCommand extends Command {
         model.deleteStaff(staffToDelete);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_STAFF_SUCCESS, staffToDelete));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteStaffCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteStaffCommand) other).targetIndex)); // state check
     }
 }

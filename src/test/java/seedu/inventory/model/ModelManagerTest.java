@@ -94,11 +94,10 @@ public class ModelManagerTest {
         Inventory differentInventory = new Inventory();
         UserPrefs userPrefs = new UserPrefs();
         SaleList saleList = new SaleList();
-        StaffList staffList = new StaffList();
 
         // same values -> returns true
-        modelManager = new ModelManager(inventory, userPrefs, saleList, staffList);
-        ModelManager modelManagerCopy = new ModelManager(inventory, userPrefs, saleList, staffList);
+        modelManager = new ModelManager(inventory, userPrefs, saleList);
+        ModelManager modelManagerCopy = new ModelManager(inventory, userPrefs, saleList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -111,12 +110,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different inventory -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs, saleList, staffList)));
+        assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs, saleList)));
 
         // different filteredItemList -> returns false
         String[] keywords = IPHONE.getName().fullName.split("\\s+");
         modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs, saleList, staffList)));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs, saleList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
@@ -125,6 +124,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setInventoryFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(inventory, differentUserPrefs, saleList, staffList)));
+        assertTrue(modelManager.equals(new ModelManager(inventory, differentUserPrefs, saleList)));
     }
 }

@@ -15,6 +15,7 @@ image::darren96.png[width="150", align="left"]
 
 Role: Developer
 
+Component: Logic +
 Responsibilities: Integration, Scheduling and Tracking
 
 === Wang Chao
@@ -23,6 +24,7 @@ image::fzdy1914.png[width="150", align="left"]
 
 Role: Developer
 
+Component: Storage +
 Responsibilities: Data
 
 Component in Charge: Storage
@@ -33,6 +35,7 @@ image::esmondtan.png[width="150", align="left"]
 
 Role: Developer
 
+Component: Testing +
 Responsibilities: Testing, Code Quality
 
 === Yao TengXiong
@@ -41,6 +44,7 @@ image::yao-tx.png[width="150", align="left"]
 
 Role: Developer
 
+Component: Model +
 Responsibilities: Deliverables and Inventory Management
 
 === Muhd Zulqarnain Bin Ramlan
@@ -49,6 +53,7 @@ image::zulq9.png[width="150", align="left"]
 
 Role: Developer
 
+Component: UI +
 Responsibilities: Deliverable and deadlines
 
 

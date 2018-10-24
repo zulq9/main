@@ -22,6 +22,8 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.model.staff.StaffNameContainsKeywordsPredicate;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 
 /**
@@ -164,6 +166,29 @@ public class CommandTestUtil {
     public static void deleteFirstItem(Model model) {
         Item firstItem = model.getFilteredItemList().get(0);
         model.deleteItem(firstItem);
+        model.commitInventory();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the staff at the given {@code targetIndex} in the
+     * {@code model}'s inventory.
+     */
+    public static void showStaffAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredStaffList().size());
+
+        Staff staff = model.getFilteredStaffList().get(targetIndex.getZeroBased());
+        final String[] splitName = staff.getStaffName().fullName.split("\\s+");
+        model.updateFilteredStaffList(new StaffNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredStaffList().size());
+    }
+
+    /**
+     * Deletes the first staff in {@code model}'s filtered list from {@code model}'s inventory.
+     */
+    public static void deleteFirstStaff(Model model) {
+        Staff firstStaff = model.getFilteredStaffList().get(0);
+        model.deleteStaff(firstStaff);
         model.commitInventory();
     }
 

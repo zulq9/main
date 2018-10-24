@@ -174,12 +174,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void viewStaff() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteStaff(Staff target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
+    public void editStaff(Staff target, Staff editedStaff) {
         throw new AssertionError("This method should not be called.");
     }
 

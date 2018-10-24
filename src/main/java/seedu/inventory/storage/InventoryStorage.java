@@ -11,7 +11,7 @@ import seedu.inventory.model.ReadOnlyInventory;
 /**
  * Represents a storage for {@link Inventory}.
  */
-public interface InventoryStorage {
+public interface InventoryStorage extends StaffListStorage {
 
     /**
      * Returns the file path of the data file.

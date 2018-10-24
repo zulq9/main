@@ -17,10 +17,12 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.AccessItemEvent;
 import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.AccessSaleEvent;
+import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -43,10 +45,9 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList,
-                        ReadOnlyStaffList readOnlyStaffList) {
+    public ModelManager(ReadOnlyInventory inventory, UserPrefs userPrefs, ReadOnlySaleList readOnlySaleList) {
         super();
-        requireAllNonNull(inventory, userPrefs, readOnlySaleList, readOnlyStaffList);
+        requireAllNonNull(inventory, userPrefs, readOnlySaleList);
 
         logger.fine("Initializing with inventory: " + inventory + " and user prefs " + userPrefs);
 
@@ -58,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new Inventory(), new UserPrefs(), new SaleList(), new StaffList());
+        this(new Inventory(), new UserPrefs(), new SaleList());
     }
 
     @Override
@@ -170,6 +171,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addPurchaseOrder(PurchaseOrder po) {
+        versionedInventory.addPurchaseOrder(po);
+        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+    }
+
+    @Override
     public void viewPurchaseOrder() {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         indicatePurchaseOrder();
@@ -198,29 +205,35 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteStaff(Staff target) {
         requireNonNull(target);
         versionedInventory.removeStaff(target);
-        indicateInventoryChanged();
-    }
-
-
-    @Override
-    public void addPurchaseOrder(PurchaseOrder po) {
-        versionedInventory.addPurchaseOrder(po);
-        updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        indicateStaffListChanged();
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
         versionedInventory.addStaff(staff);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
-        indicateInventoryChanged();
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        indicateStaffListChanged();
     }
 
     @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
+    public void editStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
         versionedInventory.updateStaff(target, editedStaff);
-        indicateInventoryChanged();
+        indicateStaffListChanged();
+    }
+
+    @Override
+    public void viewStaff() {
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        indicateAccessStaff();
+    }
+
+    /**
+     * Raises an event to indicate accessing item
+     */
+    private void indicateAccessStaff() {
+        raise(new AccessStaffEvent());
     }
 
 
@@ -257,6 +270,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredStaffList(Predicate<Staff> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
+    }
+
+    /**
+     * Raises an event to indicate the model has changed
+     */
+    private void indicateStaffListChanged() {
+        raise(new StaffListChangedEvent(versionedInventory));
     }
 
     //================ Authentication ========================
