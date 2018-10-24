@@ -1,50 +1,38 @@
 package guitests.guihandles;
 
-import java.net.URL;
-
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
-    public static final String BROWSER_ID = "#browser";
+    public static final String BROWSER_ID = "#photo";
 
     private boolean isWebViewLoaded = true;
 
-    private URL lastRememberedUrl;
+    private String lastRememberedImage;
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
 
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
+        ImageView imageView = getChildNode(BROWSER_ID);
     }
 
     /**
      * Returns the {@code URL} of the currently loaded page.
      */
-    public URL getLoadedUrl() {
-        return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
+    public String getLoadedUrl() {
+        return ImageViewUtil.getLoadedImage(getChildNode(BROWSER_ID));
     }
 
     /**
      * Remembers the {@code URL} of the currently loaded page.
      */
     public void rememberUrl() {
-        lastRememberedUrl = getLoadedUrl();
+        lastRememberedImage = getLoadedUrl();
     }
 
     /**
@@ -52,7 +40,8 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * {@code rememberUrl()} call.
      */
     public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
+
+        return !lastRememberedImage.equals(getLoadedUrl());
     }
 
     /**

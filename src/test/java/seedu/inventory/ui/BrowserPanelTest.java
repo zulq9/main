@@ -34,16 +34,12 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        // default web page
-        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
+        // default image should be none as it is just a background image for ImageView
+        assertEquals("", browserPanelHandle.getLoadedUrl());
 
-        // associated web page of a item
+        // associated image file of a item
         postNow(selectionChangedEventStub);
-        URL expectedItemUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + IPHONE.getName().fullName.replaceAll(" ", "%20"));
-
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedItemUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals("file:docs/images/iphone.jpg", browserPanelHandle.getLoadedUrl());
     }
 }
