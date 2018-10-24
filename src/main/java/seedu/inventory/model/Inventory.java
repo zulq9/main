@@ -37,6 +37,15 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Resets the existing item list of this {@code Inventory} with {@code newItemList}.
+     */
+    public void resetItemList(ReadOnlyItemList newItemList) {
+        requireNonNull(newItemList);
+
+        setItems(newItemList.getItemList());
+    }
+
+    /**
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */

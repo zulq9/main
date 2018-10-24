@@ -26,6 +26,18 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
+    public void resetData_nullItemList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.resetData(null);
+    }
+
+    @Test
+    public void resetItemList_nullItemList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.resetItemList(null);
+    }
+
+    @Test
     public void hasItem_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasItem(null);

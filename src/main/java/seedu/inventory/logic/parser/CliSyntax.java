@@ -22,5 +22,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
     public static final Prefix PREFIX_ROLE = new Prefix("r/");
 
+    /* Reporting prefix definitions */
+    public static final Prefix PREFIX_FILEPATH = new Prefix("f/");
 
 }

@@ -1,5 +1,6 @@
 package seedu.inventory.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -10,11 +11,19 @@ import com.google.common.eventbus.Subscribe;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
+import seedu.inventory.commons.events.storage.DataExportingSuccessEvent;
+import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
+import seedu.inventory.commons.events.storage.DataImportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
+import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
@@ -28,13 +37,15 @@ public class StorageManager extends ComponentManager implements Storage {
     private InventoryStorage inventoryStorage;
     private UserPrefsStorage userPrefsStorage;
     private SaleListStorage saleListStorage;
+    private ReportingStorage reportingStorage;
 
     public StorageManager(InventoryStorage inventoryStorage, UserPrefsStorage userPrefsStorage,
-                          SaleListStorage saleListStorage) {
+                          SaleListStorage saleListStorage, ReportingStorage reportingStorage) {
         super();
         this.inventoryStorage = inventoryStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.saleListStorage = saleListStorage;
+        this.reportingStorage = reportingStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -115,16 +126,21 @@ public class StorageManager extends ComponentManager implements Storage {
         saleListStorage.saveSaleList(saleList, filePath);
     }
 
+    // ================ Reporting methods ==============================
     @Override
-    @Subscribe
-    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveInventory(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+    public Optional<ReadOnlyItemList> importItemList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to import item list from file: " + filePath);
+        return reportingStorage.importItemList(filePath);
     }
+
+    @Override
+    public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
+        logger.fine("Attempting to export item list to file: " + filePath);
+        reportingStorage.exportItemList(itemList, filePath);
+    }
+
+
+    // ================ Event handler ==================================
 
     @Override
     @Subscribe
@@ -145,6 +161,48 @@ public class StorageManager extends ComponentManager implements Storage {
             saveStaffList(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleInventoryChangedEvent(InventoryChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveInventory(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleItemListExportEvent(ItemListExportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export item list to file"));
+        try {
+            exportItemList(event.data, event.filePath);
+            raise(new DataExportingSuccessEvent());
+        } catch (IOException e) {
+            raise(new DataExportingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleItemListImportEvent(ItemListImportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import item list from file"));
+        try {
+            Optional<ReadOnlyItemList> itemList = importItemList(event.filePath);
+            if (itemList.isPresent()) {
+                raise(new ItemListUpdateEvent(itemList.get()));
+                raise(new DataImportingSuccessEvent());
+            } else {
+                raise(new DataImportingExceptionEvent(new FileNotFoundException()));
+            }
+        } catch (IOException ioe) {
+            raise(new DataImportingExceptionEvent(ioe));
+        } catch (DataConversionException dce) {
+            raise(new DataImportingExceptionEvent(dce));
         }
     }
 
