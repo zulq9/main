@@ -30,7 +30,7 @@ import seedu.inventory.logic.commands.ListCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
-import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
@@ -58,9 +58,9 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_generate_po() throws Exception {
         PurchaseOrder po = new PurchaseOrderBuilder().build();
-        GeneratePurchaseOrderCommand command =
-                (GeneratePurchaseOrderCommand) parser.parseCommand(PurchaseOrderUtil.getGeneratePoCommand(po));
-        assertNotEquals(new GeneratePurchaseOrderCommand(po), command);
+        AddPurchaseOrderCommand command =
+                (AddPurchaseOrderCommand) parser.parseCommand(PurchaseOrderUtil.getAddPoCommand(po));
+        assertNotEquals(new AddPurchaseOrderCommand(po), command);
     }
 
     @Test

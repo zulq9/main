@@ -1,7 +1,5 @@
 package seedu.inventory.testutil.purchaseorder;
 
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_OPPO;
-import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_REQUIRED_DATE_OPPO;
@@ -30,7 +28,6 @@ public class TypicalPurchaseOrder {
 
     public static final PurchaseOrder LGPO = new PurchaseOrderBuilder()
             .withSku(TypicalItems.LG.getSku().value)
-            .withName(TypicalItems.LG.getName().fullName)
             .withQuantity("20")
             .withRequiredDate("2018-12-03")
             .withSupplier("LG Corporation")
@@ -38,7 +35,6 @@ public class TypicalPurchaseOrder {
 
     public static final PurchaseOrder SAMSUNGNOTEPO = new PurchaseOrderBuilder()
             .withSku(TypicalItems.SAMSUNGNOTE.getSku().value)
-            .withName(TypicalItems.SAMSUNGNOTE.getName().fullName)
             .withQuantity("79")
             .withRequiredDate("2018-12-11")
             .withSupplier("Samsung Corporation")
@@ -46,7 +42,6 @@ public class TypicalPurchaseOrder {
 
     public static final PurchaseOrder IPHONEPO = new PurchaseOrderBuilder()
             .withSku(TypicalItems.IPHONE.getSku().value)
-            .withName(TypicalItems.IPHONE.getName().fullName)
             .withQuantity("29")
             .withRequiredDate("2018-12-11")
             .withSupplier("Apple Inc,")
@@ -54,11 +49,11 @@ public class TypicalPurchaseOrder {
 
     // Manually added - Purchase order's details found in {@code CommandTestUtil}
     public static final PurchaseOrder OPPOPO = new PurchaseOrderBuilder().withSku(VALID_SKU_OPPO)
-            .withName(VALID_NAME_OPPO).withQuantity(VALID_QUANTITY_OPPO).withRequiredDate(VALID_REQUIRED_DATE_OPPO)
+            .withQuantity(VALID_QUANTITY_OPPO).withRequiredDate(VALID_REQUIRED_DATE_OPPO)
             .withSupplier(VALID_SUPPLIER_OPPO).withStatus(VALID_STATUS_OPPO).build();
 
     public static final PurchaseOrder SONYPO = new PurchaseOrderBuilder().withSku(VALID_SKU_SONY)
-            .withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY).withRequiredDate(VALID_REQUIRED_DATE_SONY)
+            .withQuantity(VALID_QUANTITY_SONY).withRequiredDate(VALID_REQUIRED_DATE_SONY)
             .withSupplier(VALID_SUPPLIER_SONY).withStatus(VALID_STATUS_SONY).build();
 
     private TypicalPurchaseOrder() {

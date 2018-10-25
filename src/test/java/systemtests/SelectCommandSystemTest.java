@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_ITEM_SUCCESS;
+import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -115,7 +115,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
-                MESSAGE_SELECT_ITEM_SUCCESS, expectedSelectedCardIndex.getOneBased());
+                MESSAGE_SELECT_SUCCESS, expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getItemListPanel().getSelectedCardIndex();
 
         executeCommand(command);
