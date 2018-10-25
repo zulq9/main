@@ -11,10 +11,9 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.inventory.logic.commands.DeleteCommand;
+import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
-import seedu.inventory.logic.commands.SelectCommand;
-import seedu.inventory.ui.BrowserPanel;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.ui.StatusBarFooter;
 
 /**
@@ -45,7 +44,7 @@ public class HelpCommandSystemTest extends InventorySystemTest {
 
         getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -60,16 +59,16 @@ public class HelpCommandSystemTest extends InventorySystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        executeCommand(SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertNotEquals("", getBrowserPanel().getLoadedUrl());
         assertListMatching(getItemListPanel(), getModel().getFilteredItemList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        executeCommand(DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ListCommand;
+import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
@@ -35,15 +35,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete-item 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListItemCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListItemCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
 

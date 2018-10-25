@@ -33,7 +33,9 @@ public class ImageTest {
         assertFalse(Image.isValidImage("test.jpg")); // non-existing image file
 
         // valid images
-        assertTrue(Image.isValidImage("docs/images/iphone.jpg")); // jpg image
+        assertTrue(Image.isValidImage("/images/iphone.jpg")); // jpg image in resources folder
+        assertTrue(Image.isValidImage("/images/no_image.png")); // png image in resources folder
+        assertTrue(Image.isValidImage("docs/images/yao-tx.png")); // png image
         assertTrue(Image.isValidImage("docs/images/yao-tx.png")); // png image
     }
 }

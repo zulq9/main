@@ -25,7 +25,6 @@ public class XmlSerializableInventory {
     private List<XmlAdaptedItem> items;
     @XmlElement
     private List<XmlAdaptedStaff> staffs;
-
     @XmlElement
     private List<XmlAdaptedPurchaseOrder> purchaseOrders;
 
@@ -66,7 +65,6 @@ public class XmlSerializableInventory {
             }
             inventory.addItem(item);
         }
-
 
         for (XmlAdaptedPurchaseOrder po : purchaseOrders) {
             PurchaseOrder purchaseOrder = po.toModelType();

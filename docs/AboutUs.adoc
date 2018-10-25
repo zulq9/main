@@ -27,6 +27,8 @@ Role: Developer
 Component: Storage +
 Responsibilities: Data
 
+Component in Charge: Storage
+
 === Esmond Tan
 image::esmondtan.png[width="150", align="left"]
 {empty} [https://github.com/esmondtan[github]] [<<esmondtan#, portfolio>>]

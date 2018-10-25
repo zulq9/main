@@ -121,7 +121,7 @@ public class AddStaffCommandTest {
 
         @Override
         public void commitInventory() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddItemCommand#execute()}
         }
 
         @Override

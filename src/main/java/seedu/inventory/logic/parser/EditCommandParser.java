@@ -15,22 +15,22 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.EditItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditItemCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class EditCommandParser implements Parser<EditItemCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditItemCommand
+     * and returns an EditItemCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditItemCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SKU,
@@ -41,10 +41,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditItemCommand.MESSAGE_USAGE), pe);
         }
 
-        EditItemDescriptor editItemDescriptor = new EditCommand.EditItemDescriptor();
+        EditItemDescriptor editItemDescriptor = new EditItemCommand.EditItemDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editItemDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -63,10 +63,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
 
         if (!editItemDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditItemCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editItemDescriptor);
+        return new EditItemCommand(index, editItemDescriptor);
     }
 
     /**
