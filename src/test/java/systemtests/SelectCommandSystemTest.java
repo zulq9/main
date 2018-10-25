@@ -109,6 +109,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see InventorySystemTest#assertSelectedCardChanged(Index)
      */
@@ -140,6 +141,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

@@ -32,9 +32,9 @@ import seedu.inventory.model.tag.Tag;
 /**
  * Edits the details of an existing item in the inventory.
  */
-public class EditCommand extends Command {
+public class EditItemCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit-item";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the item identified "
             + "by the index number used in the displayed item list. "
@@ -61,7 +61,7 @@ public class EditCommand extends Command {
      * @param index of the item in the filtered item list to edit
      * @param editItemDescriptor details to edit the item with
      */
-    public EditCommand(Index index, EditItemDescriptor editItemDescriptor) {
+    public EditItemCommand(Index index, EditItemDescriptor editItemDescriptor) {
         requireNonNull(index);
         requireNonNull(editItemDescriptor);
 
@@ -116,12 +116,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditItemCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditItemCommand e = (EditItemCommand) other;
         return index.equals(e.index)
                 && editItemDescriptor.equals(e.editItemDescriptor);
     }

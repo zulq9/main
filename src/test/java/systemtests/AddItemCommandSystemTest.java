@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.AddCommand;
+import seedu.inventory.logic.commands.AddItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
@@ -49,7 +49,7 @@ import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
 
-public class AddCommandSystemTest extends InventorySystemTest {
+public class AddItemCommandSystemTest extends InventorySystemTest {
 
     @Test
     public void add() {
@@ -61,7 +61,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
          * -> added
          */
         Item toAdd = OPPO;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_OPPO + "  " + PRICE_DESC_OPPO + "  "
+        String command = "   " + AddItemCommand.COMMAND_WORD + "  " + NAME_DESC_OPPO + "  " + PRICE_DESC_OPPO + "  "
                 + QUANTITY_DESC_OPPO + " " + SKU_DESC_OPPO + "   " + IMAGE_DESC_OPPO + "   " + TAG_DESC_GADGET + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -89,7 +89,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* Case: add a item with tags, command with parameters in random order -> added */
         toAdd = SONY;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_GADGET + PRICE_DESC_SONY + QUANTITY_DESC_SONY
+        command = AddItemCommand.COMMAND_WORD + TAG_DESC_GADGET + PRICE_DESC_SONY + QUANTITY_DESC_SONY
                 + IMAGE_DESC_SONY + NAME_DESC_SONY + TAG_DESC_SMARTPHONE + SKU_DESC_SONY;
         assertCommandSuccess(command, toAdd);
 
@@ -112,87 +112,87 @@ public class AddCommandSystemTest extends InventorySystemTest {
 
         /* Case: add a duplicate item -> rejected */
         command = ItemUtil.getAddCommand(NOKIA);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, AddItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different quantity -> rejected */
         toAdd = new ItemBuilder(NOKIA).withQuantity(VALID_QUANTITY_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, AddItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different SKU -> rejected */
         toAdd = new ItemBuilder(NOKIA).withSku(VALID_SKU_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, AddItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different image -> rejected */
         toAdd = new ItemBuilder(NOKIA).withImage(VALID_IMAGE_SONY).build();
         command = ItemUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, AddItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: add a duplicate item except with different tags -> rejected */
         command = ItemUtil.getAddCommand(NOKIA) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, AddItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = AddItemCommand.COMMAND_WORD + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
 
         /* Case: missing price -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
 
         /* Case: missing quantity -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
 
         /* Case: missing SKU -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + IMAGE_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
 
         /* Case: missing image -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + ItemUtil.getItemDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+        command = AddItemCommand.COMMAND_WORD + INVALID_NAME_DESC + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid price -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + INVALID_PRICE_DESC + QUANTITY_DESC_OPPO
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + INVALID_PRICE_DESC + QUANTITY_DESC_OPPO
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid quantity -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + INVALID_QUANTITY_DESC
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + INVALID_QUANTITY_DESC
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         /* Case: invalid SKU -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
                 + INVALID_SKU_DESC + IMAGE_DESC_OPPO;
         assertCommandFailure(command, Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid image -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
                 + SKU_DESC_OPPO + INVALID_IMAGE_DESC;
         assertCommandFailure(command, Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
+        command = AddItemCommand.COMMAND_WORD + NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code AddItemCommand} that adds {@code toAdd} to the model and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
+     * 3. Result display box displays the success message of executing {@code AddItemCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code ItemListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
@@ -209,12 +209,12 @@ public class AddCommandSystemTest extends InventorySystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Item)}. Executes {@code command}
      * instead.
-     * @see AddCommandSystemTest#assertCommandSuccess(Item)
+     * @see AddItemCommandSystemTest#assertCommandSuccess(Item)
      */
     private void assertCommandSuccess(String command, Item toAdd) {
         Model expectedModel = getModel();
         expectedModel.addItem(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddItemCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
@@ -225,7 +225,7 @@ public class AddCommandSystemTest extends InventorySystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code ItemListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddCommandSystemTest#assertCommandSuccess(String, Item)
+     * @see AddItemCommandSystemTest#assertCommandSuccess(String, Item)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

@@ -39,7 +39,7 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.EditCommand;
+import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
@@ -53,7 +53,7 @@ import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
 
-public class EditCommandSystemTest extends InventorySystemTest {
+public class EditItemCommandSystemTest extends InventorySystemTest {
 
     @Test
     public void edit() {
@@ -65,7 +65,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_ITEM;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_SONY + "  "
+        String command = " " + EditItemCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_SONY + "  "
                 + PRICE_DESC_SONY + " " + QUANTITY_DESC_SONY + " " + SKU_DESC_SONY + "  " + IMAGE_DESC_SONY + " "
                 + TAG_DESC_SMARTPHONE + " ";
         Item editedItem = new ItemBuilder(SONY).withTags(VALID_TAG_SMARTPHONE).build();
@@ -84,7 +84,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit an item with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         assertCommandSuccess(command, index, SONY);
 
@@ -92,7 +92,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertTrue(getModel().getInventory().getItemList().contains(SONY));
         index = INDEX_SECOND_ITEM;
         assertNotEquals(getModel().getFilteredItemList().get(index.getZeroBased()), SONY);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_DIFFERENT + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         editedItem = new ItemBuilder(SONY).withName(VALID_NAME_OPPO).withSku(VALID_SKU_DIFFERENT).build();
         assertCommandSuccess(command, index, editedItem);
@@ -101,14 +101,14 @@ public class EditCommandSystemTest extends InventorySystemTest {
          * -> edited
          */
         index = INDEX_SECOND_ITEM;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_OPPO + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
         editedItem = new ItemBuilder(SONY).withQuantity(VALID_QUANTITY_OPPO).withSku(VALID_SKU_DIFFERENT).build();
         assertCommandSuccess(command, index, editedItem);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_ITEM;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Item itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
         editedItem = new ItemBuilder(itemToEdit).withTags().build();
         assertCommandSuccess(command, index, editedItem);
@@ -119,7 +119,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         index = INDEX_FIRST_ITEM;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_SONY;
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_SONY;
         itemToEdit = getModel().getFilteredItemList().get(index.getZeroBased());
         editedItem = new ItemBuilder(itemToEdit).withName(VALID_NAME_SONY).build();
         assertCommandSuccess(command, index, editedItem);
@@ -129,7 +129,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
          */
         showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a item card is selected -------------------------- */
@@ -140,7 +140,7 @@ public class EditCommandSystemTest extends InventorySystemTest {
         showAllItems();
         index = INDEX_FIRST_ITEM;
         selectItem(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_OPPO
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_OPPO
                 + QUANTITY_DESC_OPPO + SKU_DESC_OPPO + IMAGE_DESC_OPPO + TAG_DESC_GADGET;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new item's name
@@ -149,48 +149,48 @@ public class EditCommandSystemTest extends InventorySystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_SONY,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " 0" + NAME_DESC_SONY,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_SONY,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " -1" + NAME_DESC_SONY,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_SONY,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_SONY,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + NAME_DESC_SONY,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditItemCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
-                EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
+                EditItemCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid price -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid quantity -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_QUANTITY_DESC, Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
 
         /* Case: invalid SKU -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_SKU_DESC, Sku.MESSAGE_SKU_CONSTRAINTS);
 
         /* Case: invalid image -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_IMAGE_DESC, Image.MESSAGE_IMAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
+        assertCommandFailure(EditItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a item with new values same as another item's values -> rejected */
@@ -198,36 +198,36 @@ public class EditCommandSystemTest extends InventorySystemTest {
         assertTrue(getModel().getInventory().getItemList().contains(SONY));
         index = INDEX_FIRST_ITEM;
         assertFalse(getModel().getFilteredItemList().get(index.getZeroBased()).equals(SONY));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, EditItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, EditItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different image -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_OPPO + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, EditItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different quantity -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_OPPO + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, EditItemCommand.MESSAGE_DUPLICATE_ITEM);
 
         /* Case: edit a item with new values same as another item's values but with different name -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_SONY
+        command = EditItemCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_OPPO + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET + TAG_DESC_SMARTPHONE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(command, EditItemCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Item, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Item, Index)
+     * @see EditItemCommandSystemTest#assertCommandSuccess(String, Index, Item, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Item editedItem) {
         assertCommandSuccess(command, toEdit, editedItem, null);
@@ -235,11 +235,11 @@ public class EditCommandSystemTest extends InventorySystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
-     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+     * 1. Asserts that result display box displays the success message of executing {@code EditItemCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the item at index {@code toEdit} being
      * updated to values specified {@code editedItem}.<br>
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditItemCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Item editedItem,
             Index expectedSelectedCardIndex) {
@@ -248,13 +248,13 @@ public class EditCommandSystemTest extends InventorySystemTest {
         expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem), expectedSelectedCardIndex);
+                String.format(EditItemCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem), expectedSelectedCardIndex);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditItemCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);

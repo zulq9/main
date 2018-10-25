@@ -39,8 +39,8 @@ import static seedu.inventory.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
 import org.junit.Test;
 
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.EditItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
@@ -49,12 +49,12 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditItemCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditItemCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -64,7 +64,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_OPPO, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditItemCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -126,10 +126,10 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PRICE_DESC_OPPO + QUANTITY_DESC_SONY + TAG_DESC_SMARTPHONE
                 + SKU_DESC_OPPO + IMAGE_DESC_OPPO + NAME_DESC_OPPO + TAG_DESC_GADGET;
 
-        EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO)
+        EditItemCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO)
                 .withPrice(VALID_PRICE_OPPO).withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_OPPO)
                 .withImage(VALID_IMAGE_OPPO).withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -141,7 +141,7 @@ public class EditCommandParserTest {
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY)
                 .withSku(VALID_SKU_OPPO).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -152,37 +152,37 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_ITEM;
         String userInput = targetIndex.getOneBased() + NAME_DESC_OPPO;
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // price
         userInput = targetIndex.getOneBased() + PRICE_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withPrice(VALID_PRICE_OPPO).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // quantity
         userInput = targetIndex.getOneBased() + QUANTITY_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_OPPO).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // SKU
         userInput = targetIndex.getOneBased() + SKU_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withSku(VALID_SKU_OPPO).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // image
         userInput = targetIndex.getOneBased() + IMAGE_DESC_OPPO;
         descriptor = new EditItemDescriptorBuilder().withImage(VALID_IMAGE_OPPO).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_GADGET;
         descriptor = new EditItemDescriptorBuilder().withTags(VALID_TAG_GADGET).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -197,7 +197,7 @@ public class EditCommandParserTest {
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withPrice(VALID_PRICE_SONY)
                 .withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY)
                 .withTags(VALID_TAG_GADGET, VALID_TAG_SMARTPHONE).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -208,7 +208,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_ITEM;
         String userInput = targetIndex.getOneBased() + INVALID_QUANTITY_DESC + QUANTITY_DESC_SONY;
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -216,7 +216,7 @@ public class EditCommandParserTest {
                 + IMAGE_DESC_SONY + QUANTITY_DESC_SONY;
         descriptor = new EditItemDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY)
                 .withImage(VALID_IMAGE_SONY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditItemCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -226,7 +226,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditItemCommand expectedCommand = new EditItemCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

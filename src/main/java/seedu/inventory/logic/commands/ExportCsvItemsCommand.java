@@ -32,7 +32,7 @@ public class ExportCsvItemsCommand extends Command {
     private final Path filePath;
 
     /**
-     * Creates an AddCommand to add the specified {@code Item}
+     * Creates an AddItemCommand to add the specified {@code Item}
      */
     public ExportCsvItemsCommand(Path filePath) {
         requireNonNull(filePath);

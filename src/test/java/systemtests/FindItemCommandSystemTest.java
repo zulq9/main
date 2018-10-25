@@ -15,21 +15,21 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.DeleteCommand;
-import seedu.inventory.logic.commands.FindCommand;
+import seedu.inventory.logic.commands.DeleteItemCommand;
+import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.tag.Tag;
 
-public class FindCommandSystemTest extends InventorySystemTest {
+public class FindItemCommandSystemTest extends InventorySystemTest {
 
     @Test
     public void find() {
         /* Case: find multiple items in inventory, command with leading spaces and trailing spaces
          * -> 2 items found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG + "   ";
+        String command = "   " + FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, SAMSUNG, SAMSUNGNOTE); // Samsung S9 and Note 9 contains 'Samsung'
         assertCommandSuccess(command, expectedModel);
@@ -38,36 +38,36 @@ public class FindCommandSystemTest extends InventorySystemTest {
         /* Case: repeat previous find command where item list is displaying the items we are finding
          * -> 2 items found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
+        command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find item where item list is not displaying the item we are finding -> 1 item found */
-        command = FindCommand.COMMAND_WORD + " Google";
+        command = FindItemCommand.COMMAND_WORD + " Google";
         ModelHelper.setFilteredList(expectedModel, GOOGLE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple items in inventory, 2 keywords -> 2 items found */
-        command = FindCommand.COMMAND_WORD + " S9 Note";
+        command = FindItemCommand.COMMAND_WORD + " S9 Note";
         ModelHelper.setFilteredList(expectedModel, SAMSUNG, SAMSUNGNOTE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple items in inventory, 2 keywords in reversed order -> 2 items found */
-        command = FindCommand.COMMAND_WORD + " Note S9";
+        command = FindItemCommand.COMMAND_WORD + " Note S9";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple items in inventory, 2 keywords with 1 repeat -> 2 items found */
-        command = FindCommand.COMMAND_WORD + " S9 Note S9";
+        command = FindItemCommand.COMMAND_WORD + " S9 Note S9";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple items in inventory, 2 matching keywords and 1 non-matching keyword
          * -> 2 items found
          */
-        command = FindCommand.COMMAND_WORD + " S9 Note NonMatchingKeyWord";
+        command = FindItemCommand.COMMAND_WORD + " S9 Note NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -82,54 +82,54 @@ public class FindCommandSystemTest extends InventorySystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same items in inventory after deleting 1 of them -> 1 item found */
-        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        executeCommand(DeleteItemCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getInventory().getItemList().contains(SAMSUNGNOTE));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
+        command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, SAMSUNG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find item in inventory, keyword is same as name but of different case -> 1 item found */
-        command = FindCommand.COMMAND_WORD + " SamSung";
+        command = FindItemCommand.COMMAND_WORD + " SamSung";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find item in inventory, keyword is substring of name -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " Sam";
+        command = FindItemCommand.COMMAND_WORD + " Sam";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find item in inventory, name is substring of keyword -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " Samsun";
+        command = FindItemCommand.COMMAND_WORD + " Samsun";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find item not in inventory -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " Windows";
+        command = FindItemCommand.COMMAND_WORD + " Windows";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find quantity of item in inventory -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " " + LG.getQuantity().value;
+        command = FindItemCommand.COMMAND_WORD + " " + LG.getQuantity().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find image of item in inventory -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " " + LG.getImage().value;
+        command = FindItemCommand.COMMAND_WORD + " " + LG.getImage().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find SKU of item in inventory -> 0 items found */
-        command = FindCommand.COMMAND_WORD + " " + LG.getSku().value;
+        command = FindItemCommand.COMMAND_WORD + " " + LG.getSku().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of item in inventory -> 0 items found */
         List<Tag> tags = new ArrayList<>(LG.getTags());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        command = FindItemCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -137,21 +137,21 @@ public class FindCommandSystemTest extends InventorySystemTest {
         showAllItems();
         selectItem(Index.fromOneBased(1));
         assertFalse(getItemListPanel().getHandleToSelectedCard().getName().equals(LG.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " LG";
+        command = FindItemCommand.COMMAND_WORD + " LG";
         ModelHelper.setFilteredList(expectedModel, LG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find item in empty inventory -> 0 items found */
         deleteAllItems();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
+        command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SAMSUNG;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, SAMSUNG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Samsung";
+        command = "FiNd-iTeM Samsung";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

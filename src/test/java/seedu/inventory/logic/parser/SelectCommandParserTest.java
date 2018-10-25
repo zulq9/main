@@ -10,8 +10,8 @@ import org.junit.Test;
 import seedu.inventory.logic.commands.SelectCommand;
 
 /**
- * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * Test scope: similar to {@code DeleteItemCommandParserTest}.
+ * @see DeleteItemCommandParserTest
  */
 public class SelectCommandParserTest {
 
