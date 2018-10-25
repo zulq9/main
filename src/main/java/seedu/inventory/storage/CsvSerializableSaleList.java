@@ -1,21 +1,119 @@
 package seedu.inventory.storage;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import seedu.inventory.commons.exceptions.IllegalValueException;
+import seedu.inventory.model.ReadOnlyInventory;
+import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.sale.Sale;
 
 /**
  * An immutable sale list that is serializable to CSV format
  */
 public class CsvSerializableSaleList implements CsvSerializableData {
     public static final String DATA_TYPE = "Sales";
-    public static final String[] FIELDS = {"saleProduct", "saleQuantity", "saleDate"};
+    public static final String[] FIELDS = {"saleId", "saleSku", "saleQuantity", "saleDate"};
+    public static final String MESSAGE_DUPLICATE_ITEM = "Sale list contains duplicate sale(s).";
 
+    private ReadOnlyInventory inventory;
+    private List<CsvAdaptedSale> sales;
     private List<List<String>> contents;
 
+    /**
+     * Creates an empty CsvSerializableSaleList.
+     */
+    public CsvSerializableSaleList() {
+        sales = new ArrayList<>();
+    }
+
+    /**
+     * Creates CsvSerializableSaleList from a list of content.
+     */
     public CsvSerializableSaleList(List<List<String>> contents) {
         this.contents = contents;
     }
 
-    public CsvSerializableSaleList() {}
+    /**
+     * Creates CsvSerializableSaleList from CsvSerializableData.
+     */
+    public CsvSerializableSaleList(CsvSerializableData data) {
+        this.contents = data.getContents();
+    }
+
+    /**
+     * Conversion
+     */
+    public CsvSerializableSaleList(ReadOnlySaleList src) {
+        sales = src.getSaleList().stream().map(CsvAdaptedSale::new).collect(Collectors.toList());
+        contents = getContentsFromSaleList(sales);
+    }
+
+    /**
+     * Set the Inventory of current sale list.
+     */
+    public void setInventory(ReadOnlyInventory inventory) {
+        this.inventory = inventory;
+    }
+
+    /**
+     * Converts this inventory into the model's {@code Inventory} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
+     *                               {@code CsvAdaptedItem}.
+     */
+    public SaleList toModelType() throws IllegalValueException {
+        sales = splitContentsToSaleList(contents);
+        SaleList saleList = new SaleList();
+
+        for (CsvAdaptedSale p : sales) {
+            Sale sale = p.toModelType(inventory);
+            if (saleList.hasSale(sale)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
+            }
+            saleList.addSale(sale);
+        }
+        return saleList;
+    }
+
+    /**
+     * Combine a list of Csv-friendly adapted sale into a list of list of string representing the contents.
+     *
+     * @param sales A list of Csv-friendly sale
+     * @return contents A list of list of string representing the contents.
+     */
+    public static List<List<String>> getContentsFromSaleList(List<CsvAdaptedSale> sales) {
+        return sales.stream().map(CsvAdaptedSale::getContentFromSale).collect(Collectors.toList());
+    }
+
+    /**
+     * Split a list of list of string representing the contents of sale list into a list of Csv-friendly adapted sale
+     *
+     * @param contents A list of list of string representing the contents of sale list
+     * @return A list of Csv-friendly adapted sale containing the content of the list.
+     */
+    public static List<CsvAdaptedSale> splitContentsToSaleList(List<List<String>> contents)
+            throws IllegalValueException {
+        List<CsvAdaptedSale> sales = new ArrayList<>();
+        for (List<String> content : contents) {
+            sales.add(CsvAdaptedSale.splitContentToSale(content));
+        }
+        return sales;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CsvSerializableSaleList)) {
+            return false;
+        }
+        return sales.equals(((CsvSerializableSaleList) other).sales);
+    }
 
     @Override
     public List<List<String>> getContents() {
@@ -36,4 +134,6 @@ public class CsvSerializableSaleList implements CsvSerializableData {
     public CsvSerializableData createInstance(List<List<String>> contents) {
         return new CsvSerializableSaleList(contents);
     }
+
+
 }

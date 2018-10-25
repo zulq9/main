@@ -15,7 +15,7 @@ import seedu.inventory.model.item.Item;
 public class CsvSerializableItemList implements CsvSerializableData {
     public static final String DATA_TYPE = "Item";
     public static final String[] FIELDS = {"name", "price", "quantity", "sku", "image", "tags"};
-    public static final String MESSAGE_DUPLICATE_ITEM = "Inventory list contains duplicate item(s).";
+    public static final String MESSAGE_DUPLICATE_ITEM = "Item list contains duplicate item(s).";
 
     private List<CsvAdaptedItem> items;
     private List<List<String>> contents;

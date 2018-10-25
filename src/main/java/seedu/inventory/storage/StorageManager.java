@@ -139,6 +139,19 @@ public class StorageManager extends ComponentManager implements Storage {
         reportingStorage.exportItemList(itemList, filePath);
     }
 
+    @Override
+    public Optional<ReadOnlySaleList> importSaleList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to import sale list from file: " + filePath);
+        return reportingStorage.importSaleList(inventory, filePath);
+    }
+
+    @Override
+    public void exportSaleList(ReadOnlySaleList saleList, Path filePath) throws IOException {
+        logger.fine("Attempting to export sale list to file: " + filePath);
+        reportingStorage.exportSaleList(saleList, filePath);
+    }
+
 
     // ================ Event handler ==================================
 
