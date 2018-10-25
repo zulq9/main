@@ -24,7 +24,7 @@ import seedu.inventory.model.UserPrefs;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
  * and unit tests for EditItemCommand.
  */
-public class ImportCsvItemsCommandTest {
+public class ExportCsvCommandTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -41,18 +41,18 @@ public class ImportCsvItemsCommandTest {
 
     @Test
     public void execute_validFilePath_success() {
-        Path filePath = Paths.get(getTempFilePath("validImport.csv"));
-        ImportCsvItemsCommand command = new ImportCsvItemsCommand(filePath);
-        String expectedMessage = String.format(ImportCsvItemsCommand.MESSAGE_SUCCESS, filePath);
+        Path filePath = Paths.get(getTempFilePath("validExport.csv"));
+        ExportCsvCommand command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
+        String expectedMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_ITEMS, filePath);
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
     }
 
     @Test
     public void execute_invalidFileExtension_throwsCommandException() {
-        Path filePath = Paths.get(getTempFilePath("invalidImport.notcsv"));
-        ImportCsvItemsCommand command = new ImportCsvItemsCommand(filePath);
-        String expectedMessage = String.format(ImportCsvItemsCommand.MESSAGE_INVALID_CSV_FILEPATH, filePath);
+        Path filePath = Paths.get(getTempFilePath("invalidExport.notcsv"));
+        ExportCsvCommand command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
+        String expectedMessage = String.format(ExportCsvCommand.MESSAGE_INVALID_CSV_FILEPATH, filePath);
 
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -60,25 +60,27 @@ public class ImportCsvItemsCommandTest {
 
     @Test
     public void equals() {
-        final Path tempPath = Paths.get(getTempFilePath("validImport.csv"));
-        final ImportCsvItemsCommand standardCommand = new ImportCsvItemsCommand(tempPath);
+        final Path tempPath = Paths.get(getTempFilePath("validExport.csv"));
+        final ExportCsvCommand standardCommand = new ExportCsvCommand(tempPath)
+                .setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
 
         // same values -> returns true
-        ImportCsvItemsCommand commandWithSameValues = new ImportCsvItemsCommand(tempPath);
+        ExportCsvCommand commandWithSameValues = new ExportCsvCommand(tempPath)
+                .setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals((ImportCsvItemsCommand) null));
+        assertFalse(standardCommand.equals((ExportCsvCommand) null));
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different filepath -> returns false
-        Path differentPath = Paths.get(getTempFilePath("invalidImport.csv"));
-        assertFalse(standardCommand.equals(new ImportCsvItemsCommand(differentPath)));
+        Path differentPath = Paths.get(getTempFilePath("invalidExport.csv"));
+        assertFalse(standardCommand.equals(new ExportCsvCommand(differentPath)));
     }
 
 }

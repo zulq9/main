@@ -4,7 +4,7 @@ import seedu.inventory.commons.events.BaseEvent;
 import seedu.inventory.model.ReadOnlyItemList;
 
 /**
- * Indicates an exception during a file saving
+ * Indicates an update of item list.
  */
 public class ItemListUpdateEvent extends BaseEvent {
 

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
@@ -39,6 +40,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetSaleList(ReadOnlySaleList newData) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         throw new AssertionError("This method should not be called.");
     }
@@ -50,6 +56,16 @@ public class ModelStub implements Model {
 
     @Override
     public void importItemList(Path filePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void exportSaleList(Path filePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void importSaleList(Path filePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -205,6 +221,11 @@ public class ModelStub implements Model {
 
     @Override
     public void handleItemListUpdateEvent(ItemListUpdateEvent iue) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void handleSaleListUpdateEvent(SaleListUpdateEvent iue) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -21,11 +21,11 @@ import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.ExportCsvCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ImportCsvItemsCommand;
+import seedu.inventory.logic.commands.ImportCsvCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectItemCommand;
@@ -133,14 +133,14 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_exportCsvItems() throws Exception {
-        assertTrue(parser.parseCommand(ExportCsvItemsCommand.COMMAND_WORD + " f/.csv")
-                instanceof ExportCsvItemsCommand);
+        assertTrue(parser.parseCommand(ExportCsvCommand.COMMAND_WORD_ITEMS + " f/.csv")
+                instanceof ExportCsvCommand);
     }
 
     @Test
     public void parseCommand_importCsvItems() throws Exception {
-        assertTrue(parser.parseCommand(ImportCsvItemsCommand.COMMAND_WORD + " f/.csv")
-                instanceof ImportCsvItemsCommand);
+        assertTrue(parser.parseCommand(ImportCsvCommand.COMMAND_WORD_ITEMS + " f/.csv")
+                instanceof ImportCsvCommand);
     }
 
     @Test

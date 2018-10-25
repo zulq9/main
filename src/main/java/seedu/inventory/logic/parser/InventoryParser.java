@@ -12,11 +12,11 @@ import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.ExportCsvCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ImportCsvItemsCommand;
+import seedu.inventory.logic.commands.ImportCsvCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.LoginCommand;
 import seedu.inventory.logic.commands.RedoCommand;
@@ -120,11 +120,13 @@ public class InventoryParser {
         case ListSaleCommand.COMMAND_WORD:
             return new ListSaleCommand();
 
-        case ExportCsvItemsCommand.COMMAND_WORD:
-            return new ExportCsvItemsCommandParser().parse(arguments);
+        case ExportCsvCommand.COMMAND_WORD_ITEMS:
+        case ExportCsvCommand.COMMAND_WORD_SALES:
+            return new ExportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
-        case ImportCsvItemsCommand.COMMAND_WORD:
-            return new ImportCsvItemsCommandParser().parse(arguments);
+        case ImportCsvCommand.COMMAND_WORD_ITEMS:
+        case ImportCsvCommand.COMMAND_WORD_SALES:
+            return new ImportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

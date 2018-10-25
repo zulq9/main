@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -40,6 +41,11 @@ public interface Model {
     void resetItemList(ReadOnlyItemList newItemList);
 
     /**
+     * Replaces the item list in backing model with the provided new sale list.
+     */
+    void resetSaleList(ReadOnlySaleList newSaleList);
+
+    /**
      * Returns the Inventory
      */
     ReadOnlyInventory getInventory();
@@ -57,6 +63,18 @@ public interface Model {
      * @param filePath The path to import.
      */
     void importItemList(Path filePath);
+
+    /**
+     * Export the sale list to the file path.
+     * @param filePath The path to export.
+     */
+    void exportSaleList(Path filePath);
+
+    /**
+     * Import the sale list from the file path.
+     * @param filePath The path to import.
+     */
+    void importSaleList(Path filePath);
 
     //=========== Item API =============================================================
 
@@ -256,5 +274,10 @@ public interface Model {
      * Handler function of ItemListUpdateEvent.
      */
     void handleItemListUpdateEvent(ItemListUpdateEvent event);
+
+    /**
+     * Handler function of SaleListUpdateEvent.
+     */
+    void handleSaleListUpdateEvent(SaleListUpdateEvent event);
 
 }

@@ -22,8 +22,11 @@ import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.SaleListExportEvent;
+import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -75,6 +78,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetSaleList(ReadOnlySaleList newSaleList) {
+        saleList.resetData(newSaleList);
+        indicateInventoryChanged();
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         return versionedInventory;
     }
@@ -104,11 +113,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void exportItemList(Path filePath) {
         raise(new ItemListExportEvent(versionedInventory, filePath));
+        indicateAccessItem();
     }
 
     @Override
     public void importItemList(Path filePath) {
         raise(new ItemListImportEvent(filePath));
+        indicateAccessItem();
+    }
+
+    @Override
+    public void exportSaleList(Path filePath) {
+        raise(new SaleListExportEvent(saleList, filePath));
+        indicateAccessSale();
+    }
+
+    @Override
+    public void importSaleList(Path filePath) {
+        raise(new SaleListImportEvent(versionedInventory, filePath));
+        indicateAccessSale();
     }
 
     //=========== Item  ====================================================================================
@@ -379,6 +402,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleItemListUpdateEvent(ItemListUpdateEvent event) {
         resetItemList(event.itemList);
+    }
+
+    @Override
+    @Subscribe
+    public void handleSaleListUpdateEvent(SaleListUpdateEvent event) {
+        resetSaleList(event.saleList);
     }
 
 }
