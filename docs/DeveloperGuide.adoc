@@ -267,9 +267,9 @@ The undo/redo mechanism is facilitated by `VersionedInventory`.
 It extends `Inventory` with an undo/redo history, stored internally as an `inventoryStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedInventory#commit()` -- Saves the current image book state in its history.
-* `VersionedInventory#undo()` -- Restores the previous image book state from its history.
-* `VersionedInventory#redo()` -- Restores a previously undone image book state from its history.
+* `VersionedInventory#commit()` -- Saves the current inventory state in its history.
+* `VersionedInventory#undo()` -- Restores the previous inventory state from its history.
+* `VersionedInventory#redo()` -- Restores a previously undone inventory state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitInventory()`, `Model#undoInventory()` and `Model#redoInventory()` respectively.
 
@@ -331,7 +331,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of image book states.
+* **Alternative 1 (current choice):** Use a list to store the history of inventory states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedInventory`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
