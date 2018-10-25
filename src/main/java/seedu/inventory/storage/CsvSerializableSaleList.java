@@ -14,9 +14,9 @@ import seedu.inventory.model.sale.Sale;
  * An immutable sale list that is serializable to CSV format
  */
 public class CsvSerializableSaleList implements CsvSerializableData {
-    public static final String DATA_TYPE = "Sales";
+    public static final String DATA_TYPE = "Sale";
     public static final String[] FIELDS = {"saleId", "saleSku", "saleQuantity", "saleDate"};
-    public static final String MESSAGE_DUPLICATE_ITEM = "Sale list contains duplicate sale(s).";
+    public static final String MESSAGE_DUPLICATE_SALE = "Sale list contains duplicate sale(s).";
 
     private ReadOnlyInventory inventory;
     private List<CsvAdaptedSale> sales;
@@ -71,7 +71,7 @@ public class CsvSerializableSaleList implements CsvSerializableData {
         for (CsvAdaptedSale p : sales) {
             Sale sale = p.toModelType(inventory);
             if (saleList.hasSale(sale)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SALE);
             }
             saleList.addSale(sale);
         }

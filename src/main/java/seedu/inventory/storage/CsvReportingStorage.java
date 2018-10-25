@@ -68,7 +68,7 @@ public class CsvReportingStorage implements ReportingStorage {
         }
         try {
             CsvSerializableSaleList sales = new CsvSerializableSaleList(CsvUtil.getDataFromFile(filePath,
-                    new CsvSerializableItemList()));
+                    new CsvSerializableSaleList()));
             sales.setInventory(inventory);
             return Optional.of(sales.toModelType());
         } catch (UnrecognizableDataException ude) {

@@ -1,5 +1,7 @@
 package seedu.inventory.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +36,7 @@ public class CsvAdaptedSale {
         this.saleId = saleId;
         this.saleSku = saleSku;
         this.saleQuantity = saleQuantity;
-        this.saleDate = saleDate;
+        this.saleDate = saleDate == null ? null : saleDate.replaceAll("/", "-");
     }
 
 
@@ -57,6 +59,7 @@ public class CsvAdaptedSale {
      * @throws IllegalValueException if there were any data constraints violated in the adapted item
      */
     public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
+        requireNonNull(inventory);
         if (saleId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SaleId.class.getSimpleName()));
         }
@@ -75,13 +78,9 @@ public class CsvAdaptedSale {
 
         Item modelSaleItem;
 
-        try {
-            modelSaleItem = inventory.getItemBySku(saleSku);
+        modelSaleItem = inventory.getItemBySku(saleSku);
 
-            if (modelSaleItem == null) {
-                throw new IllegalValueException(MISSING_ITEM);
-            }
-        } catch (NullPointerException e) {
+        if (modelSaleItem == null) {
             throw new IllegalValueException(MISSING_ITEM);
         }
 
@@ -103,11 +102,11 @@ public class CsvAdaptedSale {
                     SaleDate.class.getSimpleName()));
         }
 
-        if (!SaleDate.isValidSaleDate(saleDate.replaceAll("/", "-"))) {
+        if (!SaleDate.isValidSaleDate(saleDate)) {
             throw new IllegalValueException(SaleDate.MESSAGE_DATE_CONSTRAINTS);
         }
 
-        final SaleDate modelSaleDate = new SaleDate(saleDate.replaceAll("/", "-"));
+        final SaleDate modelSaleDate = new SaleDate(saleDate);
 
         return new Sale(modelSaleId, modelSaleItem, modelQuantity, modelSaleDate);
     }
@@ -154,10 +153,10 @@ public class CsvAdaptedSale {
             return false;
         }
 
-        CsvAdaptedSale otherItem = (CsvAdaptedSale) other;
-        return Objects.equals(saleId, otherItem.saleId)
-                && Objects.equals(saleDate, otherItem.saleDate)
-                && Objects.equals(saleQuantity, otherItem.saleQuantity)
-                && Objects.equals(saleSku, otherItem.saleSku);
+        CsvAdaptedSale otherSale = (CsvAdaptedSale) other;
+        return Objects.equals(saleId, otherSale.saleId)
+                && Objects.equals(saleDate, otherSale.saleDate)
+                && Objects.equals(saleQuantity, otherSale.saleQuantity)
+                && Objects.equals(saleSku, otherSale.saleSku);
     }
 }
