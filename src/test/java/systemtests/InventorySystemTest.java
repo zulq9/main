@@ -4,14 +4,10 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.inventory.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.inventory.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.inventory.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.inventory.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.inventory.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,18 +26,16 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.inventory.MainApp;
 import seedu.inventory.TestApp;
 import seedu.inventory.commons.core.EventsCenter;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.ClearCommand;
-import seedu.inventory.logic.commands.FindCommand;
-import seedu.inventory.logic.commands.ListCommand;
-import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.FindItemCommand;
+import seedu.inventory.logic.commands.ListItemCommand;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.testutil.TypicalItems;
-import seedu.inventory.ui.BrowserPanel;
 import seedu.inventory.ui.CommandBox;
 
 /**
@@ -142,7 +136,7 @@ public abstract class InventorySystemTest {
      * Displays all items in the inventory.
      */
     protected void showAllItems() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListItemCommand.COMMAND_WORD);
         assertEquals(getModel().getInventory().getItemList().size(), getModel().getFilteredItemList().size());
     }
 
@@ -150,7 +144,7 @@ public abstract class InventorySystemTest {
      * Displays all items with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showItemsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindItemCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredItemList().size() < getModel().getInventory().getItemList().size());
     }
 
@@ -158,7 +152,7 @@ public abstract class InventorySystemTest {
      * Selects the item at {@code index} of the displayed list.
      */
     protected void selectItem(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectItemCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
@@ -206,27 +200,22 @@ public abstract class InventorySystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the item in the item list panel at
+     * Asserts that the browser's image is changed to display the details of the item in the item list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getItemListPanel().navigateToCard(getItemListPanel().getSelectedCardIndex());
-        String selectedCardName = getItemListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+        String selectedCardImage = getItemListPanel().getHandleToSelectedCard().getImage();
+        String imagePath = "file:" + selectedCardImage;
+        assertEquals(imagePath, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the item list panel remain unchanged.
+     * Asserts that the browser's image and the selected card in the item list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
@@ -277,7 +266,7 @@ public abstract class InventorySystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getItemListPanel(), getModel().getFilteredItemList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

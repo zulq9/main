@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_ITEM_SUCCESS;
+import static seedu.inventory.logic.commands.SelectItemCommand.MESSAGE_SELECT_ITEM_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -14,11 +14,11 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
 
-public class SelectCommandSystemTest extends InventorySystemTest {
+public class SelectItemCommandSystemTest extends InventorySystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -26,12 +26,12 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         /* Case: select the first card in the item list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + "   ";
+        String command = "   " + SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_ITEM);
 
         /* Case: select the last card in the item list -> selected */
         Index itemCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + itemCount.getOneBased();
+        command = SelectItemCommand.COMMAND_WORD + " " + itemCount.getOneBased();
         assertCommandSuccess(command, itemCount);
 
         /* Case: undo previous selection -> rejected */
@@ -46,7 +46,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
 
         /* Case: select the middle card in the item list -> selected */
         Index middleIndex = getMidIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+        command = SelectItemCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
         /* Case: select the current selected card -> selected */
@@ -59,42 +59,42 @@ public class SelectCommandSystemTest extends InventorySystemTest {
          */
         showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* Case: filtered item list, select index within bounds of inventory and item list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredItemList().size());
-        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+        command = SelectItemCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " " + 0,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " " + -1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectItemCommand.MESSAGE_USAGE));
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " 1 abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectItemCommand.MESSAGE_USAGE));
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty inventory -> rejected */
         deleteAllItems();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
+        assertCommandFailure(SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
                 MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 

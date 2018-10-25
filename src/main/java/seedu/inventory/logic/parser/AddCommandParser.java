@@ -11,7 +11,7 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.AddCommand;
+import seedu.inventory.logic.commands.AddItemCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
@@ -22,23 +22,23 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddItemCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<AddItemCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddItemCommand
+     * and returns an AddItemCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddItemCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_SKU,
                         PREFIX_IMAGE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_IMAGE, PREFIX_QUANTITY, PREFIX_SKU)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -50,7 +50,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Item item = new Item(name, price, quantity, sku, image, tagList);
 
-        return new AddCommand(item);
+        return new AddItemCommand(item);
     }
 
     /**

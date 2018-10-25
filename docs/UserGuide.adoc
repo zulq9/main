@@ -19,72 +19,71 @@ By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
 == Introduction
 // tag::projectIntro[]
-Inventory manager is a *desktop application* designed for *Small to Medium Enterprises (SMEs)* to *manage their shop
-inventory*. It allows users to perform multiple inventory management tasks such as _creating sales_, _generating
-reports_, _creating purchase orders_ and more.
+Let Inventory Manager do the hard work of managing the shop inventory while you focus on making money.
 
-The main purpose of the application is to provide *good inventory control* for SMEs so that they are
-able to run an *efficient business* and make money in the process.
+Inventory Manager aims to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). Designed to be easy
+to use, Inventory Manager gives you control over your business right from your keyboard.
 
+Inventory Manager comes with features to manage the shop inventory such as creating sale orders, purchase orders,
+generating reports and more. With user authentication put in place, it gives SMEs greater control over users'
+access to the application too.
 
-More importantly, it is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still
-having the benefits of a Graphical User Interface (GUI).
-
-Ensure inventory control for your company now by jumping to <<Quick Start>>. Enjoy!
-
+Get control over your shop's inventory now by heading over to <<Quick Start>>. Enjoy!
 // end::projectIntro[]
 
 == About
-This guide introduces you to Inventory Manager, provides set up instructions and  gives you an overview of
-the _basic_ and _advanced_ feature.
+
+This guide introduces you to Inventory Manager, provides set up instructions and gives you an overview of
+the features available.
 
 This document does not assume any prior technical knowledge, and the glossary explains any technical terms.
 Please check the FAQ section for frequent user issues.
-
-To set up Inventory Manager and try out the features, jump to <<Quick Start>>.
-
 
 == Quick Start
 
 This section will help you get started with Inventory Manager in 4 easy steps:
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have link:https://www.java.com/en/download/help/version_manual.xml[Java version 9] or later installed in your Computer.
 .  Download the latest `InventoryManager.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for Inventory Manager.
+.  Double-click the file to start the application. Inventory Manager should show up on your screen in a couple of seconds.
 +
-image::Ui.png[width="790"]
-+
-Figure 1. The User Interface
+image::doc-ui.png[width="790"]
+_Figure 1. The Graphical User Interface on starting up._
 
 *Congratulation! you have successfully set up Inventory Manager*. +
 
-You can now type a command in the command box  and press kbd:[Enter] to execute it. +
+You can now type a command in the command box and press kbd:[Enter] to execute it. +
+
+image::doc-command-box.png[width="790"]
+_Figure 2. The command box in Inventory Manager._
 
 A good start is entering the command *`help`* and pressing kbd:[Enter], it will open the help window.
 
-Some example commands you can try:
+Below are some other commands you can try after logging into the system:
 
-* *`list-item`* : lists all items
-* **`add-item`**`n/IPhone X q/1000` : adds the item `Iphone X` to the inventory.
-* *`exit`* : exits the app
+* *`list-item`* : lists all items available
+* *`exit`* : exits the application
 
-Refer to <<Features>> for details of each available commands.
+You can refer to <<Features>> for details of each available features in Inventory Manager.
 
 [[Features]]
 == Features
 
-Each feature has it's own unique command to be entered  in the Command Box.
+Each feature has it's own unique command to be entered into the command box.
 
-=== Command Format
+****
+Command Format Explained
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. For example `add n/NAME`. `NAME` is a parameter which can be used as `add n/IPhone X`.
 * Items in square brackets are optional. For example `add n/NAME [t/TAG]` can be used as `add n/IPhone X t/Expensive` or as `n/IPhone X`.
 * Items with `…`​ after them can be zero or more times. For example `add n/NAME [t/TAG]...` can be used as `add n/IPhone X` (i.e. 0 times) or `add n/IPhone X t/Firmware t/ExpiryDate` (i.e. 2 times).
 * Parameters can be in any order. For example, if the command specifies `add n/NAME q/QUANTITY`, `add q/QUANTITY n/NAME` is also acceptable.
+****
 
+=== General
 
-=== Basic Features
+Below are the general commands available for Inventory Manager.
 
 ==== Viewing help : `help`
 
@@ -108,12 +107,12 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the Inventory Manager's content (`add`, `delete`, `edit` and `clear`).
+Supported undoable commands: `add-item`, `delete-item`, `edit-item` and `clear`.
 ====
 
 Examples:
 
-* `delete 1` +
+* `delete-item 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
 
@@ -122,10 +121,10 @@ Examples:
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete-item 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete-item 1` command) +
 
 ==== Redoing the previously undone command : `redo`
 
@@ -134,15 +133,15 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
+* `delete-item 1` +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 
-* `delete 1` +
+* `delete-item 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-item 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
@@ -152,7 +151,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the Inventory Manager. +
+Clears all entries from Inventory Manager. +
 Format: `clear`
 
 ==== Exiting the program : `exit`
@@ -167,7 +166,7 @@ There is no need to save manually.
 
 // tag::accountsManagement[]
 === Authentication
-Users authenticate their identities prior using other functions of the applications and able to change their password.
+Users authenticate their identities prior to using other functions of the applications.
 
 The following commands are mainly used for admin to manage the users and for users login.
 
@@ -242,189 +241,7 @@ Examples:
 
 // end::userManagement[]
 
-// tag::salesManagement[]
-=== Sale Orders Management
-
-Staff users and manager users can create sale orders on the system using the commands below.
-
-==== Creating a sale order : `add-sale`
-
-This command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
-item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
-
-Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
-Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
-
-Format: `add-sale s/SKU q/QTY`
-
-Examples:
-
-* User sold 5 quantity of a product with SKU 0123. +
-`add-sale s/0123 q/5`
-* User sold 1 quantity of a product with SKU 456. +
-`add-sale s/456 q/1`
-
-==== Deleting a sale order : `delete-sale`
-
-This command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
-the inventory quantity deducted automatically. User will need to ensure that the entered sale ID is valid.
-
-Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
-
-Format: `delete-sale SALE-ID`
-
-Examples:
-
-* User wishes to delete sale ID 12. +
-`delete-sale 12`
-* User wishes to delete sale ID 123. +
-`delete-sale 123`
-
-==== Listing sale orders : `list-sale`
-
-This command allows the user to list all sale orders in Inventory Manager.
-
-Format: `list-sale`
-
-Example:
-
-* User wishes to list all sale orders. +
-`list-sale`
-// end::salesManagement[]
-
-=== Reports Management
-
-The following commands are mainly used to export and import data for report analysis.
-// tag::exportimport[]
-==== Export to CSV: `export-csv`
-****
-* Export the data to the file specified by `FILEPATH`.
-* `FILEPATH` must end with an extension of `.csv`.
-* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
-* Existing data file at `FILEPATH` will be overwritten.
-* The parent directories will be created if they do not exist.
-****
-
-===== Export sales report to CSV: `export-csv-sales`
-
-Export the sales report in CSV format to the filepath given. +
-Format: `export-csv-sales f/FILEPATH`
-
-===== Export list of items to CSV : `export-csv-items`
-
-Export the list of items in CSV format to the filepath given. +
-Format: `export-csv-items f/FILEPATH`
-
-===== Export list of users to CSV: `export-csv-users`
-
-Export the list of users in CSV format to the filepath given. +
-Format: `export-csv-users f/FILEPATH`
-
-===== Export list of purchase orders to CSV: `export-csv-orders`
-
-Export the list of orders in CSV format to the filepath given. +
-Format: `export-csv-orders f/FILEPATH`
-
-==== Export entire data to .im file: `export-im`
-Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
-Format: `export-im f/FILEPATH`
-****
-* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
-* `FILEPATH` must end with an extension of `.im`.
-* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
-* Existing data file at `FILEPATH` will be overwritten.
-* The parent directories will be created if they do not exist.
-****
-
-==== Import from CSV: `import-csv`
-****
-* Imports the data from the file specified by `FILEPATH`.
-* `FILEPATH` must end with an extension of `.csv`.
-* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
-* Original data in *Inventory Manager* will be overwritten.
-* Data in the CSV file must be recognizable by *Inventory Manager*.
-****
-===== Import sales report from CSV: `import-csv-sales`
-
-Import the sales report in CSV format from the filepath given. +
-Format: `import-csv-sales f/FILEPATH`
-
-===== Import list of items from CSV : `import-csv-items`
-
-Import the list of items in CSV format from the filepath given. +
-Format: `import-csv-items f/FILEPATH`
-
-===== Import list of users from CSV: `import-csv-users`
-
-Import the list of users in CSV format from the filepath given. +
-Format: `import-csv-users f/FILEPATH`
-
-===== Import list of purchase orders from CSV: `import-csv-orders`
-
-Import the list of orders in CSV format from the filepath given. +
-Format: `import-csv-orders f/FILEPATH`
-
-==== Import entire data from .im file: `import-im`
-Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
-Format: `import-im f/FILEPATH`
-****
-* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
-* `FILEPATH` must end with an extension of `.im`.
-* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
-* Original data in *Inventory Manager* will be overwritten.
-* Data in the .im file must be recognizable by *Inventory Manager*.
-****
-// end::exportimport[]
-
-=== Purchase Order Management
-
-The following commands are mainly used for staff and manager to manage purchase order.
-// tag::purchaseOrderManagement[]
-==== Generate purchase order : `generate-po`
-
-Generate purchase order for an item. +
-The id of a purchase order and the date will be auto generated. +
-Format: `generate-po i/SKU_NUMBER q/QUANTITY sp/SUPPLIER rd/REQUIRED_DATE [t/TAG]...`
-
-Example:
-
-* `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
-
-==== List all purchase order : `list po`
-
-Shows a list of all the purchase order.
-Format: `list-po`
-
-==== List approved purchase order : `list approved-po`
-
-Shows a list of all the approved purchase order.
-Format: `list approved-po`
-
-==== List pending purchase order : `list pending-po`
-
-Shows a list of all the pending purchase order.
-Format: `list pending-po`
-
-==== Approve purchase order : `approve`
-
-Approve a purchase order.
-Format: `approve id/PO_ID`
-
-Example:
-
-* `approve id/12`
-
-==== Reject purchase order : `reject`
-
-Reject a purchase order along with a reason description.
-Format: `reject id/PO_ID d/DESCRIPTION`
-
-Example:
-
-* `reject id/12 d/Only 100 amount is allowed`
-
-// end::purchaseOrderManagement[]
-
+// tag::inventoryManagement[]
 === Inventory Management
 
 The following commands are mainly used for users to manage the item in the inventory.
@@ -521,80 +338,289 @@ Selects the 2nd item in the inventory.
 * `find-item IPhone X` +
 `select 1` +
 Selects the 1st item in the results of the `find-item` command.
+// end::inventoryManagement[]
+
+// tag::salesManagement[]
+=== Sale Orders Management
+
+All authenticated users can manage sale orders on the system using the commands below.
+
+==== Creating a sale order : `add-sale`
+
+The `add-sale` command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
+item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
+
+Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
+Entering a quantity that is greater than the available item quantity will result in an error shown on screen too.
+
+image::doc-add-sale-failed.png[width="790"]
+_Figure X. Error shown on screen when creating a sale order with invalid SKU._
+
+Format: `add-sale s/SKU q/QTY`
+
+Example:
+
+* User sold 5 quantity of a product with SKU 0123. +
+`add-sale s/0123 q/5`
+
+==== Deleting a sale order : `delete-sale`
+
+The `delete-sale` command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
+the inventory quantity deducted automatically. User will need to ensure that the entered sale ID is valid.
+
+Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen.
+
+image::doc-delete-sale-failed.png[width="790"]
+_Figure X. Error shown on screen when deleting a sale order that cannot be found._
+
+Format: `delete-sale SALE-ID`
+
+Example:
+
+* User wishes to delete sale ID 12. +
+`delete-sale 12`
+
+==== Listing sale orders : `list-sale`
+
+The `list-sale` command allows the user to list all sale orders in Inventory Manager.
+
+image::doc-list-sale.png[width="790"]
+_Figure X. All sales in Inventory Manager listed on screen._
+
+Format: `list-sale`
+
+Example:
+
+* User wishes to list all sale orders. +
+`list-sale`
+// end::salesManagement[]
+
+=== Purchase Orders Management
+
+The following commands are mainly used for staff and manager to manage purchase order.
+// tag::purchaseOrderManagement[]
+==== Generate purchase order : `generate-po`
+
+Generate purchase order for an item. +
+The id of a purchase order and the date will be auto generated. +
+Format: `generate-po i/SKU_NUMBER q/QUANTITY sp/SUPPLIER rd/REQUIRED_DATE [t/TAG]...`
+
+Example:
+
+* `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+
+==== List all purchase order : `list po`
+
+Shows a list of all the purchase order.
+Format: `list-po`
+
+==== List approved purchase order : `list approved-po`
+
+Shows a list of all the approved purchase order.
+Format: `list approved-po`
+
+==== List pending purchase order : `list pending-po`
+
+Shows a list of all the pending purchase order.
+Format: `list pending-po`
+
+==== Approve purchase order : `approve`
+
+Approve a purchase order.
+Format: `approve id/PO_ID`
+
+Example:
+
+* `approve id/12`
+
+==== Reject purchase order : `reject`
+
+Reject a purchase order along with a reason description.
+Format: `reject id/PO_ID d/DESCRIPTION`
+
+Example:
+
+* `reject id/12 d/Only 100 amount is allowed`
+
+// end::purchaseOrderManagement[]
+
+// tag::exportimport[]
+=== Reports Management
+
+The following commands are mainly used to export and import data for report analysis.
+
+==== Export to CSV: `export-csv`
+****
+* Export the data to the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
+
+===== Export sales report to CSV: `export-csv-sales`
+
+Export the sales report in CSV format to the filepath given. +
+Format: `export-csv-sales f/FILEPATH`
+
+===== Export list of items to CSV : `export-csv-items`
+
+Export the list of items in CSV format to the filepath given. +
+Format: `export-csv-items f/FILEPATH`
+
+===== Export list of users to CSV: `export-csv-users`
+
+Export the list of users in CSV format to the filepath given. +
+Format: `export-csv-users f/FILEPATH`
+
+===== Export list of purchase orders to CSV: `export-csv-orders`
+
+Export the list of orders in CSV format to the filepath given. +
+Format: `export-csv-orders f/FILEPATH`
+
+==== Export entire data to .im file: `export-im`
+Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `export-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
+* Existing data file at `FILEPATH` will be overwritten.
+* The parent directories will be created if they do not exist.
+****
+
+==== Import from CSV: `import-csv`
+****
+* Imports the data from the file specified by `FILEPATH`.
+* `FILEPATH` must end with an extension of `.csv`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Original data in *Inventory Manager* will be overwritten.
+* Data in the CSV file must be recognizable by *Inventory Manager*.
+****
+===== Import sales report from CSV: `import-csv-sales`
+
+Import the sales report in CSV format from the filepath given. +
+Format: `import-csv-sales f/FILEPATH`
+
+===== Import list of items from CSV : `import-csv-items`
+
+Import the list of items in CSV format from the filepath given. +
+Format: `import-csv-items f/FILEPATH`
+
+===== Import list of users from CSV: `import-csv-users`
+
+Import the list of users in CSV format from the filepath given. +
+Format: `import-csv-users f/FILEPATH`
+
+===== Import list of purchase orders from CSV: `import-csv-orders`
+
+Import the list of orders in CSV format from the filepath given. +
+Format: `import-csv-orders f/FILEPATH`
+
+==== Import entire data from .im file: `import-im`
+Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+Format: `import-im f/FILEPATH`
+****
+* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* `FILEPATH` must end with an extension of `.im`.
+* `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
+* Original data in *Inventory Manager* will be overwritten.
+* Data in the .im file must be recognizable by *Inventory Manager*.
+****
+// end::exportimport[]
 
 == FAQ
 
 *Q*: _How do I transfer my data to another Computer?_ +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
+*A*: Install Inventory Manager in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
 
 *Q*: _How do I save my data?_ +
 *A*: There is no need to save manually because the state of the database is saved in the hard disk automatically after any command that changes the data.
 
 *Q*: _How can I report a bug or suggest improvements to this application?_ +
-*A*: Open an issue https://github.com/CS2103-AY1819S1-W14-4/main/issues[here]!
+*A*: You can open an issue https://github.com/CS2103-AY1819S1-W14-4/main/issues[here].
+
+*Q*: _I forgot my password, how do I reset?_ +
+*A*: Please contact your administrator to assist you in resetting your password.
 
 == Command Summary
 
-The following table summarises Inventory Manager commands along with examples:
+The following table summarises commands available in Inventory Manager, along with examples:
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=====================================================================================================
 |Command | Format | Example
+3+| *General*
 |`Clear` |`clear` | `clear`
 |`Help` |`help` | `help`'
 |`History` |`history` | `history`
 |`Undo`| `undo`|`undo`
 |`Redo`| `Redo`|`Redo`
-// Items
-|`Add item into inventory` | `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_PATH [t/TAG]...` | `add-item n/iPhone XR p/1500.00 q/70 s/apple-iphone-xr i/docs/images/iphone.jpg t/apple t/smartphone`
-|`Delete an item from inventory` | `delete-item INDEX` | `delete-item 3`
-|`Edit an existing item in inventory` | `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_PATH] [t/TAG]...` | `edit-item 2 p/1600 q/300`
-|`Find an existing item in inventory` | `find-item KEYWORD [MORE_KEYWORDS]` | `find-item iPhone Samsung`
-|`List all existing items in inventory` | `list-item` | `list-item`
-|`Select an item in inventory` | `select INDEX` | `select 2`
-// Account Management
+// Authentication
+3+| *Authentication*
 |`Login` |`login u/USERNAME p/PASSWORD` |`login u/user111 p/password11`
 |`Change Password` |`change-password o/OLD_PASSWORD n/NEW_PASSWORD` |`change-password o/password11 n/wacaonima`
 |`Logout` |`logout` |`logout`
 // User Management
+3+| *Users Management*
 |`Add User` |`add-user n/NAME u/USERNAME p/PASSWORD r/ROLE` |`add-user n/Zulqarnain u/zulq9 p/zulcomel r/admin`
 |`List User` |`list-user` |`list-user`
 |`Update User` |`update-user i/INDEX n/NAME u/USERNAME p/PASSWORD r/ROLE` |`update-user i/2 n/Muhammad Zulqarnain u/zulq9 p/zulsenpai r/admin`
 |`Remove User` |`delete-user i/INDEX` |`delete-user i/3`
+// Inventory Management
+3+| *Inventory Management*
+|`Add Item` | `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_PATH [t/TAG]...` | `add-item n/iPhone XR p/1500.00 q/70 s/apple-iphone-xr i/docs/images/iphone.jpg t/apple t/smartphone`
+|`Delete Item` | `delete-item INDEX` | `delete-item 3`
+|`Edit Existing Item` | `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_PATH] [t/TAG]...` | `edit-item 2 p/1600 q/300`
+|`Find Existing Item` | `find-item KEYWORD [MORE_KEYWORDS]` | `find-item iPhone Samsung`
+|`List All Items` | `list-item` | `list-item`
+|`Select Item` | `select INDEX` | `select 2`
 // Sales Management
+3+| *Sale Orders Management*
 |`Add Sale Order`|`add-sale s/SKU q/QTY`|`add-sale s/0123 q/1`
 |`Delete Sale Order`| `delete-sale SALE-ID` | `delete-sale 1`
 |`List Sale Orders`| `list-sale` | `list-sale`
 // Purchase order management
-|`Generate purchase order`| `generate-po` | `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
-|`List all purchase order`|  `list-po` |  `list-po`
-|`List approved purchase order`|  `list approved-po` |  `list approved-po`
-|`List pending purchase order`|  `list pending-po` |  `list pending-po`
-|`Approve purchase order`|  `approve` | `approve id/12`
-|`Reject purchase order`|  `reject` | `reject id/12 d/Only 100 amount is allowed`
+3+| *Purchase Orders Management*
+|`Generate Purchase Order`| `generate-po` | `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
+|`List All Purchase Orders`|  `list-po` |  `list-po`
+|`List Approved Purchase Orders`|  `list approved-po` |  `list approved-po`
+|`List Pending Purchase Orders`|  `list pending-po` |  `list pending-po`
+|`Approve Purchase Order`|  `approve` | `approve id/12`
+|`Reject Purchase Order`|  `reject` | `reject id/12 d/Only 100 amount is allowed`
 // Report
-|`Export sales report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv`
-|`Export list of items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/C:/out/items.csv`
-|`Export list of users to CSV` |`export-csv-users f/FILEPATH` |`export-csv-users f/C:/out/users.csv`
-|`Export list of orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv`
-|`Export entire data to .im file` |`export-im f/FILEPATH` |`export-im f/C:/out/data.im`
-|`Import sales report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv`
-|`Import list of items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/C:/in/items.csv`
-|`Import list of users from CSV`  |`import-csv-users f/FILEPATH` |`import-csv-users f/C:/in/users.csv`
-|`Import list of orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv`
-|`Import entire data from .im file` |`import-im f/FILEPATH` |`import-im f/C:/in/data.im`
+3+| *Reports Management*
+|`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv`
+|`Export List of Items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/C:/out/items.csv`
+|`Export List of Users to CSV` |`export-csv-users f/FILEPATH` |`export-csv-users f/C:/out/users.csv`
+|`Export List of Sale Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv`
+|`Export Entire Data to .im File` |`export-im f/FILEPATH` |`export-im f/C:/out/data.im`
+|`Import Sales Report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv`
+|`Import List of Items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/C:/in/items.csv`
+|`Import List of Users from CSV`  |`import-csv-users f/FILEPATH` |`import-csv-users f/C:/in/users.csv`
+|`Import List of Sale Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv`
+|`Import Entire Data From .im File` |`import-im f/FILEPATH` |`import-im f/C:/in/data.im`
 |=====================================================================================================
 
 
 == Glossary
-*User*
-
-Refers to everyone that is using the application; Admin, Staff and Manager.
-
 *CLI (Command Line Interface)*
 
 A command line interface (CLI) is an interface where you can input commands to interact with the software.
 
+*CSV (Comma Separated Values)*
+
+A Comma Separated Values file is a delimited text file that uses a comma to separate values. The file can be open using
+an Excel software.
+
 *GUI (Graphical User Interface)*
 
 A graphical user interface (GUI) is an interface through which a user interacts with the software.
+
+*SKU (Stock Keeping Unit)*
+
+A Stock Keeping Unit is a product identification code assigned to a product.
+
+*User*
+
+Refers to everyone that is using the application; Admin, Staff and Manager.

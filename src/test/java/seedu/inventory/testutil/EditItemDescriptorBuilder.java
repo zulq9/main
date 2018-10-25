@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.EditCommand;
-import seedu.inventory.logic.commands.EditCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.EditItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
@@ -19,7 +19,7 @@ import seedu.inventory.model.tag.Tag;
  */
 public class EditItemDescriptorBuilder {
 
-    private EditCommand.EditItemDescriptor descriptor;
+    private EditItemCommand.EditItemDescriptor descriptor;
 
     public EditItemDescriptorBuilder() {
         descriptor = new EditItemDescriptor();

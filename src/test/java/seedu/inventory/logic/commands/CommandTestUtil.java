@@ -88,8 +88,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditItemDescriptor DESC_OPPO;
-    public static final EditCommand.EditItemDescriptor DESC_SONY;
+    public static final EditItemCommand.EditItemDescriptor DESC_OPPO;
+    public static final EditItemCommand.EditItemDescriptor DESC_SONY;
 
     static {
         DESC_OPPO = new EditItemDescriptorBuilder().withName(VALID_NAME_OPPO).withPrice(VALID_PRICE_OPPO)

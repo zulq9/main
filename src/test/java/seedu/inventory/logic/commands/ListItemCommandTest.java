@@ -15,9 +15,9 @@ import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListItemCommand.
  */
-public class ListCommandTest {
+public class ListItemCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -31,12 +31,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListItemCommand(), model, commandHistory,
+                ListItemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListItemCommand(), model, commandHistory,
+                ListItemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

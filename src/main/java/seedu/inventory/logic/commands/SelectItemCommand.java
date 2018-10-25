@@ -16,9 +16,9 @@ import seedu.inventory.model.item.Item;
 /**
  * Selects an item identified using it's displayed index from the inventory.
  */
-public class SelectCommand extends Command {
+public class SelectItemCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "select-item";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the item identified by the index number used in the displayed inventory list.\n"
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public SelectItemCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -51,7 +51,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof SelectItemCommand // instanceof handles nulls
+                && targetIndex.equals(((SelectItemCommand) other).targetIndex)); // state check
     }
 }

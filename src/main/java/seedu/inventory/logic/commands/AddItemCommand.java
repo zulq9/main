@@ -16,9 +16,9 @@ import seedu.inventory.model.item.Item;
 /**
  * Adds an item to the inventory.
  */
-public class AddCommand extends Command {
+public class AddItemCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-item";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the inventory. "
             + "Parameters: "
@@ -43,9 +43,9 @@ public class AddCommand extends Command {
     private final Item toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Item}
+     * Creates an AddItemCommand to add the specified {@code Item}
      */
-    public AddCommand(Item item) {
+    public AddItemCommand(Item item) {
         requireNonNull(item);
         toAdd = item;
     }
@@ -66,7 +66,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddItemCommand // instanceof handles nulls
+                && toAdd.equals(((AddItemCommand) other).toAdd));
     }
 }

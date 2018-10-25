@@ -19,7 +19,7 @@ public class EditItemDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditItemDescriptor descriptorWithSameValues = new EditCommand.EditItemDescriptor(DESC_OPPO);
+        EditItemCommand.EditItemDescriptor descriptorWithSameValues = new EditItemCommand.EditItemDescriptor(DESC_OPPO);
         assertTrue(DESC_OPPO.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +35,7 @@ public class EditItemDescriptorTest {
         assertFalse(DESC_OPPO.equals(DESC_SONY));
 
         // different name -> returns false
-        EditCommand.EditItemDescriptor editedOppo =
+        EditItemCommand.EditItemDescriptor editedOppo =
                 new EditItemDescriptorBuilder(DESC_OPPO).withName(VALID_NAME_SONY).build();
         assertFalse(DESC_OPPO.equals(editedOppo));
 

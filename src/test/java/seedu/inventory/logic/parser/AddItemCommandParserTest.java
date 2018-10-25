@@ -35,7 +35,7 @@ import static seedu.inventory.testutil.TypicalItems.SONY;
 
 import org.junit.Test;
 
-import seedu.inventory.logic.commands.AddCommand;
+import seedu.inventory.logic.commands.AddItemCommand;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;
@@ -45,7 +45,7 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.tag.Tag;
 import seedu.inventory.testutil.ItemBuilder;
 
-public class AddCommandParserTest {
+public class AddItemCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
@@ -55,34 +55,35 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_SONY + PRICE_DESC_SONY
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET,
-                new AddCommand(expectedItem));
+                new AddItemCommand(expectedItem));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_OPPO + NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY
-                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddItemCommand(expectedItem));
 
         // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_OPPO + PRICE_DESC_SONY + QUANTITY_DESC_SONY
-                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddItemCommand(expectedItem));
 
         // multiple quantities - last quantity accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_OPPO
                 + QUANTITY_DESC_SONY + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET,
-                new AddCommand(expectedItem));
+                new AddItemCommand(expectedItem));
 
         // multiple SKUs - last SKU accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_OPPO
-                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
+                + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddItemCommand(expectedItem));
 
         // multiple images - last inventory accepted
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_OPPO + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddCommand(expectedItem));
+                + IMAGE_DESC_OPPO + IMAGE_DESC_SONY + TAG_DESC_GADGET, new AddItemCommand(expectedItem));
 
         // multiple tags - all accepted
         Item expectedItemMultipleTags = new ItemBuilder(SONY).withTags(VALID_TAG_GADGET, VALID_TAG_SMARTPHONE)
                 .build();
         assertParseSuccess(parser, NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
-                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET, new AddCommand(expectedItemMultipleTags));
+                + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET,
+                new AddItemCommand(expectedItemMultipleTags));
     }
 
     @Test
@@ -90,12 +91,12 @@ public class AddCommandParserTest {
         // zero tags
         Item expectedItem = new ItemBuilder(OPPO).withTags().build();
         assertParseSuccess(parser, NAME_DESC_OPPO + PRICE_DESC_OPPO + QUANTITY_DESC_OPPO + SKU_DESC_OPPO
-                + IMAGE_DESC_OPPO, new AddCommand(expectedItem));
+                + IMAGE_DESC_OPPO, new AddItemCommand(expectedItem));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY + SKU_DESC_SONY
@@ -155,6 +156,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_SONY + PRICE_DESC_SONY + QUANTITY_DESC_SONY
                 + SKU_DESC_SONY + IMAGE_DESC_SONY + TAG_DESC_SMARTPHONE + TAG_DESC_GADGET,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
     }
 }
