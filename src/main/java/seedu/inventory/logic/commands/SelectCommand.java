@@ -7,25 +7,31 @@ import java.util.List;
 import seedu.inventory.commons.core.EventsCenter;
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToItemListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToPurchaseOrderListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToSalesListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToStaffListRequestEvent;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.staff.Staff;
 
 /**
- * Selects an item identified using it's displayed index from the inventory.
+ * Selects an object identified using it's displayed index from the list.
  */
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the item identified by the index number used in the displayed inventory list.\n"
+            + ": Selects the object identified by the index number used in the displayed list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_ITEM_SUCCESS = "Selected Item: %1$s";
+    public static final String MESSAGE_SELECT_SUCCESS = "Selected: %1$s";
 
     private final Index targetIndex;
 
@@ -37,14 +43,25 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Item> filteredItemList = model.getFilteredItemList();
+        List<Object> filteredAccessedList = model.getAccessedList();
 
-        if (targetIndex.getZeroBased() >= filteredItemList.size()) {
+        if (targetIndex.getZeroBased() >= filteredAccessedList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_ITEM_SUCCESS, targetIndex.getOneBased()));
+        String accessing = filteredAccessedList.get(0).getClass().getSimpleName();
+
+        if (accessing.equals(Item.class.getSimpleName())) {
+            EventsCenter.getInstance().post(new JumpToItemListRequestEvent(targetIndex));
+        } else if (accessing.equals(Sale.class.getSimpleName())) {
+            EventsCenter.getInstance().post(new JumpToSalesListRequestEvent(targetIndex));
+        } else if (accessing.equals(Staff.class.getSimpleName())) {
+            EventsCenter.getInstance().post(new JumpToStaffListRequestEvent(targetIndex));
+        } else if (accessing.equals(PurchaseOrder.class.getSimpleName())) {
+            EventsCenter.getInstance().post(new JumpToPurchaseOrderListRequestEvent(targetIndex));
+        }
+
+        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
 
     }
 

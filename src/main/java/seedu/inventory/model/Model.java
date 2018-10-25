@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -44,16 +45,23 @@ public interface Model {
      */
     ReadOnlyInventory getInventory();
 
+    /**
+     * Returns the accessed filtered list
+     */
+    <T> FilteredList<T> getAccessedList();
+
     //=========== Reporting API ========================================================
 
     /**
      * Export the item list to the file path.
+     *
      * @param filePath The path to export.
      */
     void exportItemList(Path filePath);
 
     /**
      * Import the item list from the file path.
+     *
      * @param filePath The path to import.
      */
     void importItemList(Path filePath);

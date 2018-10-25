@@ -35,6 +35,7 @@ import seedu.inventory.model.staff.Staff;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private FilteredList accessedList;
 
     private final VersionedInventory versionedInventory;
     private final FilteredList<Item> filteredItems;
@@ -56,6 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPurchaseOrder = new FilteredList<>(versionedInventory.getPurchaseOrderList());
         filteredStaffs = new FilteredList<>(versionedInventory.getStaffList());
         this.saleList = new SaleList(readOnlySaleList);
+        accessedList = filteredItems;
     }
 
     public ModelManager() {
@@ -77,6 +79,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyInventory getInventory() {
         return versionedInventory;
+    }
+
+    @Override
+    public <T> FilteredList<T> getAccessedList() {
+        return accessedList;
     }
 
     /**
@@ -122,6 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void viewItem() {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        accessedList = filteredItems;
         indicateAccessItem();
     }
 
@@ -171,20 +179,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasPurchaseOrder(Item item) {
+        requireNonNull(item);
+        return versionedInventory.hasPurchaseOrder(item);
+    }
+
+    @Override
     public void addPurchaseOrder(PurchaseOrder po) {
         versionedInventory.addPurchaseOrder(po);
         updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        indicateInventoryChanged();
     }
 
     @Override
     public void viewPurchaseOrder() {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        accessedList = filteredPurchaseOrder;
         indicatePurchaseOrder();
     }
 
     @Override
     public void deletePurchaseOrder(PurchaseOrder target) {
         versionedInventory.removePurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void deletePurchaseOrder(Item target) {
+        versionedInventory.removePurchaseOrder(target);
+        indicateInventoryChanged();
     }
 
     @Override
@@ -226,6 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void viewStaff() {
         updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+        accessedList = filteredStaffs;
         indicateAccessStaff();
     }
 
@@ -370,7 +394,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AccessSaleEvent());
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateSaleListChanged() {
         raise(new SaleListChangedEvent(saleList));
     }
