@@ -28,7 +28,7 @@ import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
@@ -145,9 +145,9 @@ public class InventoryParserTest {
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_ITEM), command);
+        SelectItemCommand command = (SelectItemCommand) parser.parseCommand(
+                SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new SelectItemCommand(INDEX_FIRST_ITEM), command);
     }
 
     @Test

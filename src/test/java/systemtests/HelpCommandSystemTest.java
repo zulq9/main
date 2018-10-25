@@ -13,7 +13,7 @@ import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
-import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.ui.StatusBarFooter;
 
 /**
@@ -59,7 +59,7 @@ public class HelpCommandSystemTest extends InventorySystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        executeCommand(SelectItemCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());

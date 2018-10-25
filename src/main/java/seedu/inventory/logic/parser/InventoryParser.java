@@ -6,22 +6,8 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.inventory.logic.commands.AddItemCommand;
-import seedu.inventory.logic.commands.ClearCommand;
-import seedu.inventory.logic.commands.Command;
-import seedu.inventory.logic.commands.DeleteItemCommand;
-import seedu.inventory.logic.commands.EditItemCommand;
-import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
-import seedu.inventory.logic.commands.FindItemCommand;
-import seedu.inventory.logic.commands.HelpCommand;
-import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ImportCsvItemsCommand;
-import seedu.inventory.logic.commands.ListItemCommand;
-import seedu.inventory.logic.commands.LoginCommand;
-import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
-import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.*;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.commands.sale.AddSaleCommand;
@@ -75,7 +61,7 @@ public class InventoryParser {
         case EditItemCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
+        case SelectItemCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteItemCommand.COMMAND_WORD:
