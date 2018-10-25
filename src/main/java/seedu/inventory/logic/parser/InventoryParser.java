@@ -27,6 +27,7 @@ import seedu.inventory.logic.commands.sale.DeleteSaleCommand;
 import seedu.inventory.logic.commands.sale.ListSaleCommand;
 import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.GeneratePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
@@ -63,6 +64,9 @@ public class InventoryParser {
 
         case AddStaffCommand.COMMAND_WORD:
             return new AddStaffCommandParser().parse(arguments);
+
+        case ListStaffCommand.COMMAND_WORD:
+            return new ListStaffCommand();
 
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
