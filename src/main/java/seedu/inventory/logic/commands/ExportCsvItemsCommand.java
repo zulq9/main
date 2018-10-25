@@ -48,7 +48,7 @@ public class ExportCsvItemsCommand extends Command {
         }
         model.exportItemList(filePath);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filePath.toAbsolutePath()));
     }
 
     @Override

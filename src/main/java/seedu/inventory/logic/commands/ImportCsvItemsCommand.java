@@ -48,7 +48,7 @@ public class ImportCsvItemsCommand extends Command {
 
         model.importItemList(filePath);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filePath.toAbsolutePath()));
     }
 
     @Override
