@@ -57,7 +57,6 @@ TypicalPurchaseOrder#getTypicalInventory() -->
     </items>
     <purchaseOrders>
         <sku>lg-g7</sku>
-        <name>LG G7</name>
         <quantity>20</quantity>
         <reqDate>2018-12-03</reqDate>
         <supplier>LG Corporation</supplier>
@@ -65,7 +64,6 @@ TypicalPurchaseOrder#getTypicalInventory() -->
     </purchaseOrders>
     <purchaseOrders>
         <sku>samsung-note-9</sku>
-        <name>Samsung Note 9</name>
         <quantity>79</quantity>
         <reqDate>2018-12-11</reqDate>
         <supplier>Samsung Corporation</supplier>

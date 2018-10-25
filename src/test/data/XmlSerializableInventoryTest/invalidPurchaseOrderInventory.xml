@@ -11,7 +11,6 @@
     </items>
     <purchaseOrders>
         <sku>lg-g7</sku>
-        <name>LG G7</name>
         <quantity>20</quantity>
         <reqDate>2018-122-0213</reqDate>
         <supplier>LG Corporation</supplier>

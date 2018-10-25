@@ -48,7 +48,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPurchaseOrderPage(PurchaseOrder po) {
-        loadPage(SEARCH_PAGE_URL + po.getName().fullName);
+        loadPage(SEARCH_PAGE_URL + po.getSku().value);
     }
 
     public void loadPage(String url) {
