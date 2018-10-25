@@ -112,9 +112,14 @@ public interface Model {
     //=========== Purchase Order API =============================================================
 
     /**
-     * Returns true if a purchase order with the same identity as {@code item} exists in the inventory.
+     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
      */
-    boolean hasPurchaseOrder(PurchaseOrder item);
+    boolean hasPurchaseOrder(PurchaseOrder po);
+
+    /**
+     * Returns true if a purchase order has a {@code item} in the inventory.
+     */
+    boolean hasPurchaseOrder(Item item);
 
     /**
      * Deletes the given purchase order.
@@ -127,6 +132,12 @@ public interface Model {
      * The purchase order must exist in the inventory.
      */
     void deletePurchaseOrder(PurchaseOrder target);
+
+    /**
+     * Deletes all purchase orders given the item.
+     * The item and purchase order must exist in the inventory.
+     */
+    void deletePurchaseOrder(Item target);
 
     /**
      * Adds the given purchase order.
