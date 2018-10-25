@@ -16,9 +16,9 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.ItemBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddItemCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddItemCommandIntegrationTest {
 
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
@@ -36,15 +36,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addItem(validItem);
         expectedModel.commitInventory();
 
-        assertCommandSuccess(new AddCommand(validItem), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validItem), expectedModel);
+        assertCommandSuccess(new AddItemCommand(validItem), model, commandHistory,
+                String.format(AddItemCommand.MESSAGE_SUCCESS, validItem), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Item itemInList = model.getInventory().getItemList().get(0);
-        assertCommandFailure(new AddCommand(itemInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(new AddItemCommand(itemInList), model, commandHistory,
+                AddItemCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
 }

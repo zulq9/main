@@ -20,7 +20,7 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ModelStub;
 
-public class AddCommandTest {
+public class AddItemCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -32,7 +32,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddItemCommand(null);
     }
 
     @Test
@@ -40,9 +40,9 @@ public class AddCommandTest {
         ModelStubAcceptingItemAdded modelStub = new ModelStubAcceptingItemAdded();
         Item validItem = new ItemBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validItem).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddItemCommand(validItem).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validItem), commandResult.feedbackToUser);
+        assertEquals(String.format(AddItemCommand.MESSAGE_SUCCESS, validItem), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validItem), modelStub.itemsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -50,26 +50,26 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateItem_throwsCommandException() throws Exception {
         Item validItem = new ItemBuilder().build();
-        AddCommand addCommand = new AddCommand(validItem);
+        AddItemCommand addItemCommand = new AddItemCommand(validItem);
         ModelStub modelStub = new ModelStubWithItem(validItem);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddItemCommand.MESSAGE_DUPLICATE_ITEM);
+        addItemCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Item iPhone = new ItemBuilder().withName("iPhone XR").build();
         Item googlePixel = new ItemBuilder().withName("Google Pixel XL").build();
-        AddCommand addIphoneCommand = new AddCommand(iPhone);
-        AddCommand addGoogleCommand = new AddCommand(googlePixel);
+        AddItemCommand addIphoneCommand = new AddItemCommand(iPhone);
+        AddItemCommand addGoogleCommand = new AddItemCommand(googlePixel);
 
         // same object -> returns true
         assertTrue(addIphoneCommand.equals(addIphoneCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(iPhone);
+        AddItemCommand addAliceCommandCopy = new AddItemCommand(iPhone);
         assertTrue(addIphoneCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -120,7 +120,7 @@ public class AddCommandTest {
 
         @Override
         public void commitInventory() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddItemCommand#execute()}
         }
 
         @Override

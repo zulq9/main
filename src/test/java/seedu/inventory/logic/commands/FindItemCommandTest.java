@@ -23,9 +23,9 @@ import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindItemCommand}.
  */
-public class FindCommandTest {
+public class FindItemCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
@@ -37,14 +37,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindItemCommand findFirstCommand = new FindItemCommand(firstPredicate);
+        FindItemCommand findSecondCommand = new FindItemCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindItemCommand findFirstCommandCopy = new FindItemCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -61,7 +61,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindItemCommand command = new FindItemCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredItemList());
@@ -71,7 +71,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Google Note OnePlus");
-        FindCommand command = new FindCommand(predicate);
+        FindItemCommand command = new FindItemCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(GOOGLE, SAMSUNGNOTE, ONEPLUS), model.getFilteredItemList());

@@ -6,21 +6,21 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.inventory.logic.commands.AddCommand;
+import seedu.inventory.logic.commands.AddItemCommand;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.Command;
-import seedu.inventory.logic.commands.DeleteCommand;
-import seedu.inventory.logic.commands.EditCommand;
+import seedu.inventory.logic.commands.DeleteItemCommand;
+import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.ExportCsvItemsCommand;
-import seedu.inventory.logic.commands.FindCommand;
+import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
-import seedu.inventory.logic.commands.ListCommand;
+import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.LoginCommand;
 import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.SelectItemCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.commands.purchaseorder.GeneratePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
@@ -69,26 +69,26 @@ public class InventoryParser {
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD:
+        case AddItemCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditItemCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
+        case SelectItemCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteItemCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FindItemCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListItemCommand.COMMAND_WORD:
+            return new ListItemCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
