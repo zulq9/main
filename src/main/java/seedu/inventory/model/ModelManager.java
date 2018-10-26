@@ -217,6 +217,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateInventoryChanged();
     }
 
+    @Override
+    public void approvePurchaseOrder(PurchaseOrder target) {
+        versionedInventory.approvePurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void rejectPurchaseOrder(PurchaseOrder target) {
+        versionedInventory.rejectPurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
     //=========== User Management ===========================================
     @Override
     public boolean hasStaff(Staff staff) {
