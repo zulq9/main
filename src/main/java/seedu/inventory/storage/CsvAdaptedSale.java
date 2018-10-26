@@ -41,9 +41,9 @@ public class CsvAdaptedSale {
 
 
     /**
-     * Converts a given Item into this class for Csv use.
+     * Converts a given sale into this class for Csv use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedItem
+     * @param source future changes to this will not affect the created XmlAdaptedSale
      */
     public CsvAdaptedSale(Sale source) {
         this.saleId = source.getSaleId().toString();
@@ -54,9 +54,9 @@ public class CsvAdaptedSale {
     }
 
     /**
-     * Converts this Csv-friendly adapted item object into the model's Item object.
+     * Converts this Csv-friendly adapted sale object into the model's Sale object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted item
+     * @throws IllegalValueException if there were any data constraints violated in the adapted sale
      */
     public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
         requireNonNull(inventory);
