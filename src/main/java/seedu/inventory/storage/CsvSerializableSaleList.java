@@ -27,6 +27,7 @@ public class CsvSerializableSaleList implements CsvSerializableData {
      */
     public CsvSerializableSaleList() {
         sales = new ArrayList<>();
+        this.contents = getContentsFromSaleList(sales);
     }
 
     /**
@@ -59,10 +60,10 @@ public class CsvSerializableSaleList implements CsvSerializableData {
     }
 
     /**
-     * Converts this inventory into the model's {@code Inventory} object.
+     * Converts this sale list into the model's {@code SaleList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     *                               {@code CsvAdaptedItem}.
+     *                               {@code CsvAdaptedSale}.
      */
     public SaleList toModelType() throws IllegalValueException {
         sales = splitContentsToSaleList(contents);
@@ -112,7 +113,7 @@ public class CsvSerializableSaleList implements CsvSerializableData {
         if (!(other instanceof CsvSerializableSaleList)) {
             return false;
         }
-        return sales.equals(((CsvSerializableSaleList) other).sales);
+        return contents.equals(((CsvSerializableSaleList) other).contents);
     }
 
     @Override
@@ -134,6 +135,4 @@ public class CsvSerializableSaleList implements CsvSerializableData {
     public CsvSerializableData createInstance(List<List<String>> contents) {
         return new CsvSerializableSaleList(contents);
     }
-
-
 }

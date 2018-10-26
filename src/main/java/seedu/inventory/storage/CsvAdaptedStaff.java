@@ -7,13 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Quantity;
-import seedu.inventory.model.item.Sku;
-import seedu.inventory.model.sale.Sale;
-import seedu.inventory.model.sale.SaleDate;
-import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;
@@ -28,18 +21,18 @@ public class CsvAdaptedStaff {
 
     private String username;
     private String password;
-    private String name;
+    private String staffName;
     private String role;
 
 
     /**
      * Constructs an {@code CsvAdaptedStaff} with the given staff details.
      */
-    public CsvAdaptedStaff(String username, String password, String name, Staff.Role role) {
+    public CsvAdaptedStaff(String username, String password, String staffName, String role) {
         this.username = username;
         this.password = password;
-        this.name = name;
-        this.role = role.name();
+        this.staffName = staffName;
+        this.role = role;
     }
 
 
@@ -51,7 +44,7 @@ public class CsvAdaptedStaff {
     public CsvAdaptedStaff(Staff source) {
         this.username = source.getUsername().username;
         this.password = source.getPassword().password;
-        this.name = source.getStaffName().fullName;
+        this.staffName = source.getStaffName().fullName;
         this.role = source.getRole().name();
     }
 
@@ -79,72 +72,82 @@ public class CsvAdaptedStaff {
         }
         final Password modelPassword = new Password(password);
 
-        if (this.name == null) {
+        if (this.staffName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StaffName.class.getSimpleName()));
         }
-        if (!StaffName.isValidName(this.name)) {
+        if (!StaffName.isValidName(this.staffName)) {
             throw new IllegalValueException(Username.MESSAGE_USERNAME_CONSTRAINTS);
         }
-        final StaffName modelStaffName = new StaffName(name);
+        final StaffName modelStaffName = new StaffName(staffName);
 
         if (this.role == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Staff.Role.class.getSimpleName()));
         }
 
-        final Staff.Role modelRole = Staff.Role.valueOf(role);
+        final Staff.Role modelRole;
+
+        if (this.role.equals("admin")) {
+            modelRole = Staff.Role.admin;
+        } else if (this.role.equals("manager")) {
+            modelRole =  Staff.Role.manager;
+        } else if (this.role.equals("user")) {
+            modelRole = Staff.Role.user;
+        } else {
+            throw new IllegalValueException(Staff.Role.MESSAGE_ROLE_CONSTRAINTS);
+        }
 
         return new Staff(modelUsername, modelPassword, modelStaffName, modelRole);
     }
 
 
-//    /**
-//     * Combine a Csv-friendly adapted sale into a list of string representing the content.
-//     *
-//     * @param sale A Csv-friendly sale
-//     * @return content A list of string representing the content.
-//     */
-//    public static List<String> getContentFromSale(CsvAdaptedStaff sale) {
-//        List<String> content = new ArrayList<>();
-//        content.add(sale.saleId);
-//        content.add(sale.saleSku);
-//        content.add(sale.saleQuantity);
-//        content.add(sale.saleDate);
-//        return content;
-//    }
-//
-//    /**
-//     * Split a list of string representing the content of sale into the Csv-friendly adapted sale
-//     *
-//     * @param content A list of string representing the content of sale
-//     * @return The Csv-friendly adapted sale containing the content of the list.
-//     */
-//    public static CsvAdaptedStaff splitContentToSale(List<String> content) throws IllegalValueException {
-//        if (content.size() < 4) {
-//            throw new IllegalValueException(MISSING_FIELD_MESSAGE);
-//        }
-//        String saleId = content.get(0);
-//        String saleSku = content.get(1);
-//        String saleQuantity = content.get(2);
-//        String saleDate = content.get(3);
-//        return new CsvAdaptedStaff(saleId, saleSku, saleQuantity, saleDate);
-//    }
-//
-//    @Override
-//    public boolean equals(Object other) {
-//        if (other == this) {
-//            return true;
-//        }
-//
-//        if (!(other instanceof CsvAdaptedStaff)) {
-//            return false;
-//        }
-//
-//        CsvAdaptedStaff otherSale = (CsvAdaptedStaff) other;
-//        return Objects.equals(saleId, otherSale.saleId)
-//                && Objects.equals(saleDate, otherSale.saleDate)
-//                && Objects.equals(saleQuantity, otherSale.saleQuantity)
-//                && Objects.equals(saleSku, otherSale.saleSku);
-//    }
+    /**
+     * Combine a Csv-friendly adapted staff into a list of string representing the content.
+     *
+     * @param staff A Csv-friendly staff
+     * @return content A list of string representing the content.
+     */
+    public static List<String> getContentFromStaff(CsvAdaptedStaff staff) {
+        List<String> content = new ArrayList<>();
+        content.add(staff.username);
+        content.add(staff.password);
+        content.add(staff.staffName);
+        content.add(staff.role);
+        return content;
+    }
+
+    /**
+     * Split a list of string representing the content of staff into the Csv-friendly adapted staff
+     *
+     * @param content A list of string representing the content of staff
+     * @return The Csv-friendly adapted staff containing the content of the list.
+     */
+    public static CsvAdaptedStaff splitContentToStaff(List<String> content) throws IllegalValueException {
+        if (content.size() < 4) {
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE);
+        }
+        String username = content.get(0);
+        String password = content.get(1);
+        String name = content.get(2);
+        String role = content.get(3);
+        return new CsvAdaptedStaff(username, password, name, role);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CsvAdaptedStaff)) {
+            return false;
+        }
+
+        CsvAdaptedStaff otherStaff = (CsvAdaptedStaff) other;
+        return Objects.equals(username, otherStaff.username)
+                && Objects.equals(password, otherStaff.password)
+                && Objects.equals(staffName, otherStaff.staffName)
+                && Objects.equals(role, otherStaff.role);
+    }
 }
