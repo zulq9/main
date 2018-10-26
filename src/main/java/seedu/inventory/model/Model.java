@@ -197,7 +197,7 @@ public interface Model {
      * @param target      the staff to be updated
      * @param editedStaff the staff with updated info
      */
-    void editStaff(Staff target, Staff editedStaff);
+    void updateStaff(Staff target, Staff editedStaff);
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the staff list.
