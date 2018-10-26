@@ -47,7 +47,7 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=accountsManagement]
-include::../UserGuide.adoc[tag=users-management]
+include::../UserGuide.adoc[tag=userManagement]
 
 == Contributions to the Developer Guide
 
@@ -55,7 +55,6 @@ include::../UserGuide.adoc[tag=users-management]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=useCaseLogin]
 include::../DeveloperGuide.adoc[tag=usecaseDeleteStaff]
 include::../DeveloperGuide.adoc[tag=testcaseLogin]
 include::../DeveloperGuide.adoc[tag=testcaseDeleteStaff]
