@@ -1,4 +1,4 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.staff;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
@@ -9,6 +9,11 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_USERNAME;
 import java.util.stream.Stream;
 
 import seedu.inventory.logic.commands.staff.AddStaffCommand;
+import seedu.inventory.logic.parser.ArgumentMultimap;
+import seedu.inventory.logic.parser.ArgumentTokenizer;
+import seedu.inventory.logic.parser.Parser;
+import seedu.inventory.logic.parser.ParserUtil;
+import seedu.inventory.logic.parser.Prefix;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
