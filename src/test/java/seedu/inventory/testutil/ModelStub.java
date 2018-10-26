@@ -200,7 +200,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void editStaff(Staff target, Staff editedStaff) {
+    public void updateStaff(Staff target, Staff editedStaff) {
         throw new AssertionError("This method should not be called.");
     }
 
