@@ -19,8 +19,8 @@ import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.Assert;
 import seedu.inventory.testutil.TypicalItems;
-
-public class CsvAdaptedSaleTest {
+//TODO
+public class CsvAdaptedStaffTest {
     private static final String INVALID_SALE_ID = "ABC";
     private static final String INVALID_SALE_SKU = "ABC.123";
     private static final String INVALID_SALE_QUANTITY = "+651234";

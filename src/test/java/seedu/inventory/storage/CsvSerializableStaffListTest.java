@@ -21,8 +21,8 @@ import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
 import seedu.inventory.testutil.TypicalItems;
-
-public class CsvSerializableSaleListTest {
+//TODO
+public class CsvSerializableStaffListTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvSerializableSaleListTest");
     private static final Path TYPICAL_SALES_FILE = TEST_DATA_FOLDER.resolve("typicalSaleList.csv");

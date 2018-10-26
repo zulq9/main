@@ -17,6 +17,7 @@ import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 
 
 /**
@@ -87,6 +88,36 @@ public class CsvReportingStorage implements ReportingStorage {
 
         FileUtil.createIfMissing(filePath);
         CsvUtil.saveDataToFile(filePath, new CsvSerializableSaleList(saleList));
+    }
+
+    @Override
+    public Optional<ReadOnlyStaffList> importStaffList(Path filePath) throws DataConversionException, IOException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Staff list file " + filePath + " not found");
+            return Optional.empty();
+        }
+        try {
+            CsvSerializableStaffList staffs = new CsvSerializableStaffList(CsvUtil.getDataFromFile(filePath,
+                    new CsvSerializableStaffList()));
+            return Optional.of(staffs.toModelType());
+        } catch (UnrecognizableDataException ude) {
+            logger.info("Data in " + filePath + " can not be recognized");
+            throw new DataConversionException(ude);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
+        requireNonNull(staffList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        CsvUtil.saveDataToFile(filePath, new CsvSerializableStaffList(staffList));
     }
 
 }

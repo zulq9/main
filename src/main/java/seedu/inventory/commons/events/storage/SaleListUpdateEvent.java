@@ -16,7 +16,7 @@ public class SaleListUpdateEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Data exporting successful.";
+        return "Sale List need update.";
     }
 
 }

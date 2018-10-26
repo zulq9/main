@@ -25,8 +25,11 @@ import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
+import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -84,6 +87,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetStaffList(ReadOnlyStaffList newStaffList) {
+        versionedInventory.resetStaffList(newStaffList);
+        indicateInventoryChanged();
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         return versionedInventory;
     }
@@ -132,6 +141,18 @@ public class ModelManager extends ComponentManager implements Model {
     public void importSaleList(Path filePath) {
         raise(new SaleListImportEvent(versionedInventory, filePath));
         indicateAccessSale();
+    }
+
+    @Override
+    public void exportStaffList(Path filePath) {
+        raise(new StaffListExportEvent(versionedInventory, filePath));
+        indicateAccessStaff();
+    }
+
+    @Override
+    public void importStaffList(Path filePath) {
+        raise(new StaffListImportEvent(filePath));
+        indicateAccessStaff();
     }
 
     //=========== Item  ====================================================================================
@@ -408,6 +429,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleSaleListUpdateEvent(SaleListUpdateEvent event) {
         resetSaleList(event.saleList);
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListUpdateEvent(StaffListUpdateEvent event) {
+        resetStaffList(event.staffList);
     }
 
 }

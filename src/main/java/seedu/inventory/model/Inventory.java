@@ -46,6 +46,15 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Resets the existing staff list of this {@code Inventory} with {@code newStaffList}.
+     */
+    public void resetStaffList(ReadOnlyStaffList newStaffList) {
+        requireNonNull(newStaffList);
+
+        setStaffs(newStaffList.getStaffList());
+    }
+
+    /**
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */

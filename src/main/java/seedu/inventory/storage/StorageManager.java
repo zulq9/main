@@ -17,6 +17,8 @@ import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataExportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
@@ -24,6 +26,7 @@ import seedu.inventory.commons.events.storage.DataImportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
+import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
@@ -155,6 +158,18 @@ public class StorageManager extends ComponentManager implements Storage {
         reportingStorage.exportSaleList(saleList, filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyStaffList> importStaffList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to import staff list from file: " + filePath);
+        return reportingStorage.importStaffList(filePath);
+    }
+
+    @Override
+    public void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
+        logger.fine("Attempting to export sale list to file: " + filePath);
+        reportingStorage.exportStaffList(staffList, filePath);
+    }
+
 
     // ================ Event handler ==================================
 
@@ -242,6 +257,37 @@ public class StorageManager extends ComponentManager implements Storage {
             Optional<ReadOnlySaleList> saleList = importSaleList(event.inventory, event.filePath);
             if (saleList.isPresent()) {
                 raise(new SaleListUpdateEvent(saleList.get()));
+                raise(new DataImportingSuccessEvent());
+            } else {
+                raise(new DataImportingExceptionEvent(new FileNotFoundException()));
+            }
+        } catch (IOException ioe) {
+            raise(new DataImportingExceptionEvent(ioe));
+        } catch (DataConversionException dce) {
+            raise(new DataImportingExceptionEvent(dce));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListExportEvent(StaffListExportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export staff list to file"));
+        try {
+            exportStaffList(event.data, event.filePath);
+            raise(new DataExportingSuccessEvent());
+        } catch (IOException e) {
+            raise(new DataExportingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListImportEvent(StaffListImportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import staff list from file"));
+        try {
+            Optional<ReadOnlyStaffList> staffList = importStaffList(event.filePath);
+            if (staffList.isPresent()) {
+                raise(new StaffListUpdateEvent(staffList.get()));
                 raise(new DataImportingSuccessEvent());
             } else {
                 raise(new DataImportingExceptionEvent(new FileNotFoundException()));

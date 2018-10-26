@@ -1,7 +1,5 @@
 package seedu.inventory.storage;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -91,7 +89,7 @@ public class CsvAdaptedStaff {
         if (this.role.equals("admin")) {
             modelRole = Staff.Role.admin;
         } else if (this.role.equals("manager")) {
-            modelRole =  Staff.Role.manager;
+            modelRole = Staff.Role.manager;
         } else if (this.role.equals("user")) {
             modelRole = Staff.Role.user;
         } else {

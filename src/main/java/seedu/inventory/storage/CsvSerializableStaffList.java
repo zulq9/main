@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
-import seedu.inventory.model.ReadOnlyInventory;
-import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.SaleList;
 import seedu.inventory.model.StaffList;
-import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
 
 /**

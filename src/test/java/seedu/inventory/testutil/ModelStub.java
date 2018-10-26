@@ -6,10 +6,12 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
+import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -45,10 +47,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void resetStaffList(ReadOnlyStaffList newData) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         throw new AssertionError("This method should not be called.");
     }
 
+    //===================== Report ===============================
     @Override
     public void exportItemList(Path filePath) {
         throw new AssertionError("This method should not be called.");
@@ -69,6 +77,17 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void exportStaffList(Path filePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void importStaffList(Path filePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    //========================= Item ======================================
     @Override
     public boolean hasItem(Item item) {
         throw new AssertionError("This method should not be called.");
@@ -225,7 +244,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void handleSaleListUpdateEvent(SaleListUpdateEvent iue) {
+    public void handleSaleListUpdateEvent(SaleListUpdateEvent sue) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void handleStaffListUpdateEvent(StaffListUpdateEvent sue) {
         throw new AssertionError("This method should not be called.");
     }
 

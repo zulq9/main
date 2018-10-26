@@ -11,6 +11,8 @@ import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
@@ -102,4 +104,17 @@ public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsSto
      * Raises DataImportingExceptionEvent if there was an error during importing.
      */
     void handleSaleListImportEvent(SaleListImportEvent iie);
+
+    /**
+     * Export the current version of the Staff List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
+     */
+    void handleStaffListExportEvent(StaffListExportEvent ilee);
+
+    /**
+     * Import the Staff List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
+     */
+    void handleStaffListImportEvent(StaffListImportEvent iie);
 }
