@@ -1,9 +1,9 @@
 package seedu.inventory.model.item;
 
-import seedu.inventory.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.inventory.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Item}'s {@code SKU} matches any of the keywords given.

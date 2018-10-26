@@ -1,12 +1,12 @@
 package seedu.inventory.logic.parser;
 
-import seedu.inventory.logic.commands.FindItemSkuCommand;
-import seedu.inventory.logic.parser.exceptions.ParseException;
-import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
+import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.inventory.logic.commands.FindItemSkuCommand;
+import seedu.inventory.logic.parser.exceptions.ParseException;
+import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindItemSkuCommand object

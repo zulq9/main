@@ -1,11 +1,11 @@
 package seedu.inventory.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all items in inventory whose name contains any of the argument keywords.
