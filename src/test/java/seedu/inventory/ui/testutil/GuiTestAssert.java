@@ -9,8 +9,10 @@ import guitests.guihandles.ItemCardHandle;
 import guitests.guihandles.ItemListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.SaleCardHandle;
+import guitests.guihandles.StaffCardHandle;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.staff.Staff;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -26,6 +28,16 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getQuantity(), actualCard.getQuantity());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(StaffCardHandle expectedCard, StaffCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getUsername(), actualCard.getUsername());
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getRole(), actualCard.getRole());
     }
 
     /**
@@ -46,6 +58,15 @@ public class GuiTestAssert {
     public static void assertCardDisplaysSale(Sale expectedSale, SaleCardHandle actualCard) {
         assertEquals(expectedSale.getSaleDate().toString(), actualCard.getSaleDate());
         assertEquals("$" + expectedSale.getItem().getPrice().toString(), actualCard.getPrice());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedStaff}.
+     */
+    public static void assertCardDisplaysStaff(Staff expectedStaff, StaffCardHandle actualCard) {
+        assertEquals(expectedStaff.getUsername().username, actualCard.getUsername());
+        assertEquals(expectedStaff.getStaffName().fullName, actualCard.getName());
+        assertEquals(expectedStaff.getRole().toString(), actualCard.getRole());
     }
 
     /**
