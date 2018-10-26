@@ -23,7 +23,14 @@ public class Staff {
         public static final String MESSAGE_ROLE_CONSTRAINTS = "Role should only be either user, manager or admin.";
 
         public static Role role(String token) {
-            return Role.valueOf(token);
+            if (token.equals("admin")) {
+                return Staff.Role.admin;
+            } else if (token.equals("manager")) {
+                return Staff.Role.manager;
+            } else if (token.equals("user")) {
+                return Staff.Role.user;
+            }
+            return null;
         }
 
         public static String token(Role t) {
