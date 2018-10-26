@@ -1,8 +1,6 @@
 package seedu.inventory.testutil.staff;
 
 import seedu.inventory.logic.commands.staff.EditStaffCommand.EditStaffDescriptor;
-import seedu.inventory.logic.parser.ParserUtil;
-import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;

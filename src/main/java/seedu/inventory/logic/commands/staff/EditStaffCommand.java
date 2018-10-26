@@ -24,6 +24,9 @@ import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
 
+/**
+ * Edits the details of an existing staff in the inventory manager.
+ */
 public class EditStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-staff";

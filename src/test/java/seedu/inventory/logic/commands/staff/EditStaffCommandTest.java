@@ -136,12 +136,12 @@ public class EditStaffCommandTest {
         showStaffAtIndex(model, INDEX_FIRST_ITEM);
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
         // ensures that outOfBoundIndex is still in bounds of inventory list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getItemList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getStaffList().size());
 
         EditStaffCommand editStaffCommand = new EditStaffCommand(outOfBoundIndex,
                 new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN).build());
 
-        assertCommandFailure(editStaffCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(editStaffCommand, model, commandHistory, Messages.MESSAGE_INVALID_STAFF_DISPLAYED_INDEX);
     }
 
     @Test
