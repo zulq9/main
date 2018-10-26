@@ -25,7 +25,7 @@ import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
-import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
+//import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
 import seedu.inventory.logic.commands.sale.AddSaleCommand;
@@ -39,7 +39,7 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.ApprovePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.DeletePurchaseOrderCommandParser;
-import seedu.inventory.logic.parser.purchaseorder.EditPurchaseOrderCommandParser;
+//import seedu.inventory.logic.parser.purchaseorder.EditPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.RejectPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
@@ -139,8 +139,8 @@ public class InventoryParser {
         case RejectPurchaseOrderCommand.COMMAND_WORD:
             return new RejectPurchaseOrderCommandParser().parse(arguments);
 
-        case EditPurchaseOrderCommand.COMMAND_WORD:
-            return new EditPurchaseOrderCommandParser().parse(arguments);
+        //case EditPurchaseOrderCommand.COMMAND_WORD:
+            //eturn new EditPurchaseOrderCommandParser().parse(arguments);
 
         case AddSaleCommand.COMMAND_WORD:
             return new AddSaleCommandParser().parse(arguments);
