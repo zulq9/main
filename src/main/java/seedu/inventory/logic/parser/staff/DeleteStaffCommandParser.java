@@ -1,9 +1,11 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.staff;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.parser.Parser;
+import seedu.inventory.logic.parser.ParserUtil;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 
 /**
