@@ -14,6 +14,13 @@ public class UserSession {
     private boolean isLoggedIn;
 
     /**
+     * Constructs a default UserSession object.
+     */
+    public UserSession() {
+        isLoggedIn = false;
+    }
+
+    /**
      * Constructs a new UserSession object with {@code user} and {@code isLoggedIn}.
      *
      * @param user user who is logging into the system

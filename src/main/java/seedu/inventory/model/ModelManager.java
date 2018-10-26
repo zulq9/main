@@ -311,6 +311,23 @@ public class ModelManager extends ComponentManager implements Model {
         versionedInventory.authenticateUser(toLogin);
     }
 
+    @Override
+    public Staff retrieveStaff(Staff toRetrieve) {
+        requireNonNull(toRetrieve);
+
+        return versionedInventory.retrieveStaff(toRetrieve);
+    }
+
+    @Override
+    public void logoutUser() {
+        versionedInventory.logoutUser();
+    }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        return versionedInventory.isUserLoggedIn();
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
