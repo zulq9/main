@@ -1,6 +1,19 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
+import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
+import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.inventory.testutil.TypicalItems.GOOGLE;
+import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
+import static seedu.inventory.testutil.TypicalItems.LG;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
+import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
+
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.FindItemSkuCommand;
@@ -8,14 +21,6 @@ import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertFalse;
-import static seedu.inventory.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
-import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.testutil.TypicalItems.*;
 
 public class FindItemSkuCommandSystemTest extends InventorySystemTest {
 

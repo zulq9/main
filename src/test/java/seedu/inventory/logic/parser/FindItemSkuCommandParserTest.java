@@ -1,14 +1,15 @@
 package seedu.inventory.logic.parser;
 
-import org.junit.Test;
-import seedu.inventory.logic.commands.FindItemSkuCommand;
-import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
-
-import java.util.Arrays;
-
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import seedu.inventory.logic.commands.FindItemSkuCommand;
+import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
 
 public class FindItemSkuCommandParserTest {
 
