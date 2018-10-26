@@ -17,10 +17,6 @@ public class LogoutCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have successfully logged out from the system.";
     public static final String MESSAGE_FAILED = "You are not logged in.";
 
-    public LogoutCommand() {
-
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
