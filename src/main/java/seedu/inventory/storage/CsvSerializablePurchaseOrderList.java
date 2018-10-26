@@ -10,10 +10,7 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.PurchaseOrderList;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyPurchaseOrderList;
-import seedu.inventory.model.ReadOnlyStaffList;
-import seedu.inventory.model.StaffList;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
-import seedu.inventory.model.staff.Staff;
 
 /**
  * An immutable purchase order list that is serializable to CSV format

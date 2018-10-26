@@ -40,7 +40,7 @@ public class CsvAdaptedPurchaseOrder {
         this.name = name;
         this.quantity = quantity;
         this.sku = sku;
-        this.reqDate = reqDate;
+        this.reqDate = reqDate == null ? null : reqDate.replaceAll("/", "-");
         this.supplier = supplier;
         this.status = status;
     }

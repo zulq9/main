@@ -7,6 +7,8 @@ import java.util.Optional;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
@@ -90,31 +92,44 @@ public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsSto
      * Import the Item List from the hard disk.
      * Raises DataImportingExceptionEvent if there was an error during importing.
      */
-    void handleItemListImportEvent(ItemListImportEvent iie);
+    void handleItemListImportEvent(ItemListImportEvent ilie);
 
     /**
      * Export the current version of the Sale List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises DataExportingExceptionEvent if there was an error during exporting.
      */
-    void handleSaleListExportEvent(SaleListExportEvent ilee);
+    void handleSaleListExportEvent(SaleListExportEvent slee);
 
     /**
      * Import the Sale List from the hard disk.
      * Raises DataImportingExceptionEvent if there was an error during importing.
      */
-    void handleSaleListImportEvent(SaleListImportEvent iie);
+    void handleSaleListImportEvent(SaleListImportEvent slie);
 
     /**
      * Export the current version of the Staff List to the hard disk.
      *   Creates the data file if it is missing.
      * Raises DataExportingExceptionEvent if there was an error during exporting.
      */
-    void handleStaffListExportEvent(StaffListExportEvent ilee);
+    void handleStaffListExportEvent(StaffListExportEvent slee);
 
     /**
      * Import the Staff List from the hard disk.
      * Raises DataImportingExceptionEvent if there was an error during importing.
      */
-    void handleStaffListImportEvent(StaffListImportEvent iie);
+    void handleStaffListImportEvent(StaffListImportEvent slie);
+
+    /**
+     * Export the current version of the Purchase order List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
+     */
+    void handlePurchaseOrderListExportEvent(PurchaseOrderListExportEvent plee);
+
+    /**
+     * Import the Purchase order List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
+     */
+    void handlePurchaseOrderListImportEvent(PurchaseOrderListImportEvent plie);
 }

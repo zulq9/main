@@ -20,6 +20,7 @@ public class ExportCsvCommand extends Command {
     public static final String COMMAND_WORD_ITEMS = "export-csv-items";
     public static final String COMMAND_WORD_SALES = "export-csv-sales";
     public static final String COMMAND_WORD_STAFFS = "export-csv-staffs";
+    public static final String COMMAND_WORD_PURCHASE_ORDERS = "export-csv-orders";
 
     public static final String MESSAGE_USAGE_ITEMS = COMMAND_WORD_ITEMS + ": Export the item list to a Csv file. "
             + "Parameters: "
@@ -33,21 +34,31 @@ public class ExportCsvCommand extends Command {
             + "Example: " + COMMAND_WORD_SALES + " "
             + PREFIX_FILEPATH + "E:/out/sales.csv";
 
-    public static final String MESSAGE_USAGE_STAFFS = COMMAND_WORD_STAFFS + ": Export the sale list to a Csv file. "
+    public static final String MESSAGE_USAGE_STAFFS = COMMAND_WORD_STAFFS + ": Export the staff list to a Csv file. "
             + "Parameters: "
             + PREFIX_FILEPATH + "FILEPATH \n"
             + "Example: " + COMMAND_WORD_STAFFS + " "
             + PREFIX_FILEPATH + "E:/out/staffs.csv";
 
+    public static final String MESSAGE_USAGE_PURCHASE_ORDERS = COMMAND_WORD_PURCHASE_ORDERS
+            + ": Export the purchase order list to a Csv file. "
+            + "Parameters: "
+            + PREFIX_FILEPATH + "FILEPATH \n"
+            + "Example: " + COMMAND_WORD_PURCHASE_ORDERS + " "
+            + PREFIX_FILEPATH + "E:/out/orders.csv";
+
     public static final String MESSAGE_USAGE = MESSAGE_USAGE_ITEMS + "\n"
             + MESSAGE_USAGE_SALES + "\n"
-            + MESSAGE_USAGE_STAFFS;
+            + MESSAGE_USAGE_STAFFS + "\n"
+            + MESSAGE_USAGE_PURCHASE_ORDERS;
 
     public static final String MESSAGE_SUCCESS_ITEMS = "Item list is exporting to %s";
 
     public static final String MESSAGE_SUCCESS_SALES = "Sale list is exporting to %s";
 
     public static final String MESSAGE_SUCCESS_STAFFS = "Staff list is exporting to %s";
+
+    public static final String MESSAGE_SUCCESS_PURCHASE_ORDERS = "Purchase order list is exporting to %s";
 
     public static final String MESSAGE_INVALID_CSV_FILEPATH = "%s is not a valid csv file path";
 
@@ -88,6 +99,9 @@ public class ExportCsvCommand extends Command {
         case COMMAND_WORD_STAFFS:
             model.exportStaffList(filePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS_STAFFS, filePath.toAbsolutePath()));
+        case COMMAND_WORD_PURCHASE_ORDERS:
+            model.exportPurchaseOrderList(filePath);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_PURCHASE_ORDERS, filePath.toAbsolutePath()));
         default:
             throw new CommandException(MESSAGE_INVALID_COMMAND_WORD);
 

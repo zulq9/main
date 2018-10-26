@@ -18,6 +18,7 @@ public class ImportCsvCommand extends Command {
     public static final String COMMAND_WORD_ITEMS = "import-csv-items";
     public static final String COMMAND_WORD_SALES = "import-csv-sales";
     public static final String COMMAND_WORD_STAFFS = "import-csv-staffs";
+    public static final String COMMAND_WORD_PURCHASE_ORDERS = "import-csv-orders";
 
     public static final String MESSAGE_USAGE_ITEMS = COMMAND_WORD_ITEMS + ": Import the item list from a Csv file. "
             + "Parameters: "
@@ -37,15 +38,25 @@ public class ImportCsvCommand extends Command {
             + "Example: " + COMMAND_WORD_STAFFS + " "
             + PREFIX_FILEPATH + "E:/in/staff.csv";
 
+    public static final String MESSAGE_USAGE_PURCHASE_ORDERS = COMMAND_WORD_PURCHASE_ORDERS
+            + ": Import the purchase order list from a Csv file. "
+            + "Parameters: "
+            + PREFIX_FILEPATH + "FILEPATH \n"
+            + "Example: " + COMMAND_WORD_PURCHASE_ORDERS + " "
+            + PREFIX_FILEPATH + "E:/in/orders.csv";
+
     public static final String MESSAGE_USAGE = MESSAGE_USAGE_ITEMS + "\n"
             + MESSAGE_USAGE_SALES + "\n"
-            + MESSAGE_USAGE_STAFFS;
+            + MESSAGE_USAGE_STAFFS + "\n"
+            + MESSAGE_USAGE_PURCHASE_ORDERS;
 
     public static final String MESSAGE_SUCCESS_ITEMS = "Item list is importing from %s";
 
     public static final String MESSAGE_SUCCESS_SALES = "Sale list is importing from %s";
 
     public static final String MESSAGE_SUCCESS_STAFFS = "Staff list is importing from %s";
+
+    public static final String MESSAGE_SUCCESS_PURCHASE_ORDERS = "Purchase order list is importing from %s";
 
     public static final String MESSAGE_INVALID_CSV_FILEPATH = "%s is not a valid csv file path";
 
@@ -86,6 +97,9 @@ public class ImportCsvCommand extends Command {
         case COMMAND_WORD_STAFFS:
             model.importStaffList(filePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS_STAFFS, filePath.toAbsolutePath()));
+        case COMMAND_WORD_PURCHASE_ORDERS:
+            model.importPurchaseOrderList(filePath);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_PURCHASE_ORDERS, filePath.toAbsolutePath()));
         default:
             throw new CommandException(MESSAGE_INVALID_COMMAND_WORD);
         }

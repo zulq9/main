@@ -2,15 +2,10 @@ package seedu.inventory.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 
-import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.NonUniquePurchaseOrderList;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
-import seedu.inventory.model.staff.Staff;
-import seedu.inventory.model.staff.UniqueStaffList;
 
 /**
  * Wraps all data at the PurchaseOrderList level

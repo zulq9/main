@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 
@@ -64,5 +65,22 @@ public interface ReportingStorage {
      * @throws IOException if there was any problem when writing to the file.
      */
     void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException;
+
+    /**
+     * Import the purchase order list from storage.
+     *   Returns {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException if there was any problem when reading from the storage.
+     */
+    Optional<ReadOnlyPurchaseOrderList> importPurchaseOrderList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException;
+
+    /**
+     * Export the given purchase order list to the file.
+     * @param purchaseOrderList cannot be null.
+     * @param filePath cannot be null.
+     * @throws IOException if there was any problem when writing to the file.
+     */
+    void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, Path filePath) throws IOException;
 
 }

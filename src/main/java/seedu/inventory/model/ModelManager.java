@@ -21,6 +21,8 @@ import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
@@ -28,6 +30,7 @@ import seedu.inventory.commons.events.model.StaffListChangedEvent;
 import seedu.inventory.commons.events.model.StaffListExportEvent;
 import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.model.item.Item;
@@ -83,12 +86,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetSaleList(ReadOnlySaleList newSaleList) {
         saleList.resetData(newSaleList);
-        indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
     public void resetStaffList(ReadOnlyStaffList newStaffList) {
         versionedInventory.resetStaffList(newStaffList);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void resetPurchaseOrderList(ReadOnlyPurchaseOrderList newPurchaseOrderList) {
+        versionedInventory.resetPurchaseOrderList(newPurchaseOrderList);
         indicateInventoryChanged();
     }
 
@@ -155,6 +164,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAccessStaff();
     }
 
+    @Override
+    public void exportPurchaseOrderList(Path filePath) {
+        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
+        indicatePurchaseOrder();
+    }
+
+    @Override
+    public void importPurchaseOrderList(Path filePath) {
+        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
+        indicatePurchaseOrder();
+    }
+
     //=========== Item  ====================================================================================
 
     @Override
@@ -218,6 +239,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addPurchaseOrder(PurchaseOrder po) {
         versionedInventory.addPurchaseOrder(po);
         updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
+        indicateInventoryChanged();
     }
 
     @Override
@@ -229,6 +251,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePurchaseOrder(PurchaseOrder target) {
         versionedInventory.removePurchaseOrder(target);
+        indicateInventoryChanged();
     }
 
     @Override
@@ -435,6 +458,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleStaffListUpdateEvent(StaffListUpdateEvent event) {
         resetStaffList(event.staffList);
+    }
+
+    @Override
+    @Subscribe
+    public void handlePurchaseOrderListUpdateEvent(PurchaseOrderListUpdateEvent event) {
+        resetPurchaseOrderList(event.purchaseOrderList);
     }
 
 }

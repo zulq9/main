@@ -129,11 +129,13 @@ public class InventoryParser {
         case ExportCsvCommand.COMMAND_WORD_ITEMS:
         case ExportCsvCommand.COMMAND_WORD_SALES:
         case ExportCsvCommand.COMMAND_WORD_STAFFS:
+        case ExportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS:
             return new ExportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
         case ImportCsvCommand.COMMAND_WORD_ITEMS:
         case ImportCsvCommand.COMMAND_WORD_SALES:
         case ImportCsvCommand.COMMAND_WORD_STAFFS:
+        case ImportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS:
             return new ImportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
         default:

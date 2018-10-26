@@ -55,6 +55,15 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Resets the existing purchase order list of this {@code Inventory} with {@code newPurchaseOrderList}.
+     */
+    public void resetPurchaseOrderList(ReadOnlyPurchaseOrderList newPurchaseOrderList) {
+        requireNonNull(newPurchaseOrderList);
+
+        setPurchaseOrders(newPurchaseOrderList.getPurchaseOrderList());
+    }
+
+    /**
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */

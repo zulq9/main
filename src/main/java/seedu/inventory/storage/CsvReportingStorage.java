@@ -16,6 +16,7 @@ import seedu.inventory.commons.util.CsvUtil;
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 
@@ -118,6 +119,39 @@ public class CsvReportingStorage implements ReportingStorage {
 
         FileUtil.createIfMissing(filePath);
         CsvUtil.saveDataToFile(filePath, new CsvSerializableStaffList(staffList));
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseOrderList> importPurchaseOrderList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException {
+        requireNonNull(inventory);
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Sale list file " + filePath + " not found");
+            return Optional.empty();
+        }
+        try {
+            CsvSerializablePurchaseOrderList purchaseOrders = new CsvSerializablePurchaseOrderList(CsvUtil
+                    .getDataFromFile(filePath, new CsvSerializablePurchaseOrderList()));
+            purchaseOrders.setInventory(inventory);
+            return Optional.of(purchaseOrders.toModelType());
+        } catch (UnrecognizableDataException ude) {
+            logger.info("Data in " + filePath + " can not be recognized");
+            throw new DataConversionException(ude);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, Path filePath) throws IOException {
+        requireNonNull(purchaseOrderList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        CsvUtil.saveDataToFile(filePath, new CsvSerializablePurchaseOrderList(purchaseOrderList));
     }
 
 }

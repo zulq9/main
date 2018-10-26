@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.model.item.Item;
@@ -52,6 +53,11 @@ public interface Model {
     void resetStaffList(ReadOnlyStaffList newStaffList);
 
     /**
+     * Replaces the purchase order list in backing model with the provided new purchase order list.
+     */
+    void resetPurchaseOrderList(ReadOnlyPurchaseOrderList newPurchaseOrderList);
+
+    /**
      * Returns the Inventory
      */
     ReadOnlyInventory getInventory();
@@ -93,6 +99,18 @@ public interface Model {
      * @param filePath The path to import.
      */
     void importStaffList(Path filePath);
+
+    /**
+     * Export the purchase order list to the file path.
+     * @param filePath The path to export.
+     */
+    void exportPurchaseOrderList(Path filePath);
+
+    /**
+     * Import the purchase order list from the file path.
+     * @param filePath The path to import.
+     */
+    void importPurchaseOrderList(Path filePath);
 
     //=========== Item API =============================================================
 
@@ -302,5 +320,10 @@ public interface Model {
      * Handler function of StaffListUpdateEvent.
      */
     void handleStaffListUpdateEvent(StaffListUpdateEvent event);
+
+    /**
+     * Handler function of PurchaseOrderListUpdateEvent.
+     */
+    void handlePurchaseOrderListUpdateEvent(PurchaseOrderListUpdateEvent event);
 
 }

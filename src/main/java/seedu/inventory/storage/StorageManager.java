@@ -13,6 +13,8 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
 import seedu.inventory.commons.events.model.SaleListExportEvent;
 import seedu.inventory.commons.events.model.SaleListImportEvent;
@@ -25,11 +27,13 @@ import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataImportingSuccessEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.UserPrefs;
@@ -170,6 +174,18 @@ public class StorageManager extends ComponentManager implements Storage {
         reportingStorage.exportStaffList(staffList, filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyPurchaseOrderList> importPurchaseOrderList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to import purchase order list from file: " + filePath);
+        return reportingStorage.importPurchaseOrderList(inventory, filePath);
+    }
+
+    @Override
+    public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, Path filePath) throws IOException {
+        logger.fine("Attempting to export purchase order list to file: " + filePath);
+        reportingStorage.exportPurchaseOrderList(purchaseOrderList, filePath);
+    }
 
     // ================ Event handler ==================================
 
@@ -288,6 +304,38 @@ public class StorageManager extends ComponentManager implements Storage {
             Optional<ReadOnlyStaffList> staffList = importStaffList(event.filePath);
             if (staffList.isPresent()) {
                 raise(new StaffListUpdateEvent(staffList.get()));
+                raise(new DataImportingSuccessEvent());
+            } else {
+                raise(new DataImportingExceptionEvent(new FileNotFoundException()));
+            }
+        } catch (IOException ioe) {
+            raise(new DataImportingExceptionEvent(ioe));
+        } catch (DataConversionException dce) {
+            raise(new DataImportingExceptionEvent(dce));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handlePurchaseOrderListExportEvent(PurchaseOrderListExportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export purchase order list to file"));
+        try {
+            exportPurchaseOrderList(event.data, event.filePath);
+            raise(new DataExportingSuccessEvent());
+        } catch (IOException e) {
+            raise(new DataExportingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handlePurchaseOrderListImportEvent(PurchaseOrderListImportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import purchase order list from file"));
+        try {
+            Optional<ReadOnlyPurchaseOrderList> purchaseOrderList =
+                    importPurchaseOrderList(event.inventory, event.filePath);
+            if (purchaseOrderList.isPresent()) {
+                raise(new PurchaseOrderListUpdateEvent(purchaseOrderList.get()));
                 raise(new DataImportingSuccessEvent());
             } else {
                 raise(new DataImportingExceptionEvent(new FileNotFoundException()));
