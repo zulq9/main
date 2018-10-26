@@ -36,6 +36,8 @@ import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.DeletePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
+import seedu.inventory.logic.parser.staff.AddStaffCommandParser;
+import seedu.inventory.logic.parser.staff.DeleteStaffCommandParser;
 
 /**
  * Parses user input.
