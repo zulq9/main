@@ -4,13 +4,13 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of items
+ * Indicates a request to jump to the list of staffs
  */
-public class JumpToListRequestEvent extends BaseEvent {
+public class JumpToStaffListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
 
-    public JumpToListRequestEvent(Index targetIndex) {
+    public JumpToStaffListRequestEvent(Index targetIndex) {
         this.targetIndex = targetIndex.getZeroBased();
     }
 
@@ -18,5 +18,4 @@ public class JumpToListRequestEvent extends BaseEvent {
     public String toString() {
         return getClass().getSimpleName();
     }
-
 }

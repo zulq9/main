@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.InventoryBuilder;
 
 public class ModelManagerTest {
@@ -63,7 +64,7 @@ public class ModelManagerTest {
     @Test
     public void hasPurchaseOrder_nullPurchaseOrder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPurchaseOrder(null);
+        modelManager.hasPurchaseOrder((PurchaseOrder) null);
     }
 
     @Test

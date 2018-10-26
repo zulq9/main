@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ReadOnlyInventory;
@@ -40,6 +41,11 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyInventory getInventory() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public <T> FilteredList<T> getAccessedList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -114,7 +120,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasPurchaseOrder(Item item) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deletePurchaseOrder(PurchaseOrder target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deletePurchaseOrder(Item target) {
         throw new AssertionError("This method should not be called.");
     }
 

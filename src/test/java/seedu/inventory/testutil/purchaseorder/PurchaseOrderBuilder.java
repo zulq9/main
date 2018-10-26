@@ -1,6 +1,5 @@
 package seedu.inventory.testutil.purchaseorder;
 
-import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -13,7 +12,6 @@ import seedu.inventory.model.purchaseorder.Supplier;
 public class PurchaseOrderBuilder {
 
     public static final String DEFAULT_SKU = "apple-iphone-xr";
-    public static final String DEFAULT_NAME = "iPhone XR";
     public static final String DEFAULT_QUANTITY = "10";
     public static final String DEFAULT_REQUIRED_DATE = "2018-12-31";
     public static final String DEFAULT_SUPPLIER = "Apple Inc.";
@@ -21,7 +19,6 @@ public class PurchaseOrderBuilder {
 
 
     private Sku sku;
-    private Name name;
     private Quantity quantity;
     private RequiredDate reqDate;
     private Supplier supplier;
@@ -29,7 +26,6 @@ public class PurchaseOrderBuilder {
 
     public PurchaseOrderBuilder() {
         sku = new Sku(DEFAULT_SKU);
-        name = new Name(DEFAULT_NAME);
         quantity = new Quantity(DEFAULT_QUANTITY);
         reqDate = new RequiredDate(DEFAULT_REQUIRED_DATE);
         supplier = new Supplier(DEFAULT_SUPPLIER);
@@ -43,7 +39,6 @@ public class PurchaseOrderBuilder {
      */
     public PurchaseOrderBuilder(PurchaseOrder poToCopy) {
         sku = poToCopy.getSku();
-        name = poToCopy.getName();
         quantity = poToCopy.getQuantity();
         reqDate = poToCopy.getReqDate();
         supplier = poToCopy.getSupplier();
@@ -55,14 +50,6 @@ public class PurchaseOrderBuilder {
      */
     public PurchaseOrderBuilder withSku(String sku) {
         this.sku = new Sku(sku);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Name} of the {@code PurchaseOrder} that we are building.
-     */
-    public PurchaseOrderBuilder withName(String name) {
-        this.name = new Name(name);
         return this;
     }
 
@@ -99,6 +86,6 @@ public class PurchaseOrderBuilder {
     }
 
     public PurchaseOrder build() {
-        return new PurchaseOrder(sku, name, quantity, reqDate, supplier, status);
+        return new PurchaseOrder(sku, quantity, reqDate, supplier, status);
     }
 }

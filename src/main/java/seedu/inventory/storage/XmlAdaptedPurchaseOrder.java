@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
 
-import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -22,8 +21,6 @@ public class XmlAdaptedPurchaseOrder {
 
     @XmlElement(required = true)
     private String sku;
-    @XmlElement(required = true)
-    private String name;
     @XmlElement(required = true)
     private String quantity;
     @XmlElement(required = true)
@@ -43,9 +40,8 @@ public class XmlAdaptedPurchaseOrder {
     /**
      * Constructs an {@code XmlAdaptedItem} with the given item details.
      */
-    public XmlAdaptedPurchaseOrder(String sku, String name, String quantity, String reqDate, String supplier,
+    public XmlAdaptedPurchaseOrder(String sku, String quantity, String reqDate, String supplier,
                                    String status) {
-        this.name = name;
         this.quantity = quantity;
         this.sku = sku;
         this.reqDate = reqDate;
@@ -60,7 +56,6 @@ public class XmlAdaptedPurchaseOrder {
      */
     public XmlAdaptedPurchaseOrder(PurchaseOrder source) {
         sku = source.getSku().value;
-        name = source.getName().fullName;
         quantity = source.getQuantity().value;
         reqDate = source.getReqDate().requiredDate;
         supplier = source.getSupplier().supplierName;
@@ -81,14 +76,6 @@ public class XmlAdaptedPurchaseOrder {
             throw new IllegalValueException(Sku.MESSAGE_SKU_CONSTRAINTS);
         }
         final Sku modelSku = new Sku(sku);
-
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
 
         if (quantity == null) {
             throw new IllegalValueException(
@@ -130,7 +117,7 @@ public class XmlAdaptedPurchaseOrder {
         }
         final PurchaseOrder.Status modelStatus = PurchaseOrder.Status.valueOf(status);
 
-        return new PurchaseOrder(modelSku, modelName, modelQuantity, modelRequiredDate, modelSupplier, modelStatus);
+        return new PurchaseOrder(modelSku, modelQuantity, modelRequiredDate, modelSupplier, modelStatus);
     }
 
     @Override
@@ -145,7 +132,6 @@ public class XmlAdaptedPurchaseOrder {
 
         XmlAdaptedPurchaseOrder otherPurchaseOrder = (XmlAdaptedPurchaseOrder) other;
         return Objects.equals(sku, otherPurchaseOrder.sku)
-                && Objects.equals(name, otherPurchaseOrder.name)
                 && Objects.equals(quantity, otherPurchaseOrder.quantity)
                 && Objects.equals(reqDate, otherPurchaseOrder.reqDate)
                 && Objects.equals(supplier, otherPurchaseOrder.supplier)

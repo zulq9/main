@@ -18,7 +18,7 @@ import guitests.guihandles.StaffCardHandle;
 import guitests.guihandles.StaffListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToStaffListRequestEvent;
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.staff.Staff;
@@ -29,7 +29,8 @@ public class StaffListPanelTest extends GuiUnitTest {
     private static final ObservableList<Staff> TYPICAL_STAFFS =
             FXCollections.observableList(getTypicalStaffs());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ITEM);
+    private static final JumpToStaffListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToStaffListRequestEvent(INDEX_SECOND_ITEM);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
