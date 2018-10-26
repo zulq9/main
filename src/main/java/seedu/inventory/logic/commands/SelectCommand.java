@@ -46,7 +46,7 @@ public class SelectCommand extends Command {
         List<Object> filteredAccessedList = model.getAccessedList();
 
         if (targetIndex.getZeroBased() >= filteredAccessedList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         String accessing = filteredAccessedList.get(0).getClass().getSimpleName();
