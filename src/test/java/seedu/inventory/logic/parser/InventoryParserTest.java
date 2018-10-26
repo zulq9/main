@@ -41,7 +41,6 @@ import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
 import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
 import seedu.inventory.testutil.purchaseorder.PurchaseOrderUtil;
-//TODO
 public class InventoryParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -132,15 +131,29 @@ public class InventoryParserTest {
     }
 
     @Test
-    public void parseCommand_exportCsvItems() throws Exception {
+    public void parseCommand_exportCsv() throws Exception {
         assertTrue(parser.parseCommand(ExportCsvCommand.COMMAND_WORD_ITEMS + " f/.csv")
                 instanceof ExportCsvCommand);
+        assertTrue(parser.parseCommand(ExportCsvCommand.COMMAND_WORD_SALES + " f/.csv")
+                instanceof ExportCsvCommand);
+        assertTrue(parser.parseCommand(ExportCsvCommand.COMMAND_WORD_STAFFS + " f/.csv")
+                instanceof ExportCsvCommand);
+        assertTrue(parser.parseCommand(ExportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS + " f/.csv")
+                instanceof ExportCsvCommand);
+
     }
 
     @Test
     public void parseCommand_importCsvItems() throws Exception {
         assertTrue(parser.parseCommand(ImportCsvCommand.COMMAND_WORD_ITEMS + " f/.csv")
                 instanceof ImportCsvCommand);
+        assertTrue(parser.parseCommand(ImportCsvCommand.COMMAND_WORD_SALES + " f/.csv")
+                instanceof ImportCsvCommand);
+        assertTrue(parser.parseCommand(ImportCsvCommand.COMMAND_WORD_STAFFS + " f/.csv")
+                instanceof ImportCsvCommand);
+        assertTrue(parser.parseCommand(ImportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS + " f/.csv")
+                instanceof ImportCsvCommand);
+
     }
 
     @Test

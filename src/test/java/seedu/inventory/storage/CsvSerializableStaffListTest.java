@@ -24,7 +24,7 @@ import seedu.inventory.testutil.TypicalItems;
 //TODO
 public class CsvSerializableStaffListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvSerializableSaleListTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvSerializableStaffListTest");
     private static final Path TYPICAL_SALES_FILE = TEST_DATA_FOLDER.resolve("typicalSaleList.csv");
     private static final Path INVALID_SALE_FILE = TEST_DATA_FOLDER.resolve("invalidSaleList.csv");
     private static final Path DUPLICATE_SALE_FILE = TEST_DATA_FOLDER.resolve("duplicateSaleList.csv");
