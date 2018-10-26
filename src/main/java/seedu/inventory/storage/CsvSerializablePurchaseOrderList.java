@@ -17,7 +17,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
  */
 public class CsvSerializablePurchaseOrderList implements CsvSerializableData {
     public static final String DATA_TYPE = "Purchase Order";
-    public static final String[] FIELDS = {"sku", "name", "quantity", "requiredDate", "supplier", "status"};
+    public static final String[] FIELDS = {"sku", "quantity", "requiredDate", "supplier", "status"};
 
     private ReadOnlyInventory inventory;
     private List<CsvAdaptedPurchaseOrder> purchaseOrders;

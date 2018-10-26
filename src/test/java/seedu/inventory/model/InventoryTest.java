@@ -140,7 +140,7 @@ public class InventoryTest {
     @Test
     public void hasPurchaseOrder_nullPurchaseOrder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        inventory.hasPurchaseOrder(null);
+        inventory.hasPurchaseOrder((PurchaseOrder) null);
     }
 
     @Test

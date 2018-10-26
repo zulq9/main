@@ -27,7 +27,7 @@ public class NonUniquePurchaseOrderListTest {
     @Test
     public void contains_nullPurchaseOrder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        nonUniquePoList.contains(null);
+        nonUniquePoList.contains((PurchaseOrder) null);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class NonUniquePurchaseOrderListTest {
     @Test
     public void remove_nullPurchaseOrder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        nonUniquePoList.remove(null);
+        nonUniquePoList.remove((PurchaseOrder) null);
     }
 
     @Test
@@ -88,8 +88,8 @@ public class NonUniquePurchaseOrderListTest {
     public void remove_existingPurchaseOrder_removesPurchaseOrder() {
         nonUniquePoList.add(LGPO);
         nonUniquePoList.remove(LGPO);
-        NonUniquePurchaseOrderList expectednonUniquePoList = new NonUniquePurchaseOrderList();
-        assertEquals(expectednonUniquePoList, nonUniquePoList);
+        NonUniquePurchaseOrderList expectedNonUniquePoList = new NonUniquePurchaseOrderList();
+        assertEquals(expectedNonUniquePoList, nonUniquePoList);
     }
 
     @Test
@@ -118,9 +118,9 @@ public class NonUniquePurchaseOrderListTest {
         nonUniquePoList.add(LGPO);
         List<PurchaseOrder> purchaseOrderList = Collections.singletonList(SAMSUNGNOTEPO);
         nonUniquePoList.setPurchaseOrders(purchaseOrderList);
-        NonUniquePurchaseOrderList expectednonUniquePoList = new NonUniquePurchaseOrderList();
-        expectednonUniquePoList.add(SAMSUNGNOTEPO);
-        assertEquals(expectednonUniquePoList, nonUniquePoList);
+        NonUniquePurchaseOrderList expectedNonUniquePoList = new NonUniquePurchaseOrderList();
+        expectedNonUniquePoList.add(SAMSUNGNOTEPO);
+        assertEquals(expectedNonUniquePoList, nonUniquePoList);
     }
 
     @Test

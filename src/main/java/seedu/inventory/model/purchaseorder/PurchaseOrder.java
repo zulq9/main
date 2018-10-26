@@ -4,7 +4,7 @@ import static seedu.inventory.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.inventory.model.item.Name;
+import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 
@@ -16,7 +16,6 @@ public class PurchaseOrder {
 
     // Identity field
     private final Sku sku;
-    private final Name name;
 
     // Data fields
     private final Quantity quantity;
@@ -58,11 +57,10 @@ public class PurchaseOrder {
     /**
      * Every field must be present and not null.
      */
-    public PurchaseOrder(Sku sku, Name name, Quantity quantity, RequiredDate reqDate,
+    public PurchaseOrder(Sku sku, Quantity quantity, RequiredDate reqDate,
                          Supplier supplier, Status status) {
-        requireAllNonNull(sku, name, quantity, reqDate, supplier, status);
+        requireAllNonNull(sku, quantity, reqDate, supplier, status);
         this.sku = sku;
-        this.name = name;
         this.quantity = quantity;
         this.reqDate = reqDate;
         this.supplier = supplier;
@@ -71,10 +69,6 @@ public class PurchaseOrder {
 
     public Sku getSku() {
         return sku;
-    }
-
-    public Name getName() {
-        return name;
     }
 
     public Quantity getQuantity() {
@@ -105,6 +99,14 @@ public class PurchaseOrder {
                 && otherPo.getSku().equals(getSku());
     }
 
+    /**
+     * Returns true if the item is for the current purchase order
+     */
+    public boolean hasItem(Item item) {
+        return item != null
+                && item.getSku().equals(getSku());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(quantity, reqDate, supplier);
@@ -115,8 +117,6 @@ public class PurchaseOrder {
         final StringBuilder builder = new StringBuilder();
         builder.append(" SKU: ")
                 .append(getSku())
-                .append(" Item name: ")
-                .append(getName())
                 .append(" Quantity: ")
                 .append(getQuantity())
                 .append(" Date Required: ")

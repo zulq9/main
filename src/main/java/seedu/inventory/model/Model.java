@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
@@ -62,16 +63,23 @@ public interface Model {
      */
     ReadOnlyInventory getInventory();
 
+    /**
+     * Returns the accessed filtered list
+     */
+    <T> FilteredList<T> getAccessedList();
+
     //=========== Reporting API ========================================================
 
     /**
      * Export the item list to the file path.
+     *
      * @param filePath The path to export.
      */
     void exportItemList(Path filePath);
 
     /**
      * Import the item list from the file path.
+     *
      * @param filePath The path to import.
      */
     void importItemList(Path filePath);
@@ -158,9 +166,14 @@ public interface Model {
     //=========== Purchase Order API =============================================================
 
     /**
-     * Returns true if a purchase order with the same identity as {@code item} exists in the inventory.
+     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
      */
-    boolean hasPurchaseOrder(PurchaseOrder item);
+    boolean hasPurchaseOrder(PurchaseOrder po);
+
+    /**
+     * Returns true if a purchase order has a {@code item} in the inventory.
+     */
+    boolean hasPurchaseOrder(Item item);
 
     /**
      * Deletes the given purchase order.
@@ -173,6 +186,12 @@ public interface Model {
      * The purchase order must exist in the inventory.
      */
     void deletePurchaseOrder(PurchaseOrder target);
+
+    /**
+     * Deletes all purchase orders given the item.
+     * The item and purchase order must exist in the inventory.
+     */
+    void deletePurchaseOrder(Item target);
 
     /**
      * Adds the given purchase order.

@@ -9,7 +9,6 @@ import java.util.Objects;
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.item.Item;
-import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -25,7 +24,6 @@ public class CsvAdaptedPurchaseOrder {
     public static final String MISSING_ITEM = "Purchase Order item cannot be found!";
 
     private String sku;
-    private String name;
     private String quantity;
     private String reqDate;
     private String supplier;
@@ -35,9 +33,8 @@ public class CsvAdaptedPurchaseOrder {
     /**
      * Constructs an {@code CsvAdaptedPurchaseOrder} with the given order details.
      */
-    public CsvAdaptedPurchaseOrder(String sku, String name, String quantity, String reqDate, String supplier,
+    public CsvAdaptedPurchaseOrder(String sku, String quantity, String reqDate, String supplier,
                                    String status) {
-        this.name = name;
         this.quantity = quantity;
         this.sku = sku;
         this.reqDate = reqDate == null ? null : reqDate.replaceAll("/", "-");
@@ -53,7 +50,6 @@ public class CsvAdaptedPurchaseOrder {
      */
     public CsvAdaptedPurchaseOrder(PurchaseOrder source) {
         sku = source.getSku().value;
-        name = source.getName().fullName;
         quantity = source.getQuantity().value;
         reqDate = source.getReqDate().requiredDate;
         supplier = source.getSupplier().supplierName;
@@ -81,14 +77,6 @@ public class CsvAdaptedPurchaseOrder {
         if (modelItem == null) {
             throw new IllegalValueException(MISSING_ITEM);
         }
-
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
 
         if (quantity == null) {
             throw new IllegalValueException(
@@ -130,7 +118,7 @@ public class CsvAdaptedPurchaseOrder {
         }
         final PurchaseOrder.Status modelStatus = PurchaseOrder.Status.valueOf(status);
 
-        return new PurchaseOrder(modelSku, modelName, modelQuantity, modelRequiredDate, modelSupplier, modelStatus);
+        return new PurchaseOrder(modelSku, modelQuantity, modelRequiredDate, modelSupplier, modelStatus);
     }
 
 
@@ -144,7 +132,6 @@ public class CsvAdaptedPurchaseOrder {
     public static List<String> getContentFromPurchaseOrder(CsvAdaptedPurchaseOrder purchaseOrder) {
         List<String> content = new ArrayList<>();
         content.add(purchaseOrder.sku);
-        content.add(purchaseOrder.name);
         content.add(purchaseOrder.quantity);
         content.add(purchaseOrder.reqDate);
         content.add(purchaseOrder.supplier);
@@ -160,16 +147,15 @@ public class CsvAdaptedPurchaseOrder {
      */
     public static CsvAdaptedPurchaseOrder splitContentToPurchaseOrder(List<String> content)
             throws IllegalValueException {
-        if (content.size() < 6) {
+        if (content.size() < 5) {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE);
         }
         String sku = content.get(0);
-        String name = content.get(1);
-        String quantity = content.get(2);
-        String reqDate = content.get(3);
-        String supplier = content.get(4);
-        String status = content.get(5);
-        return new CsvAdaptedPurchaseOrder(sku, name, quantity, reqDate, supplier, status);
+        String quantity = content.get(1);
+        String reqDate = content.get(2);
+        String supplier = content.get(3);
+        String status = content.get(4);
+        return new CsvAdaptedPurchaseOrder(sku, quantity, reqDate, supplier, status);
     }
 
     @Override
@@ -184,7 +170,6 @@ public class CsvAdaptedPurchaseOrder {
 
         CsvAdaptedPurchaseOrder otherPurchaseOrder = (CsvAdaptedPurchaseOrder) other;
         return Objects.equals(sku, otherPurchaseOrder.sku)
-                && Objects.equals(name, otherPurchaseOrder.name)
                 && Objects.equals(quantity, otherPurchaseOrder.quantity)
                 && Objects.equals(reqDate, otherPurchaseOrder.reqDate)
                 && Objects.equals(supplier, otherPurchaseOrder.supplier)
