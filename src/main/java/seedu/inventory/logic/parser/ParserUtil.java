@@ -221,7 +221,7 @@ public class ParserUtil {
         requireNonNull(password);
         String trimmedPassword = password.trim();
         if (!Username.isValidUsername(trimmedPassword)) {
-            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         return new Password(trimmedPassword);
     }
