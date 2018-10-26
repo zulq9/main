@@ -217,7 +217,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editStaff(Staff target, Staff editedStaff) {
+    public void updateStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
         versionedInventory.updateStaff(target, editedStaff);
         indicateStaffListChanged();
