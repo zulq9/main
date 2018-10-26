@@ -14,14 +14,14 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.CommandResult;
-import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.ModelStub;
+import seedu.inventory.testutil.TypicalItems;
 import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
 import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
-public class GeneratePurchaseOrderCommandTest {
+public class AddPurchaseOrderCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -33,18 +33,19 @@ public class GeneratePurchaseOrderCommandTest {
     @Test
     public void constructor_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new GeneratePurchaseOrderCommand(null);
+        new AddPurchaseOrderCommand(null);
     }
 
     @Test
     public void execute_purchaseOrderAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPurchaseOrderAdded modelStub = new ModelStubAcceptingPurchaseOrderAdded();
+
         PurchaseOrder validPurchaseOrder = new PurchaseOrderBuilder().build();
 
-        CommandResult commandResult = new GeneratePurchaseOrderCommand(validPurchaseOrder)
+        CommandResult commandResult = new AddPurchaseOrderCommand(validPurchaseOrder)
                 .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(GeneratePurchaseOrderCommand.MESSAGE_SUCCESS, validPurchaseOrder),
+        assertEquals(String.format(AddPurchaseOrderCommand.MESSAGE_SUCCESS, validPurchaseOrder),
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPurchaseOrder), modelStub.purchaseOrdersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -54,14 +55,14 @@ public class GeneratePurchaseOrderCommandTest {
     public void equals() {
         PurchaseOrder iPhone = TypicalPurchaseOrder.IPHONEPO;
         PurchaseOrder lg = TypicalPurchaseOrder.LGPO;
-        GeneratePurchaseOrderCommand addIphoneCommand = new GeneratePurchaseOrderCommand(iPhone);
-        GeneratePurchaseOrderCommand addLgCommand = new GeneratePurchaseOrderCommand(lg);
+        AddPurchaseOrderCommand addIphoneCommand = new AddPurchaseOrderCommand(iPhone);
+        AddPurchaseOrderCommand addLgCommand = new AddPurchaseOrderCommand(lg);
 
         // same object -> returns true
         assertTrue(addIphoneCommand.equals(addIphoneCommand));
 
         // same values -> returns true
-        GeneratePurchaseOrderCommand addLgCommandCopy = new GeneratePurchaseOrderCommand(lg);
+        AddPurchaseOrderCommand addLgCommandCopy = new AddPurchaseOrderCommand(lg);
         assertTrue(addLgCommand.equals(addLgCommandCopy));
 
         // different types -> returns false
@@ -99,6 +100,11 @@ public class GeneratePurchaseOrderCommandTest {
         private final ArrayList<PurchaseOrder> purchaseOrdersAdded = new ArrayList<>();
 
         @Override
+        public ReadOnlyInventory getInventory() {
+            return TypicalItems.getTypicalInventory();
+        }
+
+        @Override
         public boolean hasPurchaseOrder(PurchaseOrder purchaseOrder) {
             requireNonNull(purchaseOrder);
             return purchaseOrdersAdded.stream().anyMatch(purchaseOrder::isSameItem);
@@ -110,14 +116,10 @@ public class GeneratePurchaseOrderCommandTest {
             purchaseOrdersAdded.add(purchaseOrder);
         }
 
-        @Override
-        public void commitInventory() {
-            // called by {@code GeneratePurchaseOrderCommand#execute()}
-        }
 
         @Override
-        public ReadOnlyInventory getInventory() {
-            return new Inventory();
+        public void commitInventory() {
+            // called by {@code AddPurchaseOrderCommand#execute()}
         }
     }
 }

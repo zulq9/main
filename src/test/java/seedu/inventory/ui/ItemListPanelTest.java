@@ -19,7 +19,7 @@ import guitests.guihandles.ItemListPanelHandle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToItemListRequestEvent;
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.commons.util.XmlUtil;
 import seedu.inventory.model.item.Item;
@@ -29,7 +29,8 @@ public class ItemListPanelTest extends GuiUnitTest {
     private static final ObservableList<Item> TYPICAL_ITEMS =
             FXCollections.observableList(getTypicalItems());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ITEM);
+    private static final JumpToItemListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToItemListRequestEvent(INDEX_SECOND_ITEM);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -52,7 +53,7 @@ public class ItemListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleJumpToListRequestEvent() {
+    public void handleJumpToItemListRequestEvent() {
         initUi(TYPICAL_ITEMS);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();

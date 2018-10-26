@@ -24,9 +24,8 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="sku" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="sku" styleClass="cell_small_label" text="\$sku" />
             <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
             <Label fx:id="reqDate" styleClass="cell_small_label" text="\$reqDate" />
             <Label fx:id="supplier" styleClass="cell_small_label" text="\$supplier" />

@@ -32,7 +32,7 @@ import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
-import seedu.inventory.logic.commands.SelectItemCommand;
+import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.testutil.TypicalItems;
@@ -152,7 +152,7 @@ public abstract class InventorySystemTest {
      * Selects the item at {@code index} of the displayed list.
      */
     protected void selectItem(Index index) {
-        executeCommand(SelectItemCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 

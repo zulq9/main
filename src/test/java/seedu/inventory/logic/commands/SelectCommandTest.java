@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToItemListRequestEvent;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
@@ -25,9 +25,9 @@ import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectItemCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
-public class SelectItemCommandTest {
+public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -73,14 +73,14 @@ public class SelectItemCommandTest {
 
     @Test
     public void equals() {
-        SelectItemCommand selectFirstCommand = new SelectItemCommand(INDEX_FIRST_ITEM);
-        SelectItemCommand selectSecondCommand = new SelectItemCommand(INDEX_SECOND_ITEM);
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_ITEM);
+        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_ITEM);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectItemCommand selectFirstCommandCopy = new SelectItemCommand(INDEX_FIRST_ITEM);
+        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_ITEM);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -94,25 +94,26 @@ public class SelectItemCommandTest {
     }
 
     /**
-     * Executes a {@code SelectItemCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToItemListRequestEvent}
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectItemCommand selectItemCommand = new SelectItemCommand(index);
-        String expectedMessage = String.format(SelectItemCommand.MESSAGE_SELECT_ITEM_SUCCESS, index.getOneBased());
+        SelectCommand selectCommand = new SelectCommand(index);
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
 
-        assertCommandSuccess(selectItemCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        JumpToItemListRequestEvent lastEvent = (JumpToItemListRequestEvent) eventsCollectorRule.eventsCollector
+                .getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
     /**
-     * Executes a {@code SelectItemCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectItemCommand selectItemCommand = new SelectItemCommand(index);
+        SelectCommand selectItemCommand = new SelectCommand(index);
         assertCommandFailure(selectItemCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }

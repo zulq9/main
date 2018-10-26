@@ -170,16 +170,23 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
+     */
+    public boolean hasPurchaseOrder(Item item) {
+        requireNonNull(item);
+        return purchaseOrders.contains(item);
+    }
+
+    /**
      * Adds a purchase order to the purchase order list.
      * Only add the purchase order if the item exist in the inventory
      */
     public void addPurchaseOrder(PurchaseOrder po) {
         requireNonNull(po);
-        for (Item item : items) {
-            if (item.getSku().value.equals(po.getSku().value)) {
-                purchaseOrders.add(po);
-                break;
-            }
+
+        Item item = items.getItemBySku(po.getSku().value);
+        if (item != null) {
+            purchaseOrders.add(po);
         }
     }
 
@@ -198,6 +205,14 @@ public class Inventory implements ReadOnlyInventory {
      * {@code key} must exist in the purchase order list.
      */
     public void removePurchaseOrder(PurchaseOrder key) {
+        purchaseOrders.remove(key);
+    }
+
+    /**
+     * Removes all {@code key} from purchase order list {@code Inventory}.
+     * {@code key} must exist in the purchase order list.
+     */
+    public void removePurchaseOrder(Item key) {
         purchaseOrders.remove(key);
     }
 

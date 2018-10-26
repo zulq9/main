@@ -12,7 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
-import seedu.inventory.commons.events.ui.JumpToListRequestEvent;
+import seedu.inventory.commons.events.ui.JumpToItemListRequestEvent;
 import seedu.inventory.model.item.Item;
 
 /**
@@ -58,7 +58,7 @@ public class ItemListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToItemListRequestEvent(JumpToItemListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
