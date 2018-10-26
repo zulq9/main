@@ -5,7 +5,9 @@ import java.nio.file.Path;
 import seedu.inventory.commons.events.BaseEvent;
 import seedu.inventory.model.ReadOnlySaleList;
 
-/** Indicates the data in the model need to be exported */
+/**
+ * Indicates the sale list in the model need to be exported
+ */
 public class SaleListExportEvent extends BaseEvent {
     public final ReadOnlySaleList data;
     public final Path filePath;
@@ -17,6 +19,6 @@ public class SaleListExportEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of items " + data.getSaleList().size() + " to file:" + filePath.toString();
+        return "number of sales " + data.getSaleList().size() + " to file:" + filePath.toString();
     }
 }
