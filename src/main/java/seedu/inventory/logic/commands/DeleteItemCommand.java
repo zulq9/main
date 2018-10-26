@@ -23,7 +23,12 @@ public class DeleteItemCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_DELETE_ITEM_PURCHASE_ORDER = "\nPurchase orders for the item is also deleted.";
+
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+
+    private static String MESSAGE_FINAL = MESSAGE_DELETE_ITEM_SUCCESS;
+
 
     private final Index targetIndex;
 
@@ -41,9 +46,15 @@ public class DeleteItemCommand extends Command {
         }
 
         Item itemToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (model.hasPurchaseOrder(itemToDelete)) {
+            model.deletePurchaseOrder(itemToDelete);
+            MESSAGE_FINAL += MESSAGE_DELETE_ITEM_PURCHASE_ORDER;
+        }
+
         model.deleteItem(itemToDelete);
         model.commitInventory();
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
+        return new CommandResult(String.format(MESSAGE_FINAL, itemToDelete));
     }
 
     @Override

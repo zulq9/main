@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.exceptions.PurchaseOrderNotFoundException;
 
 /**
@@ -24,6 +25,15 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameItem);
     }
+
+    /**
+     * Returns true if the list contains a purchase order with the {@code toCheck} as the given argument.
+     */
+    public boolean contains(Item toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(po -> po.hasItem(toCheck));
+    }
+
 
     /**
      * Adds a purchase order to the list.
@@ -59,6 +69,14 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
         if (!internalList.remove(toRemove)) {
             throw new PurchaseOrderNotFoundException();
         }
+    }
+
+    /**
+     * Removes the equivalent purchase order that has the item {@Code toRemove} from the list.
+     */
+    public void remove(Item toRemove) {
+        requireNonNull(toRemove);
+        internalList.removeIf(x -> x.hasItem(toRemove));
     }
 
     public void setPurchaseOrders(NonUniquePurchaseOrderList replacement) {

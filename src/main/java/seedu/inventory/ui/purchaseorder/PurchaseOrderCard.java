@@ -31,8 +31,6 @@ public class PurchaseOrderCard extends UiPart<Region> {
     @FXML
     private Label sku;
     @FXML
-    private Label name;
-    @FXML
     private Label quantity;
     @FXML
     private Label reqDate;
@@ -46,7 +44,6 @@ public class PurchaseOrderCard extends UiPart<Region> {
         this.purchaseOrder = purchaseOrder;
         id.setText(displayedIndex + ". ");
         sku.setText(purchaseOrder.getSku().value);
-        name.setText(purchaseOrder.getName().fullName);
         quantity.setText(purchaseOrder.getQuantity().value);
         reqDate.setText(purchaseOrder.getReqDate().requiredDate);
         supplier.setText(purchaseOrder.getSupplier().supplierName);
