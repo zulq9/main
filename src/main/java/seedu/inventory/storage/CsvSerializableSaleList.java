@@ -1,5 +1,7 @@
 package seedu.inventory.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,6 +68,8 @@ public class CsvSerializableSaleList implements CsvSerializableData {
      *                               {@code CsvAdaptedSale}.
      */
     public SaleList toModelType() throws IllegalValueException {
+        requireNonNull(inventory);
+
         sales = splitContentsToSaleList(contents);
         SaleList saleList = new SaleList();
 

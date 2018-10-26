@@ -10,7 +10,7 @@ import seedu.inventory.model.StaffList;
 import seedu.inventory.model.staff.Staff;
 
 /**
- * An immutable sale list that is serializable to CSV format
+ * An immutable staff list that is serializable to CSV format
  */
 public class CsvSerializableStaffList implements CsvSerializableData {
     public static final String DATA_TYPE = "Staff";
@@ -104,7 +104,7 @@ public class CsvSerializableStaffList implements CsvSerializableData {
         if (!(other instanceof CsvSerializableStaffList)) {
             return false;
         }
-        return staffs.equals(((CsvSerializableStaffList) other).staffs);
+        return contents.equals(((CsvSerializableStaffList) other).contents);
     }
 
     @Override

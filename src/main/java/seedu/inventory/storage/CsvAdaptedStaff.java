@@ -37,7 +37,7 @@ public class CsvAdaptedStaff {
     /**
      * Converts a given Staff into this class for Csv use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedStaff
+     * @param source future changes to this will not affect the created CsvAdaptedStaff
      */
     public CsvAdaptedStaff(Staff source) {
         this.username = source.getUsername().username;

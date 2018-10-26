@@ -43,7 +43,7 @@ public class CsvAdaptedSale {
     /**
      * Converts a given sale into this class for Csv use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedSale
+     * @param source future changes to this will not affect the created CsvAdaptedSale
      */
     public CsvAdaptedSale(Sale source) {
         this.saleId = source.getSaleId().toString();
@@ -60,6 +60,7 @@ public class CsvAdaptedSale {
      */
     public Sale toModelType(ReadOnlyInventory inventory) throws IllegalValueException {
         requireNonNull(inventory);
+
         if (saleId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SaleId.class.getSimpleName()));
         }
