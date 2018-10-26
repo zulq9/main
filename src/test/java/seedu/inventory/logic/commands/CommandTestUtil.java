@@ -4,12 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_REQDATE;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SKU;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_SUPPLIER;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,9 +69,26 @@ public class CommandTestUtil {
     public static final String INVALID_IMAGE_DESC = " " + PREFIX_IMAGE; // empty string not allowed for image path
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "tech*"; // '*' not allowed in tags
 
-    public static final String VALID_NAME_ZUL = "Zulqarnain";
-    public static final String VALID_USERNAME_ZUL = "zulq8";
-    public static final String VALID_PASSWORD_ZUL = "meowmeowzul";
+    public static final String VALID_NAME_ZUL = "Muhammad Zulqarnain";
+    public static final String VALID_USERNAME_ZUL = "zulq9";
+    public static final String VALID_PASSWORD_ZUL = "zulq9999";
+    public static final String VALID_NAME_DARREN = "Darren";
+    public static final String VALID_USERNAME_DARREN = "darren96";
+    public static final String VALID_PASSWORD_DARREN = "darrennnn";
+
+    public static final String USERNAME_DESC_ZUL = " " + PREFIX_USERNAME + VALID_USERNAME_ZUL;
+    public static final String NAME_DESC_ZUL = " " + PREFIX_NAME + VALID_NAME_ZUL;
+    public static final String PASSWORD_DESC_ZUL = " " + PREFIX_PASSWORD + VALID_PASSWORD_ZUL;
+    public static final String USERNAME_DESC_DARREN = " " + PREFIX_USERNAME + VALID_USERNAME_DARREN;
+    public static final String NAME_DESC_DARREN = " " + PREFIX_NAME + VALID_NAME_DARREN;
+    public static final String PASSWORD_DESC_DARREN = " " + PREFIX_PASSWORD + VALID_PASSWORD_DARREN;
+    public static final String ROLE_DESC_USER = " " + PREFIX_ROLE + "user";
+    public static final String ROLE_DESC_ADMIN = " " + PREFIX_ROLE + "admin";
+
+    public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + "z*lq(";
+    public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + "as..sd-f!";
+    public static final String INVALID_STAFFNAME_DESC = " " + PREFIX_NAME + "Zulq@rn@!n";
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "Storeman";
 
     public static final String VALID_REQUIRED_DATE_OPPO = "2018-12-31";
     public static final String VALID_REQUIRED_DATE_SONY = "2018-12-30";
