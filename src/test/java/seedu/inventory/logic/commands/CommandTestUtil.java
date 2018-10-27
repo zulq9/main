@@ -26,6 +26,7 @@ import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffNameContainsKeywordsPredicate;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
@@ -231,7 +232,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPurchaseOrder(Model model) {
         PurchaseOrder firstPo = model.getFilteredPurchaseOrderList().get(0);
-        model.deletePurchaseOrder(first);
+        model.deletePurchaseOrder(firstPo);
         model.commitInventory();
     }
 
