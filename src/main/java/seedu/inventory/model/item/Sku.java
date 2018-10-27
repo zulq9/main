@@ -10,9 +10,9 @@ import static seedu.inventory.commons.util.AppUtil.checkArgument;
 public class Sku {
 
     private static final String SPECIAL_CHARACTERS = "_-";
-    public static final String MESSAGE_SKU_CONSTRAINTS = "SKUs should only contain alphanumeric characters,  "
-            + "spaces, or these special characters: " + SPECIAL_CHARACTERS + " and it should not be blank. "
-            + "It should also be unique. ";
+    public static final String MESSAGE_SKU_CONSTRAINTS = "SKUs are unique, and should only contain alphanumeric "
+            + "characters, spaces, or these special characters: " + SPECIAL_CHARACTERS + ", and it should not be "
+            + "blank. It is also case-sensitive.";
     // alphanumeric and special characters
     private static final String SKU_VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
 
