@@ -24,7 +24,7 @@ public class ChangePasswordCommandParserTest {
     private Password zulPassword;
 
     @Before
-    public void setup() {
+    public void setUp() {
         zulPassword = new Password(Password.hash(VALID_PASSWORD_ZUL));
     }
 
