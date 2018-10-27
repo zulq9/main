@@ -8,6 +8,7 @@ import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.SAMSUNGNOTEPO;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -42,6 +43,35 @@ public class ModelManagerTest {
     public void hasItem_nullItem_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasItem(null);
+    }
+
+    @Test
+    public void hasStaff_staffNotInInventory_returnsFalse() {
+        assertFalse(modelManager.hasStaff(ZUL));
+    }
+
+    @Test
+    public void hasStaff_staffInInventory_returnsTrue() {
+        modelManager.addStaff(ZUL);
+        assertTrue(modelManager.hasStaff(ZUL));
+    }
+
+    @Test
+    public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredStaffList().remove(0);
+    }
+
+    @Test
+    public void resetData_nullStaffList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.resetData(null);
+    }
+
+    @Test
+    public void hasItem_nullStaff_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasStaff(null);
     }
 
     @Test
