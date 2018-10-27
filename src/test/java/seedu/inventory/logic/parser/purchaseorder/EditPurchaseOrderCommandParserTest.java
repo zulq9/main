@@ -1,7 +1,6 @@
 package seedu.inventory.logic.parser.purchaseorder;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.inventory.logic.commands.CommandTestUtil.DESC_SONY_PO;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_REQUIRED_DATE_DESC;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_SUPPLIER_DESC;
@@ -10,12 +9,9 @@ import static seedu.inventory.logic.commands.CommandTestUtil.REQUIRED_DATE_DESC_
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_QUANTITY_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SUPPLIER_OPPO;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import org.junit.Test;
 
-import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.purchaseorder.RequiredDate;
