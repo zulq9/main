@@ -49,6 +49,7 @@ public class StorageManagerTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -277,17 +278,17 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void exportSaleList(ReadOnlySaleList SaleList, Path filePath) throws IOException {
+        public void exportSaleList(ReadOnlySaleList saleList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
 
         @Override
-        public void exportStaffList(ReadOnlyStaffList StaffList, Path filePath) throws IOException {
+        public void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
 
         @Override
-        public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList PurchaseOrderList, Path filePath)
+        public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, Path filePath)
                 throws IOException {
             throw new IOException("dummy exception");
         }
