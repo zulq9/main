@@ -163,7 +163,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Inventory expectedInventory = new Inventory(actualModel.getInventory());
-        List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList());
+        List<Item> expectedItemFilteredList = new ArrayList<>(actualModel.getFilteredItemList());
+        List<PurchaseOrder> expectedPoFilteredList = new ArrayList<>(actualModel.getFilteredPurchaseOrderList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -173,7 +174,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedInventory, actualModel.getInventory());
-            assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
+            assertEquals(expectedItemFilteredList, actualModel.getFilteredItemList());
+            assertEquals(expectedPoFilteredList, actualModel.getFilteredPurchaseOrderList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -221,6 +223,15 @@ public class CommandTestUtil {
     public static void deleteFirstStaff(Model model) {
         Staff firstStaff = model.getFilteredStaffList().get(0);
         model.deleteStaff(firstStaff);
+        model.commitInventory();
+    }
+
+    /**
+     * Deletes the first item in {@code model}'s filtered list from {@code model}'s inventory.
+     */
+    public static void deleteFirstPurchaseOrder(Model model) {
+        PurchaseOrder firstPo = model.getFilteredPurchaseOrderList().get(0);
+        model.deletePurchaseOrder(first);
         model.commitInventory();
     }
 
