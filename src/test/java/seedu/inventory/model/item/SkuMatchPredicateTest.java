@@ -51,6 +51,10 @@ public class SkuMatchPredicateTest {
         // Mixed-case SKU
         predicate = new SkuMatchPredicate("aBc123");
         assertTrue(predicate.test(new ItemBuilder().withSku("ABC123").build()));
+
+        // Mixed-case with special characters SKU
+        predicate = new SkuMatchPredicate("aBc-_-123");
+        assertTrue(predicate.test(new ItemBuilder().withSku("ABC-_-123").build()));
     }
 
     @Test

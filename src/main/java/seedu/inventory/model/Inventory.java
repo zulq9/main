@@ -201,6 +201,38 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Approves the given purchaseorder {@code target} and updates the status.
+     * {@code target} must exist in the purchase order list.
+     */
+    public void approvePurchaseOrder(PurchaseOrder target) {
+        requireNonNull(target);
+        PurchaseOrder approvedPo = new PurchaseOrder(
+                target.getSku(),
+                target.getQuantity(),
+                target.getReqDate(),
+                target.getSupplier(),
+                PurchaseOrder.Status.APPROVED);
+
+        purchaseOrders.setPurchaseOrder(target, approvedPo);
+    }
+
+    /**
+     * Rejects the given purchaseorder {@code target} and updates the status.
+     * {@code target} must exist in the purchase order list.
+     */
+    public void rejectPurchaseOrder(PurchaseOrder target) {
+        requireNonNull(target);
+        PurchaseOrder rejectedPo = new PurchaseOrder(
+                target.getSku(),
+                target.getQuantity(),
+                target.getReqDate(),
+                target.getSupplier(),
+                PurchaseOrder.Status.REJECTED);
+
+        purchaseOrders.setPurchaseOrder(target, rejectedPo);
+    }
+
+    /**
      * Removes {@code key} from this {@code Inventory}.
      * {@code key} must exist in the purchase order list.
      */

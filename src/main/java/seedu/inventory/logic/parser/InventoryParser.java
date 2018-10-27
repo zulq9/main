@@ -14,6 +14,7 @@ import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.ExportCsvItemsCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
+import seedu.inventory.logic.commands.FindItemSkuCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
@@ -30,6 +31,7 @@ import seedu.inventory.logic.commands.sale.DeleteSaleCommand;
 import seedu.inventory.logic.commands.sale.ListSaleCommand;
 import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
@@ -38,6 +40,7 @@ import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
 import seedu.inventory.logic.parser.staff.AddStaffCommandParser;
 import seedu.inventory.logic.parser.staff.DeleteStaffCommandParser;
+import seedu.inventory.logic.parser.staff.EditStaffCommandParser;
 
 /**
  * Parses user input.
@@ -74,6 +77,9 @@ public class InventoryParser {
         case ListStaffCommand.COMMAND_WORD:
             return new ListStaffCommand();
 
+        case EditStaffCommand.COMMAND_WORD:
+            return new EditStaffCommandParser().parse(arguments);
+
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
 
@@ -94,6 +100,9 @@ public class InventoryParser {
 
         case FindItemCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindItemSkuCommand.COMMAND_WORD:
+            return new FindItemSkuCommandParser().parse(arguments);
 
         case ListItemCommand.COMMAND_WORD:
             return new ListItemCommand();

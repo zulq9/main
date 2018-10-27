@@ -22,12 +22,24 @@ public class Staff {
 
         public static final String MESSAGE_ROLE_CONSTRAINTS = "Role should only be either user, manager or admin.";
 
-        public static Role role(String token) {
-            return Role.valueOf(token);
-        }
+        private static final String adminStr = "admin";
+        private static final String managerStr = "manager";
+        private static final String userStr = "user";
 
-        public static String token(Role t) {
-            return t.name();
+        /**
+         * Converts the role from string to enum
+         * @param token the string that indicates the user's role
+         * @return the designated enum based on the string given
+         */
+        public static Role role(String token) {
+            if (token.equals(adminStr)) {
+                return Staff.Role.admin;
+            } else if (token.equals(managerStr)) {
+                return Staff.Role.manager;
+            } else if (token.equals(userStr)) {
+                return Staff.Role.user;
+            }
+            return null;
         }
     }
 

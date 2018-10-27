@@ -217,6 +217,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateInventoryChanged();
     }
 
+    @Override
+    public void approvePurchaseOrder(PurchaseOrder target) {
+        versionedInventory.approvePurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void rejectPurchaseOrder(PurchaseOrder target) {
+        versionedInventory.rejectPurchaseOrder(target);
+        indicateInventoryChanged();
+    }
+
     //=========== User Management ===========================================
     @Override
     public boolean hasStaff(Staff staff) {
@@ -240,7 +252,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editStaff(Staff target, Staff editedStaff) {
+    public void updateStaff(Staff target, Staff editedStaff) {
         requireAllNonNull(target, editedStaff);
         versionedInventory.updateStaff(target, editedStaff);
         indicateStaffListChanged();
