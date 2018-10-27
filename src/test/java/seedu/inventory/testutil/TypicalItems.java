@@ -77,6 +77,20 @@ public class TypicalItems {
     }
 
     /**
+     * Returns an {@code Inventory} with low quantities
+     */
+    public static Inventory getLowQuantityInventory() {
+        Inventory inventory = new Inventory();
+        for (Item item : getTypicalItems()) {
+            if (Integer.parseInt(item.getQuantity().value) <= 10) {
+                inventory.addItem(item);
+            }
+        }
+
+        return inventory;
+    }
+
+    /**
      * Returns an {@code Inventory} with all the typical items and staffs.
      * @return
      */
