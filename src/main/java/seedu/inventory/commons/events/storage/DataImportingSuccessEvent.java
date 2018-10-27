@@ -9,7 +9,7 @@ public class DataImportingSuccessEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Data exporting successful.";
+        return "Data importing successful.";
     }
 
 }

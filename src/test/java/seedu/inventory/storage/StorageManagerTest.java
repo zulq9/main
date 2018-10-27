@@ -3,6 +3,7 @@ package seedu.inventory.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
@@ -18,15 +19,30 @@ import org.junit.rules.TemporaryFolder;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
+import seedu.inventory.commons.events.model.SaleListExportEvent;
+import seedu.inventory.commons.events.model.SaleListImportEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.DataExportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataImportingExceptionEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ItemList;
+import seedu.inventory.model.PurchaseOrderList;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
+import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.sale.SaleDate;
+import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
@@ -118,6 +134,36 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void saleListImportExport() throws Exception {
+        Path tempFile = getTempFilePath("tempSaleList.csv");
+        SaleList original = new SaleList();
+        original.addSale(new Sale(new SaleId(("1")), IPHONE, IPHONE.getQuantity(), new SaleDate("2018-02-02")));
+        storageManager.exportSaleList(original, tempFile);
+        ReadOnlySaleList retrieved = storageManager.importSaleList(getTypicalInventory(), tempFile).get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
+    public void staffListImportExport() throws Exception {
+        Path tempFile = getTempFilePath("tempStaffList.csv");
+        StaffList original = new StaffList(getTypicalStaffList());
+        storageManager.exportStaffList(original, tempFile);
+        ReadOnlyStaffList retrieved = storageManager.importStaffList(tempFile).get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
+    public void purchaseOrderListImportExport() throws Exception {
+        Path tempFile = getTempFilePath("tempPurchaseOrderList.csv");
+        PurchaseOrderList original = new PurchaseOrderList(TypicalPurchaseOrder.getTypicalInventory());
+        storageManager.exportPurchaseOrderList(original, tempFile);
+        ReadOnlyPurchaseOrderList retrieved = storageManager
+                .importPurchaseOrderList(getTypicalInventory(), tempFile).get();
+        assertEquals(original, retrieved);
+    }
+
+
+    @Test
     public void getStaffListFilePath() {
         assertNotNull(storageManager.getStaffListFilePath());
     }
@@ -142,6 +188,68 @@ public class StorageManagerTest {
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
     }
 
+    @Test
+    public void handleStaffListExportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleStaffListExportEvent(new StaffListExportEvent(new StaffList(), Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataExportingExceptionEvent);
+    }
+
+    @Test
+    public void handleStaffListImportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleStaffListImportEvent(new StaffListImportEvent(Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
+    }
+
+
+    @Test
+    public void handleSaleListExportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleSaleListExportEvent(new SaleListExportEvent(new SaleList(), Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataExportingExceptionEvent);
+    }
+
+    @Test
+    public void handleSaleListImportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handleSaleListImportEvent(new SaleListImportEvent(new Inventory(), Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
+    }
+
+    @Test
+    public void handlePurchaseOrderListExportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handlePurchaseOrderListExportEvent(new PurchaseOrderListExportEvent(new PurchaseOrderList(),
+                Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataExportingExceptionEvent);
+    }
+
+    @Test
+    public void handlePurchaseOrderListImportEvent_exceptionThrown_eventRaised() {
+        Storage storage = new StorageManager(new XmlInventoryStorage(Paths.get("dummy"), Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")),
+                new XmlSaleListStorage(),
+                new CsvReportingStorageExceptionThrowingStub());
+        storage.handlePurchaseOrderListImportEvent(new PurchaseOrderListImportEvent(new Inventory(),
+                Paths.get("dummy")));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataImportingExceptionEvent);
+    }
 
     /**
      * A Stub class to throw an exception when the save method is called
@@ -167,6 +275,21 @@ public class StorageManagerTest {
         public void exportItemList(ReadOnlyItemList itemList, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
-    }
 
+        @Override
+        public void exportSaleList(ReadOnlySaleList SaleList, Path filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+
+        @Override
+        public void exportStaffList(ReadOnlyStaffList StaffList, Path filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+
+        @Override
+        public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList PurchaseOrderList, Path filePath)
+                throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
 }
