@@ -107,7 +107,8 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> this.sku.setText("SKU: " + sku));
 
         if (Integer.parseInt(quantity) <= 10) {
-            this.quantity.setStyle("-fx-graphic: url(\"/images/warning_icon.png\"); -fx-graphic-text-gap: 10; -fx-text-fill: #ff1900;");
+            this.quantity.setStyle("-fx-graphic: url(\"/images/warning_icon.png\");"
+                    + "-fx-graphic-text-gap: 10; -fx-text-fill: #ff1900;");
         } else {
             this.quantity.setStyle(null);
         }

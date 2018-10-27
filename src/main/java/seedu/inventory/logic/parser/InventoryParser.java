@@ -13,6 +13,7 @@ import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.FilterItemCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.FindItemSkuCommand;
 import seedu.inventory.logic.commands.HelpCommand;
@@ -108,6 +109,9 @@ public class InventoryParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case FilterItemCommand.COMMAND_WORD:
+            return new FilterItemCommandParser().parse(arguments);
 
         case FindItemCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

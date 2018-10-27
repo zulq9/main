@@ -12,6 +12,8 @@ import java.util.Set;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.parser.exceptions.ParseException;
+import seedu.inventory.model.filter.FilterPrice;
+import seedu.inventory.model.filter.FilterQuantity;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
@@ -59,7 +61,7 @@ public class ParserUtil {
     //=================== Item variable parser =========================================================
 
     /**
-     * Parses a {@code String name} into a {@code StaffName}.
+     * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -160,7 +162,37 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //=================== Filter Item variable parser ===========================================================
 
+    /**
+     * Parses a {@code String filterPrice} into a {@code FilterPrice}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static FilterPrice parseFilterPrice(String filterPrice) throws ParseException {
+        requireNonNull(filterPrice);
+        String trimmedPrice = filterPrice.trim();
+        if (!FilterPrice.isValidFilterPrice(trimmedPrice)) {
+            throw new ParseException(FilterPrice.MESSAGE_PRICE_CONSTRAINTS);
+        }
+        return new FilterPrice(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String filterQuantity} into a {@code FilterQuantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static FilterQuantity parseFilterQuantity(String filterQuantity) throws ParseException {
+        requireNonNull(filterQuantity);
+        String trimmedQuantity = filterQuantity.trim();
+        if (!FilterQuantity.isValidFilterQuantity(trimmedQuantity)) {
+            throw new ParseException(FilterQuantity.MESSAGE_QUANTITY_CONSTRAINTS);
+        }
+        return new FilterQuantity(trimmedQuantity);
+    }
 
     //=================== Purchase order variable parser =========================================================
 
