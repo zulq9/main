@@ -206,6 +206,18 @@ public interface Model {
     void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);
 
     /**
+     * Approves the given purchaseorder {@code target} and add the quantity to the item.
+     * {@code target} must exist in the inventory.
+     */
+    void approvePurchaseOrder(PurchaseOrder target);
+
+    /**
+     * Rejects the given purchaseorder {@code target}.
+     * {@code target} must exist in the inventory.
+     */
+    void rejectPurchaseOrder(PurchaseOrder target);
+
+    /**
      * Returns an unmodifiable view of the filtered purchase order list
      */
     ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();
@@ -251,7 +263,7 @@ public interface Model {
      * @param target      the staff to be updated
      * @param editedStaff the staff with updated info
      */
-    void editStaff(Staff target, Staff editedStaff);
+    void updateStaff(Staff target, Staff editedStaff);
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the staff list.

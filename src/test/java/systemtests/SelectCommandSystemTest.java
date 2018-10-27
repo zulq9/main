@@ -2,7 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
@@ -59,7 +59,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
          */
         showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
         int invalidIndex = getModel().getInventory().getItemList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DISPLAYED_INDEX);
 
         /* Case: filtered item list, select index within bounds of inventory and item list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -79,7 +79,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
@@ -95,7 +95,7 @@ public class SelectCommandSystemTest extends InventorySystemTest {
         /* Case: select from empty inventory -> rejected */
         deleteAllItems();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
-                MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+                MESSAGE_INVALID_DISPLAYED_INDEX);
     }
 
     /**

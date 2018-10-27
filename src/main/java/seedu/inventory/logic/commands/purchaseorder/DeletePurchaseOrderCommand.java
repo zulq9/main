@@ -40,7 +40,7 @@ public class DeletePurchaseOrderCommand extends Command {
         List<PurchaseOrder> lastShownList = model.getFilteredPurchaseOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PO_DISPLAYED_INDEX);
         }
 
         PurchaseOrder purchaseOrderToDelete = lastShownList.get(targetIndex.getZeroBased());

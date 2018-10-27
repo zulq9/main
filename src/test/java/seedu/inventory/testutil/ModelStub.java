@@ -197,6 +197,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void approvePurchaseOrder(PurchaseOrder target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void rejectPurchaseOrder(PurchaseOrder target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredPurchaseOrderList(Predicate<PurchaseOrder> predicate) {
         throw new AssertionError("This method should not be called.");
     }
@@ -252,7 +262,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void editStaff(Staff target, Staff editedStaff) {
+    public void updateStaff(Staff target, Staff editedStaff) {
         throw new AssertionError("This method should not be called.");
     }
 

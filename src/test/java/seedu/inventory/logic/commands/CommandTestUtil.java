@@ -21,6 +21,7 @@ import java.util.List;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
@@ -28,6 +29,7 @@ import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffNameContainsKeywordsPredicate;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
+import seedu.inventory.testutil.staff.EditStaffDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -118,6 +120,16 @@ public class CommandTestUtil {
         DESC_SONY = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).withPrice(VALID_PRICE_SONY)
                 .withQuantity(VALID_QUANTITY_SONY).withSku(VALID_SKU_SONY).withImage(VALID_IMAGE_SONY)
                 .withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
+    }
+
+    public static final EditStaffCommand.EditStaffDescriptor DESC_ZUL;
+    public static final EditStaffCommand.EditStaffDescriptor DESC_DARREN;
+
+    static {
+        DESC_ZUL = new EditStaffDescriptorBuilder().withName(VALID_NAME_ZUL).withUsername(VALID_USERNAME_ZUL)
+                .withPassword(VALID_PASSWORD_ZUL).withRole(ROLE_DESC_ADMIN).build();
+        DESC_DARREN = new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN).withUsername(VALID_USERNAME_DARREN)
+                .withPassword(VALID_PASSWORD_DARREN).withRole(ROLE_DESC_ADMIN).build();
     }
 
     /**
