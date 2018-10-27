@@ -6,8 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
-import static seedu.inventory.testutil.TypicalStaffs.ZUL;
-import static seedu.inventory.testutil.TypicalStaffs.getTypicalStaffList;
+import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +21,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
-import seedu.inventory.testutil.StaffBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
+import seedu.inventory.testutil.staff.TypicalStaffs;
 
 public class StaffListTest {
 
@@ -33,7 +33,7 @@ public class StaffListTest {
 
     @Test
     public void constructor_withReadOnlyStaffList() {
-        StaffList expectedStaffList = getTypicalStaffList();
+        StaffList expectedStaffList = new StaffList(TypicalStaffs.getTypicalStaffList());
         StaffListStub listStub = new StaffListStub(expectedStaffList.getStaffList());
         StaffList staffListWithParams = new StaffList(listStub);
         assertEquals(expectedStaffList, staffListWithParams);
@@ -52,7 +52,7 @@ public class StaffListTest {
 
     @Test
     public void resetData_withValidReadOnlyStaff_replacesData() {
-        StaffList newData = getTypicalStaffList();
+        StaffList newData = new StaffList(TypicalStaffs.getTypicalStaffList());
         staffList.resetData(newData);
         assertEquals(newData, staffList);
     }
@@ -134,6 +134,11 @@ public class StaffListTest {
         assertEquals(expectedStaffList, staffList);
     }
 
+    @Test
+    public void string() {
+        assertEquals(staffList.toString(), "0 staffs");
+    }
+
     /**
      * A stub ReadOnlyStaffList whose items list can violate interface constraints.
      */
@@ -149,9 +154,5 @@ public class StaffListTest {
             return staffs;
         }
 
-        @Override
-        public void resetData(ReadOnlyStaffList staffList) {
-
-        }
     }
 }
