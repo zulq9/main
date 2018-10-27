@@ -2,6 +2,7 @@ package seedu.inventory.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -145,7 +146,20 @@ public class Inventory implements ReadOnlyInventory {
         staffs.remove(key);
     }
 
-    //
+    /**
+     * Retrieves the staff with provided staff which consists of username and password.
+     */
+    public Staff retrieveStaff(Staff key) {
+        Iterator<Staff> staffList = staffs.iterator();
+        Staff staff = null;
+        if (staffList.hasNext()) {
+            staff = staffList.next();
+            if (staff.isSameStaff(key)) {
+                return staff;
+            }
+        }
+        return null;
+    }
 
     //// util methods
 

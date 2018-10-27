@@ -21,6 +21,7 @@ import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.ListLowQuantityCommand;
 import seedu.inventory.logic.commands.LoginCommand;
+import seedu.inventory.logic.commands.LogoutCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
@@ -71,6 +72,9 @@ public class InventoryParser {
         switch (commandWord) {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
         case AddStaffCommand.COMMAND_WORD:
             return new AddStaffCommandParser().parse(arguments);

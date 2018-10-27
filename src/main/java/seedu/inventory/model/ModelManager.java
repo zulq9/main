@@ -42,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<PurchaseOrder> filteredPurchaseOrder;
     private final FilteredList<Staff> filteredStaffs;
     private final SaleList saleList;
+    private UserSession session;
 
     /**
      * Initializes a ModelManager with the given inventory and userPrefs.
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredStaffs = new FilteredList<>(versionedInventory.getStaffList());
         this.saleList = new SaleList(readOnlySaleList);
         accessedList = filteredItems;
+        session = new UserSession();
     }
 
     public ModelManager() {
@@ -327,7 +329,29 @@ public class ModelManager extends ComponentManager implements Model {
     public void authenticateUser(Staff toLogin) {
         requireNonNull(toLogin);
 
-        versionedInventory.authenticateUser(toLogin);
+        session = new UserSession(toLogin);
+    }
+
+    @Override
+    public Staff retrieveStaff(Staff toRetrieve) {
+        requireNonNull(toRetrieve);
+
+        return versionedInventory.retrieveStaff(toRetrieve);
+    }
+
+    @Override
+    public void logoutUser() {
+        session.logout();
+    }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        return session.isLoggedIn();
+    }
+
+    @Override
+    public Staff getUser() {
+        return this.session.getUser();
     }
 
 

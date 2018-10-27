@@ -227,6 +227,11 @@ public interface Model {
     void viewStaff();
 
     /**
+     * Retrieves the user with staff with partial information.
+     */
+    Staff retrieveStaff(Staff toRetrieve);
+
+    /**
      * Returns an unmodifiable view of the filtered staff list
      */
     ObservableList<Staff> getFilteredStaffList();
@@ -239,9 +244,24 @@ public interface Model {
     void updateFilteredStaffList(Predicate<Staff> predicate);
 
     /**
-     * Authenticate the user.
+     * Authenticates the user.
      */
     void authenticateUser(Staff staff);
+
+    /**
+     * Logs the user out from the inventory manager.
+     */
+    void logoutUser();
+
+    /**
+     * Checks if there is any user logged in.
+     */
+    boolean isUserLoggedIn();
+
+    /**
+     * Retrieves the current user in the session.
+     */
+    Staff getUser();
 
     /**
      * Returns true if the model has previous inventory states to restore.
