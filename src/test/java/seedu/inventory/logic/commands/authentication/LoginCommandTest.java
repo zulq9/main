@@ -1,6 +1,8 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.authentication;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventoryWithStaff;
 import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
@@ -10,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
@@ -66,5 +69,20 @@ public class LoginCommandTest {
         Command loginCommand = new LoginCommand(editedZul);
         thrown.expectMessage(LoginCommand.MESSAGE_FAILED);
         loginCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void equals() {
+        LoginCommand loginCommand = new LoginCommand(ZUL);
+
+        assertFalse(loginCommand.equals(null));
+
+        assertTrue(loginCommand.equals(loginCommand));
+
+        LoginCommand loginCommandCopy = new LoginCommand(ZUL);
+
+        assertTrue(loginCommand.equals(loginCommandCopy));
+
+        assertFalse(loginCommand.equals(1));
     }
 }

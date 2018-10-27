@@ -36,7 +36,8 @@ public class AddStaffCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Staff expectedStaff = new StaffBuilder(ZUL).withRole(Staff.Role.user).build();
+        Staff expectedStaff = new StaffBuilder(ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withRole(Staff.Role.user).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL
