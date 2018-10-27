@@ -235,6 +235,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Staff getUser() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void handleItemListUpdateEvent(ItemListUpdateEvent iue) {
         throw new AssertionError("This method should not be called.");
     }

@@ -237,6 +237,11 @@ public interface Model {
     boolean isUserLoggedIn();
 
     /**
+     * Retrieves the current user in the session.
+     */
+    Staff getUser();
+
+    /**
      * Returns true if the model has previous inventory states to restore.
      */
     boolean canUndoInventory();
