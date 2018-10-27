@@ -113,6 +113,24 @@ public class PurchaseOrder {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PurchaseOrder)) {
+            return false;
+        }
+
+        PurchaseOrder otherPo = (PurchaseOrder) other;
+        return otherPo.getSku().equals(getSku())
+                && otherPo.getQuantity().equals(getQuantity())
+                && otherPo.getReqDate().equals(getReqDate())
+                && otherPo.getSupplier().equals(getSupplier())
+                && otherPo.getStatus().equals(getStatus());
+    }
+
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" SKU: ")
