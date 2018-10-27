@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static seedu.inventory.testutil.TypicalItems.IPHONE;
 import static seedu.inventory.testutil.TypicalItems.NOKIA;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
+import static seedu.inventory.testutil.staff.TypicalStaffs.WANGCHAO;
+import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,16 +21,20 @@ import org.junit.rules.TemporaryFolder;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.ItemList;
+import seedu.inventory.model.PurchaseOrderList;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
+import seedu.inventory.model.StaffList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
-import seedu.inventory.testutil.TypicalItems;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class CsvReportingStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvReportingStorageTest");
@@ -54,6 +60,13 @@ public class CsvReportingStorageTest {
         inventory = getTypicalInventory();
     }
 
+    //==================== All need method =========================================
+    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
+        return prefsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+                : null;
+    }
+
     //==================== Item List =========================================
     @Test
     public void importItemList_nullFilePath_throwsNullPointerException() throws Exception {
@@ -63,12 +76,6 @@ public class CsvReportingStorageTest {
 
     private java.util.Optional<ReadOnlyItemList> importItemList(String filePath) throws Exception {
         return new CsvReportingStorage().importItemList(addToTestDataPathIfNotNull(filePath));
-    }
-
-    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
-        return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
     }
 
     @Test
@@ -120,7 +127,7 @@ public class CsvReportingStorageTest {
     }
 
     /**
-     * Export sale list at the specified {@code filePath}.
+     * Export item list at the specified {@code filePath}.
      */
     private void exportItemList(ReadOnlyItemList itemList, String filePath) {
         try {
@@ -213,5 +220,156 @@ public class CsvReportingStorageTest {
         exportSaleList(new SaleList(), null);
     }
 
+    //==================== Staff List =========================================
+    @Test
+    public void importStaffList_nullFilePath_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        importStaffList(null);
+    }
+
+    private java.util.Optional<ReadOnlyStaffList> importStaffList(String filePath) throws Exception {
+        return new CsvReportingStorage().importStaffList(addToTestDataPathIfNotNull(filePath));
+    }
+
+    @Test
+    public void importStaffList_missingFile_emptyResult() throws Exception {
+        assertFalse(importStaffList("nonExistentFile.csv").isPresent());
+    }
+
+    @Test
+    public void importStaffList_unrecognizable_exceptionThrown() throws Exception {
+        thrown.expect(DataConversionException.class);
+        importStaffList("notRecognizableStaffList.csv");
+    }
+
+    @Test
+    public void importStaffList_invalidStaffList_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        importStaffList("invalidStaffList.csv");
+    }
+
+    @Test
+    public void importStaffList_invalidAndValidStaffList_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        importStaffList("invalidAndValidStaffList.csv");
+    }
+
+    @Test
+    public void importAndExportStaffList_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("tempStaffList.csv");
+        StaffList original = new StaffList(getTypicalStaffList());
+        CsvReportingStorage csvReportingStorage = new CsvReportingStorage();
+
+        //Save in new file and read back
+        csvReportingStorage.exportStaffList(original, filePath);
+        ReadOnlyStaffList readBack = csvReportingStorage.importStaffList(filePath).get();
+        assertEquals(original, readBack);
+
+        //Modify data, overwrite exiting file, and read back
+        original.removeStaff(WANGCHAO);
+        csvReportingStorage.exportStaffList(original, filePath);
+        readBack = csvReportingStorage.importStaffList(filePath).get();
+        assertEquals(original, readBack);
+    }
+
+    @Test
+    public void exportStaffList_nullStaffList_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        exportStaffList(null, "someFile.csv");
+    }
+
+    /**
+     * Export staff list at the specified {@code filePath}.
+     */
+    private void exportStaffList(ReadOnlyStaffList staffList, String filePath) {
+        try {
+            new CsvReportingStorage().exportStaffList(staffList, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
+    @Test
+    public void exportStaffList_nullFilePath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        exportStaffList(new Inventory(), null);
+    }
+
+    //==================== Purchase Order List =========================================
+    @Test
+    public void importPurchaseOrderList_nullFilePath_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        importPurchaseOrderList(inventory, null);
+    }
+
+    private java.util.Optional<ReadOnlyPurchaseOrderList> importPurchaseOrderList(
+            ReadOnlyInventory inventory, String filePath) throws Exception {
+        return new CsvReportingStorage().importPurchaseOrderList(inventory, addToTestDataPathIfNotNull(filePath));
+    }
+
+    @Test
+    public void importPurchaseOrderList_missingFile_emptyResult() throws Exception {
+        assertFalse(importPurchaseOrderList(inventory, "nonExistentFile.csv").isPresent());
+    }
+
+    @Test
+    public void importPurchaseOrderList_unrecognizable_exceptionThrown() throws Exception {
+        thrown.expect(DataConversionException.class);
+        importPurchaseOrderList(inventory, "notRecognizablePurchaseOrderList.csv");
+    }
+
+    @Test
+    public void importPurchaseOrderList_invalidPurchaseOrderList_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        importPurchaseOrderList(inventory, "invalidPurchaseOrderList.csv");
+    }
+
+    @Test
+    public void importPurchaseOrderList_invalidAndValidPurchaseOrderList_throwDataConversionException()
+            throws Exception {
+        thrown.expect(DataConversionException.class);
+        importPurchaseOrderList(inventory, "invalidAndValidPurchaseOrderList.csv");
+    }
+
+    @Test
+    public void importAndExportPurchaseOrderList_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("tempPurchaseOrderList.csv");
+        PurchaseOrderList original = new PurchaseOrderList(TypicalPurchaseOrder.getTypicalInventory());
+        CsvReportingStorage csvReportingStorage = new CsvReportingStorage();
+
+        //Save in new file and read back
+        csvReportingStorage.exportPurchaseOrderList(original, filePath);
+        ReadOnlyPurchaseOrderList readBack = csvReportingStorage.importPurchaseOrderList(inventory, filePath).get();
+        assertEquals(original, readBack);
+
+        //Modify data, overwrite exiting file, and read back
+        original.addPurchaseOrder(TypicalPurchaseOrder.SAMSUNGNOTEPO);
+        csvReportingStorage.exportPurchaseOrderList(original, filePath);
+        readBack = csvReportingStorage.importPurchaseOrderList(inventory, filePath).get();
+        assertEquals(original, readBack);
+    }
+
+    @Test
+    public void exportPurchaseOrderList_nullPurchaseOrderList_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        exportPurchaseOrderList(null, "someFile.csv");
+    }
+
+    /**
+     * Export PurchaseOrder list at the specified {@code filePath}.
+     */
+    private void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, String filePath) {
+        try {
+            new CsvReportingStorage().exportPurchaseOrderList(purchaseOrderList, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
+    @Test
+    public void exportPurchaseOrderList_nullFilePath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        exportPurchaseOrderList(new PurchaseOrderList(), null);
+    }
 
 }

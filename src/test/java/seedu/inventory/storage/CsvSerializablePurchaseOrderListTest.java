@@ -38,8 +38,7 @@ public class CsvSerializablePurchaseOrderListTest {
                 CsvUtil.getDataFromFile(TYPICAL_PURCHASE_ORDER_FILE, new CsvSerializablePurchaseOrderList()));
         dataFromFile.setInventory(typicalInventory);
         PurchaseOrderList inventoryFromFile = dataFromFile.toModelType();
-        assertEquals(inventoryFromFile.getPurchaseOrderList().size(),
-                typicalPurchaseOrderList.getPurchaseOrderList().size());
+        assertEquals(inventoryFromFile.getPurchaseOrderList(), typicalPurchaseOrderList.getPurchaseOrderList());
     }
 
     @Test
@@ -58,8 +57,7 @@ public class CsvSerializablePurchaseOrderListTest {
                 CsvUtil.getDataFromFile(DUPLICATE_PURCHASE_ORDER_FILE, new CsvSerializablePurchaseOrderList()));
         dataFromFile.setInventory(typicalInventory);
         PurchaseOrderList inventoryFromFile = dataFromFile.toModelType();
-        assertEquals(inventoryFromFile.getPurchaseOrderList().size(),
-                typicalPurchaseOrderList.getPurchaseOrderList().size());
+        assertEquals(inventoryFromFile.getPurchaseOrderList(), typicalPurchaseOrderList.getPurchaseOrderList());
     }
 
     @Test
