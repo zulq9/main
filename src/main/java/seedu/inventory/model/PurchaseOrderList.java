@@ -35,10 +35,10 @@ public class PurchaseOrderList implements ReadOnlyPurchaseOrderList {
      * Replaces the contents of the PurchaseOrder list with {@code PurchaseOrders}.
      * {@code PurchaseOrders} must not contain duplicate PurchaseOrders.
      *
-     * @param PurchaseOrders the PurchaseOrders to be set into the UniquePurchaseOrderList.
+     * @param purchaseOrders the PurchaseOrders to be set into the UniquePurchaseOrderList.
      */
-    public void setPurchaseOrders(List<PurchaseOrder> PurchaseOrders) {
-        this.purchaseOrders.setPurchaseOrders(PurchaseOrders);
+    public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+        this.purchaseOrders.setPurchaseOrders(purchaseOrders);
     }
 
     /**
