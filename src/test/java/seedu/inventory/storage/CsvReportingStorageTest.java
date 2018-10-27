@@ -37,7 +37,7 @@ public class CsvReportingStorageTest {
 
     private static SaleId saleIdOne = new SaleId("1");
     private static SaleId saleIdTwo = new SaleId("2");
-    private static Item item = TypicalItems.IPHONE;
+    private static Item item = IPHONE;
     private static Quantity quantity = new Quantity("1");
     private static SaleDate saleDate = new SaleDate("2018-08-01");
     private static Sale saleOne = new Sale(saleIdOne, item, quantity, saleDate);

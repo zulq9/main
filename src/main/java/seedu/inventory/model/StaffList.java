@@ -16,11 +16,9 @@ public class StaffList implements ReadOnlyStaffList {
 
     private final UniqueStaffList staffs;
 
-    {
+    public StaffList() {
         staffs = new UniqueStaffList();
     }
-
-    public StaffList() {}
 
     /**
      * Creates a StaffList using the Staffs in the {@code toBeCopied}.

@@ -140,7 +140,7 @@ public class CsvAdaptedStaffTest {
 
         assertEquals(validStaff, anotherValidStaff);
         assertEquals(validStaff, validStaff);
-        assertNotEquals(validStaff, new String());
+        assertNotEquals(validStaff, Role.user);
         assertNotEquals(validStaff, invalidStaff);
     }
 }
