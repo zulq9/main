@@ -35,8 +35,10 @@ public class SelectCommandTest {
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
+    //================= Item ====================================================
+
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredItemList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredItemList().size());
 
         assertExecutionSuccess(INDEX_FIRST_ITEM);
@@ -45,14 +47,14 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_failure() {
+    public void execute_invalidIndexUnfilteredItemList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredItemList_success() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         showItemAtIndex(expectedModel, INDEX_FIRST_ITEM);
 
@@ -60,7 +62,7 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_failure() {
+    public void execute_invalidIndexFilteredItemList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         showItemAtIndex(expectedModel, INDEX_FIRST_ITEM);
 
@@ -70,6 +72,9 @@ public class SelectCommandTest {
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
+
+
+    //================= Util ====================================================
 
     @Test
     public void equals() {
@@ -113,8 +118,8 @@ public class SelectCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectItemCommand = new SelectCommand(index);
-        assertCommandFailure(selectItemCommand, model, commandHistory, expectedMessage);
+        SelectCommand selectCommand = new SelectCommand(index);
+        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }

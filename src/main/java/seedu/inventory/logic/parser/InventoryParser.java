@@ -20,12 +20,16 @@ import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.LoginCommand;
+import seedu.inventory.logic.commands.LogoutCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
+//import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
 import seedu.inventory.logic.commands.sale.AddSaleCommand;
 import seedu.inventory.logic.commands.sale.DeleteSaleCommand;
 import seedu.inventory.logic.commands.sale.ListSaleCommand;
@@ -35,7 +39,10 @@ import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
+import seedu.inventory.logic.parser.purchaseorder.ApprovePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.DeletePurchaseOrderCommandParser;
+//import seedu.inventory.logic.parser.purchaseorder.EditPurchaseOrderCommandParser;
+import seedu.inventory.logic.parser.purchaseorder.RejectPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
 import seedu.inventory.logic.parser.staff.AddStaffCommandParser;
@@ -70,6 +77,9 @@ public class InventoryParser {
         switch (commandWord) {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
         case AddStaffCommand.COMMAND_WORD:
             return new AddStaffCommandParser().parse(arguments);
@@ -130,6 +140,15 @@ public class InventoryParser {
 
         case DeletePurchaseOrderCommand.COMMAND_WORD:
             return new DeletePurchaseOrderCommandParser().parse(arguments);
+
+        case ApprovePurchaseOrderCommand.COMMAND_WORD:
+            return new ApprovePurchaseOrderCommandParser().parse(arguments);
+
+        case RejectPurchaseOrderCommand.COMMAND_WORD:
+            return new RejectPurchaseOrderCommandParser().parse(arguments);
+
+        //case EditPurchaseOrderCommand.COMMAND_WORD:
+            //eturn new EditPurchaseOrderCommandParser().parse(arguments);
 
         case AddSaleCommand.COMMAND_WORD:
             return new AddSaleCommandParser().parse(arguments);

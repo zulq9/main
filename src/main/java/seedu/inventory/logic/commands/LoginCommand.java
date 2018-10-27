@@ -25,7 +25,8 @@ public class LoginCommand extends Command {
             + PREFIX_PASSWORD + "12345678";
 
     public static final String MESSAGE_SUCCESS = "You have successfully logged in as %s";
-    public static final String MESSAGE_FAILED = "Seems like you have entered a wrong username or password";
+    public static final String MESSAGE_FAILED = "You have entered a wrong username or password";
+    public static final String MESSAGE_USER_HAS_LOGGED_IN = "You have already logged in.";
 
     private final Staff toLogin;
 
@@ -38,13 +39,19 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+
+        if (model.isUserLoggedIn()) {
+            throw new CommandException(MESSAGE_USER_HAS_LOGGED_IN);
+        }
+
         if (!model.hasStaff(toLogin)) {
             throw new CommandException(MESSAGE_FAILED);
         }
 
-        model.authenticateUser(toLogin);
+        Staff staff = model.retrieveStaff(toLogin);
+        model.authenticateUser(staff);
         model.commitInventory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getStaffName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, staff.getStaffName()));
     }
 
     @Override
