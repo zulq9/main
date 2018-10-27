@@ -41,8 +41,8 @@ public class LoginCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         // white space only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL
-            , new LoginCommand(zul));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL,
+                new LoginCommand(zul));
 
         // white space only
         assertParseSuccess(parser, USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL, new LoginCommand(zul));
@@ -63,7 +63,7 @@ public class LoginCommandParserTest {
     }
 
     @Test
-    public void parse_InvalidValue_failure() {
+    public void parse_invalidValue_failure() {
         // invalid username
         assertParseFailure(parser, INVALID_USERNAME_DESC + PASSWORD_DESC_ZUL,
                 Username.MESSAGE_USERNAME_CONSTRAINTS);
