@@ -19,6 +19,7 @@ import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
+import seedu.inventory.logic.commands.ListLowQuantityCommand;
 import seedu.inventory.logic.commands.LoginCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
@@ -106,6 +107,9 @@ public class InventoryParser {
 
         case ListItemCommand.COMMAND_WORD:
             return new ListItemCommand();
+
+        case ListLowQuantityCommand.COMMAND_WORD:
+            return new ListLowQuantityCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

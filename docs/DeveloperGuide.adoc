@@ -1041,6 +1041,7 @@ For all use cases below, the *System* is the `Inventory Manager` application and
 
 Below are various use cases for the System.
 
+// tag::usecaseInventoryManagement[]
 [discrete]
 === Use case: Add Item
 
@@ -1133,7 +1134,7 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
-
+// end::usecaseInventoryManagement[]
 
 // tag::usecaseDeleteStaff[]
 [discrete]

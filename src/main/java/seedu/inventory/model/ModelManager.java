@@ -134,6 +134,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void viewLowQuantity() {
+        updateFilteredItemList(PREDICATE_SHOW_ALL_LOW_QUANTITY);
+        accessedList = filteredItems;
+        indicateAccessItem();
+    }
+
+    @Override
     public void deleteItem(Item target) {
         versionedInventory.removeItem(target);
         indicateInventoryChanged();
