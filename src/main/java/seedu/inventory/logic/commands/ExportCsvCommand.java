@@ -119,10 +119,10 @@ public class ExportCsvCommand extends Command {
         }
         ExportCsvCommand that = (ExportCsvCommand) o;
         if (this.commandWord == null) {
-            return that.commandWord == null&&
-                    Objects.equals(filePath, that.filePath);
+            return that.commandWord == null
+                    && Objects.equals(filePath, that.filePath);
         }
-        return Objects.equals(commandWord, that.commandWord) &&
-                Objects.equals(filePath, that.filePath);
+        return Objects.equals(commandWord, that.commandWord)
+                && Objects.equals(filePath, that.filePath);
     }
 }
