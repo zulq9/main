@@ -22,6 +22,7 @@ import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.ExportCsvItemsCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
+import seedu.inventory.logic.commands.FindItemSkuCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvItemsCommand;
@@ -37,6 +38,7 @@ import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
@@ -120,6 +122,14 @@ public class InventoryParserTest {
         FindItemCommand command = (FindItemCommand) parser.parseCommand(
                 FindItemCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindItemCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findSku() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar-test", "baz_test");
+        FindItemSkuCommand command = (FindItemSkuCommand) parser.parseCommand(
+                FindItemSkuCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindItemSkuCommand(new SkuContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

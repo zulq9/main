@@ -3,8 +3,6 @@ package seedu.inventory.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.inventory.model.staff.Staff;
-
 /**
  * {@code Inventory} that keeps track of its own history.
  */
@@ -12,7 +10,6 @@ public class VersionedInventory extends Inventory {
 
     private final List<ReadOnlyInventory> inventoryStateList;
     private int currentStatePointer;
-    private UserSession session;
 
     public VersionedInventory(ReadOnlyInventory initialState) {
         super(initialState);
@@ -34,13 +31,6 @@ public class VersionedInventory extends Inventory {
 
     private void removeStatesAfterCurrentPointer() {
         inventoryStateList.subList(currentStatePointer + 1, inventoryStateList.size()).clear();
-    }
-
-    /**
-     * Authenticate users.
-     */
-    public void authenticateUser(Staff staff) {
-        session = new UserSession(staff);
     }
 
     /**

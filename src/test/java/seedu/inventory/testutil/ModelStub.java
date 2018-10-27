@@ -205,6 +205,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Staff retrieveStaff(Staff toRetrieve) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteStaff(Staff target) {
         throw new AssertionError("This method should not be called.");
     }
@@ -226,6 +231,21 @@ public class ModelStub implements Model {
 
     @Override
     public void authenticateUser(Staff toLogin) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void logoutUser() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Staff getUser() {
         throw new AssertionError("This method should not be called.");
     }
 
