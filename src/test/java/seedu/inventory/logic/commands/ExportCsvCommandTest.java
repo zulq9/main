@@ -45,7 +45,18 @@ public class ExportCsvCommandTest {
         Path filePath = Paths.get(getTempFilePath("validExport.csv"));
         ExportCsvCommand command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
         String expectedMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_ITEMS, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
 
+        command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_SALES);
+        expectedMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_SALES, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
+
+        command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_STAFFS);
+        expectedMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_STAFFS, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
+
+        command = new ExportCsvCommand(filePath).setCommandWord(ExportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS);
+        expectedMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_PURCHASE_ORDERS, filePath);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
     }
 
@@ -58,20 +69,32 @@ public class ExportCsvCommandTest {
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
+    @Test
+    public void execute_invalidCommandWord_throwsCommandException() {
+        Path filePath = Paths.get(getTempFilePath("validExport.csv"));
+        ExportCsvCommand command = new ExportCsvCommand(filePath).setCommandWord("Dummy");
+        String expectedMessage = ExportCsvCommand.MESSAGE_INVALID_COMMAND_WORD;
+
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
+
 
     @Test
     public void equals() {
         final Path tempPath = Paths.get(getTempFilePath("validExport.csv"));
-        final ExportCsvCommand standardCommand = new ExportCsvCommand(tempPath)
-                .setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
+        final ExportCsvCommand standardCommand = new ExportCsvCommand(tempPath);
 
         // same values -> returns true
-        ExportCsvCommand commandWithSameValues = new ExportCsvCommand(tempPath)
-                .setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS);
+        ExportCsvCommand commandWithSameValues = new ExportCsvCommand(tempPath);
+
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
+
+        // same commandWord -> returns true
+        assertTrue(standardCommand.setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS)));
 
         // null -> returns false
         assertFalse(standardCommand.equals((ExportCsvCommand) null));
@@ -82,6 +105,14 @@ public class ExportCsvCommandTest {
         // different filepath -> returns false
         Path differentPath = Paths.get(getTempFilePath("invalidExport.csv"));
         assertFalse(standardCommand.equals(new ExportCsvCommand(differentPath)));
+
+        // different commandWord -> returns false
+        assertFalse(standardCommand.setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord(ExportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS)));
+
+        // different commandWord -> returns false
+        assertFalse(standardCommand.setCommandWord(ExportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord((String) null)));
     }
 
 }

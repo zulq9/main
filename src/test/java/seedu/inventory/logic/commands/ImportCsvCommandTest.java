@@ -45,7 +45,18 @@ public class ImportCsvCommandTest {
         Path filePath = Paths.get(getTempFilePath("validImport.csv"));
         ImportCsvCommand command = new ImportCsvCommand(filePath).setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS);
         String expectedMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_ITEMS, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
 
+        command = new ImportCsvCommand(filePath).setCommandWord(ImportCsvCommand.COMMAND_WORD_SALES);
+        expectedMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_SALES, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
+
+        command = new ImportCsvCommand(filePath).setCommandWord(ImportCsvCommand.COMMAND_WORD_STAFFS);
+        expectedMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_STAFFS, filePath);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
+
+        command = new ImportCsvCommand(filePath).setCommandWord(ImportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS);
+        expectedMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_PURCHASE_ORDERS, filePath);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
     }
 
@@ -58,20 +69,31 @@ public class ImportCsvCommandTest {
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
+    @Test
+    public void execute_invalidCommandWord_throwsCommandException() {
+        Path filePath = Paths.get(getTempFilePath("validImport.csv"));
+        ImportCsvCommand command = new ImportCsvCommand(filePath).setCommandWord("Dummy");
+        String expectedMessage = ImportCsvCommand.MESSAGE_INVALID_COMMAND_WORD;
+
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
 
     @Test
     public void equals() {
         final Path tempPath = Paths.get(getTempFilePath("validImport.csv"));
-        final ImportCsvCommand standardCommand = new ImportCsvCommand(tempPath)
-                .setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS);
+        final ImportCsvCommand standardCommand = new ImportCsvCommand(tempPath);
 
         // same values -> returns true
-        ImportCsvCommand commandWithSameValues = new ImportCsvCommand(tempPath)
-                .setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS);
+        ImportCsvCommand commandWithSameValues = new ImportCsvCommand(tempPath);
+
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
+
+        // same commandWord -> returns true
+        assertTrue(standardCommand.setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS)));
 
         // null -> returns false
         assertFalse(standardCommand.equals((ImportCsvCommand) null));
@@ -82,6 +104,15 @@ public class ImportCsvCommandTest {
         // different filepath -> returns false
         Path differentPath = Paths.get(getTempFilePath("invalidImport.csv"));
         assertFalse(standardCommand.equals(new ImportCsvCommand(differentPath)));
+
+        // different commandWord -> returns false
+        assertFalse(standardCommand.setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord(ImportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS)));
+
+        // different commandWord -> returns false
+        assertFalse(standardCommand.setCommandWord(ImportCsvCommand.COMMAND_WORD_ITEMS)
+                .equals(commandWithSameValues.setCommandWord((String) null)));
     }
+
 
 }

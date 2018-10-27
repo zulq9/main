@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_FILEPATH;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.logic.CommandHistory;
@@ -109,9 +110,19 @@ public class ExportCsvCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ExportCsvCommand // instanceof handles nulls
-                && filePath.equals(((ExportCsvCommand) other).filePath));
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExportCsvCommand)) {
+            return false;
+        }
+        ExportCsvCommand that = (ExportCsvCommand) o;
+        if (this.commandWord == null) {
+            return that.commandWord == null&&
+                    Objects.equals(filePath, that.filePath);
+        }
+        return Objects.equals(commandWord, that.commandWord) &&
+                Objects.equals(filePath, that.filePath);
     }
 }
