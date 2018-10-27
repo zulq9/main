@@ -2,7 +2,6 @@ package seedu.inventory.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventoryWithStaff;
-import static seedu.inventory.testutil.staff.TypicalStaffs.DARREN;
 import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
 
 import org.junit.Before;
@@ -47,7 +46,7 @@ public class LoginCommandTest {
 
     @Test
     public void execute_withExistingSession_failure() throws CommandException {
-        Command loginCommand = new LoginCommand(DARREN);
+        Command loginCommand = new LoginCommand(ZUL);
         model.authenticateUser(ZUL);
         thrown.expectMessage(LoginCommand.MESSAGE_USER_HAS_LOGGED_IN);
         loginCommand.execute(model, commandHistory);
