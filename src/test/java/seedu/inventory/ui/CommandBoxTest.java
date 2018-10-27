@@ -1,6 +1,8 @@
 package seedu.inventory.ui;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
 
 import java.util.ArrayList;
 
@@ -14,6 +16,9 @@ import seedu.inventory.logic.LogicManager;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class CommandBoxTest extends GuiUnitTest {
 
@@ -29,6 +34,10 @@ public class CommandBoxTest extends GuiUnitTest {
     public void setUp() {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model);
+
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
+        model.authenticateUser(staff);
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),

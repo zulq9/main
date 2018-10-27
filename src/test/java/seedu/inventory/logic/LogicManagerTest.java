@@ -3,7 +3,10 @@ package seedu.inventory.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,6 +20,9 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 
 public class LogicManagerTest {
@@ -25,6 +31,13 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic = new LogicManager(model);
+
+    @Before
+    public void setUp() {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
+        model.authenticateUser(staff);
+    }
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
