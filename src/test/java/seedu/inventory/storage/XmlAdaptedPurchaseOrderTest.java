@@ -1,9 +1,11 @@
 package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.inventory.storage.XmlAdaptedPurchaseOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.inventory.testutil.TypicalItems.LG;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.LGPO;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.SONYPO;
 
 import org.junit.Test;
 
@@ -115,5 +117,14 @@ public class XmlAdaptedPurchaseOrderTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 PurchaseOrder.Status.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, po::toModelType);
+    }
+
+    @Test
+    public void equals() {
+        XmlAdaptedPurchaseOrder validPo = new XmlAdaptedPurchaseOrder(LGPO);
+        XmlAdaptedPurchaseOrder anotherValidPo = new XmlAdaptedPurchaseOrder(SONYPO);
+
+        assertEquals(validPo, validPo);
+        assertNotEquals(validPo, anotherValidPo);
     }
 }

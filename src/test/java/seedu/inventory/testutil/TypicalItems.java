@@ -12,6 +12,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_OPPO;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_SKU_SONY;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_GADGET;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_TAG_SMARTPHONE;
+import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.getTypicalPurchaseOrder;
 import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.util.ArrayList;
@@ -62,10 +63,11 @@ public class TypicalItems {
 
     public static final String KEYWORD_MATCHING_SAMSUNG = "Samsung"; // A keyword that matches SAMSUNG
 
-    private TypicalItems() {} // prevents instantiation
+    private TypicalItems() {
+    } // prevents instantiation
 
     /**
-     * Returns an {@code Inventory} with all the typical items.
+     * Returns an {@code Inventory} with all the typical items and purchase orders.
      */
     public static Inventory getTypicalInventory() {
         Inventory inventory = new Inventory();
@@ -78,11 +80,23 @@ public class TypicalItems {
 
     /**
      * Returns an {@code Inventory} with all the typical items and staffs.
+     *
      * @return
      */
     public static Inventory getTypicalInventoryWithStaff() {
         Inventory inventory = getTypicalInventory();
         inventory.resetData(getTypicalStaffList());
+        return inventory;
+    }
+
+    /**
+     * Returns an {@code Inventory} with all the typical items and purchase order.
+     *
+     * @return
+     */
+    public static Inventory getTypicalInventoryWithPo() {
+        Inventory inventory = getTypicalInventory();
+        inventory.setPurchaseOrders(getTypicalPurchaseOrder());
         return inventory;
     }
 

@@ -1,7 +1,6 @@
 package seedu.inventory.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -32,7 +31,10 @@ import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
@@ -58,11 +60,32 @@ public class InventoryParserTest {
     }
 
     @Test
-    public void parseCommand_generate_po() throws Exception {
+    public void parseCommand_add_po() throws Exception {
         PurchaseOrder po = new PurchaseOrderBuilder().build();
         AddPurchaseOrderCommand command =
                 (AddPurchaseOrderCommand) parser.parseCommand(PurchaseOrderUtil.getAddPoCommand(po));
-        assertNotEquals(new AddPurchaseOrderCommand(po), command);
+        assertEquals(new AddPurchaseOrderCommand(po), command);
+    }
+
+    @Test
+    public void parseCommand_delete_po() throws Exception {
+        DeletePurchaseOrderCommand command = (DeletePurchaseOrderCommand) parser.parseCommand(
+                DeletePurchaseOrderCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new DeletePurchaseOrderCommand(INDEX_FIRST_ITEM), command);
+    }
+
+    @Test
+    public void parseCommand_approve_po() throws Exception {
+        ApprovePurchaseOrderCommand command = (ApprovePurchaseOrderCommand) parser.parseCommand(
+                ApprovePurchaseOrderCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new ApprovePurchaseOrderCommand(INDEX_FIRST_ITEM), command);
+    }
+
+    @Test
+    public void parseCommand_reject_po() throws Exception {
+        RejectPurchaseOrderCommand command = (RejectPurchaseOrderCommand) parser.parseCommand(
+                RejectPurchaseOrderCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new RejectPurchaseOrderCommand(INDEX_FIRST_ITEM), command);
     }
 
     @Test

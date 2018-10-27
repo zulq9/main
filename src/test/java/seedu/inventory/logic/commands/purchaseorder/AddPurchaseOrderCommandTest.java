@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.CommandResult;
+import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.ModelStub;
@@ -49,6 +50,17 @@ public class AddPurchaseOrderCommandTest {
                 commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPurchaseOrder), modelStub.purchaseOrdersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_itemNotFound_throwsCommandException() throws Exception {
+        ModelStubAcceptingPurchaseOrderAdded modelStub = new ModelStubAcceptingPurchaseOrderAdded();
+        PurchaseOrder validPurchaseOrder = new PurchaseOrderBuilder().withSku("asd").build();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(AddPurchaseOrderCommand.MESSAGE_ITEM_NOT_FOUND,
+                validPurchaseOrder.getSku()));
+        new AddPurchaseOrderCommand(validPurchaseOrder).execute(modelStub, commandHistory);
     }
 
     @Test
