@@ -152,6 +152,18 @@ public interface Model {
     void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);
 
     /**
+     * Approves the given purchaseorder {@code target} and add the quantity to the item.
+     * {@code target} must exist in the inventory.
+     */
+    void approvePurchaseOrder(PurchaseOrder target);
+
+    /**
+     * Rejects the given purchaseorder {@code target}.
+     * {@code target} must exist in the inventory.
+     */
+    void rejectPurchaseOrder(PurchaseOrder target);
+
+    /**
      * Returns an unmodifiable view of the filtered purchase order list
      */
     ObservableList<PurchaseOrder> getFilteredPurchaseOrderList();

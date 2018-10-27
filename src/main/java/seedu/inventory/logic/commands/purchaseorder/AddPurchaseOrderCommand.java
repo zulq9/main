@@ -22,12 +22,12 @@ public class AddPurchaseOrderCommand extends Command {
 
     public static final String COMMAND_WORD = "add-po";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a purchase order for an item. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a purchase order for an item. \n"
             + "Parameters: "
             + PREFIX_SKU + "SKU "
             + PREFIX_QUANTITY + "QUANTITY "
             + PREFIX_REQDATE + "REQUIRED_DATE "
-            + PREFIX_SUPPLIER + "SUPPLIER "
+            + PREFIX_SUPPLIER + "SUPPLIER \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SKU + "apple-iphone-xr "
             + PREFIX_QUANTITY + "32 "
