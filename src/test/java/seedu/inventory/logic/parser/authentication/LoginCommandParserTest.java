@@ -1,4 +1,4 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.authentication;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_PASSWORD_DESC;
@@ -18,7 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.inventory.logic.commands.LoginCommand;
+import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.Username;
@@ -34,7 +34,7 @@ public class LoginCommandParserTest {
 
     @Before
     public void setup() {
-        zul = new StaffBuilder().withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL)
+        zul = new StaffBuilder().withUsername(VALID_USERNAME_ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
                 .withName("dummy").withRole(Staff.Role.role("user")).build();
     }
 
