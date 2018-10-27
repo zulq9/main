@@ -1,4 +1,4 @@
-package seedu.inventory.logic.parser;
+package seedu.inventory.logic.parser.authentication;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.logic.commands.CommandTestUtil.INVALID_PASSWORD_DESC;
@@ -18,7 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.inventory.logic.commands.LoginCommand;
+import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.Username;
