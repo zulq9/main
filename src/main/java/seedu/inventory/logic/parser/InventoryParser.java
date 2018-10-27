@@ -22,6 +22,7 @@ import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.authentication.ChangePasswordCommand;
 import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.logic.commands.authentication.LogoutCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
@@ -34,6 +35,7 @@ import seedu.inventory.logic.commands.staff.AddStaffCommand;
 import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
 import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.logic.commands.staff.ListStaffCommand;
+import seedu.inventory.logic.parser.authentication.ChangePasswordCommandParser;
 import seedu.inventory.logic.parser.authentication.LoginCommandParser;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
@@ -72,6 +74,9 @@ public class InventoryParser {
         switch (commandWord) {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
+
+        case ChangePasswordCommand.COMMAND_WORD:
+            return new ChangePasswordCommandParser().parse(arguments);
 
         case LogoutCommand.COMMAND_WORD:
             return new LogoutCommand();
