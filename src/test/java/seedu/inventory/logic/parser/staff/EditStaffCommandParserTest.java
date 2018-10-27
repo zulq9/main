@@ -89,7 +89,8 @@ public class EditStaffCommandParserTest {
                 + ROLE_DESC_USER;
 
         EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_ZUL)
-                .withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).withRole("user").build();
+                .withUsername(VALID_USERNAME_ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withRole("user").build();
         EditStaffCommand expectedCommand = new EditStaffCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -118,7 +119,7 @@ public class EditStaffCommandParserTest {
 
         // password
         userInput = targetIndex.getOneBased() + PASSWORD_DESC_ZUL;
-        descriptor = new EditStaffDescriptorBuilder().withPassword(VALID_PASSWORD_ZUL).build();
+        descriptor = new EditStaffDescriptorBuilder().withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
         expectedCommand = new EditStaffCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -143,7 +144,8 @@ public class EditStaffCommandParserTest {
                 + ROLE_DESC_ADMIN;
 
         EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_ZUL)
-                .withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL).withRole("admin").build();
+                .withUsername(VALID_USERNAME_ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withRole("admin").build();
         EditStaffCommand expectedCommand = new EditStaffCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -160,7 +162,8 @@ public class EditStaffCommandParserTest {
 
         userInput = targetIndex.getOneBased() + NAME_DESC_DARREN + INVALID_PASSWORD_DESC
                 + PASSWORD_DESC_DARREN + ROLE_DESC_ADMIN;
-        descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN).withPassword(VALID_PASSWORD_DARREN)
+        descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN)
+                .withPassword(Password.hash(VALID_PASSWORD_DARREN))
                 .withRole("admin").build();
         expectedCommand = new EditStaffCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

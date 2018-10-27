@@ -255,7 +255,8 @@ public class ParserUtil {
         if (!Username.isValidUsername(trimmedPassword)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        return new Password(trimmedPassword);
+        String hashedPassword = Password.hash(trimmedPassword);
+        return new Password(hashedPassword);
     }
 
     /**
