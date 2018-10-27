@@ -34,7 +34,7 @@ public class LoginCommandParserTest {
 
     @Before
     public void setup() {
-        zul = new StaffBuilder().withUsername(VALID_USERNAME_ZUL).withPassword(VALID_PASSWORD_ZUL)
+        zul = new StaffBuilder().withUsername(VALID_USERNAME_ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
                 .withName("dummy").withRole(Staff.Role.role("user")).build();
     }
 
