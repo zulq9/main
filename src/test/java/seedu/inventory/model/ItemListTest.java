@@ -108,4 +108,14 @@ public class ItemListTest {
         assertFalse(itemList.hasItem(IPHONE));
         assertTrue(itemList.hasItem(NOKIA));
     }
+
+    @Test
+    public void string() {
+        assertEquals(itemList.toString(), "0 items.");
+    }
+
+    @Test
+    public void hash() {
+        assertEquals(itemList.hashCode(), itemList.getItemList().hashCode());
+    }
 }

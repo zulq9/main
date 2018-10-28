@@ -5,7 +5,9 @@ import java.nio.file.Path;
 import seedu.inventory.commons.events.BaseEvent;
 import seedu.inventory.model.ReadOnlyItemList;
 
-/** Indicates the data in the model need to be exported */
+/**
+ * Indicates the item list in the model need to be imported
+ */
 public class ItemListExportEvent extends BaseEvent {
     public final ReadOnlyItemList data;
     public final Path filePath;

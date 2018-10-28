@@ -7,8 +7,14 @@ import java.util.Optional;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.SaleListExportEvent;
+import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.DataSavingExceptionEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
 import seedu.inventory.model.ReadOnlyInventory;
@@ -78,13 +84,52 @@ public interface Storage extends InventoryStorage, SaleListStorage, UserPrefsSto
     /**
      * Export the current version of the Item List to the hard disk.
      *   Creates the data file if it is missing.
-     * Raises DataExportingExceptionEvent if there was an error during saving.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
      */
     void handleItemListExportEvent(ItemListExportEvent ilee);
 
     /**
      * Import the Item List from the hard disk.
-     * Raises DataImportingExceptionEvent if there was an error during saving.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
      */
-    void handleItemListImportEvent(ItemListImportEvent iie);
+    void handleItemListImportEvent(ItemListImportEvent ilie);
+
+    /**
+     * Export the current version of the Sale List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
+     */
+    void handleSaleListExportEvent(SaleListExportEvent slee);
+
+    /**
+     * Import the Sale List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
+     */
+    void handleSaleListImportEvent(SaleListImportEvent slie);
+
+    /**
+     * Export the current version of the Staff List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
+     */
+    void handleStaffListExportEvent(StaffListExportEvent slee);
+
+    /**
+     * Import the Staff List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
+     */
+    void handleStaffListImportEvent(StaffListImportEvent slie);
+
+    /**
+     * Export the current version of the Purchase order List to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises DataExportingExceptionEvent if there was an error during exporting.
+     */
+    void handlePurchaseOrderListExportEvent(PurchaseOrderListExportEvent plee);
+
+    /**
+     * Import the Purchase order List from the hard disk.
+     * Raises DataImportingExceptionEvent if there was an error during importing.
+     */
+    void handlePurchaseOrderListImportEvent(PurchaseOrderListImportEvent plie);
 }

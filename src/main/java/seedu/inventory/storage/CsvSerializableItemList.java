@@ -15,7 +15,7 @@ import seedu.inventory.model.item.Item;
 public class CsvSerializableItemList implements CsvSerializableData {
     public static final String DATA_TYPE = "Item";
     public static final String[] FIELDS = {"name", "price", "quantity", "sku", "image", "tags"};
-    public static final String MESSAGE_DUPLICATE_ITEM = "Inventory list contains duplicate item(s).";
+    public static final String MESSAGE_DUPLICATE_ITEM = "Item list contains duplicate item(s).";
 
     private List<CsvAdaptedItem> items;
     private List<List<String>> contents;
@@ -25,6 +25,7 @@ public class CsvSerializableItemList implements CsvSerializableData {
      */
     public CsvSerializableItemList() {
         items = new ArrayList<>();
+        this.contents = getContentsFromItemList(items);
     }
 
     /**
@@ -50,7 +51,7 @@ public class CsvSerializableItemList implements CsvSerializableData {
     }
 
     /**
-     * Converts this inventory into the model's {@code Inventory} object.
+     * Converts this item list into the model's {@code ItemList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      *                               {@code CsvAdaptedItem}.
@@ -103,7 +104,7 @@ public class CsvSerializableItemList implements CsvSerializableData {
         if (!(other instanceof CsvSerializableItemList)) {
             return false;
         }
-        return items.equals(((CsvSerializableItemList) other).items);
+        return contents.equals(((CsvSerializableItemList) other).contents);
     }
 
     @Override
@@ -125,6 +126,4 @@ public class CsvSerializableItemList implements CsvSerializableData {
     public CsvSerializableData createInstance(List<List<String>> contents) {
         return new CsvSerializableItemList(contents);
     }
-
-
 }

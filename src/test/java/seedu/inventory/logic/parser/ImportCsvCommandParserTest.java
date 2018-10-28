@@ -10,20 +10,20 @@ import java.nio.file.Paths;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.ImportCsvCommand;
 
-public class ExportCsvItemsCommandParserTest {
-    private ExportCsvItemsCommandParser parser = new ExportCsvItemsCommandParser();
+public class ImportCsvCommandParserTest {
+    private ImportCsvCommandParser parser = new ImportCsvCommandParser();
 
     @Test
     public void parse_validPath_success() throws Exception {
-        Path expectedPath = Paths.get("valid.csv");
         parser.parse(" f/valid.csv");
-        assertParseSuccess(parser, " f/valid.csv", new ExportCsvItemsCommand(expectedPath));
+        Path expectedPath = Paths.get("valid.csv");
+        assertParseSuccess(parser, " f/valid.csv", new ImportCsvCommand(expectedPath));
         expectedPath = Paths.get("valid/valid");
-        assertParseSuccess(parser, " f/valid/valid", new ExportCsvItemsCommand(expectedPath));
+        assertParseSuccess(parser, " f/valid/valid", new ImportCsvCommand(expectedPath));
         expectedPath = Paths.get("valid/valid.jpg");
-        assertParseSuccess(parser, " f/valid/valid.jpg", new ExportCsvItemsCommand(expectedPath));
+        assertParseSuccess(parser, " f/valid/valid.jpg", new ImportCsvCommand(expectedPath));
     }
 
     @Ignore
@@ -35,6 +35,6 @@ public class ExportCsvItemsCommandParserTest {
     @Test
     public void parse_invalidField_success() {
         assertParseFailure(parser, " d/valid.csv", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ExportCsvItemsCommand.MESSAGE_USAGE));
+                ImportCsvCommand.MESSAGE_USAGE));
     }
 }

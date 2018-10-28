@@ -1,0 +1,4 @@
+Purchase Order,,,,
+sku,quantity,requiredDate,supplier,status
+lg-g7,20,2018-12-03,LG Corporation,PENDING
+samsung-note-9,79,2018-12-11,Samsung Corporation,PENDING
