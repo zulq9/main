@@ -7,11 +7,11 @@ https://coveralls.io/github/CS2103-AY1819S1-W14-4/main?branch=master[image:https
 https://app.codacy.com/project/w14-4/main/dashboard[image:https://api.codacy.com/project/badge/Grade/42ecda29a8254b929e7b5b8cb7136d84[Code Quality]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/doc-ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600", align="center"]
+image::docs/images/doc-ui.png[width="600", align="center"]
 endif::[]
 
 * This is a desktop Inventory Management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
