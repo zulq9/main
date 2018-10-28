@@ -342,7 +342,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::userCreation[]
 === Users Creation
 
-Creating an user will have the staff's account created. Below will describe how this
+Creating a user will have the staff's account created. Below will describe how this
 feature is implemented in Inventory Manager.
 
 ==== Implementation
