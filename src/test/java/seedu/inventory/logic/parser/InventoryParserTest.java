@@ -35,6 +35,7 @@ import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ImportCsvCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
+import seedu.inventory.logic.commands.ListLowQuantityCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
@@ -226,6 +227,12 @@ public class InventoryParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListItemCommand.COMMAND_WORD) instanceof ListItemCommand);
         assertTrue(parser.parseCommand(ListItemCommand.COMMAND_WORD + " 3") instanceof ListItemCommand);
+    }
+
+    @Test
+    public void parseCommand_listLowQuantity() throws Exception {
+        assertTrue(parser.parseCommand(ListLowQuantityCommand.COMMAND_WORD) instanceof ListLowQuantityCommand);
+        assertTrue(parser.parseCommand(ListLowQuantityCommand.COMMAND_WORD + " 3") instanceof ListLowQuantityCommand);
     }
 
     @Test

@@ -20,31 +20,31 @@ import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
-import seedu.inventory.model.item.NameContainsKeywordsPredicate;
+import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindItemCommand}.
  */
-public class FindItemCommandTest {
+public class FindItemSkuCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        SkuContainsKeywordsPredicate firstPredicate =
+                new SkuContainsKeywordsPredicate(Collections.singletonList("first"));
+        SkuContainsKeywordsPredicate secondPredicate =
+                new SkuContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindItemCommand findFirstCommand = new FindItemCommand(firstPredicate);
-        FindItemCommand findSecondCommand = new FindItemCommand(secondPredicate);
+        FindItemSkuCommand findFirstCommand = new FindItemSkuCommand(firstPredicate);
+        FindItemSkuCommand findSecondCommand = new FindItemSkuCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindItemCommand findFirstCommandCopy = new FindItemCommand(firstPredicate);
+        FindItemSkuCommand findFirstCommandCopy = new FindItemSkuCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -60,8 +60,8 @@ public class FindItemCommandTest {
     @Test
     public void execute_zeroKeywords_noItemFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindItemCommand command = new FindItemCommand(predicate);
+        SkuContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindItemSkuCommand command = new FindItemSkuCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredItemList());
@@ -70,8 +70,8 @@ public class FindItemCommandTest {
     @Test
     public void execute_multipleKeywords_multipleItemsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Google Note OnePlus");
-        FindItemCommand command = new FindItemCommand(predicate);
+        SkuContainsKeywordsPredicate predicate = preparePredicate("google note oneplus");
+        FindItemSkuCommand command = new FindItemSkuCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(GOOGLE, SAMSUNGNOTE, ONEPLUS), model.getFilteredItemList());
@@ -80,7 +80,7 @@ public class FindItemCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private SkuContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new SkuContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
