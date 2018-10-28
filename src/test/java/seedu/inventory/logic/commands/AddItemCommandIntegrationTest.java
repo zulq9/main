@@ -41,7 +41,7 @@ public class AddItemCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateItem_throwsCommandException() {
         Item itemInList = model.getInventory().getItemList().get(0);
         assertCommandFailure(new AddItemCommand(itemInList), model, commandHistory,
                 AddItemCommand.MESSAGE_DUPLICATE_ITEM);

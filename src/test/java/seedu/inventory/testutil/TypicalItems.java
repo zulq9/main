@@ -28,10 +28,8 @@ import seedu.inventory.model.item.Item;
 public class TypicalItems {
 
     public static final Item IPHONE = new ItemBuilder().withName("iPhone XR")
-            .withPrice("1500.00")
-            .withImage("docs/images/iphone.jpg").withSku("apple-iphone-xr")
-            .withQuantity("30")
-            .withTags("apple").build();
+            .withPrice("1500.00").withImage("docs/images/iphone.jpg").withSku("apple-iphone-xr")
+            .withQuantity("30").withTags("apple").build();
     public static final Item GOOGLE = new ItemBuilder().withName("Google Pixel XL").withPrice("1459.99")
             .withQuantity("3").withSku("google-pixel-xl").withImage("docs/images/google.jpg").build();
     public static final Item LG = new ItemBuilder().withName("LG G7").withPrice("1099.00").withQuantity("20")
@@ -43,8 +41,7 @@ public class TypicalItems {
     public static final Item HTC = new ItemBuilder().withName("HTC U6").withPrice("980.00").withQuantity("75")
             .withSku("htc-u6").withImage("docs/images/htc.jpg").build();
     public static final Item SAMSUNG = new ItemBuilder().withName("Samsung S9").withPrice("1299.99")
-            .withImage("docs/images/samsung.jpg")
-            .withSku("samsung-s9").withQuantity("100")
+            .withImage("docs/images/samsung.jpg").withSku("samsung-s9").withQuantity("100")
             .withTags("samsung", "smartphone").build();
 
     // Manually added
@@ -62,6 +59,9 @@ public class TypicalItems {
             .withTags(VALID_TAG_SMARTPHONE, VALID_TAG_GADGET).build();
 
     public static final String KEYWORD_MATCHING_SAMSUNG = "Samsung"; // A keyword that matches SAMSUNG
+
+    public static final String FILTER_CONDITIONS_MATCHING_SAMSUNG
+            = "p/>1200 q/>100"; // Filter conditions that match SAMSUNG
 
     private TypicalItems() {
     } // prevents instantiation

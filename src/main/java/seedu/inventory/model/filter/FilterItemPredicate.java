@@ -76,8 +76,28 @@ public class FilterItemPredicate implements Predicate<Item> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FilterItemPredicate); // instanceof handles nulls
+        if (price != null && quantity != null) {
+            return other == this // short circuit if same object
+                    || (other instanceof FilterItemPredicate // instanceof handles nulls
+                    && price.equals(((FilterItemPredicate) other).price) // state check
+                    && priceCondition.equals(((FilterItemPredicate) other).priceCondition)
+                    && quantity.equals(((FilterItemPredicate) other).quantity)
+                    && quantityCondition.equals(((FilterItemPredicate) other).quantityCondition));
+        } else if (price != null) {
+            return other == this // short circuit if same object
+                    || (other instanceof FilterItemPredicate // instanceof handles nulls
+                    && price.equals(((FilterItemPredicate) other).price) // state check
+                    && priceCondition.equals(((FilterItemPredicate) other).priceCondition)
+                    && (((FilterItemPredicate) other).quantity) == (quantity)
+                    && (((FilterItemPredicate) other). quantityCondition) == (quantityCondition));
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof FilterItemPredicate // instanceof handles nulls
+                    && (((FilterItemPredicate) other).price) == (price) // state check
+                    && (((FilterItemPredicate) other).priceCondition) == (priceCondition)
+                    && quantity.equals(((FilterItemPredicate) other).quantity)
+                    && quantityCondition.equals(((FilterItemPredicate) other).quantityCondition));
+        }
     }
 
 }
