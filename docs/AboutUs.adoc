@@ -25,9 +25,7 @@ image::fzdy1914.png[width="150", align="left"]
 Role: Developer
 
 Component: Storage +
-Responsibilities: Data
-
-Component in Charge: Storage
+Responsibilities: Data Exporting and Importing
 
 === Esmond Tan
 image::esmondtan.png[width="150", align="left"]

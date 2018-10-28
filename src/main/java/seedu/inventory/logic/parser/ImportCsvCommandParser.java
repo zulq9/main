@@ -6,32 +6,32 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.ImportCsvCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new ExportCsvItemsCommand object
+ * Parses input arguments and creates a new ImportCsvCommand object
  */
-public class ExportCsvItemsCommandParser implements Parser<ExportCsvItemsCommand> {
+public class ImportCsvCommandParser implements Parser<ImportCsvCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ExportCsvItemsCommand
-     * and returns an ExportCsvItemsCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ImportCsvCommand
+     * and returns an ImportCsvCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ExportCsvItemsCommand parse(String args) throws ParseException {
+    public ImportCsvCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILEPATH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FILEPATH)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ExportCsvItemsCommand.MESSAGE_USAGE));
+                    ImportCsvCommand.MESSAGE_USAGE));
         }
 
         Path filePath = ParserUtil.parsePath(argMultimap.getValue(PREFIX_FILEPATH).get());
 
-        return new ExportCsvItemsCommand(filePath);
+        return new ImportCsvCommand(filePath);
     }
 
     /**

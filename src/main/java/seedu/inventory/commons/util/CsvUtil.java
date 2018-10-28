@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -21,6 +23,9 @@ import seedu.inventory.storage.CsvSerializableData;
  * Helps with reading from and writing to CSV files.
  */
 public class CsvUtil {
+
+    private static final String CHARSET = "GB2312";
+
     /**
      * Returns the csv data in the file as an object of the specified type. The format of data is constrained.
      *
@@ -57,7 +62,7 @@ public class CsvUtil {
         requireNonNull(dataTypeToConvert);
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(file.toFile()));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.toFile()), CHARSET));
             List<String> dataTypes = Arrays.stream(reader.readLine().split(",")).collect(Collectors.toList());
 
             if (!isDataTypeEqual(dataTypes, dataTypeToConvert)) {
@@ -93,7 +98,7 @@ public class CsvUtil {
         BufferedReader reader;
         List<List<String>> contents = new LinkedList<>();
         try {
-            reader = new BufferedReader(new FileReader(file.toFile()));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.toFile()), CHARSET));
             reader.readLine();
             long fieldsNumber = Arrays.stream(reader.readLine().split(",")).count();
             String contentLine;
@@ -214,7 +219,8 @@ public class CsvUtil {
         }
 
         file.toFile().createNewFile();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file.toFile()));
+        BufferedWriter writer =
+                new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.toFile()), CHARSET));
 
         String separator = ",";
         String dataType = data.getDataType();

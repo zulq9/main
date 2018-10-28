@@ -21,9 +21,18 @@ import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.model.InventoryChangedEvent;
 import seedu.inventory.commons.events.model.ItemListExportEvent;
 import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
 import seedu.inventory.commons.events.model.SaleListChangedEvent;
+import seedu.inventory.commons.events.model.SaleListExportEvent;
+import seedu.inventory.commons.events.model.SaleListImportEvent;
 import seedu.inventory.commons.events.model.StaffListChangedEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
+import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
+import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
+import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -79,6 +88,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetSaleList(ReadOnlySaleList newSaleList) {
+        saleList.resetData(newSaleList);
+        indicateSaleListChanged();
+    }
+
+    @Override
+    public void resetStaffList(ReadOnlyStaffList newStaffList) {
+        versionedInventory.resetStaffList(newStaffList);
+        indicateInventoryChanged();
+    }
+
+    @Override
+    public void resetPurchaseOrderList(ReadOnlyPurchaseOrderList newPurchaseOrderList) {
+        versionedInventory.resetPurchaseOrderList(newPurchaseOrderList);
+        indicateInventoryChanged();
+    }
+
+    @Override
     public ReadOnlyInventory getInventory() {
         return versionedInventory;
     }
@@ -113,11 +140,49 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void exportItemList(Path filePath) {
         raise(new ItemListExportEvent(versionedInventory, filePath));
+        indicateAccessItem();
     }
 
     @Override
     public void importItemList(Path filePath) {
         raise(new ItemListImportEvent(filePath));
+        indicateAccessItem();
+    }
+
+    @Override
+    public void exportSaleList(Path filePath) {
+        raise(new SaleListExportEvent(saleList, filePath));
+        indicateAccessSale();
+    }
+
+    @Override
+    public void importSaleList(Path filePath) {
+        raise(new SaleListImportEvent(versionedInventory, filePath));
+        indicateAccessSale();
+    }
+
+    @Override
+    public void exportStaffList(Path filePath) {
+        raise(new StaffListExportEvent(versionedInventory, filePath));
+        indicateAccessStaff();
+    }
+
+    @Override
+    public void importStaffList(Path filePath) {
+        raise(new StaffListImportEvent(filePath));
+        indicateAccessStaff();
+    }
+
+    @Override
+    public void exportPurchaseOrderList(Path filePath) {
+        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
+        indicatePurchaseOrder();
+    }
+
+    @Override
+    public void importPurchaseOrderList(Path filePath) {
+        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
+        indicatePurchaseOrder();
     }
 
     //=========== Item  ====================================================================================
@@ -205,7 +270,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedInventory.removePurchaseOrder(target);
         indicateInventoryChanged();
     }
-
     @Override
     public void deletePurchaseOrder(Item target) {
         versionedInventory.removePurchaseOrder(target);
@@ -441,6 +505,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleItemListUpdateEvent(ItemListUpdateEvent event) {
         resetItemList(event.itemList);
+    }
+
+    @Override
+    @Subscribe
+    public void handleSaleListUpdateEvent(SaleListUpdateEvent event) {
+        resetSaleList(event.saleList);
+    }
+
+    @Override
+    @Subscribe
+    public void handleStaffListUpdateEvent(StaffListUpdateEvent event) {
+        resetStaffList(event.staffList);
+    }
+
+    @Override
+    @Subscribe
+    public void handlePurchaseOrderListUpdateEvent(PurchaseOrderListUpdateEvent event) {
+        resetPurchaseOrderList(event.purchaseOrderList);
     }
 
 }

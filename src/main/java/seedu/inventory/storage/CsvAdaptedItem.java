@@ -65,7 +65,7 @@ public class CsvAdaptedItem {
     /**
      * Converts a given Item into this class for Csv use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedItem
+     * @param source future changes to this will not affect the created CsvAdaptedItem
      */
     public CsvAdaptedItem(Item source) {
         name = source.getName().fullName;
