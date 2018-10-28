@@ -339,6 +339,49 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::userCreation[]
+=== Users Creation
+
+Creating an user will have the staff's account created. Below will describe how this
+feature is implemented in Inventory Manager.
+
+==== Implementation
+
+The creation of user is handled by `AddStaffCommand`. The use of it will trigger `Model#addUser`,
+which will add the user into the Inventory Manager. However, for `AddStaffCommand#execute` to be successful,
+there are two conditions which needs to be met.
+
+===== Conditions
+
+The following two conditions must be met before.
+
+. Current user who are executing the command must be a user with admin role.
+. The staff with same identity which are username and password cannot exists in the staff list.
+
+`AddStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
+`CommandException` will be thrown and it will not call `Model#addStaff`.
+
+==== Design Consideration
+
+There are a few design considerations when creating a staff. Below will explain the various considerations and the
+choices made.
+
+===== Aspect: Where `addUser` executes
+
+There are various places where `addUser` can be executed. The pros and cons for each option is shown below.
+
+. Executed at Logic +
+* Pros: Easy to implement +
+* Cons: Direct calling of `Model#addUser` will not be validated.
+. Executed at Model
+* Pros: Ensures that all entries are validated before sale can be created. +
+* Cons: `Model#addUser` will need to access staff list to perform validations.
+
+Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
+`Model#addUser` to read the inventory and perform validations.
+
+// end::userCreation[]
+
 // tag::saleOrderCreation[]
 === Sale Order Creation
 
@@ -986,6 +1029,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |login through CLI |use the features of the app
 
+|`* * ` |user |change my password |ensure the security of my account
+
+|`* * *` |user |logout through CLI |ensure no one can access the system without my presence
+
 |`* * *` |user |be able to create sale order |deduct inventory quantity
 
 |`* * *` |user |be able to show created sale order |check created sale order
@@ -1018,13 +1065,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |manager |be notified for low inventory |generate the purchase order
 
-|`* * *` |admin |add users to the system |better manage all the users and their accounts
+|`* * *` |admin |add users to the system |allow stakeholders of the system to use the apps
 
-|`* * *` |admin |remove users from the system |
+|`* * *` |admin |remove users from the system |remove the users who are no longer using the system.
 
 |`* * *` |admin |update users in the system |update users' detail if necessary
 
-|`* * *` |admin |view all existing users in the system |
+|`* * *` |admin |view all existing users in the system |ensure that the system is always up to date
 
 |`* * *` |admin |assign roles to users |restrict their user permissions
 
@@ -1136,9 +1183,76 @@ Use case ends.
 Use case resumes at step 2.
 // end::usecaseInventoryManagement[]
 
-// tag::usecaseDeleteStaff[]
+// tag::usecaseUserManagement[]
 [discrete]
-=== Use case: Delete staff
+=== Use case: Add User
+
+*MSS*
+
+1.  Admin requests to add item into Inventory Manager.
+2.  Inventory Manager adds the staff into the Staff list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Staff name does not follow the correct format.
++
+[none]
+** 1a1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1b. Staff username does not follow the correct format.
++
+[none]
+** 1b1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1c. Staff password does not follow the correct format.
++
+[none]
+** 1c1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+[none]
+* 1d. Staff Role does not equal to user, manager or admin.
++
+[none]
+** 1d1. Inventory Manager shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit User
+
+*MSS*
+
+1.  User requests to list staffs.
+2.  Inventory Manager shows a list of staffs
+3.  User requests to edit a specific staff in the list
+4.  Inventory Manager edits the staff
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete User
 
 *MSS*
 
@@ -1162,7 +1276,7 @@ Use case ends.
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
-// end::usecaseDeleteStaff[]
+// end::usecaseUserManagement[]
 
 // tag::usecaseexportimport[]
 [discrete]
@@ -1377,7 +1491,7 @@ _{More to be added}_
 ** Authentication and User management
 *** V1.1 Develop a users management API
 *** V1.2 Support authentication of users and users management
-*** V1.3 Support encryption of data
+*** V1.3 Support hashing of password
 
 * Esmond Tan
 ** Sale Orders
@@ -1445,35 +1559,79 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-// tag::testcaseLogin[]
-=== Login
+// tag::testcaseAuthentication[]
+=== Authentication
 
 . Login
 
 .. Prerequisites: The username and password of the staff must be in the staffs record.
-.. Test case: `login u/user1 p/password1` +
+.. Test case: `login u/admin p/password` +
    Expected: User will be logged in and granted access on using other functions of the application.
 .. Test case: `login u/asd1231 p/` +
    Expected: User will be prompted to fill in the empty password field.
 .. Test case: `login` , `login u/ p/password` +
    Expected: Similar to previous.
 
-// end::testcaseLogin[]
+. Change Password
 
-// tag::testcaseDeleteStaff[]
-=== Deleting a staff
+.. Prerequisites: User must be logged in and the new password must be different from the old password.
+.. Test case: `change-password p/newpassword` +
+   Expected: User will be logged in and granted access on using other functions of the application.
+.. Test case: `change-password p/newpassword` +
+   Expected: User will be prompted to fill in a new password.
+.. Test case: `change-password p/` +
+   Expected: User will be prompted to fill in the empty password field.
+.. Test case: `change-password` +
+   Expected: Similar to previous.
 
-. Deleting a staff
+. Logout
+
+.. Prerequisites: User must be logged in.
+.. Test case: `logout` +
+   Expected: User will be logged out.
+
+// end::testcaseAuthentication[]
+
+// tag::testcaseUserManagement[]
+=== User Management
+
+. Adding an user
+
+.. Prerequisites: The staff to be added must not be a duplicated entry in the list and must login as an admin.
+.. Test case: `add-staff u/johnd p/johndoe n/John Doe r/user` +
+   Expected: Staff will be added into the system. Details of the added staff shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add-staff u/` +
+   Expected: No staff is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add-staff commands to try: `add-staff`, `add-staff ,,,`_ +
+   Expected: Similar to previous.
+
+. Listing all the users
+
+.. Prerequisites: Must login as an admin.
+.. Test case: `list-staff` +
+   Expected: Staffs will be listed at the panel on the left of the UI.
+
+. Editing an user
+
+.. Prerequisites: The staff to be edited must be an existing entry in the list
+.. Test case: `edit-staff 1 u/johnd p/johndoe n/John Doe r/user` +
+   Expected: Edited staff will replace the existing staff in the system. Details of the edited staff shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-staff u/` +
+   Expected: No staff is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add-staff commands to try: `edit-staff`, `edit-staff ,,,`_ +
+   Expected: Similar to previous.
+
+. Delete a staff
 
 .. Prerequisites: The index provided must be the index in the existing list of staff shown
-.. Test case: `delete-staff i/2` +
+.. Test case: `delete-staff 2` +
    Expected: Staff listed as second in the list will be deleted. Details of the deleted staff shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete-staff i/` +
+.. Test case: `delete-staff ` +
    Expected: No staff is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-staff`, `delete-staff ,,,`_ +
    Expected: Similar to previous.
 
-// end::testcaseDeleteStaff[]
+// end::testcaseUserManagement[]
 
 === Deleting a person
 
