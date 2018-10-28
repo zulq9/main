@@ -51,7 +51,7 @@ This section will help you get started with Inventory Manager in 4 easy steps:
 image::doc-ui.png[width="790"]
 _Figure 3.1. The Graphical User Interface on starting up._
 
-*Congratulation! you have successfully set up Inventory Manager*. +
+*Congratulations! You have successfully set up Inventory Manager*. +
 
 You can now type a command in the command box and press kbd:[Enter] to execute it. +
 
@@ -276,7 +276,7 @@ Examples:
 // tag::inventoryManagement[]
 === Inventory Management
 
-The following commands are mainly used for users to manage the item in the inventory.
+The following commands are mainly used for users to manage the items stored in the inventory.
 
 ==== Adding an item : `add-item`
 
@@ -287,7 +287,7 @@ Format: `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
 [TIP]
 An item can have any number of tags (including 0)
 
-Examples:
+Example:
 
 * `add n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
 
@@ -295,10 +295,26 @@ Examples:
 
 The `list-item` command shows a list of all items in the inventory manager.
 
+Format: `list-item`
+
+Upon entering the `list-item` command into the command box and pressing kbd:[Enter], a list of all items will appear as can be seen in the screenshot below.
+
 image::doc-list-item.png[width="790"]
 _Figure 4.5. All items in Inventory Manager listed on screen._
 
-Format: `list-item`
+==== Listing all items with low quantities : `list-low-qty`
+
+The `list-low-qty` command shows a list of all items in the inventory manager that have low quantities.
+
+Format: `list-low-qty`
+
+[NOTE]
+====
+An item is considered to have a `low quantity` if it has a quantity of 10 or less.
+====
+
+Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], a list of all items with quantities
+of 10 or less will appear as can be seen in the screenshot below.
 
 ==== Editing an item : `edit-item`
 
@@ -306,6 +322,7 @@ The `edit-item` command edits an existing item in the Inventory Manager.
 
 Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
+For the `edit-item` command, do take note of the following points:
 ****
 * Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -316,30 +333,90 @@ Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATI
 
 Examples:
 
+* `edit-item 5 s/SN-8888` +
+Updates the SKU and tags of the 5th item to `SN-8888`.
 * `edit-item 1 i/docs/images/iphone.jpg q/999` +
-Updates the image location and quantity of the 1st item to be `docs/images/iphone.jpg` and `999` respectively.
+Updates the image location and quantity of the 1st item to `docs/images/iphone.jpg` and `999` respectively.
 
 ==== Locating items by name : `find-item`
 
-The `find-item` command finds item whose names contain any of the given keywords.
-
-image::doc-find-item.png[width="790"]
-_Figure 4.6. The item searched for will be displayed on screen._
+The `find-item` command finds items that have names containing any of the given keywords.
 
 Format: `find-item KEYWORD [MORE_KEYWORDS]`
 
+[TIP]
+Multiple keywords are allowed for the `find-item` command.
+
+For the `find-item` command, do take note of the following points:
 ****
 * The search is case insensitive. e.g `iphone` will match `IPhone`
 * The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
 * Only the name of the item is searched.
 * Only full words will be matched e.g. `phone` will not match `IPhone`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
+* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
 ****
 
-Examples:
+The following demonstrates entering the `find-item` command in the command box with the keyword `LG`, followed by kbd:[Enter].
+
+image::doc-find-item.png[width="790"]
+_Figure 4.6. The item(s) searched for will be displayed on screen._
+
+Example:
 
 * `find-item iphone` +
 Returns `IPhone X` and `IPhone 10`
+
+==== Locating items by SKU : `find-item-sku`
+
+The `find-item-sku` command finds items that have SKUs containing any of the given keywords.
+
+Format: `find-item-sku KEYWORD [MORE_KEYWORDS]`
+
+[TIP]
+Just like the `find-item` command, multiple keywords are allowed for the `find-item-sku` command.
+
+For the `find-item-sku` command, do take note of the following points:
+****
+* Partial keywords will be matched e.g. `sn` will match items with SKUs `SN-1234` and `SN4321`
+* The search is case insensitive. e.g `sn-1234` will match item(s) containing the SKU `SN-1234`
+* Only the SKU of the item is searched.
+* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `iphone sn` will return
+items with SKUs containing the SKUs `iphone-s9-9234`, `SN-1234`
+****
+
+The following demonstrates entering the `find-item-sku` command in the command box with the keyword `lg-g7`, followed by kbd:[Enter].
+
+Example:
+
+* `find-item-sku iphone` +
+Returns `IPhone X` and `IPhone 10`, which contains the SKUs `iphone-x` and `iphone-10` respectively.
+
+==== Filtering items by price and/or quantity : `filter-item`
+
+The `filter-item` command filters items that have prices and/or quantities within the conditions set in the keywords.
+
+Format: `filter-item [p/[<][>]PRICE] [q/[<][>]QUANTITY]`
+
+For the `filter-item` command, do take note of the following points:
+****
+* At least one of the optional fields must be provided.
+* `'<'` represents `less than or equals to` e.g. `q/<30` represents quantity less than or equals to 30
+* `'>'` represents `more than or equals to` e.g. `p/>500` represents price more than or equals to 500
+* For price, both whole numbers and decimals are allowed.
+* For quantity, only whole numbers are allowed.
+****
+
+[TIP]
+You can combine both conditions or use only one condition to filter your products.
+
+The following demonstrates entering the `filter-item` command in the command box with the condition `p/<100`, followed by kbd:[Enter].
+
+Example:
+
+* `filter-item p/>900` +
+Returns `IPhone X` and `IPhone 10` which both have prices more than or equal to $900.
+* `filter-item q/<100` +
+Returns `LG G7` and `Samsung Note 9` which both have quantities less than or equal to 100.
 
 ==== Deleting an item : `delete-item`
 
@@ -347,6 +424,7 @@ The `delete-item` command deletes the specified item from the inventory.
 
 Format: `delete-item INDEX`
 
+For the `delete-item` command, do take note of the following points:
 ****
 * Deletes the item at the specified `INDEX`.
 * The index refers to the index number shown in the displayed inventory list.
@@ -364,12 +442,13 @@ Deletes the 1st item in the results of the `find-item` command.
 
 ==== Selecting an item : `select`
 
-The `select` command selects the item identified by the index number used in the displayed inventory.
+The `select` command selects an item identified by the index number used in the displayed inventory list.
 
 Format: `select INDEX`
 
+For the `select` command, do take note of the following points:
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the item and loads up the item's details at the specified `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****

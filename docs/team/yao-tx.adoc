@@ -17,8 +17,6 @@ The main purpose of the application is to provide good inventory control for SME
 
 More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-Ensure inventory control for your company now by jumping to Section 3, “Quick Start”. Enjoy!
-
 == Summary of contributions
 
 * *Major enhancement*: Inventory Management of the Inventory Manager App
@@ -29,33 +27,32 @@ Ensure inventory control for your company now by jumping to Section 3, “Quick 
 
 ** Minor Enhancements:
 *** Add/Delete/Edit items in inventory
-*** Search for items using SKUs or tags
+*** Search for items via name or SKU
 *** Image support for items
 *** List items with low quantities
-***
-*** Develop inventory management API
+*** Display warning for items with low quantities
+*** Filtering of products based on price and/or quantity
 
 ** Project Management:
-*** In charge of transforming and modifying the Address Book into the current Inventory Manager
+*** Transformed and modified the Address Book into the current Inventory Manager
+*** Developed the inventory management portion of the application
+*** Managed releases `v1.2.1` (1 release) on GitHub
 
 ** Others:
 *** Storage
 
-** Project management:
-*** Managed releases `v1.2.2` (1 release) on GitHub
-
 ** Enhancements to existing features:
 *** Added image support for items
 *** Modified the browser panel for displaying of items
+*** Allowed searching of items via SKU which does not require full word matching
 
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 
 ** Community:
+*** Reviewed and commented on Pull Requests made by teammates
 
 ** Tools:
-*** Created an organization for team on Github
-*** Integrated a Github plugin (TravisCI) to the team repo
 
 == Contributions to the User Guide
 
