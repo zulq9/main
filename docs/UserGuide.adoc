@@ -204,40 +204,40 @@ Examples:
 === User Management
 Admin of the system manages the staffs who use this applications.
 
-==== Add users : `add-user`
+==== Add users : `add-staff`
 
 Adds an user into the system. +
-Format: `add-user n/NAME u/USERNAME p/PASSWORD r/ROLE`
+Format: `add-staff n/NAME u/USERNAME p/PASSWORD r/ROLE`
 
 Examples:
 
 * Add user with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
- `add-user u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+ `add-staff u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
 
-==== List users : `list-user`
+==== List users : `list-staff`
 
 Displays a list of existing users in the system. +
-Format: `list-user`
+Format: `list-staff`
 
-==== Update users : `update-user`
+==== Update users : `update-staff`
 
 Updates an user information into the system with given username. +
-Format: `update-user i/INDEX u/USERNAME n/NAME  r/ROLE`
+Format: `update-staff i/INDEX u/USERNAME n/NAME  r/ROLE`
 
 Examples:
 
 * Update user with given username as yaotx. Change name to Yao Teng Xiong and role as admin. +
- `update-user i/2 u/yaotx n/Yao Teng Xiong r/admin`.
+ `update-staff i/2 u/yaotx n/Yao Teng Xiong r/admin`.
 
-==== Remove users : `delete-user`
+==== Remove users : `delete-staff`
 
 Deletes an user from the system with given index as shown in the list. +
-Format: `delete-user i/INDEX`
+Format: `delete-staff i/INDEX`
 
 Examples:
 
 * Reomove user with given index as shown in the list. +
- `remove-user i/1`.
+ `remove-staff i/1`.
 
 // end::userManagement[]
 
@@ -565,10 +565,10 @@ The following table summarises commands available in Inventory Manager, along wi
 |`Logout` |`logout` |`logout`
 // User Management
 3+| *Users Management*
-|`Add User` |`add-user n/NAME u/USERNAME p/PASSWORD r/ROLE` |`add-user n/Zulqarnain u/zulq9 p/zulcomel r/admin`
-|`List User` |`list-user` |`list-user`
-|`Update User` |`update-user i/INDEX n/NAME u/USERNAME p/PASSWORD r/ROLE` |`update-user i/2 n/Muhammad Zulqarnain u/zulq9 p/zulsenpai r/admin`
-|`Remove User` |`delete-user i/INDEX` |`delete-user i/3`
+|`Add User` |`add-staff n/NAME u/USERNAME p/PASSWORD r/ROLE` |`add-staff n/Zulqarnain u/zulq9 p/zulcomel r/admin`
+|`List User` |`list-staff` |`list-user`
+|`Update User` |`update-staff i/INDEX n/NAME u/USERNAME p/PASSWORD r/ROLE` |`update-staff i/2 n/Muhammad Zulqarnain u/zulq9 p/zulsenpai r/admin`
+|`Remove User` |`delete-staff i/INDEX` |`delete-staff i/3`
 // Inventory Management
 3+| *Inventory Management*
 |`Add Item` | `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_PATH [t/TAG]...` | `add-item n/iPhone XR p/1500.00 q/70 s/apple-iphone-xr i/docs/images/iphone.jpg t/apple t/smartphone`
