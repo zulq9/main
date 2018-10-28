@@ -150,9 +150,11 @@ public class Inventory implements ReadOnlyInventory {
      * Retrieves the staff with provided staff which consists of username and password.
      */
     public Staff retrieveStaff(Staff key) {
+        requireNonNull(key);
+
         Iterator<Staff> staffList = staffs.iterator();
         Staff staff = null;
-        if (staffList.hasNext()) {
+        while (staffList.hasNext()) {
             staff = staffList.next();
             if (staff.isSameStaff(key)) {
                 return staff;
