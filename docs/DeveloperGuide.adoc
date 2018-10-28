@@ -1595,7 +1595,7 @@ _{ more test cases ... }_
 // tag::testcaseUserManagement[]
 === User Management
 
-. Adding an user
+. Adding a user
 
 .. Prerequisites: The staff to be added must not be a duplicated entry in the list and must login as an admin.
 .. Test case: `add-staff u/johnd p/johndoe n/John Doe r/user` +
@@ -1611,7 +1611,7 @@ _{ more test cases ... }_
 .. Test case: `list-staff` +
    Expected: Staffs will be listed at the panel on the left of the UI.
 
-. Editing an user
+. Editing a user
 
 .. Prerequisites: The staff to be edited must be an existing entry in the list
 .. Test case: `edit-staff 1 u/johnd p/johndoe n/John Doe r/user` +
@@ -1621,7 +1621,7 @@ _{ more test cases ... }_
 .. Other incorrect add-staff commands to try: `edit-staff`, `edit-staff ,,,`_ +
    Expected: Similar to previous.
 
-. Delete a staff
+. Deleting a user
 
 .. Prerequisites: The index provided must be the index in the existing list of staff shown
 .. Test case: `delete-staff 2` +

@@ -198,7 +198,7 @@ Examples:
 
 ==== Change user's password : `change-password`
 
-The `change-password` command updates an user information into the system with given new password.
+The `change-password` command updates a user information into the system with given new password.
 
 image::doc-change-password.png[width="790"]
 _Figure 4.2. User attempting to change password._
@@ -229,9 +229,9 @@ Examples:
 
 Admin of the system manages the staffs who use this application.
 
-==== Adding an user : `add-staff`
+==== Adding a user : `add-staff`
 
-The `add-staff` command adds an user into the system.
+The `add-staff` command adds a user into the system.
 
 Format: `add-staff n/NAME u/USERNAME p/PASSWORD r/ROLE`
 
@@ -252,9 +252,9 @@ _Figure 4.3. All users in Inventory Manager listed on screen._
 
 Format: `list-staff`
 
-==== Updating an user : `edit-staff`
+==== Updating a user : `edit-staff`
 
-The `edit-staff` command updates an user information into the system with given username.
+The `edit-staff` command updates a user information into the system with given username.
 
 Format: `edit-staff INDEX [n/NAME] [u/USERNAME] [p/PASSWORD] [r/ROLE]`
 
@@ -265,9 +265,9 @@ Examples:
 * Edit staff with given id, 2 in the list. Change name to Yao Teng Xiong and role as admin. +
  `update-staff 2 n/Yao Teng Xiong r/admin`.
 
-==== Deleting an user : `delete-staff`
+==== Deleting a user : `delete-staff`
 
-The `delete-staff` command deletes an user from the system with given index as shown in the list.
+The `delete-staff` command deletes a user from the system with given index as shown in the list.
 
 An error will be shown if the entered index is invalid.
 `edit-user 2 u/yaotx n/Yao Teng Xiong r/admin`.
