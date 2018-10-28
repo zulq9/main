@@ -60,8 +60,8 @@ public class TypicalItems {
 
     public static final String KEYWORD_MATCHING_SAMSUNG = "Samsung"; // A keyword that matches SAMSUNG
 
-    public static final String FILTER_CONDITIONS_MATCHING_SAMSUNG
-            = "p/>1200 q/>100"; // Filter conditions that match SAMSUNG
+    public static final String FILTER_CONDITIONS_MATCHING_SAMSUNG =
+            "p/>1200 q/>100"; // Filter conditions that match SAMSUNG
 
     private TypicalItems() {
     } // prevents instantiation

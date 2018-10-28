@@ -1,15 +1,11 @@
 package seedu.inventory.model.filter;
 
-import org.junit.Test;
-import seedu.inventory.model.filter.FilterItemPredicate;
-import seedu.inventory.testutil.ItemBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import seedu.inventory.testutil.ItemBuilder;
 
 public class FilterItemPredicateTest {
 

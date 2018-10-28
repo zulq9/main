@@ -10,11 +10,8 @@ import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import java.util.Arrays;
-import java.util.Collections;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Model;
@@ -25,7 +22,6 @@ import seedu.inventory.model.filter.FilterItemPredicate;
 import seedu.inventory.model.filter.FilterPrice;
 import seedu.inventory.model.filter.FilterQuantity;
 
-
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterItemCommand}.
  */
@@ -33,9 +29,6 @@ public class FilterItemCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
     private CommandHistory commandHistory = new CommandHistory();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void equals() {

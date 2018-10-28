@@ -4,8 +4,6 @@ import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.inventory.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import seedu.inventory.logic.commands.FilterItemCommand;
