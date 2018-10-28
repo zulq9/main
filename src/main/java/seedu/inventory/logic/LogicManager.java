@@ -86,43 +86,27 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getObservableSaleList();
     }
 
-    /**
-     * Returns true if it is a public accessible command.
-     * @param command the command that parsed by the parser
-     * @return true if it is a public command
-     */
+    @Override
     public boolean isPublicCommand(Command command) {
         return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand;
     }
 
-    /**
-     * Returns true if it is a user management command.
-     * @param command the command that parsed by the parser
-     * @return true if it is a user management command
-     */
+    @Override
     public boolean isUserManagementCommand(Command command) {
         return command instanceof AddStaffCommand || command instanceof EditStaffCommand
                 || command instanceof ListStaffCommand || command instanceof DeleteStaffCommand;
     }
 
-    /**
-     * Returns true if it is a purchase order approval or reject command.
-     * @param command the command that parsed by the parser
-     * @return true if it is a purchase order approval or reject command
-     */
-    public boolean isApprovalPurchaseOrderComand(Command command) {
+    @Override
+    public boolean isPurchaseOrderApprovalCommand(Command command) {
         return command instanceof ApprovePurchaseOrderCommand || command instanceof RejectPurchaseOrderCommand;
     }
 
-    /**
-     * Returns an error if the user has no permission accessing.
-     * @param command the command that parsed by the parser
-     * @throws CommandException if the user has no permission to access the command
-     */
+    @Override
     public void checkIsValidRole(Command command) throws CommandException {
         if (isUserManagementCommand(command) && !model.getUser().getRole().equals(Staff.Role.admin)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
-        } else if (isApprovalPurchaseOrderComand(command) && model.getUser().getRole().equals(Staff.Role.user)) {
+        } else if (isPurchaseOrderApprovalCommand(command) && model.getUser().getRole().equals(Staff.Role.user)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
         }
     }
