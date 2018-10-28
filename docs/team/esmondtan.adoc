@@ -9,15 +9,45 @@
 
 == Overview
 
-include::../UserGuide.adoc[tag=projectIntro]
+This portfolio aims to document my contributions as a developer to the Inventory Manager project.
+
+Inventory Manager is developed for Small to Medium Enterprises (SMEs) to tackle the chore of stock taking. Designed to be easy to use, Inventory Manager gives the user control over their business right from their keyboard.
+
+Inventory Manager comes with features to manage the shop inventory such as creating sale orders, purchase orders, generating reports and more. With user authentication built in, it gives SMEs greater control over users' access to the application too.
+
 
 == Summary of contributions
 
-* *Major enhancement*:
+|===
+|_Below is a summary of the contributions I have made to the project._
+|===
 
-** Created Sale Orders Management Feature
+* *Major Enhancement*: Developed Sale Orders Management Feature
+
+** What it does: This feature allows the user to create a sale order in the application. When a sale order is created, Inventory Manager will automatically deduct stocks from the inventory.
+
+** Justification: This feature is critical for Inventory Manager to work. Without the ability to create sale orders, Inventory Manager will not be able to track and manage item stocks accurately.
+
+** Highlights: This feature requires interaction with the update item command in Inventory Manager and the ability to validate item quantity before a sale is allowed.
+
+* *Minor Enhancement*:
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+
+** Project Management:
+
+** Documentation:
+
+*** Updated the introduction of the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Added the section on Sale Orders Management to the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Updated various sections of the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Added the section on Sale Order Creation to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+
+** Community:
+
+*** PRs Reviewed
 
 == Contributions to the User Guide
 
@@ -33,5 +63,4 @@ include::../UserGuide.adoc[tag=salesManagement]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=settingUp]
-include::../DeveloperGuide.adoc[tag=testing]
+include::../DeveloperGuide.adoc[tag=saleOrderCreation]

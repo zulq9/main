@@ -1,6 +1,7 @@
 package seedu.inventory.logic;
 
 import javafx.collections.ObservableList;
+import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.parser.exceptions.ParseException;
@@ -38,4 +39,32 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /**
+     * Returns true if it is a public accessible command.
+     * @param command the command that parsed by the parser
+     * @return true if it is a public command
+     */
+    boolean isPublicCommand(Command command);
+
+    /**
+     * Returns true if it is a user management command.
+     * @param command the command that parsed by the parser
+     * @return true if it is a user management command
+     */
+    boolean isUserManagementCommand(Command command);
+
+    /**
+     * Returns true if it is a purchase order approval or reject command.
+     * @param command the command that parsed by the parser
+     * @return true if it is a purchase order approval or reject command
+     */
+    boolean isPurchaseOrderApprovalCommand(Command command);
+
+    /**
+     * Returns an error if the user has no permission accessing.
+     * @param command the command that parsed by the parser
+     * @throws CommandException if the user has no permission to access the command
+     */
+    void checkIsValidRole(Command command) throws CommandException;
 }

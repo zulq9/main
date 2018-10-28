@@ -1,22 +1,40 @@
 package seedu.inventory.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
+import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.logic.commands.CommandResult;
+import seedu.inventory.logic.commands.ExitCommand;
+import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
+import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.EditStaffCommand;
+import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
+import seedu.inventory.testutil.staff.StaffBuilder;
 
 
 public class LogicManagerTest {
@@ -25,6 +43,13 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic = new LogicManager(model);
+
+    @Before
+    public void setUp() {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
+        model.authenticateUser(staff);
+    }
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
@@ -48,6 +73,42 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void isPublicCommand() {
+        Staff staff = new StaffBuilder().build();
+
+        assertTrue(logic.isPublicCommand(new HelpCommand()));
+        assertTrue(logic.isPublicCommand(new LoginCommand(staff)));
+        assertTrue(logic.isPublicCommand(new ExitCommand()));
+
+        assertFalse(logic.isPublicCommand(new ListStaffCommand()));
+        assertFalse(logic.isPublicCommand(new AddStaffCommand(staff)));
+    }
+
+    @Test
+    public void isUserManagementCommand() {
+        Staff staff = new StaffBuilder().build();
+
+        assertFalse(logic.isUserManagementCommand(new HelpCommand()));
+        assertFalse(logic.isUserManagementCommand(new LoginCommand(staff)));
+        assertFalse(logic.isUserManagementCommand(new ExitCommand()));
+
+        assertTrue(logic.isUserManagementCommand(new ListStaffCommand()));
+        assertTrue(logic.isUserManagementCommand(new AddStaffCommand(staff)));
+        assertTrue(logic.isUserManagementCommand(new EditStaffCommand(INDEX_FIRST_ITEM,
+                new EditStaffCommand.EditStaffDescriptor())));
+        assertTrue(logic.isUserManagementCommand(new DeleteStaffCommand(INDEX_FIRST_ITEM)));
+    }
+
+    @Test
+    public void isPurchaseOrderApprovalCommand() {
+        assertTrue(logic.isPurchaseOrderApprovalCommand(new ApprovePurchaseOrderCommand(INDEX_FIRST_ITEM)));
+        assertTrue(logic.isPurchaseOrderApprovalCommand(new RejectPurchaseOrderCommand(INDEX_FIRST_ITEM)));
+
+        assertFalse(logic.isPurchaseOrderApprovalCommand(new ListStaffCommand()));
+        assertFalse(logic.isPurchaseOrderApprovalCommand(new ListItemCommand()));
+    }
+
+    @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredItemList().remove(0);
@@ -57,6 +118,12 @@ public class LogicManagerTest {
     public void getFilteredPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPurchaseOrderList().remove(0);
+    }
+
+    @Test
+    public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredStaffList().remove(0);
     }
 
     /**

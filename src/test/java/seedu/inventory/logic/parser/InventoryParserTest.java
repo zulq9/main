@@ -4,6 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.inventory.logic.commands.CommandTestUtil.NAME_DESC_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.PASSWORD_DESC_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.ROLE_DESC_ADMIN;
+import static seedu.inventory.logic.commands.CommandTestUtil.ROLE_DESC_USER;
+import static seedu.inventory.logic.commands.CommandTestUtil.USERNAME_DESC_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
 import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import java.util.Arrays;
@@ -31,26 +39,54 @@ import seedu.inventory.logic.commands.ListLowQuantityCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.authentication.ChangePasswordCommand;
+import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.EditStaffCommand;
+import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 import seedu.inventory.model.item.SkuContainsKeywordsPredicate;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
 import seedu.inventory.testutil.ItemBuilder;
 import seedu.inventory.testutil.ItemUtil;
 import seedu.inventory.testutil.purchaseorder.PurchaseOrderBuilder;
 import seedu.inventory.testutil.purchaseorder.PurchaseOrderUtil;
+import seedu.inventory.testutil.staff.EditStaffDescriptorBuilder;
+import seedu.inventory.testutil.staff.StaffBuilder;
+
 public class InventoryParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private final InventoryParser parser = new InventoryParser();
+
+    @Test
+    public void parseCommand_login() throws Exception {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).withName("dummy").withRole(Staff.Role.user).build();
+        LoginCommand command = (LoginCommand) parser.parseCommand(LoginCommand.COMMAND_WORD
+                + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL);
+        assertEquals(new LoginCommand(staff), command);
+    }
+
+    @Test
+    public void parseCommand_changePassword() throws Exception {
+        Password password = new Password(Password.hash(VALID_PASSWORD_ZUL));
+        ChangePasswordCommand command = (ChangePasswordCommand)
+                parser.parseCommand(ChangePasswordCommand.COMMAND_WORD + PASSWORD_DESC_ZUL);
+        assertEquals(new ChangePasswordCommand(password), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -108,6 +144,42 @@ public class InventoryParserTest {
         EditItemCommand command = (EditItemCommand) parser.parseCommand(EditItemCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ITEM.getOneBased() + " " + ItemUtil.getEditItemDescriptorDetails(descriptor));
         assertEquals(new EditItemCommand(INDEX_FIRST_ITEM, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_addStaff() throws Exception {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withName(VALID_NAME_ZUL).withRole(Staff.Role.admin).build();
+        AddStaffCommand command = (AddStaffCommand) parser.parseCommand(AddStaffCommand.COMMAND_WORD
+                + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL + NAME_DESC_ZUL + ROLE_DESC_ADMIN);
+        assertEquals(new AddStaffCommand(staff), command);
+    }
+
+    @Test
+    public void parseCommand_deleteStaff() throws Exception {
+        DeleteStaffCommand command = (DeleteStaffCommand) parser.parseCommand(
+                DeleteStaffCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased());
+        assertEquals(new DeleteStaffCommand(INDEX_FIRST_ITEM), command);
+    }
+
+    @Test
+    public void parseCommand_editStaff() throws Exception {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withName(VALID_NAME_ZUL)
+                .withRole(Staff.Role.user).build();
+        EditStaffCommand.EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder(staff).build();
+        EditStaffCommand command = (EditStaffCommand) parser.parseCommand(EditStaffCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_ITEM.getOneBased() + " " + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL + NAME_DESC_ZUL
+                + ROLE_DESC_USER);
+        assertEquals(new EditStaffCommand(INDEX_FIRST_ITEM, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_listStaff() throws Exception {
+        assertTrue(parser.parseCommand(ListStaffCommand.COMMAND_WORD) instanceof ListStaffCommand);
+        assertTrue(parser.parseCommand(ListStaffCommand.COMMAND_WORD + " 3") instanceof ListStaffCommand);
     }
 
     @Test
