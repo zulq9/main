@@ -74,7 +74,7 @@ public class TypicalPurchaseOrder {
     }
 
     public static List<PurchaseOrder> getTypicalPurchaseOrder() {
-        return new ArrayList<>(Arrays.asList(LGPO, SAMSUNGNOTEPO));
+        return new ArrayList<>(Arrays.asList(LGPO, OPPOPO, SAMSUNGNOTEPO, SONYPO));
     }
 
 }
