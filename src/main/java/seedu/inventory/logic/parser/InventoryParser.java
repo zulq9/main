@@ -12,12 +12,12 @@ import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.ExitCommand;
-import seedu.inventory.logic.commands.ExportCsvItemsCommand;
+import seedu.inventory.logic.commands.ExportCsvCommand;
 import seedu.inventory.logic.commands.FindItemCommand;
 import seedu.inventory.logic.commands.FindItemSkuCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
-import seedu.inventory.logic.commands.ImportCsvItemsCommand;
+import seedu.inventory.logic.commands.ImportCsvCommand;
 import seedu.inventory.logic.commands.ListItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.SelectCommand;
@@ -28,7 +28,7 @@ import seedu.inventory.logic.commands.authentication.LogoutCommand;
 import seedu.inventory.logic.commands.purchaseorder.AddPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
-//import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.ListPurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
 import seedu.inventory.logic.commands.sale.AddSaleCommand;
@@ -44,7 +44,7 @@ import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.logic.parser.purchaseorder.AddPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.ApprovePurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.DeletePurchaseOrderCommandParser;
-//import seedu.inventory.logic.parser.purchaseorder.EditPurchaseOrderCommandParser;
+import seedu.inventory.logic.parser.purchaseorder.EditPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.purchaseorder.RejectPurchaseOrderCommandParser;
 import seedu.inventory.logic.parser.sale.AddSaleCommandParser;
 import seedu.inventory.logic.parser.sale.DeleteSaleCommandParser;
@@ -153,8 +153,8 @@ public class InventoryParser {
         case RejectPurchaseOrderCommand.COMMAND_WORD:
             return new RejectPurchaseOrderCommandParser().parse(arguments);
 
-        //case EditPurchaseOrderCommand.COMMAND_WORD:
-            //eturn new EditPurchaseOrderCommandParser().parse(arguments);
+        case EditPurchaseOrderCommand.COMMAND_WORD:
+            return new EditPurchaseOrderCommandParser().parse(arguments);
 
         case AddSaleCommand.COMMAND_WORD:
             return new AddSaleCommandParser().parse(arguments);
@@ -165,11 +165,17 @@ public class InventoryParser {
         case ListSaleCommand.COMMAND_WORD:
             return new ListSaleCommand();
 
-        case ExportCsvItemsCommand.COMMAND_WORD:
-            return new ExportCsvItemsCommandParser().parse(arguments);
+        case ExportCsvCommand.COMMAND_WORD_ITEMS:
+        case ExportCsvCommand.COMMAND_WORD_SALES:
+        case ExportCsvCommand.COMMAND_WORD_STAFFS:
+        case ExportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS:
+            return new ExportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
-        case ImportCsvItemsCommand.COMMAND_WORD:
-            return new ImportCsvItemsCommandParser().parse(arguments);
+        case ImportCsvCommand.COMMAND_WORD_ITEMS:
+        case ImportCsvCommand.COMMAND_WORD_SALES:
+        case ImportCsvCommand.COMMAND_WORD_STAFFS:
+        case ImportCsvCommand.COMMAND_WORD_PURCHASE_ORDERS:
+            return new ImportCsvCommandParser().parse(arguments).setCommandWord(commandWord);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

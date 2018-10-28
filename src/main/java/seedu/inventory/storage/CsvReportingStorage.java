@@ -14,7 +14,11 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
 import seedu.inventory.commons.util.CsvUtil;
 import seedu.inventory.commons.util.FileUtil;
+import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
+import seedu.inventory.model.ReadOnlyPurchaseOrderList;
+import seedu.inventory.model.ReadOnlySaleList;
+import seedu.inventory.model.ReadOnlyStaffList;
 
 
 /**
@@ -29,7 +33,7 @@ public class CsvReportingStorage implements ReportingStorage {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("Inventory file " + filePath + " not found");
+            logger.info("Item list file " + filePath + " not found");
             return Optional.empty();
         }
         try {
@@ -52,6 +56,102 @@ public class CsvReportingStorage implements ReportingStorage {
 
         FileUtil.createIfMissing(filePath);
         CsvUtil.saveDataToFile(filePath, new CsvSerializableItemList(itemList));
+    }
+
+    @Override
+    public Optional<ReadOnlySaleList> importSaleList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException {
+        requireNonNull(inventory);
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Sale list file " + filePath + " not found");
+            return Optional.empty();
+        }
+        try {
+            CsvSerializableSaleList sales = new CsvSerializableSaleList(CsvUtil.getDataFromFile(filePath,
+                    new CsvSerializableSaleList()));
+            sales.setInventory(inventory);
+            return Optional.of(sales.toModelType());
+        } catch (UnrecognizableDataException ude) {
+            logger.info("Data in " + filePath + " can not be recognized");
+            throw new DataConversionException(ude);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void exportSaleList(ReadOnlySaleList saleList, Path filePath) throws IOException {
+        requireNonNull(saleList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        CsvUtil.saveDataToFile(filePath, new CsvSerializableSaleList(saleList));
+    }
+
+    @Override
+    public Optional<ReadOnlyStaffList> importStaffList(Path filePath) throws DataConversionException, IOException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Staff list file " + filePath + " not found");
+            return Optional.empty();
+        }
+        try {
+            CsvSerializableStaffList staffs = new CsvSerializableStaffList(CsvUtil.getDataFromFile(filePath,
+                    new CsvSerializableStaffList()));
+            return Optional.of(staffs.toModelType());
+        } catch (UnrecognizableDataException ude) {
+            logger.info("Data in " + filePath + " can not be recognized");
+            throw new DataConversionException(ude);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
+        requireNonNull(staffList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        CsvUtil.saveDataToFile(filePath, new CsvSerializableStaffList(staffList));
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseOrderList> importPurchaseOrderList(ReadOnlyInventory inventory, Path filePath)
+            throws DataConversionException, IOException {
+        requireNonNull(inventory);
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Sale list file " + filePath + " not found");
+            return Optional.empty();
+        }
+        try {
+            CsvSerializablePurchaseOrderList purchaseOrders = new CsvSerializablePurchaseOrderList(CsvUtil
+                    .getDataFromFile(filePath, new CsvSerializablePurchaseOrderList()));
+            purchaseOrders.setInventory(inventory);
+            return Optional.of(purchaseOrders.toModelType());
+        } catch (UnrecognizableDataException ude) {
+            logger.info("Data in " + filePath + " can not be recognized");
+            throw new DataConversionException(ude);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void exportPurchaseOrderList(ReadOnlyPurchaseOrderList purchaseOrderList, Path filePath) throws IOException {
+        requireNonNull(purchaseOrderList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        CsvUtil.saveDataToFile(filePath, new CsvSerializablePurchaseOrderList(purchaseOrderList));
     }
 
 }

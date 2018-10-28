@@ -11,6 +11,7 @@ import static seedu.inventory.testutil.TypicalItems.NOKIA;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.IPHONEPO;
 import static seedu.inventory.testutil.staff.TypicalStaffs.ZUL;
+import static seedu.inventory.testutil.staff.TypicalStaffs.getTypicalStaffList;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,6 +30,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.testutil.ItemBuilder;
+import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 import seedu.inventory.testutil.staff.StaffBuilder;
 
 public class InventoryTest {
@@ -67,6 +69,34 @@ public class InventoryTest {
         ReadOnlyItemList itemList = getTypicalInventory();
         inventory.resetItemList(itemList);
         assertEquals(itemList, inventory);
+    }
+
+    @Test
+    public void resetStaffList_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        inventory.resetStaffList(null);
+    }
+
+    @Test
+    public void resetStaffList_withValidReadOnlyInventory_replacesData() {
+        ReadOnlyStaffList staffList = getTypicalStaffList();
+        inventory.resetStaffList(staffList);
+        assertEquals(staffList, inventory);
+    }
+
+    @Test
+    public void resetPurchaseOrderList_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        inventory.resetPurchaseOrderList(null);
+    }
+
+    @Test
+    public void resetPurchaseOrderList_withValidReadOnlyInventory_replacesData() {
+        ReadOnlyPurchaseOrderList purchaseOrderList = TypicalPurchaseOrder.getTypicalInventory();
+        inventory.resetPurchaseOrderList(purchaseOrderList);
+        ReadOnlyItemList itemList = getTypicalInventory();
+        inventory.resetItemList(itemList);
+        assertEquals(purchaseOrderList, inventory);
     }
 
     ////===================== Item ==================================================================

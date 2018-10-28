@@ -4,7 +4,7 @@ import seedu.inventory.commons.events.BaseEvent;
 import seedu.inventory.model.ReadOnlyItemList;
 
 /**
- * Indicates an exception during a file saving
+ * Indicates an update of item list.
  */
 public class ItemListUpdateEvent extends BaseEvent {
 
@@ -16,7 +16,7 @@ public class ItemListUpdateEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Data exporting successful.";
+        return "Item List need update.";
     }
 
 }

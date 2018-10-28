@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import seedu.inventory.commons.events.BaseEvent;
 
 /**
- * Indicates an exception during a file saving
+ * Indicates the item list in the model need to be imported
  */
 public class ItemListImportEvent extends BaseEvent {
 
@@ -18,7 +18,7 @@ public class ItemListImportEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Data is importing from " + filePath;
+        return "Item list is importing from " + filePath;
     }
 
 }
