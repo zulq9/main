@@ -27,7 +27,7 @@ public class DeleteItemCommand extends Command {
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
-    private static String MESSAGE_FINAL = MESSAGE_DELETE_ITEM_SUCCESS;
+    private static String messageFinal = MESSAGE_DELETE_ITEM_SUCCESS;
 
 
     private final Index targetIndex;
@@ -49,12 +49,12 @@ public class DeleteItemCommand extends Command {
 
         if (model.hasPurchaseOrder(itemToDelete)) {
             model.deletePurchaseOrder(itemToDelete);
-            MESSAGE_FINAL += MESSAGE_DELETE_ITEM_PURCHASE_ORDER;
+            messageFinal += MESSAGE_DELETE_ITEM_PURCHASE_ORDER;
         }
 
         model.deleteItem(itemToDelete);
         model.commitInventory();
-        return new CommandResult(String.format(MESSAGE_FINAL, itemToDelete));
+        return new CommandResult(String.format(messageFinal, itemToDelete));
     }
 
     @Override
