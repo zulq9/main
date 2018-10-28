@@ -89,7 +89,7 @@ public class FilterItemPredicate implements Predicate<Item> {
                     && price.equals(((FilterItemPredicate) other).price) // state check
                     && priceCondition.equals(((FilterItemPredicate) other).priceCondition)
                     && (((FilterItemPredicate) other).quantity) == (quantity)
-                    && (((FilterItemPredicate) other). quantityCondition) == (quantityCondition));
+                    && (((FilterItemPredicate) other).quantityCondition) == (quantityCondition));
         } else {
             return other == this // short circuit if same object
                     || (other instanceof FilterItemPredicate // instanceof handles nulls
