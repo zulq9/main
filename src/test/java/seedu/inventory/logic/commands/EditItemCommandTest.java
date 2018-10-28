@@ -56,8 +56,8 @@ public class EditItemCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredItemList().size());
-        Item lastItem = model.getFilteredItemList().get(indexLastPerson.getZeroBased());
+        Index indexLastItem = Index.fromOneBased(model.getFilteredItemList().size());
+        Item lastItem = model.getFilteredItemList().get(indexLastItem.getZeroBased());
 
         ItemBuilder itemInList = new ItemBuilder(lastItem);
         Item editedItem = itemInList.withName(VALID_NAME_SONY).withQuantity(VALID_QUANTITY_SONY)
@@ -65,7 +65,7 @@ public class EditItemCommandTest {
 
         EditItemCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_SONY)
                 .withQuantity(VALID_QUANTITY_SONY).withTags(VALID_TAG_SMARTPHONE).build();
-        EditItemCommand editItemCommand = new EditItemCommand(indexLastPerson, descriptor);
+        EditItemCommand editItemCommand = new EditItemCommand(indexLastItem, descriptor);
 
         String expectedMessage = String.format(EditItemCommand.MESSAGE_EDIT_ITEM_SUCCESS, editedItem);
 
@@ -108,7 +108,7 @@ public class EditItemCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicateItemUnfilteredList_failure() {
         Item firstItem = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         EditItemCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(firstItem).build();
         EditItemCommand editItemCommand = new EditItemCommand(INDEX_SECOND_ITEM, descriptor);
@@ -117,7 +117,7 @@ public class EditItemCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicateItemFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         // edit item in filtered list into a duplicate in inventory
@@ -129,7 +129,7 @@ public class EditItemCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidItemIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
         EditItemCommand.EditItemDescriptor descriptor =
                 new EditItemDescriptorBuilder().withName(VALID_NAME_SONY).build();
@@ -143,7 +143,7 @@ public class EditItemCommandTest {
      * but smaller than size of inventory
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidItemIndexFilteredList_failure() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
         // ensures that outOfBoundIndex is still in bounds of inventory list

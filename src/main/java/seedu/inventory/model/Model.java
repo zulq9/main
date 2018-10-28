@@ -24,6 +24,11 @@ public interface Model {
     Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /**
+     * {@code Predicate} that returns item list that contains items with quantities less than or equal to 10
+     */
+    Predicate<Item> PREDICATE_SHOW_ALL_LOW_QUANTITY = item -> Integer.parseInt(item.getQuantity().value) <= 10;
+
+    /**
      * {@code Predicate} that always evaluate to true
      */
     Predicate<PurchaseOrder> PREDICATE_SHOW_ALL_PURCHASE_ORDER = unused -> true;
@@ -123,14 +128,19 @@ public interface Model {
     //=========== Item API =============================================================
 
     /**
-     * Returns true if a item with the same identity as {@code item} exists in the inventory.
+     * Returns true if an item with the same identity as {@code item} exists in the inventory.
      */
     boolean hasItem(Item item);
 
     /**
-     * Returns true if a item with the same identity as {@code item} exists in the inventory.
+     * Returns true if an item with the same identity as {@code item} exists in the inventory.
      */
     void viewItem();
+
+    /**
+     * Returns true if an item with the same identity as {@code item} exists in the inventory.
+     */
+    void viewLowQuantity();
 
     /**
      * Deletes the given item.
