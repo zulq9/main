@@ -530,11 +530,11 @@ _Figure 4.12. Export successful prompt will be shown upon completion of export._
 
 Format: `export-csv-items f/FILEPATH`
 
-===== Export list of users to CSV: `export-csv-staff`
+===== Export list of users to CSV: `export-csv-staffs`
 
-The `export-csv-staff` command export the list of users in CSV format to the filepath given.
+The `export-csv-staffs` command export the list of users in CSV format to the filepath given.
 
-Format: `export-csv-staff f/FILEPATH`
+Format: `export-csv-staffs f/FILEPATH`
 
 ===== Export list of purchase orders to CSV: `export-csv-orders`
 
@@ -574,11 +574,11 @@ The `import-csv-items` command imports the list of items in CSV format from the 
 
 Format: `import-csv-items f/FILEPATH`
 
-===== Import list of users from CSV: `import-csv-staff`
+===== Import list of users from CSV: `import-csv-staffs`
 
-The `import-csv-staff` command imports the list of users in CSV format from the filepath given.
+The `import-csv-staffs` command imports the list of users in CSV format from the filepath given.
 
-Format: `import-csv-staff f/FILEPATH`
+Format: `import-csv-staffs f/FILEPATH`
 
 ===== Import list of purchase orders from CSV: `import-csv-orders`
 
@@ -663,12 +663,12 @@ The following table summarises commands available in Inventory Manager, along wi
 3+| *Reports Management*
 |`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv`
 |`Export List of Items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/C:/out/items.csv`
-|`Export List of Users to CSV` |`export-csv-staff f/FILEPATH` |`export-csv-staff f/C:/out/users.csv`
+|`Export List of Users to CSV` |`export-csv-staffs f/FILEPATH` |`export-csv-staffs f/C:/out/users.csv`
 |`Export List of Sale Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv`
 |`Export Entire Data to .im File` |`export-im f/FILEPATH` |`export-im f/C:/out/data.im`
 |`Import Sales Report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv`
 |`Import List of Items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/C:/in/items.csv`
-|`Import List of Users from CSV`  |`import-csv-staff f/FILEPATH` |`import-csv-staff f/C:/in/users.csv`
+|`Import List of Users from CSV`  |`import-csv-staffs f/FILEPATH` |`import-csv-staffs f/C:/in/users.csv`
 |`Import List of Sale Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv`
 |`Import Entire Data From .im File` |`import-im f/FILEPATH` |`import-im f/C:/in/data.im`
 |=====================================================================================================
