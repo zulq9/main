@@ -21,6 +21,7 @@ import java.util.List;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
@@ -30,6 +31,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffNameContainsKeywordsPredicate;
 import seedu.inventory.testutil.EditItemDescriptorBuilder;
+import seedu.inventory.testutil.purchaseorder.EditPurchaseOrderDescriptorBuilder;
 import seedu.inventory.testutil.staff.EditStaffDescriptorBuilder;
 
 /**
@@ -131,6 +133,16 @@ public class CommandTestUtil {
                 .withPassword(VALID_PASSWORD_ZUL).withRole(ROLE_DESC_ADMIN).build();
         DESC_DARREN = new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN).withUsername(VALID_USERNAME_DARREN)
                 .withPassword(VALID_PASSWORD_DARREN).withRole(ROLE_DESC_ADMIN).build();
+    }
+
+    public static final EditPurchaseOrderCommand.EditPoDescriptor DESC_OPPO_PO;
+    public static final EditPurchaseOrderCommand.EditPoDescriptor DESC_SONY_PO;
+
+    static {
+        DESC_OPPO_PO = new EditPurchaseOrderDescriptorBuilder().withQuantity(VALID_QUANTITY_OPPO)
+                .withRequiredDate(VALID_REQUIRED_DATE_OPPO).withSupplier(VALID_SUPPLIER_OPPO).build();
+        DESC_SONY_PO = new EditPurchaseOrderDescriptorBuilder().withQuantity(VALID_QUANTITY_SONY)
+                .withRequiredDate(VALID_REQUIRED_DATE_SONY).withSupplier(VALID_SUPPLIER_SONY).build();
     }
 
     /**
