@@ -7,7 +7,16 @@ import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
+import seedu.inventory.logic.commands.ExitCommand;
+import seedu.inventory.logic.commands.HelpCommand;
+import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
+import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
+import seedu.inventory.logic.commands.staff.AddStaffCommand;
+import seedu.inventory.logic.commands.staff.DeleteStaffCommand;
+import seedu.inventory.logic.commands.staff.EditStaffCommand;
+import seedu.inventory.logic.commands.staff.ListStaffCommand;
 import seedu.inventory.logic.parser.InventoryParser;
 import seedu.inventory.logic.parser.exceptions.ParseException;
 import seedu.inventory.model.Model;
@@ -20,6 +29,10 @@ import seedu.inventory.model.staff.Staff;
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
+
+    private static final String MESSAGE_NO_ACCESS = "You have no permission to use this command.";
+    private static final String MESSAGE_NOT_LOGGED_IN = "You have not logged in.";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -37,6 +50,11 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = inventoryParser.parseCommand(commandText);
+
+            if (!model.isUserLoggedIn() && !isPublicCommand(command)) {
+                throw new CommandException(MESSAGE_NOT_LOGGED_IN);
+            }
+            checkIsValidRole(command);
             return command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -66,5 +84,30 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Sale> getObservableSaleList() {
         return model.getObservableSaleList();
+    }
+
+    @Override
+    public boolean isPublicCommand(Command command) {
+        return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand;
+    }
+
+    @Override
+    public boolean isUserManagementCommand(Command command) {
+        return command instanceof AddStaffCommand || command instanceof EditStaffCommand
+                || command instanceof ListStaffCommand || command instanceof DeleteStaffCommand;
+    }
+
+    @Override
+    public boolean isPurchaseOrderApprovalCommand(Command command) {
+        return command instanceof ApprovePurchaseOrderCommand || command instanceof RejectPurchaseOrderCommand;
+    }
+
+    @Override
+    public void checkIsValidRole(Command command) throws CommandException {
+        if (isUserManagementCommand(command) && !model.getUser().getRole().equals(Staff.Role.admin)) {
+            throw new CommandException(MESSAGE_NO_ACCESS);
+        } else if (isPurchaseOrderApprovalCommand(command) && model.getUser().getRole().equals(Staff.Role.user)) {
+            throw new CommandException(MESSAGE_NO_ACCESS);
+        }
     }
 }

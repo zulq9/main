@@ -1,5 +1,8 @@
 package seedu.inventory;
 
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_ZUL;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_ZUL;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -18,10 +21,13 @@ import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
+import seedu.inventory.model.staff.Password;
+import seedu.inventory.model.staff.Staff;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlSerializableInventory;
 import seedu.inventory.storage.XmlSerializableStaffList;
 import seedu.inventory.testutil.TestUtil;
+import seedu.inventory.testutil.staff.StaffBuilder;
 import systemtests.ModelHelper;
 
 /**
@@ -119,6 +125,9 @@ public class TestApp extends MainApp {
     public Model getModel() {
         Model copy = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         ModelHelper.setFilteredList(copy, model.getFilteredItemList(), model.getFilteredStaffList());
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
+        model.authenticateUser(staff);
         return copy;
     }
 
