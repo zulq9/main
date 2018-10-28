@@ -475,10 +475,11 @@ Format: `export-csv-users f/FILEPATH`
 
 ===== Export list of purchase orders to CSV: `export-csv-orders`
 
-Export the list of orders in CSV format to the filepath given. +
+Export the list of purchase orders in CSV format to the filepath given. +
 Format: `export-csv-orders f/FILEPATH`
 
 ==== Export entire data to .im file: `export-im`
+(coming in v2.0) +
 Export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
 Format: `export-im f/FILEPATH`
 ****
@@ -514,10 +515,11 @@ Format: `import-csv-users f/FILEPATH`
 
 ===== Import list of purchase orders from CSV: `import-csv-orders`
 
-Import the list of orders in CSV format from the filepath given. +
+Import the list of purchase orders in CSV format from the filepath given. +
 Format: `import-csv-orders f/FILEPATH`
 
 ==== Import entire data from .im file: `import-im`
+(coming in v2.0) +
 Import the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
 Format: `import-im f/FILEPATH`
 ****

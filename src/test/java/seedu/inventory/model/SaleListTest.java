@@ -74,13 +74,22 @@ public class SaleListTest {
     }
 
     @Test
-    public void geSaleList_modifyList_throwsUnsupportedOperationException() {
+    public void removeSale() {
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
+        saleList.addSale(sale);
+        assertTrue(saleList.hasSale(sale));
+        saleList.removeSale(sale);
+        assertFalse(saleList.hasSale(sale));
+    }
+
+    @Test
+    public void getSaleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         saleList.getSaleList().remove(0);
     }
 
     @Test
-    public void geNextSaleId_correctNextId() {
+    public void getNextSaleId_correctNextId() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
@@ -90,13 +99,29 @@ public class SaleListTest {
     }
 
     @Test
-    public void geNextSaleId_incorrectNextId() {
+    public void getNextSaleId_incorrectNextId() {
         Sale sale = new Sale(saleId, item, quantity, saleDate);
         saleList.addSale(sale);
 
         String wrongId = "1";
 
         assertNotEquals(saleList.getNextSaleId(), wrongId);
+    }
+
+    @Test
+    public void hash() {
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
+        saleList.addSale(sale);
+
+        assertEquals(saleList.hashCode(), saleList.getSaleList().hashCode());
+    }
+
+    @Test
+    public void string() {
+        Sale sale = new Sale(saleId, item, quantity, saleDate);
+        saleList.addSale(sale);
+
+        assertEquals(saleList.toString(), "1 sales.");
     }
 
 }

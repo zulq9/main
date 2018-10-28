@@ -6,7 +6,7 @@ import seedu.inventory.model.purchaseorder.PurchaseOrder;
 /**
  * Unmodifiable view of an inventory
  */
-public interface ReadOnlyPurchaseOrderList extends ReadOnlyItemList {
+public interface ReadOnlyPurchaseOrderList {
 
     /**
      * Returns an unmodifiable view of the purchase order list.
