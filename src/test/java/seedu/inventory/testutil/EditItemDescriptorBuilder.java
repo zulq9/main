@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.inventory.logic.commands.EditItemCommand;
-import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.item.EditItemCommand;
+import seedu.inventory.logic.commands.item.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.Name;

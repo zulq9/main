@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.inventory.model.item.FilterItemPredicate;
+import seedu.inventory.model.item.FilterPrice;
+import seedu.inventory.model.item.FilterQuantity;
 import seedu.inventory.testutil.ItemBuilder;
 
 public class FilterItemPredicateTest {
