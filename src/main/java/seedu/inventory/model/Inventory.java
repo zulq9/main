@@ -204,7 +204,7 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
-     * Returns true if a purchase order with the same identity as {@code po} exists in the inventory.
+     * Returns true if a purchase order with the same that has {@code item} exists in the inventory.
      */
     public boolean hasPurchaseOrder(Item item) {
         requireNonNull(item);
@@ -225,13 +225,36 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
-     * Replaces the given item {@code target} in the list with {@code editedPurchaseOrder}.
+     * Replaces the given purchase order {@code target} in the list with {@code editedPurchaseOrder}.
      * {@code target} must exist in the purchase order list.
      */
     public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
         requireNonNull(editedPurchaseOrder);
 
         purchaseOrders.setPurchaseOrder(target, editedPurchaseOrder);
+    }
+
+    /**
+     * Replaces all purchase order sku in the list with {@code editedItem} sku.
+     */
+    public void updatePurchaseOrder(Item target, Item editedItem) {
+        requireNonNull(editedItem);
+
+        Iterator<PurchaseOrder> poList = purchaseOrders.iterator();
+
+        while (poList.hasNext()) {
+            PurchaseOrder po = poList.next();
+            if (po.getSku().equals(target.getSku())) {
+                PurchaseOrder editedPo = new PurchaseOrder(
+                        editedItem.getSku(),
+                        po.getQuantity(),
+                        po.getReqDate(),
+                        po.getSupplier(),
+                        po.getStatus());
+
+                purchaseOrders.setPurchaseOrder(po, editedPo);
+            }
+        }
     }
 
     /**

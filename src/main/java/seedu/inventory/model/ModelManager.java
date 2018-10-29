@@ -291,6 +291,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updatePurchaseOrder(Item target, Item editedItem) {
+        requireAllNonNull(target, editedItem);
+        versionedInventory.updatePurchaseOrder(target, editedItem);
+        indicateInventoryChanged();
+    }
+
+    @Override
     public void approvePurchaseOrder(PurchaseOrder target) {
         versionedInventory.approvePurchaseOrder(target);
         indicateInventoryChanged();
