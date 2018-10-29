@@ -205,7 +205,7 @@ public class ParserUtil {
     public static RequiredDate parseReqDate(String reqDate) throws ParseException {
         requireNonNull(reqDate);
         String trimmedDate = reqDate.trim();
-        if (!RequiredDate.isValidDate(trimmedDate)) {
+        if (!RequiredDate.isValidDatePending(trimmedDate)) {
             throw new ParseException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
         }
         return new RequiredDate(trimmedDate);
