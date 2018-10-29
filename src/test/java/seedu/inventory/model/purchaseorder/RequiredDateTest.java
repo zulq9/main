@@ -41,12 +41,22 @@ public class RequiredDateTest {
         assertFalse(RequiredDate.isValidDate("2018/12/12")); // yyyy/MM/dd
         assertFalse(RequiredDate.isValidDate("2019-2-2")); // MM and dd missing 0 in front
         assertFalse(RequiredDate.isValidDate("2019-02-31")); // Missing date in calendar
-        assertFalse(RequiredDate.isValidDate("1995-03-21")); // Old date
 
         // valid RequiredDate numbers
         assertTrue(RequiredDate.isValidDate("2018-12-12"));
         assertTrue(RequiredDate.isValidDate("2020-02-29")); //leap year
 
+    }
+
+    @Test
+    public void isValidDatePending() {
+        // Invalid: old date. Other invalid date is tested {@code isValidDate()} test method
+        assertFalse(RequiredDate.isValidDatePending("1995-02-31")); // Old date
+        assertFalse(RequiredDate.isValidDatePending("1120-12-11")); // Old date
+
+        // valid
+        assertTrue(RequiredDate.isValidDate("2018-12-31"));
+        assertTrue(RequiredDate.isValidDate("2020-02-29")); //leap year
     }
 
 
