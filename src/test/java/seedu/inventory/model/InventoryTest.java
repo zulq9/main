@@ -185,10 +185,29 @@ public class InventoryTest {
     }
 
     @Test
+    public void hasPurchaseOrder_purchaseOrderInInventory_returnsTrue() {
+        inventory.addItem(IPHONE);
+        inventory.addPurchaseOrder(IPHONEPO);
+        assertTrue(inventory.hasPurchaseOrder(IPHONEPO));
+        assertTrue(inventory.hasPurchaseOrder(IPHONE));
+    }
+
+    @Test
     public void getPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         inventory.getPurchaseOrderList().remove(0);
     }
+
+    @Test
+    public void removePurchaseOrder() {
+        inventory.addItem(IPHONE);
+        assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
+        inventory.addPurchaseOrder(IPHONEPO);
+        assertTrue(inventory.hasPurchaseOrder(IPHONEPO));
+        inventory.removePurchaseOrder(IPHONEPO);
+        assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
+    }
+
 
     ////===================== Staff ==================================================================
 
