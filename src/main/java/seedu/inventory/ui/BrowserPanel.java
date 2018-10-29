@@ -91,7 +91,7 @@ public class BrowserPanel extends UiPart<Region> {
         setItemVisibility(false);
     }
 
-    private void setItemVisibility(Boolean show){
+    private void setItemVisibility(Boolean show) {
         photo.setVisible(show);
         sku.setVisible(show);
         name.setVisible(show);
@@ -102,11 +102,11 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Display the page which shows the Item's information
      *
-     * @param url the image path of the item
-     * @param name the name of the item
-     * @param price the price of the item
+     * @param url      the image path of the item
+     * @param name     the name of the item
+     * @param price    the price of the item
      * @param quantity the quantity of the item
-     * @param sku the SKU of the item
+     * @param sku      the SKU of the item
      */
     public void loadPage(String url, String name, String price, String quantity, String sku) {
         File file = new File(url);
@@ -140,12 +140,12 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadDefaultPage() {
         URL defaultPage = MainApp.class.getResource("/images/UI.png");
         itemDetailPane.setBackground(
-            new Background(
-                new BackgroundImage(
-                    new Image(defaultPage.toExternalForm()),
-                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.CENTER, BackgroundSize.DEFAULT)
-            )
+                new Background(
+                        new BackgroundImage(
+                                new Image(defaultPage.toExternalForm()),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                                BackgroundPosition.CENTER, BackgroundSize.DEFAULT)
+                )
         );
     }
 
