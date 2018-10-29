@@ -68,15 +68,35 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Load the item details and display it in the browser panel
+     *
+     * @param item
+     */
     private void loadItemPage(Item item) {
         itemDetailPane.setBackground(null);
+        setItemVisibility(true);
         loadPage(item.getImage().toString(), item.getName().fullName, item.getPrice().toString(),
                 item.getQuantity().toString(), item.getSku().toString());
     }
 
+    /**
+     * Load the purchase order details and display it in the browser panel
+     *
+     * @param po
+     */
     private void loadPurchaseOrderPage(PurchaseOrder po) {
         //TODO: Load purchase order page
-        //loadPage(SEARCH_PAGE_URL + po.getSku().value);
+        itemDetailPane.setBackground(null);
+        setItemVisibility(false);
+    }
+
+    private void setItemVisibility(Boolean show){
+        photo.setVisible(show);
+        sku.setVisible(show);
+        name.setVisible(show);
+        price.setVisible(show);
+        quantity.setVisible(show);
     }
 
     /**
