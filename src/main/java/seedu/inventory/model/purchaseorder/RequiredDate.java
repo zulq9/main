@@ -32,6 +32,7 @@ public class RequiredDate {
         requiredDate = date;
     }
 
+
     /**
      * Returns true if a given string is a valid date.
      */
@@ -40,12 +41,26 @@ public class RequiredDate {
             return false;
         }
 
-        Date tempDate;
-
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             df.setLenient(false); //Ensure the date complies with the day in a month and also leap years
-            tempDate = df.parse(date);
+            df.parse(date);
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if a given string is a valid pending date.
+     */
+    public static boolean isValidDatePending(String date) {
+        isValidDate(date);
+        Date tempDate;
+
+        try {
+            tempDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
         } catch (ParseException e) {
             return false;
         }
