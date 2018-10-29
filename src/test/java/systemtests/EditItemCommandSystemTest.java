@@ -39,9 +39,9 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.item.EditItemCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Item;

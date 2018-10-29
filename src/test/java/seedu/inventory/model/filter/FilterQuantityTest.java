@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.inventory.model.item.FilterQuantity;
 import seedu.inventory.testutil.Assert;
 
 public class FilterQuantityTest {

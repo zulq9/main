@@ -3,7 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.logic.commands.DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.inventory.logic.commands.item.DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 import static seedu.inventory.testutil.TestUtil.getItem;
 import static seedu.inventory.testutil.TestUtil.getLastIndex;
 import static seedu.inventory.testutil.TestUtil.getMidIndex;
@@ -14,9 +14,9 @@ import org.junit.Test;
 
 import seedu.inventory.commons.core.Messages;
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.item.DeleteItemCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Item;
 

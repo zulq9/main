@@ -12,10 +12,10 @@ import static seedu.inventory.testutil.TypicalItems.SAMSUNGNOTE;
 import org.junit.Test;
 
 import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.DeleteItemCommand;
-import seedu.inventory.logic.commands.FilterItemCommand;
 import seedu.inventory.logic.commands.RedoCommand;
 import seedu.inventory.logic.commands.UndoCommand;
+import seedu.inventory.logic.commands.item.DeleteItemCommand;
+import seedu.inventory.logic.commands.item.FilterItemCommand;
 import seedu.inventory.model.Model;
 
 public class FilterItemCommandSystemTest extends InventorySystemTest {

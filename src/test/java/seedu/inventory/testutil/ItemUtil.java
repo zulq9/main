@@ -9,8 +9,8 @@ import static seedu.inventory.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.inventory.logic.commands.AddItemCommand;
-import seedu.inventory.logic.commands.EditItemCommand.EditItemDescriptor;
+import seedu.inventory.logic.commands.item.AddItemCommand;
+import seedu.inventory.logic.commands.item.EditItemCommand.EditItemDescriptor;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.tag.Tag;
 

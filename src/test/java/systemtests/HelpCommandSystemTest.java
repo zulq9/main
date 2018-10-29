@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.inventory.logic.commands.DeleteItemCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.SelectCommand;
+import seedu.inventory.logic.commands.item.DeleteItemCommand;
 import seedu.inventory.ui.StatusBarFooter;
 
 /**

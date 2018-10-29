@@ -21,6 +21,7 @@ import java.util.List;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.exceptions.CommandException;
+import seedu.inventory.logic.commands.item.EditItemCommand;
 import seedu.inventory.logic.commands.purchaseorder.EditPurchaseOrderCommand;
 import seedu.inventory.logic.commands.staff.EditStaffCommand;
 import seedu.inventory.model.Inventory;
