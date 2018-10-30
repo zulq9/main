@@ -683,7 +683,7 @@ Deletes the 5th purchase order in the inventory.
 // tag::exportimport[]
 === Reports Management
 The following commands are mainly used to export and import data for report analysis. +
-All the command in this section is available to *admins* only. 
+All the command in this section is available to *admins* only. +
 
 ==== Exporting data to CSV: `export-csv`
 ****
