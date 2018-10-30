@@ -88,15 +88,15 @@ public class LogicManagerTest {
     public void isUserManagementCommand() {
         Staff staff = new StaffBuilder().build();
 
-        assertFalse(logic.isUserManagementCommand(new HelpCommand()));
-        assertFalse(logic.isUserManagementCommand(new LoginCommand(staff)));
-        assertFalse(logic.isUserManagementCommand(new ExitCommand()));
+        assertFalse(logic.isAdminCommand(new HelpCommand()));
+        assertFalse(logic.isAdminCommand(new LoginCommand(staff)));
+        assertFalse(logic.isAdminCommand(new ExitCommand()));
 
-        assertTrue(logic.isUserManagementCommand(new ListStaffCommand()));
-        assertTrue(logic.isUserManagementCommand(new AddStaffCommand(staff)));
-        assertTrue(logic.isUserManagementCommand(new EditStaffCommand(INDEX_FIRST_ITEM,
+        assertTrue(logic.isAdminCommand(new ListStaffCommand()));
+        assertTrue(logic.isAdminCommand(new AddStaffCommand(staff)));
+        assertTrue(logic.isAdminCommand(new EditStaffCommand(INDEX_FIRST_ITEM,
                 new EditStaffCommand.EditStaffDescriptor())));
-        assertTrue(logic.isUserManagementCommand(new DeleteStaffCommand(INDEX_FIRST_ITEM)));
+        assertTrue(logic.isAdminCommand(new DeleteStaffCommand(INDEX_FIRST_ITEM)));
     }
 
     @Test

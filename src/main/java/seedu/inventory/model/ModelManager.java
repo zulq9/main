@@ -413,6 +413,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void logoutUser() {
         session.logout();
+        versionedInventory.reset();
     }
 
     @Override
