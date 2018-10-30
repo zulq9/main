@@ -50,7 +50,7 @@ public class StaffBuilder {
      * Sets the {@code Password} of the {@code Staff} that we are building.
      */
     public StaffBuilder withPassword(String password) {
-        this.password = new Password(password);
+        this.password = new Password(Password.hash(password));
         return this;
     }
 

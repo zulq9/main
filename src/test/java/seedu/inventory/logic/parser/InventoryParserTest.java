@@ -74,7 +74,7 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_login() throws Exception {
         Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
-                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).withName("dummy").withRole(Staff.Role.user).build();
+                .withPassword(VALID_PASSWORD_ZUL).withName("dummy").withRole(Staff.Role.user).build();
         LoginCommand command = (LoginCommand) parser.parseCommand(LoginCommand.COMMAND_WORD
                 + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL);
         assertEquals(new LoginCommand(staff), command);
@@ -149,7 +149,7 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_addStaff() throws Exception {
         Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
-                .withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withPassword(VALID_PASSWORD_ZUL)
                 .withName(VALID_NAME_ZUL).withRole(Staff.Role.admin).build();
         AddStaffCommand command = (AddStaffCommand) parser.parseCommand(AddStaffCommand.COMMAND_WORD
                 + USERNAME_DESC_ZUL + PASSWORD_DESC_ZUL + NAME_DESC_ZUL + ROLE_DESC_ADMIN);
@@ -166,7 +166,7 @@ public class InventoryParserTest {
     @Test
     public void parseCommand_editStaff() throws Exception {
         Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
-                .withPassword(Password.hash(VALID_PASSWORD_ZUL))
+                .withPassword(VALID_PASSWORD_ZUL)
                 .withName(VALID_NAME_ZUL)
                 .withRole(Staff.Role.user).build();
         EditStaffCommand.EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder(staff).build();
