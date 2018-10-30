@@ -122,12 +122,13 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
+        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
+                .withPassword(VALID_PASSWORD_ZUL).build();
+        staff = model.retrieveStaff(staff);
+        model.authenticateUser(staff);
         Model copy = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
         ModelHelper.setFilteredList(copy, model.getFilteredItemList());
         ModelHelper.setStaffFilteredList(copy, model.getFilteredStaffList());
-        Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
-                .withPassword(VALID_PASSWORD_ZUL).build();
-        model.authenticateUser(staff);
         return copy;
     }
 

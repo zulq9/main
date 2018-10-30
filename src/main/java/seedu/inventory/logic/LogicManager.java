@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.inventory.commons.core.ComponentManager;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.logic.commands.ClearCommand;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.ExitCommand;
@@ -92,9 +93,10 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public boolean isUserManagementCommand(Command command) {
+    public boolean isAdminCommand(Command command) {
         return command instanceof AddStaffCommand || command instanceof EditStaffCommand
-                || command instanceof ListStaffCommand || command instanceof DeleteStaffCommand;
+                || command instanceof ListStaffCommand || command instanceof DeleteStaffCommand
+                || command instanceof ClearCommand;
     }
 
     @Override
@@ -104,9 +106,10 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public void checkIsValidRole(Command command) throws CommandException {
-        if (isUserManagementCommand(command) && !model.getUser().getRole().equals(Staff.Role.admin)) {
+        Staff.Role role = model.getUser().getRole();
+        if (isAdminCommand(command) && !role.equals(Staff.Role.admin)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
-        } else if (isPurchaseOrderApprovalCommand(command) && model.getUser().getRole().equals(Staff.Role.user)) {
+        } else if (isPurchaseOrderApprovalCommand(command) && role.equals(Staff.Role.user)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
         }
     }

@@ -52,7 +52,7 @@ public interface Logic {
      * @param command the command that parsed by the parser
      * @return true if it is a user management command
      */
-    boolean isUserManagementCommand(Command command);
+    boolean isAdminCommand(Command command);
 
     /**
      * Returns true if it is a purchase order approval or reject command.
