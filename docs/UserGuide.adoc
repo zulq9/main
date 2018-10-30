@@ -164,7 +164,8 @@ Examples:
 
 ==== Clearing all entries : `clear`
 
-The `clear` command clears all entries from Inventory Manager.
+The `clear` command clears all entries from Inventory Manager. +
+
 Format: `clear`
 
 ==== Exiting the program : `exit`
@@ -198,7 +199,7 @@ Examples:
 
 ==== Change user's password : `change-password`
 
-The `change-password` command updates a user information into the system with given new password.
+The `change-password` command updates a user information into the system with given new password. +
 
 image::doc-change-password.png[width="790"]
 _Figure 4.2. User attempting to change password._
@@ -213,7 +214,7 @@ Examples:
 
 ==== Logout from the system : `logout`
 
-The `logout` Logout the current users from the system.
+The `logout` Logout the current users from the system. +
 
 Format: `logout`
 
@@ -329,7 +330,8 @@ of 10 or less will appear as can be seen in the screenshot below.
 
 ==== Editing an item : `edit-item`
 
-The `edit-item` command edits an existing item in the Inventory Manager.
+The `edit-item` command edits an existing item in the Inventory Manager. +
+It also edits all the purchase orders that contains the existing item to the edited item if the sku is changed.
 
 Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
@@ -431,7 +433,8 @@ Returns `LG G7` and `Samsung Note 9` which both have quantities less than or equ
 
 ==== Deleting an item : `delete-item`
 
-The `delete-item` command deletes the specified item from the inventory.
+The `delete-item` command deletes the specified item from the inventory. +
+It also deletes all purchase orders that contains the deleted item.
 
 Format: `delete-item INDEX`
 
@@ -531,63 +534,122 @@ Example:
 
 === Purchase Orders Management
 
-The following commands are mainly used for staff and manager to manage purchase order.
+The following commands are used to manage purchase order.
 // tag::purchaseOrderManagement[]
-==== Generate purchase order : `add-po`
 
-The `add-po` command adds a purchase order for an item. +
-The id of a purchase order and the date will be auto generated.
+==== Listing all purchase order : `list-po`
 
-Format: `generate-po i/SKU_NUMBER q/QUANTITY sp/SUPPLIER rd/REQUIRED_DATE [t/TAG]...`
-
-Example:
-
-* `generate-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
-
-==== List all purchase order : `list-po`
-
-The `list-po` command shows a list of all the purchase order.
+The `list-po` command shows a list of all the purchase order. +
+This command is available to *members* only. +
 
 image::doc-list-po.png[width="790"]
 _Figure 4.10. All purchase orders in Inventory Manager listed on screen._
 
 Format: `list-po`
 
-==== List approved purchase order : `list-approved-po`
+==== Adding a purchase order : `add-po`
 
-The `list-approved-po` command shows a list of all the approved purchase order.
+The `add-po` command adds a purchase order for an item based on it's sku. +
+The default status of the added purchase order is 'PENDING'
+This command is available to *members* only. +
 
-Format: `list approved-po`
-
-==== List pending purchase order : `list pending-po`
-
-The `list-pending-po` command shows a list of all the pending purchase order.
-
-Format: `list pending-po`
-
-==== Approve purchase order : `approve-po`
-
-The `approve-po` command approve a purchase order.
-
-Format: `approve id/PO_ID`
+Format: `add-po s/SKU_NUMBER q/QUANTITY d/REQUIRED_DATE sp/SUPPLIER`
 
 Example:
 
-* `approve id/12`
+* `add-po s/apple-iphone-xr q/1000 d/2018-12-12 sp/Apple Inc`
+* `add-po s/samsung-s9 q/12 d/2101-12-12 sp/Samsung`
 
-==== Reject purchase order : `reject-po`
+==== Approving a purchase order : `approve-po`
 
-The `reject-po` command reject a purchase order along with a reason description.
+The `approve-po` command approves the specified purchase order from the purchase order list. +
+Upon approving, the quantity stated in the purchase order will be added to the designated item. +
+This command is available to the *manager* only. +
+
+Format: `approve-po INDEX`
+
+For the `approve-po` command, do take note of the following points:
+****
+* Approves the purchase order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed inventory list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The command can only be applied to purchase order with 'PENDING' status
+****
+
+Examples:
+
+* `list-po` +
+`approve-po 1` +
+Approves the first purchase order in the purchase order list.
 
 image::doc-delete-po.png[width="790"]
-_Figure 4.11. Deleting a specific purchase order by using it's ID._
+_Figure 4.11. Approves the specified purchase order by the it's index in the list._
 
+==== Rejecting a purchase order : `reject-po`
 
-Format: `reject id/PO_ID d/DESCRIPTION`
+The `reject-po` command rejects the specified purchase order from the purchase order list. +
+This command is available to the *manager* only.
 
-Example:
+Format: `reject-po INDEX`
 
-* `reject id/12 d/Only 100 amount is allowed`
+For the `reject-po` command, do take note of the following points:
+****
+* Rejects the purchase order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed inventory list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The command can only be applied to purchase order with 'PENDING' status
+****
+
+Examples:
+
+* `list-po` +
+`reject-po 1` +
+Rejects the first purchase order in the purchase order list.
+
+==== Editing a purchase order : `edit-po`
+
+The `edit-po` command edits an existing purchase order in the Inventory Manager. +
+This command is available to *members* only. +
+
+Format: `edit-po INDEX [q/QUANTITY] [d/REQUIRED_DATE] [sp/SUPPLIER]`
+
+For the `edit-po` command, do take note of the following points:
+****
+* Update the purchase order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed purchase order list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* _SKU_ of the item in the purchase order list is uneditable
+* The command can only be applied to purchase order with 'PENDING' status
+****
+
+Examples:
+
+* `edit-po 2 q/100` +
+Updates the quantity of the 3rd purchase order to `100`.
+* `edit-po 1 q/999 d/2018-12-12` +
+Updates the quantity and required date of the 1st purchase order to `999` and `2018-12-12` respectively.
+
+==== Deleting a purchase order : `delete-po`
+
+The `delete-po` command deletes the specified purchase order from the purchase order list. +
+This command is available to *members* only. +
+
+Format: `delete-po INDEX`
+
+For the `delete-po` command, do take note of the following points:
+****
+* Deletes the purchase order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed purchase order list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list-po` +
+`delete-po 5` +
+Deletes the 5th purchase order in the inventory.
 
 // end::purchaseOrderManagement[]
 
@@ -596,7 +658,7 @@ Example:
 
 The following commands are mainly used to export and import data for report analysis.
 
-==== Export to CSV: `export-csv`
+==== Exporting data to CSV: `export-csv`
 ****
 * Export the data to the file specified by `FILEPATH`.
 * `FILEPATH` must end with an extension of `.csv`.
@@ -605,13 +667,13 @@ The following commands are mainly used to export and import data for report anal
 * The parent directories will be created if they do not exist.
 ****
 
-===== Export sales report to CSV: `export-csv-sales`
+===== Exporting sales report to CSV: `export-csv-sales`
 
 The `export-csv-sales` command export the sales report in CSV format to the filepath given.
 
 Format: `export-csv-sales f/FILEPATH`
 
-===== Export list of items to CSV : `export-csv-items`
+===== Exporting list of items to CSV : `export-csv-items`
 
 The `export-csv-items` command export the list of items in CSV format to the filepath given.
 
@@ -620,19 +682,19 @@ _Figure 4.12. Export successful prompt will be shown upon completion of export._
 
 Format: `export-csv-items f/FILEPATH`
 
-===== Export list of users to CSV: `export-csv-staffs`
+===== Exporting list of users to CSV: `export-csv-staffs`
 
 The `export-csv-staffs` command export the list of users in CSV format to the filepath given.
 
 Format: `export-csv-staffs f/FILEPATH`
 
-===== Export list of purchase orders to CSV: `export-csv-orders`
+===== Exporting list of purchase orders to CSV: `export-csv-orders`
 
 The `export-csv-orders` command export the list of purchase orders in CSV format to the filepath given.
 
 Format: `export-csv-orders f/FILEPATH`
 
-==== Export entire data to .im file: `export-im`
+==== Exporting entire data to .im file: `export-im`
 (coming in v2.0) +
 The `export-im` command export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
 Format: `export-im f/FILEPATH`
@@ -644,7 +706,7 @@ Format: `export-im f/FILEPATH`
 * The parent directories will be created if they do not exist.
 ****
 
-==== Import from CSV: `import-csv`
+==== Importing data from CSV: `import-csv`
 ****
 * Imports the data from the file specified by `FILEPATH`.
 * `FILEPATH` must end with an extension of `.csv`.
@@ -652,31 +714,31 @@ Format: `export-im f/FILEPATH`
 * Original data in *Inventory Manager* will be overwritten.
 * Data in the CSV file must be recognizable by *Inventory Manager*.
 ****
-===== Import sales report from CSV: `import-csv-sales`
+===== Importing sales report from CSV: `import-csv-sales`
 
 The `import-csv-sales` command imports the sales report in CSV format from the filepath given.
 
 Format: `import-csv-sales f/FILEPATH`
 
-===== Import list of items from CSV : `import-csv-items`
+===== Importing list of items from CSV : `import-csv-items`
 
 The `import-csv-items` command imports the list of items in CSV format from the filepath given.
 
 Format: `import-csv-items f/FILEPATH`
 
-===== Import list of users from CSV: `import-csv-staffs`
+===== Importing list of users from CSV: `import-csv-staffs`
 
 The `import-csv-staffs` command imports the list of users in CSV format from the filepath given.
 
 Format: `import-csv-staffs f/FILEPATH`
 
-===== Import list of purchase orders from CSV: `import-csv-orders`
+===== Importing list of purchase orders from CSV: `import-csv-orders`
 
 The `import-csv-orders` command imports the list of purchase orders in CSV format from the filepath given.
 
 Format: `import-csv-orders f/FILEPATH`
 
-==== Import entire data from .im file: `import-im`
+==== Importing entire data from .im file: `import-im`
 (coming in v2.0) +
 The `import-im` command imports the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications.
 
@@ -743,12 +805,12 @@ The following table summarises commands available in Inventory Manager, along wi
 |`List Sale Orders`| `list-sale` | `list-sale`
 // Purchase order management
 3+| *Purchase Orders Management*
-|`Generate Purchase Order`| `add-po` | `add-po i/S7192DA q/1000 sp/Your Company rd/12-12-2018`
-|`List All Purchase Orders`|  `list-po` |  `list-po`
-|`List Approved Purchase Orders`|  `list-approved-po` |  `list-approved-po`
-|`List Pending Purchase Orders`|  `list-pending-po` |  `list-pending-po`
-|`Approve Purchase Order`|  `approve-po` | `approve-po id/12`
-|`Reject Purchase Order`|  `reject-po` | `reject-po id/12 d/Only 100 amount is allowed`
+|`List all Purchase Orders`|  `list-po` |  `list-po`
+|`Add Purchase Order`| `add-po` | `add-po s/apple-iphone-xr q/1000 d/12-12-2018 sp/Apple Inc.`
+|`Approve Purchase Order`|  `approve-po` | `approve-po 2`
+|`Reject Purchase Order`|  `reject-po` | `reject-po 3`
+|`Edit Purchase Order`|  `edit-po` | `edit-po 3 q/100`
+|`Delete Purchase Order`|  `delete-po` | `delete-po 1`
 // Report
 3+| *Reports Management*
 |`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv`
@@ -784,4 +846,8 @@ A Stock Keeping Unit is a product identification code assigned to a product.
 
 *User*
 
-Refers to everyone that is using the application; Admin, Staff and Manager.
+Refers to everyone that is using the application; Non-member and member(Admin, Staff and Manager).
+
+*Member*
+
+Refers to Admin, Staff and Manager.
