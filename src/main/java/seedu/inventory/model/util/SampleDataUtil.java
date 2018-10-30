@@ -56,14 +56,14 @@ public class SampleDataUtil {
 
     public static Staff[] getSampleStaffs() {
         return new Staff[] {
+            new Staff(new Username("zulq9"), new Password(Password.hash("zulq9999")),
+                    new StaffName("Muhammad Zulqarnain"), Staff.Role.admin),
+            new Staff(new Username("esmondTan"), new Password(Password.hash("esmondtt")),
+                    new StaffName("Esmond Tan"), Staff.Role.admin),
+            new Staff(new Username("yaotx"), new Password(Password.hash("pcyaotxcfanboi")),
+                    new StaffName("Yao TengXiong"), Staff.Role.manager),
             new Staff(new Username("darren96"), new Password(Password.hash("darrenSinglenus")),
                     new StaffName("Darren Ong"), Staff.Role.manager),
-            new Staff(new Username("zulq9"), new Password(Password.hash("zulq999")),
-                    new StaffName("Zulqarnain"), Staff.Role.admin),
-            new Staff(new Username("yaotx"), new Password(Password.hash("pcyaotxcfanboi")),
-                    new StaffName("Yao TengXiong"), Staff.Role.admin),
-            new Staff(new Username("EsmondTan"), new Password(Password.hash("esmondTann")),
-                    new StaffName("Esmond Tan"), Staff.Role.manager),
             new Staff(new Username("fzdy1914"), new Password(Password.hash("fengzhidaoying")),
                     new StaffName("Wang Chao"), Staff.Role.user),
             new Staff(new Username("admin"), new Password(Password.hash("password")),

@@ -20,21 +20,33 @@ public class ModelHelper {
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Item> toDisplay, List<Staff> staffToDisplay) {
+    public static void setFilteredList(Model model, List<Item> toDisplay) {
         Optional<Predicate<Item>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        Optional<Predicate<Staff>> staffPredicate =
-                staffToDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredItemList(predicate.orElse(PREDICATE_MATCHING_NO_ITEMS));
+    }
+
+    /**
+     * Updates {@code model}'s staff filtered list to display only {@code toDisplay}.
+     */
+    public static void setStaffFilteredList(Model model, List<Staff> toDisplay) {
+        Optional<Predicate<Staff>> staffPredicate =
+                toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredStaffList(staffPredicate.orElse(PREDICATE_MATCHING_NO_STAFFS));
     }
 
     /**
-     * @see ModelHelper#setFilteredList(Model, List, List)
+     * @see ModelHelper#setFilteredList(Model, List)
      */
     public static void setFilteredList(Model model, Item... toDisplay) {
-        ArrayList<Staff> staffList = new ArrayList<>();
-        setFilteredList(model, Arrays.asList(toDisplay), staffList);
+        setFilteredList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
+     * @see ModelHelper#setStaffFilteredList(Model, List)
+     */
+    public static void setStaffFilteredList(Model model, Staff... toDisplay) {
+        setStaffFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**

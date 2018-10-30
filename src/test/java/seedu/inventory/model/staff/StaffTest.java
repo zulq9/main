@@ -62,19 +62,19 @@ public class StaffTest {
         assertFalse(ZUL.equals(TENGXIONG));
 
         // different name -> returns false
-        Staff editiedZul = new StaffBuilder(ZUL).withName(VALID_NAME_DARREN).build();
-        assertFalse(ZUL.equals(editiedZul));
+        Staff editedZul = new StaffBuilder(ZUL).withName(VALID_NAME_DARREN).build();
+        assertFalse(ZUL.equals(editedZul));
 
         // different username -> returns false
-        editiedZul = new StaffBuilder(ZUL).withUsername(VALID_USERNAME_DARREN).build();
-        assertFalse(ZUL.equals(editiedZul));
+        editedZul = new StaffBuilder(ZUL).withUsername(VALID_USERNAME_DARREN).build();
+        assertFalse(ZUL.equals(editedZul));
 
         // different password -> returns false
-        editiedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_DARREN).build();
-        assertFalse(ZUL.equals(editiedZul));
+        editedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_DARREN).build();
+        assertFalse(ZUL.equals(editedZul));
 
         // different role -> returns false
-        editiedZul = new StaffBuilder(ZUL).withRole(Staff.Role.manager).build();
-        assertFalse(ZUL.equals(editiedZul));
+        editedZul = new StaffBuilder(ZUL).withRole(Staff.Role.manager).build();
+        assertFalse(ZUL.equals(editedZul));
     }
 }

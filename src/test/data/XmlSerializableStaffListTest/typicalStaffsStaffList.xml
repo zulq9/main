@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Inventory save file which contains the same Item values as in TypicalPersons#getTypicalAddressBook() -->
 <staffList>
     <staffs>
         <username>zulq9</username>
-        <password>zulq9999</password>
+        <password>4ae997f9e95b0b626843d3e42ab37eb709b4f9774eaf49f9e95addf2fb77c632</password>
         <name>Muhammad Zulqarnain</name>
         <role>admin</role>
     </staffs>
     <staffs>
         <username>esmondTan</username>
-        <password>esmondtt</password>
+        <password>f58af95bceb5c72764f53ef3eb31baa78f8dd64855ed6e8bc4ee3d3be1d2719c</password>
         <name>Esmond Tan</name>
         <role>admin</role>
     </staffs>
     <staffs>
         <username>yaotx</username>
-        <password>pcyaotxcfanboi</password>
+        <password>d50516cdc85f6df89dc9a8a37797baa7b9eafef0562375813bbb64f8a9d4253d</password>
         <name>Yao TengXiong</name>
         <role>manager</role>
     </staffs>
     <staffs>
         <username>darren96</username>
-        <password>darrenSinglenus</password>
+        <password>5a0b10c8f827e0f530cc79eae40ade4dd1c0a3866f48d473cced271f9e36b889</password>
         <name>Darren Ong</name>
         <role>manager</role>
     </staffs>
     <staffs>
         <username>fzdy1914</username>
-        <password>fengzhidaoying</password>
+        <password>4f9eb1aa1928162b18e1bf58bebed1018867964ccd89ec8095831d2c01c1bee6</password>
         <name>Wang Chao</name>
         <role>user</role>
+    </staffs>
+    <staffs>
+        <username>admin</username>
+        <password>5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</password>
+        <name>administrator</name>
+        <role>admin</role>
     </staffs>
 </staffList>

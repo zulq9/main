@@ -1,7 +1,8 @@
 Staff,,,
 username,password,staffName,role
-zulq9,zulq9999,Muhammad Zulqarnain,admin
-esmondTan,esmondtt,Esmond Tan,admin
-yaotx,pcyaotxcfanboi,Yao TengXiong,manager
-darren96,darrenSinglenus,Darren Ong,manager
-fzdy1914,fengzhidaoying,Wang Chao,user
+zulq9,4ae997f9e95b0b626843d3e42ab37eb709b4f9774eaf49f9e95addf2fb77c632,Muhammad Zulqarnain,admin
+esmondTan,f58af95bceb5c72764f53ef3eb31baa78f8dd64855ed6e8bc4ee3d3be1d2719c,Esmond Tan,admin
+yaotx,d50516cdc85f6df89dc9a8a37797baa7b9eafef0562375813bbb64f8a9d4253d,Yao TengXiong,manager
+darren96,5a0b10c8f827e0f530cc79eae40ade4dd1c0a3866f48d473cced271f9e36b889,Darren Ong,manager
+fzdy1914,4f9eb1aa1928162b18e1bf58bebed1018867964ccd89ec8095831d2c01c1bee6,Wang Chao,user
+admin,5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8,administrator,admin

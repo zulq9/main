@@ -38,6 +38,11 @@ public class TypicalStaffs {
             .withPassword("fengzhidaoying")
             .withRole(Staff.Role.user).build();
 
+    private static final Staff ADMIN = new StaffBuilder().withName("administrator")
+            .withUsername("admin")
+            .withPassword("password")
+            .withRole(Staff.Role.admin).build();
+
     // Manually added
     public static final Staff ANGZHIKAI = new StaffBuilder().withName("Ang Zhi Kai")
             .withUsername("azhikai")
@@ -45,7 +50,7 @@ public class TypicalStaffs {
             .withRole(Staff.Role.user).build();
     public static final Staff CHUAENGSOON = new StaffBuilder().withName("Chua Eng Soon")
             .withUsername("chuaes")
-            .withPassword("arsenalTahi")
+            .withPassword("arsenal")
             .withRole(Staff.Role.manager).build();
 
     private TypicalStaffs() {}
@@ -62,6 +67,6 @@ public class TypicalStaffs {
     }
 
     public static List<Staff> getTypicalStaffs() {
-        return new ArrayList<>(Arrays.asList(ZUL, ESMOND, TENGXIONG, DARREN, WANGCHAO));
+        return new ArrayList<>(Arrays.asList(ZUL, ESMOND, TENGXIONG, DARREN, WANGCHAO, ADMIN));
     }
 }

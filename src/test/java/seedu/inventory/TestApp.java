@@ -21,7 +21,6 @@ import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
-import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlSerializableInventory;
@@ -89,7 +88,7 @@ public class TestApp extends MainApp {
     public Inventory readStorageInventory() {
         try {
             Inventory inventory = new Inventory(storage.readInventory().get());
-            inventory.resetData(readStorageStaffList());
+            inventory.resetStaffList(readStorageStaffList());
             return inventory;
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the Inventory format.", dce);
@@ -124,9 +123,10 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
-        ModelHelper.setFilteredList(copy, model.getFilteredItemList(), model.getFilteredStaffList());
+        ModelHelper.setFilteredList(copy, model.getFilteredItemList());
+        ModelHelper.setStaffFilteredList(copy, model.getFilteredStaffList());
         Staff staff = new StaffBuilder().withUsername(VALID_USERNAME_ZUL)
-                .withPassword(Password.hash(VALID_PASSWORD_ZUL)).build();
+                .withPassword(VALID_PASSWORD_ZUL).build();
         model.authenticateUser(staff);
         return copy;
     }
