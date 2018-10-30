@@ -216,6 +216,11 @@ public interface Model {
     void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);
 
     /**
+     * Replaces all purchase order sku in the list with {@code editedItem} sku.
+     */
+    void updatePurchaseOrder(Item target, Item editedItem);
+
+    /**
      * Approves the given purchaseorder {@code target} and add the quantity to the item.
      * {@code target} must exist in the inventory.
      */

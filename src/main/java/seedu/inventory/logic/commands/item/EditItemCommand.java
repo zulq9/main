@@ -55,12 +55,15 @@ public class EditItemCommand extends Command {
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the inventory.";
+    public static final String MESSAGE_ALSO_EDITED_PURCHASE_ORDER =
+            "\nThe relevant purchase orders's sku has been automatically updated.";
+    private static String messageFinal = MESSAGE_EDIT_ITEM_SUCCESS;
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;
 
     /**
-     * @param index of the item in the filtered item list to edit
+     * @param index              of the item in the filtered item list to edit
      * @param editItemDescriptor details to edit the item with
      */
     public EditItemCommand(Index index, EditItemDescriptor editItemDescriptor) {
@@ -89,8 +92,14 @@ public class EditItemCommand extends Command {
 
         model.updateItem(itemToEdit, editedItem);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+
+        if (!itemToEdit.getSku().equals(editedItem.getSku()) && model.hasPurchaseOrder(itemToEdit)) {
+            model.updatePurchaseOrder(itemToEdit, editedItem);
+            messageFinal += MESSAGE_ALSO_EDITED_PURCHASE_ORDER;
+        }
+
         model.commitInventory();
-        return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
+        return new CommandResult(String.format(messageFinal, editedItem));
     }
 
     /**
@@ -140,7 +149,8 @@ public class EditItemCommand extends Command {
         private Image image;
         private Set<Tag> tags;
 
-        public EditItemDescriptor() {}
+        public EditItemDescriptor() {
+        }
 
         /**
          * Copy constructor.
