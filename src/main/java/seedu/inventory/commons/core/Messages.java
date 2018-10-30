@@ -14,6 +14,6 @@ public class Messages {
     public static final String MESSAGE_STAFFS_LISTED_OVERVIEW = "%1$d staffs listed!";
     public static final String MESSAGE_PO_LISTED_OVERVIEW = "%1$d purchase order listed!";
     public static final String MESSAGE_INVALID_PO_DISPLAYED_INDEX = "The purchase order index provided is invalid";
-    public static final String MESSAGE_SELECT_PENDING = "Can only approve purchase order with 'PENDING' status";
+    public static final String MESSAGE_SELECT_PENDING = "Action is only valid for purchase order with 'PENDING' status";
 
 }
