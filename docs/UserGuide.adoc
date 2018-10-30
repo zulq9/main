@@ -801,8 +801,8 @@ The following table summarises commands available in Inventory Manager, along wi
 |=====================================================================================================
 |Command | Format | Example | Available for
 4+| *General*
+|`Help` |`help` | `help` | `User`
 |`Clear` |`clear` | `clear` | `Member`
-|`Help` |`help` | `help` | `Member`
 |`History` |`history` | `history` | `Member`
 |`Undo`| `undo`|`undo` | `Member`
 |`Redo`| `Redo`|`Redo` | `Member`
