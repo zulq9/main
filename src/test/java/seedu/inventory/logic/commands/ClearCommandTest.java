@@ -1,6 +1,7 @@
 package seedu.inventory.logic.commands;
 
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.inventory.model.util.SampleDataUtil.getSampleStaffList;
 import static seedu.inventory.testutil.TypicalItems.getTypicalInventory;
 
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class ClearCommandTest {
     public void execute_emptyInventory_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
+        expectedModel.resetStaffList(getSampleStaffList());
         expectedModel.commitInventory();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
@@ -30,6 +32,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
         Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs(), new SaleList());
         expectedModel.resetData(new Inventory());
+        expectedModel.resetStaffList(getSampleStaffList());
         expectedModel.commitInventory();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -1,6 +1,5 @@
 package systemtests;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +26,19 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredList(Model model, Item... toDisplay) {
+        setFilteredList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Updates {@code model}'s staff filtered list to display only {@code toDisplay}.
      */
     public static void setStaffFilteredList(Model model, List<Staff> toDisplay) {
         Optional<Predicate<Staff>> staffPredicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredStaffList(staffPredicate.orElse(PREDICATE_MATCHING_NO_STAFFS));
-    }
-
-    /**
-     * @see ModelHelper#setFilteredList(Model, List)
-     */
-    public static void setFilteredList(Model model, Item... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**

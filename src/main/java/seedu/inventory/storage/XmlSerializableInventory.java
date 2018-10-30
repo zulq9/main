@@ -24,8 +24,6 @@ public class XmlSerializableInventory {
     @XmlElement
     private List<XmlAdaptedItem> items;
     @XmlElement
-    private List<XmlAdaptedStaff> staffs;
-    @XmlElement
     private List<XmlAdaptedPurchaseOrder> purchaseOrders;
 
     /**
@@ -35,7 +33,6 @@ public class XmlSerializableInventory {
     public XmlSerializableInventory() {
         items = new ArrayList<>();
         purchaseOrders = new ArrayList<>();
-        staffs = new ArrayList<>();
     }
 
     /**
@@ -46,7 +43,6 @@ public class XmlSerializableInventory {
         items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
         purchaseOrders.addAll(src.getPurchaseOrderList().stream().map(XmlAdaptedPurchaseOrder::new)
                 .collect(Collectors.toList()));
-        staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
     }
 
     /**
@@ -84,7 +80,6 @@ public class XmlSerializableInventory {
             return false;
         }
         return items.equals(((XmlSerializableInventory) other).items)
-                && purchaseOrders.equals(((XmlSerializableInventory) other).purchaseOrders)
-                && staffs.equals(((XmlSerializableInventory) other).staffs);
+                && purchaseOrders.equals(((XmlSerializableInventory) other).purchaseOrders);
     }
 }

@@ -331,9 +331,9 @@ public class Inventory implements ReadOnlyInventory {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && items.equals(((Inventory) other).items))
+                && items.equals(((Inventory) other).items)
                 && purchaseOrders.equals(((Inventory) other).purchaseOrders)
-                && staffs.equals(((Inventory) other).staffs);
+                && staffs.equals(((Inventory) other).staffs));
     }
 
     @Override

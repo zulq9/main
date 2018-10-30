@@ -1,6 +1,7 @@
 package systemtests;
 
 import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.inventory.model.util.SampleDataUtil.getSampleStaffList;
 import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
 
 import org.junit.Test;
@@ -33,7 +34,9 @@ public class ClearCommandSystemTest extends InventorySystemTest {
         /* Case: redo clearing inventory -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        Model expectedModel = new ModelManager();
+        expectedModel.resetStaffList(getSampleStaffList());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in item list and clears inventory -> cleared and no card selected */
@@ -65,7 +68,9 @@ public class ClearCommandSystemTest extends InventorySystemTest {
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        Model expectedModel = new ModelManager();
+        expectedModel.resetStaffList(getSampleStaffList());
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**

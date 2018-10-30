@@ -79,7 +79,7 @@ public abstract class InventorySystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected Inventory getInitialData() {
-        return TypicalItems.getTypicalInventory();
+        return TypicalItems.getTypicalInventoryWithStaff();
     }
 
     /**

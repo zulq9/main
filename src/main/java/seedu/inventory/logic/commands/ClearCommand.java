@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.Model;
+import seedu.inventory.model.util.SampleDataUtil;
 
 /**
  * Clears the inventory.
@@ -19,6 +20,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.resetData(new Inventory());
+        model.resetStaffList(SampleDataUtil.getSampleStaffList());
         model.commitInventory();
         return new CommandResult(MESSAGE_SUCCESS);
     }

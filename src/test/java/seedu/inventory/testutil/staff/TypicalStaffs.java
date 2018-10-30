@@ -38,7 +38,7 @@ public class TypicalStaffs {
             .withPassword("fengzhidaoying")
             .withRole(Staff.Role.user).build();
 
-    private static final Staff ADMIN = new StaffBuilder().withName("administrator")
+    public static final Staff ADMIN = new StaffBuilder().withName("administrator")
             .withUsername("admin")
             .withPassword("password")
             .withRole(Staff.Role.admin).build();

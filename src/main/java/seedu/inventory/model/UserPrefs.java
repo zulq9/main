@@ -15,7 +15,7 @@ public class UserPrefs {
 
     private Path inventoryFilePath = Paths.get("data" , "inventory.xml");
 
-    private Path staffListFilePath = Paths.get("data", "stafflist.xml");
+    private Path staffListFilePath = Paths.get("data", "staffList.xml");
 
     public UserPrefs() {
         setGuiSettings(750, 600, 10, 10);
