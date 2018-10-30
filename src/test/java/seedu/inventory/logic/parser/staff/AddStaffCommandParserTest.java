@@ -36,7 +36,7 @@ public class AddStaffCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Staff expectedStaff = new StaffBuilder(ZUL).withPassword(Password.hash(VALID_PASSWORD_ZUL))
+        Staff expectedStaff = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_ZUL)
                 .withRole(Staff.Role.user).build();
 
         // whitespace only preamble

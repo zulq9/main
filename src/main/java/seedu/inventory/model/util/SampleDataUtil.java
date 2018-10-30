@@ -56,7 +56,7 @@ public class SampleDataUtil {
 
     public static Staff[] getSampleStaffs() {
         return new Staff[] {
-            new Staff(new Username("darren96"), new Password(Password.hash("darrenSinglnus")),
+            new Staff(new Username("darren96"), new Password(Password.hash("darrenSinglenus")),
                     new StaffName("Darren Ong"), Staff.Role.manager),
             new Staff(new Username("zulq9"), new Password(Password.hash("zulq999")),
                     new StaffName("Zulqarnain"), Staff.Role.admin),

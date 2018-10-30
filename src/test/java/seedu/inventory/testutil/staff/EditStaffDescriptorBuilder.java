@@ -51,7 +51,7 @@ public class EditStaffDescriptorBuilder {
      * Sets the {@code Password} of the {@code EditStaffDescriptor} that we are building.
      */
     public EditStaffDescriptorBuilder withPassword(String password) {
-        descriptor.setPassword(new Password(password));
+        descriptor.setPassword(new Password(Password.hash(password)));
         return this;
     }
 

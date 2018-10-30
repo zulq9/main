@@ -35,19 +35,21 @@ public class ChangePasswordCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalInventoryWithStaff(), new UserPrefs(), new SaleList());
         expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
-        editedZul = new StaffBuilder(ZUL).withPassword(Password.hash(VALID_PASSWORD_DARREN)).build();
+        editedZul = new StaffBuilder(ZUL).withPassword(VALID_PASSWORD_DARREN).build();
     }
 
     @Test
     public void execute_withoutAnyExistingSession_failure() throws CommandException {
-        ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(new Password(VALID_PASSWORD_ZUL));
+        ChangePasswordCommand changePasswordCommand =
+                new ChangePasswordCommand(new Password(Password.hash(VALID_PASSWORD_ZUL)));
         thrown.expectMessage(ChangePasswordCommand.MESSAGE_USER_NOT_LOGGED_IN);
         changePasswordCommand.execute(model, commandHistory);
     }
 
     @Test
     public void execute_withExistingSession_success() throws CommandException {
-        ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(new Password(VALID_PASSWORD_DARREN));
+        ChangePasswordCommand changePasswordCommand =
+                new ChangePasswordCommand(new Password(Password.hash(VALID_PASSWORD_DARREN)));
         model.authenticateUser(ZUL);
         changePasswordCommand.execute(model, commandHistory);
         expectedModel.authenticateUser(ZUL);
@@ -57,7 +59,8 @@ public class ChangePasswordCommandTest {
 
     @Test
     public void execute_withSamePassword_failure() throws CommandException {
-        ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(new Password(VALID_PASSWORD_ZUL));
+        ChangePasswordCommand changePasswordCommand =
+                new ChangePasswordCommand(new Password(Password.hash(VALID_PASSWORD_ZUL)));
         model.authenticateUser(ZUL);
         thrown.expectMessage(ChangePasswordCommand.MESSAGE_FAILED);
         changePasswordCommand.execute(model, commandHistory);
