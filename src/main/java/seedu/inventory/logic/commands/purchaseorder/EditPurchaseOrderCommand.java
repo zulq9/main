@@ -15,7 +15,6 @@ import seedu.inventory.commons.util.CollectionUtil;
 import seedu.inventory.logic.CommandHistory;
 import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
-import seedu.inventory.logic.commands.EditItemCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.item.Quantity;
@@ -107,7 +106,7 @@ public class EditPurchaseOrderCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditItemCommand)) {
+        if (!(other instanceof EditPurchaseOrderCommand)) {
             return false;
         }
 

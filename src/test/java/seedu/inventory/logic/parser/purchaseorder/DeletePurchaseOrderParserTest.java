@@ -8,7 +8,7 @@ import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import org.junit.Test;
 
 import seedu.inventory.logic.commands.purchaseorder.DeletePurchaseOrderCommand;
-import seedu.inventory.logic.parser.DeleteItemCommandParserTest;
+import seedu.inventory.logic.parser.item.DeleteItemCommandParserTest;
 
 /**
  * Test scope: similar to {@code DeleteItemCommandParserTest}.

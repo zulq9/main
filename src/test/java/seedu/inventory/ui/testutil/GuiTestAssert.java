@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.ItemCardHandle;
 import guitests.guihandles.ItemListPanelHandle;
+import guitests.guihandles.PurchaseOrderCardHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.SaleCardHandle;
 import guitests.guihandles.StaffCardHandle;
 import seedu.inventory.model.item.Item;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
 
@@ -41,6 +43,19 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(PurchaseOrderCardHandle expectedCard, PurchaseOrderCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getSku(), actualCard.getSku());
+        assertEquals(expectedCard.getQuantity(), actualCard.getQuantity());
+        assertEquals(expectedCard.getReqDate(), actualCard.getReqDate());
+        assertEquals(expectedCard.getSupplier(), actualCard.getSupplier());
+        assertEquals(expectedCard.getStatus(), actualCard.getStatus());
+
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedItem}.
      */
     public static void assertCardDisplaysItem(Item expectedItem, ItemCardHandle actualCard) {
@@ -67,6 +82,18 @@ public class GuiTestAssert {
         assertEquals(expectedStaff.getUsername().username, actualCard.getUsername());
         assertEquals(expectedStaff.getStaffName().fullName, actualCard.getName());
         assertEquals(expectedStaff.getRole().toString(), actualCard.getRole());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedPo}.
+     */
+    public static void assertCardDisplaysPurchaseOrder(PurchaseOrder expectedPo, PurchaseOrderCardHandle actualCard) {
+        assertEquals(expectedPo.getSku().value, actualCard.getSku());
+        assertEquals(expectedPo.getQuantity().value, actualCard.getQuantity());
+        assertEquals(expectedPo.getReqDate().requiredDate, actualCard.getReqDate());
+        assertEquals(expectedPo.getSupplier().supplierName, actualCard.getSupplier());
+        assertEquals(expectedPo.getStatus().name(), actualCard.getStatus());
+
     }
 
     /**

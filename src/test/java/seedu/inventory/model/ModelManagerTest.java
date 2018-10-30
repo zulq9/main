@@ -118,6 +118,28 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasPurchaseOrder_purchaseOrderInInventory_returnsTrue() {
+        modelManager.addItem(IPHONE);
+        modelManager.addPurchaseOrder(IPHONEPO);
+        assertTrue(modelManager.hasPurchaseOrder(IPHONEPO));
+        assertTrue(modelManager.hasPurchaseOrder(IPHONE));
+    }
+
+    @Test
+    public void deletePurchaseOrder() {
+        modelManager.addItem(IPHONE);
+        assertFalse(modelManager.hasPurchaseOrder(IPHONEPO));
+        modelManager.addPurchaseOrder(IPHONEPO);
+        assertTrue(modelManager.hasPurchaseOrder(IPHONEPO));
+        modelManager.deletePurchaseOrder(IPHONEPO);
+        assertFalse(modelManager.hasPurchaseOrder(IPHONEPO));
+
+        modelManager.addPurchaseOrder(IPHONEPO);
+        modelManager.deletePurchaseOrder(IPHONE);
+        assertFalse(modelManager.hasPurchaseOrder(IPHONEPO));
+    }
+
+    @Test
     public void getFilteredPurchaseOrderList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPurchaseOrderList().remove(0);

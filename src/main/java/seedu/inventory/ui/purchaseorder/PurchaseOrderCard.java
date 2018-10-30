@@ -58,7 +58,7 @@ public class PurchaseOrderCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PurchaseOrder)) {
+        if (!(other instanceof PurchaseOrderCard)) {
             return false;
         }
 

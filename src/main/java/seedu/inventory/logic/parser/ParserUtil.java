@@ -12,8 +12,8 @@ import java.util.Set;
 import seedu.inventory.commons.core.index.Index;
 import seedu.inventory.commons.util.StringUtil;
 import seedu.inventory.logic.parser.exceptions.ParseException;
-import seedu.inventory.model.filter.FilterPrice;
-import seedu.inventory.model.filter.FilterQuantity;
+import seedu.inventory.model.item.FilterPrice;
+import seedu.inventory.model.item.FilterQuantity;
 import seedu.inventory.model.item.Image;
 import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
@@ -205,7 +205,7 @@ public class ParserUtil {
     public static RequiredDate parseReqDate(String reqDate) throws ParseException {
         requireNonNull(reqDate);
         String trimmedDate = reqDate.trim();
-        if (!RequiredDate.isValidDate(trimmedDate)) {
+        if (!RequiredDate.isValidDatePending(trimmedDate)) {
             throw new ParseException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
         }
         return new RequiredDate(trimmedDate);

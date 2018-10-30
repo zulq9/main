@@ -13,7 +13,7 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.logic.LogicManager;
-import seedu.inventory.logic.commands.ListItemCommand;
+import seedu.inventory.logic.commands.item.ListItemCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.staff.Password;
