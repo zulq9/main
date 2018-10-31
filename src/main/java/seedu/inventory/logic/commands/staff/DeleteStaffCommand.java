@@ -21,7 +21,7 @@ public class DeleteStaffCommand extends Command {
     public static final String COMMAND_WORD = "delete-staff";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the display item list.\n"
+            + ": Deletes the staff identified by the index number used in the display staff list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
