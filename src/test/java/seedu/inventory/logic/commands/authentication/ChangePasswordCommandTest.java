@@ -53,7 +53,7 @@ public class ChangePasswordCommandTest {
         model.authenticateUser(ZUL);
         changePasswordCommand.execute(model, commandHistory);
         expectedModel.authenticateUser(ZUL);
-        expectedModel.updateStaff(ZUL, editedZul);
+        expectedModel.updateUserSession(editedZul);
         assertEquals(expectedModel.getUser(), model.getUser());
     }
 
