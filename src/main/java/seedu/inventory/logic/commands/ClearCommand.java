@@ -14,7 +14,7 @@ import seedu.inventory.model.util.SampleDataUtil;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Inventory, staff, sale orders and purchase orders have been cleared!";
+    public static final String MESSAGE_SUCCESS = "Inventory, sale orders and purchase orders have been cleared! Staff list has been reset.";
 
 
     @Override
