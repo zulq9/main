@@ -69,6 +69,16 @@ public class VersionedInventory extends Inventory {
         return currentStatePointer < inventoryStateList.size() - 1;
     }
 
+    /**
+     * Resets the initial state of inventory to the current final state.
+     */
+    public void reset() {
+        ReadOnlyInventory finalState = inventoryStateList.get(currentStatePointer);
+        inventoryStateList.clear();
+        inventoryStateList.add(finalState);
+        currentStatePointer = 0;
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
