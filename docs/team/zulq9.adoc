@@ -26,7 +26,7 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 When a purchase order is approved by the manager, Inventory Manager will automatically update the stocks in the inventory.
 
 ** Justification: This feature *allows user to restock item easily and manage the purchase order details efficiently*.
-It also tackle of the hassle of writing hard-copy purchase orders.
+It also tackles the issue of the hassle of writing hard-copy purchase orders.
 
 ** Highlights: This feature is dependant of the item storage as purchase order can only be created on existing items.
 It is also tied with user management as only manager can approve/reject a purchase order.
