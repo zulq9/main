@@ -106,10 +106,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public void checkIsValidRole(Command command) throws CommandException {
+        if (model.getUser() == null) {
+            return;
+        }
         Staff.Role role = model.getUser().getRole();
-        if (isAdminCommand(command) && !role.equals(Staff.Role.admin)) {
+        if (isAdminCommand(command) && !Staff.Role.admin.equals(role)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
-        } else if (isPurchaseOrderApprovalCommand(command) && role.equals(Staff.Role.user)) {
+        } else if (isPurchaseOrderApprovalCommand(command) && Staff.Role.admin.equals(role)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
         }
     }
