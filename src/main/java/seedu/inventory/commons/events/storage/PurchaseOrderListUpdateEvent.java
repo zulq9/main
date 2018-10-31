@@ -4,7 +4,7 @@ import seedu.inventory.commons.events.BaseEvent;
 import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 
 /**
- * Indicates an update of sale list.
+ * Indicates an update of purchase order list.
  */
 public class PurchaseOrderListUpdateEvent extends BaseEvent {
 

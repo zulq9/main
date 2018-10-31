@@ -14,6 +14,6 @@ public class SaleListChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of items " + data.getSaleList().size();
+        return "number of sales " + data.getSaleList().size();
     }
 }
