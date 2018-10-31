@@ -542,8 +542,6 @@ in Figure 11 below.
 .UML diagram showing representation of Purchase Order in Inventory Manager.
 image::ComingSoon.png[width="200"]
 
-// end::purchaseOrderManagement[]
-
 ===== Storage Component
 
 Purchase orders are stored in `XmlAdaptedPurchaseOrder` objects, which maintain a class relationship as shown in this diagram.
@@ -619,6 +617,7 @@ There are various places where `updateItem` can be executed. The pros and cons f
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `Model.approvePurchaseOrder()` to read the inventory and perform validations.
 
+// end::purchaseOrderManagement[]
 
 == Documentation
 
