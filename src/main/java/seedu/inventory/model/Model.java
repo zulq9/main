@@ -308,6 +308,11 @@ public interface Model {
     void authenticateUser(Staff staff);
 
     /**
+     * Updates the user.
+     */
+    void updateUserSession(Staff staff);
+
+    /**
      * Logs the user out from the inventory manager.
      */
     void logoutUser();
@@ -346,6 +351,8 @@ public interface Model {
      * Saves the current inventory state for undo/redo.
      */
     void commitInventory();
+
+    //=========== Sale =============================================================
 
     /**
      * Returns the sale list.

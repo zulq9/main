@@ -297,6 +297,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateUserSession(Staff staff) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void logoutUser() {
         throw new AssertionError("This method should not be called.");
     }

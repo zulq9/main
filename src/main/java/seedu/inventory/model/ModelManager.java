@@ -411,6 +411,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateUserSession(Staff staff) {
+        session.updateUser(staff);
+    }
+
+    @Override
     public void logoutUser() {
         session.logout();
         versionedInventory.reset();

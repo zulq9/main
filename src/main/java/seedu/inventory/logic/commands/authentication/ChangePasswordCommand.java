@@ -58,6 +58,7 @@ public class ChangePasswordCommand extends Command {
         Staff editedStaff = createEditedStaff(staff, descriptor);
 
         model.updateStaff(staff, editedStaff);
+        model.updateUserSession(editedStaff);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, staff.getStaffName()));
     }
