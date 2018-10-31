@@ -9,34 +9,46 @@
 
 == Overview
 
-Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
-desktop app to manage their shop inventory. More importantly, it is optimized for those
-who prefer to work with a Command Line Interface (CLI) while still having the benefits of
-a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
-management tasks such as creating sales, generating reports, creating purchase orders
-and more. The user interacts with it using a CLI, and it has a GUI created
+Inventory Manager aims to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). Designed to be easy
+to use, Inventory Manager gives you control over your business right from your keyboard.
+
+Inventory Manager allows various users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders and more.
+With user authentication put in place, it gives SMEs greater control over users' access to the application too.
+
+The user interacts with it using a Command Line Interface (CLI) through the Graphical User Interface (GUI) created
 with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major Enhancement*: Added the *Purchase Orders Management* Feature
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** What it does: Allows the user to generate purchase order in the application.
+When a purchase order is approved by the manager, Inventory Manager will automatically update the stocks in the inventory.
 
+** Justification: This feature *allows user to restock item easily and manage the purchase order details efficiently*.
+It also tackle of the hassle of writing hard-copy purchase orders.
+
+** Highlights: This feature is dependant of the item storage as purchase order can only be created on existing items.
+It is also tied with user management as only manager can approve/reject a purchase order.
+Deleting and editing an item must now update the relevant purchase orders as well.
+
+* *Minor Enhancement*: Rearranged the command box to the bottom of the Inventory Manager User Interface
+** Justification: Provides a more user friendly visual for the user.
 * *Other contributions*:
 
-** Project management:
-*** =
-** Enhancements to existing features:
-***
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-** Tools:
-*** Created an organization for team on Github
-*** Integrated a Github plugin (TravisCI) to the team repo
+** Project Management:
+*** Maintained issue tracker, milestone, pull request approval and merger.
+*** Managed release `V1.3` on GitHub.
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+
+*** Updated the user guides of Purchase Order Management component in Inventory Manager [#99]
+*** Updated the developer guides of Purchase Order Management component in Inventory Manager [#99]
+*** Updated the team's about us page [#99]
+
+** Community:
+
+*** Reviewed pull requests
 
 == Contributions to the User Guide
 
@@ -55,14 +67,14 @@ include::../UserGuide.adoc[tag=purchaseOrderManagement]
 |===
 
 include::../DeveloperGuide.adoc[tag=useCasePurchaseOrder]
+include::../DeveloperGuide.adoc[tag=purchaseOrderManagement]
 
 
 == PROJECT: SynchroNUS
 
-|==
-|_This project is the project I did during the summer holiday for SOC Orbital Programme.
-|==
+|===
+| This project is the project I did during the summer holiday for SOC Orbital Programme.
+|===
 
-include::https://github.com/zulq9/Orbital2018_SynchroNUS
 
 ---
