@@ -352,6 +352,8 @@ public interface Model {
      */
     void commitInventory();
 
+    //=========== Sale =============================================================
+
     /**
      * Returns the sale list.
      */
