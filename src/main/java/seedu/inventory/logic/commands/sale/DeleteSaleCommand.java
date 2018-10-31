@@ -56,7 +56,7 @@ public class DeleteSaleCommand extends Command {
         Item searchedItem = model.getInventory().getItemBySku(item.getSku().toString());
 
         if (searchedItem != null) {
-            int newIntQuantity = Integer.parseInt(item.getQuantity().toString())
+            int newIntQuantity = Integer.parseInt(searchedItem.getQuantity().toString())
                     + Integer.parseInt(sale.getSaleQuantity().toString());
             Quantity newQuantity = new Quantity(Integer.toString(newIntQuantity));
 
