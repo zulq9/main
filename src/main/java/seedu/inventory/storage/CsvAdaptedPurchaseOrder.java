@@ -88,16 +88,6 @@ public class CsvAdaptedPurchaseOrder {
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
-        if (reqDate == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, RequiredDate.class.getSimpleName())
-            );
-        }
-        if (!RequiredDate.isValidDate(reqDate)) {
-            throw new IllegalValueException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
-        }
-        final RequiredDate modelRequiredDate = new RequiredDate(reqDate);
-
         if (supplier == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Supplier.class.getSimpleName())
@@ -117,6 +107,24 @@ public class CsvAdaptedPurchaseOrder {
             throw new IllegalValueException(PurchaseOrder.Status.MESSAGE_STATUS_CONSTRAINTS);
         }
         final PurchaseOrder.Status modelStatus = PurchaseOrder.Status.valueOf(status);
+
+        if (reqDate == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, RequiredDate.class.getSimpleName())
+            );
+        }
+
+        if (status.equals(PurchaseOrder.Status.PENDING)) {
+            if (!RequiredDate.isValidDatePending(reqDate)) {
+                throw new IllegalValueException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
+            }
+        } else {
+            if (!RequiredDate.isValidDate(reqDate)) {
+                throw new IllegalValueException(RequiredDate.MESSAGE_DATE_CONSTRAINTS);
+            }
+        }
+
+        final RequiredDate modelRequiredDate = new RequiredDate(reqDate);
 
         return new PurchaseOrder(modelSku, modelQuantity, modelRequiredDate, modelSupplier, modelStatus);
     }
