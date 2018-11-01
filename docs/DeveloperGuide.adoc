@@ -517,6 +517,108 @@ Need to raise an additional event for invalid file path. +
 
 // end::exportCsv[]
 
+// tag::purchaseOrderManagement[]
+=== Purchase Order Management
+
+*Purchase order management* is introduced in Inventory manager to *allow user to restock item easily and manage the purchase order details efficiently.*
+
+The purchase order details includes the _item's SKU_, _restock quantity_, _required date_ and _supplier_. +
+Purchase order can only be added if it matches the item's SKU.
+Newly added purchase order comes with a default `PENDING` status which subsequently can be _edited_, _approved_, _rejected_ and _deleted_.
+
+
+==== Implementation
+
+===== Model Component
+
+Purchase orders are maintained in the Model in a NonUniquePurchaseOrderList, allowing non unique purchase order among the stored individual purchase orders.
+
+.UML diagram showing representation of NonUniquePurchaseOrderList in Inventory Manager.
+image::ComingSoon.png[width="200"]
+
+Individual purchase order are represented by the `PurchaseOrder` object with attributes `Sku`, `Quantity`, `RequiredDate` and `Supplier`. The class relationship is shown
+in Figure 11 below.
+
+.UML diagram showing representation of Purchase Order in Inventory Manager.
+image::ComingSoon.png[width="200"]
+
+===== Storage Component
+
+Purchase orders are stored in `XmlAdaptedPurchaseOrder` objects, which maintain a class relationship as shown in this diagram.
+
+.PurchaseOrder objects are saved using XmlAdaptedJPurchaseOrder objects as shown above.
+image::ComingSoon.png[width="200"]
+
+An example purchase order stored in this format is reproduced below:
+
+[source:xml]
+----
+<purchaseOrders>
+                <sku>apple-iphone-xr</sku>
+                <quantity>1000</quantity>
+                <reqDate>2018-12-12</reqDate>
+                <supplier>Apple Inc.</supplier>
+                <status>APPROVED</status>
+</purchaseOrders>
+----
+
+===== UI Component
+
+The main window contains a ListPanel, which is interchangeable to display any list based on the command entered.
+Purchase order list is shown in the ListPanel upon executing `list-po`.
+Individual purchase orders are represented using PurchaseOrderCards that contains the attributes fields using Labels and flowPanes.
+An example of the a purchase order card is shown in figure 13 below.
+
+.Example of the a purchase order card in Inventory Manager UI.
+image::ComingSoon.png[width="200"]
+
+===== Logic Component
+
+The following commands were added to handle the purchase order:
+
+* `list-po` : List all purchase orders
+* `add-po` : Add a purchase order
+* `delete-po` : Delete a purchase order
+* `approve-po` : Approve a purchase order
+* `reject-po` : Reject a purchase order
+* `edit-po` : Edit a purchase order
+
+
+The following diagram details the class relationship for the Purchase order Commands.
+
+.UML Diagram depicting the class relationship between command classes.
+image::ComingSoon.png[width="200"]
+
+Operations performed on purchase orders follow the sequence of operations described in the diagram below.
+
+. Command input is received by the UI component.
+. The command execution is handled by the Logic component.
+. The changes to data are effected by the Model component.
+. The new Inventory Manager data is saved by the Storage component.
+
+This sequence of events is summarized in the following sequence diagram.
+
+.A high level sequence diagram showing events triggered by the `add-po` command.
+image::ComingSoon.png[width="200"]
+
+==== Design Considerations
+
+**Aspect:** Where `updateItem` is executed +
+There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
+
+**Alternative 1 (current choice):** Executed at Logic +
+**Pros:** Easy to implement. +
+**Cons:** Direct calling of `Model.approvePurchaseOrder()` will not be validated. +
+
+**Alternative 2:** Executed at Model +
+**Pros:** Ensures that all entries are validated before sale can be created. +
+**Cons:**`Model.approvePurchaseOrder()` will need to access inventory to perform validations..
+
+Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
+`Model.approvePurchaseOrder()` to read the inventory and perform validations.
+
+// end::purchaseOrderManagement[]
+
 == Documentation
 
 The documentation for this project is written and maintained using asciidoc, it can found in the docs folder.
@@ -1338,80 +1440,207 @@ Use case resumes at step 1.
 
 // tag::useCasePurchaseOrder[]
 [discrete]
-=== Use case: Generate PO
+=== Use case: Add Purchase order
 
 *MSS*
 
-1.  User requests to list inventory
-2.  Inventory Manager shows a list of inventory
-3.  User requests to generate PO on the inventory with low amount
-4.  Inventory Manager generates PO
+1.  User requests to list items.
+2.  Inventory Manager shows a list of items
+3.  User requests to add purchase order on an item based on it's SKU
+4.  Inventory Manager adds purchase order
+5.  Inventory Manager shows a successful purchase order added message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2. The item list is empty.
 +
 Use case ends.
 
-* 3a. The given command is invalid.
+[none]
+* 3a. The given command does not contain any item's sku in the item list.
 +
 [none]
-** 3a1. Inventory Manager shows an error message.
+** 3a1. Inventory Manager shows an item not found message.
 +
 Use case resumes at step 2.
+
+[none]
+* 3b. The given command format is invalid.
++
+[none]
+** 3b1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
 [discrete]
-=== Use case: Approve PO
+=== Use case: Approve Purchase order
 
 *MSS*
 
-1.  User requests to list PO
-2.  Inventory Manager shows a list of PO
-3.  User requests to approve a specific PO in the list
-4.  Inventory Manager updates PO status
+1.  User requests to list purchase orders
+2.  Inventory Manager shows a list of purchase orders
+3.  User requests to approve a specific pending Purchase order in the list
+4.  Inventory Manager updates purchase order status
+5.  Inventory Manager shows a successful approval message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2. The purchase order list is empty.
 +
 Use case ends.
 
-* 3a. The given PO ID is invalid.
+[none]
+* 3a. The given purchase order ID is invalid.
 +
 [none]
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
+
+[none]
+* 3b. The given command format is invalid.
++
+[none]
+** 3b1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3c. The given purchase order status is not 'PENDING'.
++
+[none]
+** 3c1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
 [discrete]
-=== Use case: Reject PO
+=== Use case: Reject Purchase order
 
 *MSS*
 
-1.  User requests to list PO
-2.  Inventory Manager shows a list of PO
-3.  User requests to reject a specific PO in the list
-4.  Inventory Manager updates PO status
+1.  User requests to list purchase orders
+2.  Inventory Manager shows a list of purchase orders
+3.  User requests to reject a specific pending Purchase order in the list
+4.  Inventory Manager updates purchase order status
+5.  Inventory Manager shows a successful rejection message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2. The purchase order list is empty.
 +
 Use case ends.
 
-* 3a. The given PO ID is invalid.
+[none]
+* 3a. The given purchase order ID is invalid.
 +
 [none]
 ** 3a1. Inventory Manager shows an error message.
 +
 Use case resumes at step 2.
+
+[none]
+* 3b. The given command format is invalid.
++
+[none]
+** 3b1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3c. The given purchase order status is not 'PENDING'.
++
+[none]
+** 3c1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit Purchase order
+
+*MSS*
+
+1.  User requests to list purchase orders
+2.  Inventory Manager shows a list of purchase orders
+3.  User requests to edit a specific purchase order in the list
+4.  Inventory Manager edits the purchase order
+5.  Inventory Manager shows a successful edit message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. The purchase order list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3b. The given command format is invalid.
++
+[none]
+** 3b1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3c. The given purchase order status is not 'PENDING'.
++
+[none]
+** 3c1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete Purchase order
+
+*MSS*
+
+1.  User requests to list purchase orders
+2.  Inventory Manager shows a list of purchase orders
+3.  User requests to delete a specific purchase order in the list
+4.  Inventory Manager deletes the purchase order
+5.  Inventory Manager shows a successful deletion message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. The purchase order list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3b. The given command format is invalid.
++
+[none]
+** 3b1. Inventory Manager shows an error message.
++
+Use case resumes at step 2.
+
 // end::useCasePurchaseOrder[]
 
 // tag::useCaseSaleOrder[]
