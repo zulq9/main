@@ -48,7 +48,7 @@ This section will help you get started with Inventory Manager in 4 easy steps:
 .  Copy the file to the folder you want to use as the home folder for Inventory Manager.
 .  Double-click the file to start the application. Inventory Manager should show up on your screen in a couple of seconds.
 +
-image::doc-ui.png[width="790"]
+image::Ui.png[width="790"]
 _Figure 3.1. The Graphical User Interface on starting up._
 
 *Congratulations! You have successfully set up Inventory Manager*. +
@@ -559,10 +559,10 @@ Example:
 `list-sale`
 // end::salesManagement[]
 
+// tag::purchaseOrderManagement[]
 === Purchase Orders Management
 
 The following commands are used to manage purchase order.
-// tag::purchaseOrderManagement[]
 
 ==== Listing all purchase order : `list-po`
 
