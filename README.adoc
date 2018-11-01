@@ -11,7 +11,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600", align="center"]
+image::images/Ui.png[width="600", align="center"]
 endif::[]
 
 * This is a desktop Inventory Management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
