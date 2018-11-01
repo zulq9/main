@@ -170,7 +170,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void exportStaffList(ReadOnlyStaffList staffList, Path filePath) throws IOException {
-        logger.fine("Attempting to export sale list to file: " + filePath);
+        logger.fine("Attempting to export staff list to file: " + filePath);
         reportingStorage.exportStaffList(staffList, filePath);
     }
 
