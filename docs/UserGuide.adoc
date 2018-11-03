@@ -98,7 +98,7 @@ Format: `help`
 
 ==== Listing entered commands : `history`
 
-The `history` command lists all the commands that you have entered in reverse chronological order. +
+The `history` command lists all the commands that you have entered, including valid and invalid commands, in reverse chronological order. +
 This command is available to *any user*. +
 
 Format: `history`
@@ -169,7 +169,7 @@ Examples:
 ==== Clearing all entries : `clear`
 
 The `clear` command clears all entries from Inventory Manager. +
-This command is available to *members* only. +
+This command is available to *admin* only. +
 
 Format: `clear`
 
