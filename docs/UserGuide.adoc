@@ -320,7 +320,7 @@ An item can have any number of tags (including 0)
 
 Example:
 
-* `add n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/smartphone t/apple`
+* `add-item n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/smartphone t/apple`
 
 ==== Listing all items : `list-item`
 
