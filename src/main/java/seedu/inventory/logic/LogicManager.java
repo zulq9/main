@@ -12,6 +12,7 @@ import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.authentication.LoginCommand;
+import seedu.inventory.logic.commands.authentication.LogoutCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
@@ -50,6 +51,7 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+        boolean isLogoutCommand = false;
         try {
             Command command = inventoryParser.parseCommand(commandText);
 
@@ -57,9 +59,16 @@ public class LogicManager extends ComponentManager implements Logic {
                 throw new CommandException(MESSAGE_NOT_LOGGED_IN);
             }
             checkIsValidRole(command);
+            if (command instanceof LogoutCommand) {
+                isLogoutCommand = true;
+            }
             return command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (isLogoutCommand) {
+                history.clear();
+            } else {
+                history.add(commandText);
+            }
         }
     }
 
