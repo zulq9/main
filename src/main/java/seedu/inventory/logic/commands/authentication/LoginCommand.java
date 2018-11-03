@@ -18,12 +18,12 @@ public class LoginCommand extends Command {
 
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Login an user into the system."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Login an user into the system. "
             + "Parameters: "
             + PREFIX_USERNAME + "USERNAME "
             + PREFIX_PASSWORD + "PASSWORD \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_USERNAME + "user2"
+            + PREFIX_USERNAME + "user2 "
             + PREFIX_PASSWORD + "12345678";
 
     public static final String MESSAGE_SUCCESS = "You have successfully logged in as %s";
@@ -52,7 +52,6 @@ public class LoginCommand extends Command {
 
         Staff staff = model.retrieveStaff(toLogin);
         model.authenticateUser(staff);
-        model.commitInventory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, staff.getStaffName()));
     }
 
