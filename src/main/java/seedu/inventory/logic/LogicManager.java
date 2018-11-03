@@ -10,6 +10,7 @@ import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.HelpCommand;
+import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.authentication.LoginCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
@@ -89,7 +90,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public boolean isPublicCommand(Command command) {
-        return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand;
+        return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand
+                || command instanceof HistoryCommand;
     }
 
     @Override
