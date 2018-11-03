@@ -303,6 +303,11 @@ Examples:
 
 The following commands are mainly used for users to manage the items stored in the inventory.
 
+[NOTE]
+====
+An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be unique.
+====
+
 ==== Adding an item : `add-item`
 
 The `add-item` command adds an item to the inventory manager. +
@@ -315,7 +320,7 @@ An item can have any number of tags (including 0)
 
 Example:
 
-* `add n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/12-12-2012`
+* `add n/IPhone X p/1600 q/1000 s/SN-1234 i/docs/images/iphone.jpg t/smartphone t/apple`
 
 ==== Listing all items : `list-item`
 
