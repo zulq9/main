@@ -9,9 +9,8 @@ import static seedu.inventory.commons.util.AppUtil.checkArgument;
  */
 public class FilterQuantity {
 
-
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
-            "Filter Quantity should only contain numbers, and it should be at least 1 digit long. "
+            "Filter Quantity should only contain positive integers, and it should be at least 1 digit long. "
             + "Quantity can only contain a maximum of 8 digits before the decimal point, "
             + "and 2 digits after the decimal point. A prefix of '<' or '>' is required to indicate what the "
             + "condition for filtering is.";
