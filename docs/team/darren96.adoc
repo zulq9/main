@@ -3,19 +3,23 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: Inventory Manager
 
 ---
 
 == Overview
 
+This Personal Portfolio Page showcases what I have contributed in the project and the documentation for
+each contributions.
+
 Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
 who prefer to work with a Command Line Interface (CLI) while still having the benefits of
-a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
-management tasks such as creating sales, generating reports, creating purchase orders
-and more. The user interacts with it using a CLI, and it has a GUI created
-with JavaFX. It is written in Java, and has about 10 kLoC.
+a Graphical User Interface (GUI).
+
+In this Inventory Manager, I have designed and implemented the authentication component and
+user management component. This two components provides the inventory manager on the ability
+to authenticate and authorize users to manage the inventory.
 
 == Summary of contributions
 
@@ -30,7 +34,7 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 ** Project management:
 *** Setup a release for v1.1
 ** Enhancements to existing features:
-***
+*** Undo and Redo is also able to be executed in the user management component.
 ** Documentation:
 *** Update the user guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
 *** Update the developer guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
