@@ -16,7 +16,8 @@ public class LogoutCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Log an user out from the system.";
 
-    public static final String MESSAGE_SUCCESS = "You have successfully logged out from the system.";
+    public static final String MESSAGE_SUCCESS = "You have successfully logged out from the system.\n"
+            + "All commands history are cleared.";
     public static final String MESSAGE_FAILED = "You are not logged in.";
 
     @Override

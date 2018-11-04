@@ -98,7 +98,7 @@ Format: `help`
 
 ==== Listing entered commands : `history`
 
-The `history` command lists all the commands that you have entered in reverse chronological order. +
+The `history` command lists all the commands that you have entered, including valid and invalid commands, in reverse chronological order. +
 This command is available to *any user*. +
 
 Format: `history`
@@ -169,7 +169,7 @@ Examples:
 ==== Clearing all entries : `clear`
 
 The `clear` command clears all entries from Inventory Manager. +
-This command is available to *members* only. +
+This command is available to *admin* only. +
 
 Format: `clear`
 
@@ -206,7 +206,8 @@ Examples:
 
 ==== Change user's password : `change-password`
 
-The `change-password` command updates a user information into the system with given new password. +
+The `change-password` command updates a user password into the system with given new password. +
+If there are multiple inputs for the new password, then only the last input of the new password is accepted. +
 This command is available to *members* only. +
 
 image::doc-change-password.png[width="790"]
