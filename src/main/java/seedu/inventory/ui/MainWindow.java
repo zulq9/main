@@ -21,6 +21,7 @@ import seedu.inventory.commons.events.model.AccessSaleEvent;
 import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
+import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.ui.purchaseorder.PurchaseOrderListPanel;
@@ -121,6 +122,7 @@ public class MainWindow extends UiPart<Stage> {
 
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
         itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+        itemListPanelPlaceholder.setVisible(false);
 
         purchaseOrderListPanel = new PurchaseOrderListPanel(logic.getFilteredPurchaseOrderList());
         //personListPanelPlaceholder.getChildren().add(purchaseOrderListPanel.getRoot());
@@ -249,5 +251,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleToggleSidePanelVisibilityEvent(ToggleSidePanelVisibilityEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        itemListPanelPlaceholder.setVisible(event.isVisible);
     }
 }
