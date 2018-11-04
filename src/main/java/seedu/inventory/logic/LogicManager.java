@@ -33,8 +33,8 @@ import seedu.inventory.model.staff.Staff;
  */
 public class LogicManager extends ComponentManager implements Logic {
 
-    private static final String MESSAGE_NO_ACCESS = "You have no permission to use this command.";
-    private static final String MESSAGE_NOT_LOGGED_IN = "You have not logged in.";
+    public static final String MESSAGE_NO_ACCESS = "You have no permission to use this command.";
+    public static final String MESSAGE_NOT_LOGGED_IN = "You have not logged in.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
