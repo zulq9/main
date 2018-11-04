@@ -65,6 +65,8 @@ public class ImportCsvCommand extends Command {
 
     public static final String MESSAGE_INVALID_COMMAND_WORD = "Command word is invalid";
 
+    public static final String MESSAGE_IMPORT = "Data is importing";
+
     private String commandWord;
 
     private final Path filePath;
