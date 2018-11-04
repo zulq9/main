@@ -274,7 +274,7 @@ Remark: `ROLE` can only be either `user`, `manager` or `admin`.
 Examples:
 
 * Edit staff with given id, 2 in the list. Change name to Yao Teng Xiong and role as admin. +
- `update-staff 2 n/Yao Teng Xiong r/admin`.
+ `edit-staff 2 n/Yao Teng Xiong r/admin`.
 
 ==== Deleting a user : `delete-staff`
 
@@ -283,7 +283,7 @@ This command is available to admins only. +
 
 
 An error will be shown if the entered index is invalid.
-`edit-user 2 u/yaotx n/Yao Teng Xiong r/admin`.
+`delete-staff 999`.
 
 Format: `delete-staff INDEX`
 

@@ -34,7 +34,9 @@ to authenticate and authorize users to manage the inventory.
 ** Project management:
 *** Setup a release for v1.1
 ** Enhancements to existing features:
-*** Undo and Redo is also able to be executed in the user management component.
+*** Enable `undo` and `redo` commands to be executed for the user management component
+*** Improve on command history of the user to be cleared once user logout
+*** Mask user entered password in the log file
 ** Documentation:
 *** Update the user guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
 *** Update the developer guides of User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]

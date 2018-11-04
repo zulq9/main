@@ -445,6 +445,21 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Authentication
+
+*Authentication is introduced in Inventory Management to *allow users to login to the system to perform their inventory
+management tasks*.
+
+Authentication component is to help the SMEs to strengthen their security on the data in the inventory manager. It is also
+to prevent any unidentified users to be able to access they application.
+
+==== Implementation
+
+===== Logic Component
+
+Authentication usually works in the Logic Component of the system. This is due to this component has to be largely relied on
+when the commands are executed. It has
+
 // tag::exportCsv[]
 === Export CSV mechanism
 
