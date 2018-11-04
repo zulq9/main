@@ -343,7 +343,7 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     public String getNextSaleId() {
-       return sales.getNextSaleId();
+        return sales.getNextSaleId();
     }
 
     public void setSales(List<Sale> sales) {
@@ -406,7 +406,7 @@ public class Inventory implements ReadOnlyInventory {
     public String toString() {
         return items.asUnmodifiableObservableList().size() + " items\n"
                 + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders\n"
-                + staffs.asUnmodifiableObservableList().size() + " staffs\n" +
+                + staffs.asUnmodifiableObservableList().size() + " staffs\n"
                 + sales.asUnmodifiableObservableList().size() + " sale orders";
     }
 
