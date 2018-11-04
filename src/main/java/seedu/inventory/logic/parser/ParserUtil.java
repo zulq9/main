@@ -99,9 +99,15 @@ public class ParserUtil {
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
+
         if (!Quantity.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
         }
+
+        if (!Quantity.isNotOverflowInteger(trimmedQuantity)) {
+            throw new ParseException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
+        }
+
         return new Quantity(trimmedQuantity);
     }
 
