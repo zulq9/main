@@ -11,7 +11,7 @@ import seedu.inventory.model.staff.Username;
 public class StaffBuilder {
 
     public static final String DEFAULT_USERNAME = "johnd";
-    public static final String DEFAULT_PASSWORD = "johndoe1";
+    public static final String DEFAULT_PASSWORD = Password.hash("johndoe1");
     public static final String DEFAULT_NAME = "John Doe";
     public static final Staff.Role DEFAULT_ROLE = Staff.Role.user;
 
