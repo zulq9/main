@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.inventory.storage.CsvAdaptedStaff.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.inventory.storage.csv.CsvAdaptedStaff.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.inventory.testutil.staff.TypicalStaffs.TENGXIONG;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.Staff.Role;
 import seedu.inventory.model.staff.StaffName;
 import seedu.inventory.model.staff.Username;
+import seedu.inventory.storage.csv.CsvAdaptedStaff;
 import seedu.inventory.testutil.Assert;
 
 public class CsvAdaptedStaffTest {

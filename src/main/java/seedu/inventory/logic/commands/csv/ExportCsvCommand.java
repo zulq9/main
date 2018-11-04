@@ -1,4 +1,4 @@
-package seedu.inventory.logic.commands;
+package seedu.inventory.logic.commands.csv;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.inventory.logic.parser.CliSyntax.PREFIX_FILEPATH;
@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import seedu.inventory.commons.util.FileUtil;
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.Command;
+import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
 
@@ -64,6 +66,8 @@ public class ExportCsvCommand extends Command {
     public static final String MESSAGE_INVALID_CSV_FILEPATH = "%s is not a valid csv file path";
 
     public static final String MESSAGE_INVALID_COMMAND_WORD = "Command word is invalid";
+
+    public static final String MESSAGE_EXPORT = "Data is exporting";
 
     private String commandWord;
 

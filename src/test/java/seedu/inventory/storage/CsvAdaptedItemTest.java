@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.inventory.storage.CsvAdaptedItem.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.inventory.storage.csv.CsvAdaptedItem.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.inventory.testutil.TypicalItems.SAMSUNG;
 
 import java.util.ArrayList;
@@ -19,6 +19,8 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
+import seedu.inventory.storage.csv.CsvAdaptedItem;
+import seedu.inventory.storage.csv.CsvAdaptedTag;
 import seedu.inventory.testutil.Assert;
 
 

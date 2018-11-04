@@ -14,6 +14,7 @@ import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.CsvUtil;
 import seedu.inventory.model.Inventory;
 import seedu.inventory.model.PurchaseOrderList;
+import seedu.inventory.storage.csv.CsvSerializablePurchaseOrderList;
 import seedu.inventory.testutil.TypicalItems;
 import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
