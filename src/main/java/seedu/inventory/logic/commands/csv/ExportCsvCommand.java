@@ -67,6 +67,8 @@ public class ExportCsvCommand extends Command {
 
     public static final String MESSAGE_INVALID_COMMAND_WORD = "Command word is invalid";
 
+    public static final String MESSAGE_EXPORT = "Data is exporting";
+
     private String commandWord;
 
     private final Path filePath;
