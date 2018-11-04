@@ -8,7 +8,7 @@ import seedu.inventory.model.item.Item;
 
 public interface ReadOnlyInventory extends ReadOnlyItemList, ReadOnlyPurchaseOrderList, ReadOnlyStaffList,
         ReadOnlySaleList {
-    
+
     /**
      * Returns the specific item by Sku.
      */
