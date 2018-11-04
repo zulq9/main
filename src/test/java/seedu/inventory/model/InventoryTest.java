@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.exceptions.DuplicateItemException;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.exceptions.DuplicateStaffException;
 import seedu.inventory.testutil.ItemBuilder;
@@ -263,6 +264,7 @@ public class InventoryTest {
         private final ObservableList<Item> items = FXCollections.observableArrayList();
         private final ObservableList<PurchaseOrder> purchaseOrders = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
+        private final ObservableList<Sale> sales = FXCollections.observableArrayList();
 
         InventoryStub(Collection<Item> items, Collection<PurchaseOrder> purchaseOrders, Collection<Staff> staffs) {
             this.items.setAll(items);
@@ -282,6 +284,15 @@ public class InventoryTest {
 
         public ObservableList<Staff> getStaffList() {
             return staffs;
+        }
+
+        public String getNextSaleId() {
+            return "";
+        }
+
+        @Override
+        public ObservableList<Sale> getSaleList() {
+            return sales;
         }
 
         @Override

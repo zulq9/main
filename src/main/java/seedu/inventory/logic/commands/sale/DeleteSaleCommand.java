@@ -68,6 +68,8 @@ public class DeleteSaleCommand extends Command {
         // Delete sale
         model.deleteSale(sale);
 
+        model.commitInventory();
+
         return new CommandResult(String.format(MESSAGE_DELETE_SALE_SUCCESS, saleId));
     }
 

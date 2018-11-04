@@ -89,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetSaleList(ReadOnlySaleList newSaleList) {
-        saleList.resetData(newSaleList);
+        versionedInventory.resetSaleList(newSaleList);
         indicateSaleListChanged();
     }
 
@@ -448,12 +448,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoInventory() {
         versionedInventory.undo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
     public void redoInventory() {
         versionedInventory.redo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
@@ -482,23 +484,23 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Sale ====================================================================================
     @Override
     public ReadOnlySaleList getSaleList() {
-        return saleList;
+        return versionedInventory;
     }
 
     @Override
     public ObservableList<Sale> getObservableSaleList() {
-        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+        return FXCollections.unmodifiableObservableList(versionedInventory.getSaleList());
     }
 
     @Override
     public void addSale(Sale sale) {
-        saleList.addSale(sale);
+        versionedInventory.addSale(sale);
         indicateSaleListChanged();
     }
 
     @Override
     public void deleteSale(Sale sale) {
-        saleList.removeSale(sale);
+        versionedInventory.removeSale(sale);
         indicateSaleListChanged();
     }
 
@@ -518,7 +520,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Raises an event to indicate the model has changed
      */
     private void indicateSaleListChanged() {
-        raise(new SaleListChangedEvent(saleList));
+        raise(new SaleListChangedEvent(versionedInventory));
     }
 
     @Override
