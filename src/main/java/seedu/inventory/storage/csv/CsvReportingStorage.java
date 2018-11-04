@@ -1,4 +1,4 @@
-package seedu.inventory.storage;
+package seedu.inventory.storage.csv;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,6 +19,8 @@ import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlyPurchaseOrderList;
 import seedu.inventory.model.ReadOnlySaleList;
 import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.storage.ReportingStorage;
+import seedu.inventory.storage.XmlInventoryStorage;
 
 
 /**
