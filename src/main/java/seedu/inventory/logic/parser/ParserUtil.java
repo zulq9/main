@@ -252,7 +252,7 @@ public class ParserUtil {
     public static Password parsePassword(String password) throws ParseException {
         requireNonNull(password);
         String trimmedPassword = password.trim();
-        if (!Username.isValidUsername(trimmedPassword)) {
+        if (!Password.isValidPassword(trimmedPassword)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         String hashedPassword = Password.hash(trimmedPassword);
