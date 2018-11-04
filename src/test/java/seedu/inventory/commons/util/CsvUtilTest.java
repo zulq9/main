@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
-import seedu.inventory.storage.CsvSerializableData;
+import seedu.inventory.storage.csv.CsvSerializableData;
 import seedu.inventory.testutil.TestUtil;
 
 public class CsvUtilTest {

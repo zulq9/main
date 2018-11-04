@@ -17,7 +17,7 @@ public class StaffListImportEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Sale list is importing from " + filePath;
+        return "Staff list is importing from " + filePath;
     }
 
 }
