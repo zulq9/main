@@ -40,7 +40,7 @@ public class AddItemCommand extends Command {
             + PREFIX_TAG + "smartphone";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the inventory";
+    public static final String MESSAGE_DUPLICATE_ITEM = "Item with the same SKU already exists in the inventory";
 
     private final Item toAdd;
 
