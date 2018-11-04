@@ -206,7 +206,8 @@ Examples:
 
 ==== Change user's password : `change-password`
 
-The `change-password` command updates a user information into the system with given new password. +
+The `change-password` command updates a user password into the system with given new password. +
+If there are multiple inputs for the new password, then only the last input of the new password is accepted. +
 This command is available to *members* only. +
 
 image::doc-change-password.png[width="790"]
