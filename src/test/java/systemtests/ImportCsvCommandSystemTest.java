@@ -1,109 +1,83 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.inventory.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
-import static seedu.inventory.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.inventory.logic.commands.SelectCommand.MESSAGE_SELECT_SUCCESS;
-import static seedu.inventory.testutil.TestUtil.getLastIndex;
-import static seedu.inventory.testutil.TestUtil.getMidIndex;
-import static seedu.inventory.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
-import static seedu.inventory.testutil.TypicalItems.KEYWORD_MATCHING_SAMSUNG;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_FILEPATH;
+import static seedu.inventory.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.inventory.storage.csv.CsvSerializableItemList.MESSAGE_DUPLICATE_ITEM;
+import static seedu.inventory.testutil.TypicalItems.IPHONE;
+import static seedu.inventory.ui.UiManager.FILE_IMPORT_ERROR_DIALOG_CONTENT_MESSAGE;
+import static seedu.inventory.ui.UiManager.FILE_IMPORT_ERROR_DIALOG_HEADER_MESSAGE;
 import static seedu.inventory.ui.UiManager.FILE_IMPORT_INFORMATION_DIALOG_CONTENT_MESSAGE;
+import static seedu.inventory.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
 import static seedu.inventory.ui.UiManager.FILE_OPS_INFORMATION_DIALOG_HEADER_MESSAGE;
 import static seedu.inventory.ui.UiManager.FILE_OPS_INFORMATION_DIALOG_STAGE_TITLE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.GuiRobot;
-import guitests.guihandles.AlertDialogHandle;
 import org.junit.Test;
 
-import seedu.inventory.commons.core.index.Index;
-import seedu.inventory.logic.commands.RedoCommand;
-import seedu.inventory.logic.commands.SelectCommand;
-import seedu.inventory.logic.commands.UndoCommand;
+import guitests.GuiRobot;
+import guitests.guihandles.AlertDialogHandle;
+import seedu.inventory.commons.exceptions.DataConversionException;
+import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.logic.commands.csv.ImportCsvCommand;
 import seedu.inventory.model.Model;
+import seedu.inventory.model.item.Sku;
 
 public class ImportCsvCommandSystemTest extends InventorySystemTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ImportCsvCommandSystemTest");
     private static final Path TYPICAL_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalItemList.csv");
     private static final Path INVALID_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidItemList.csv");
     private static final Path DUPLICATE_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateItemList.csv");
+    private static final Path INVALID_NAME_FILE = TEST_DATA_FOLDER.resolve("duplicateItemList.cs");
 
     private final GuiRobot guiRobot = new GuiRobot();
+
     @Test
     public void importCsvItem() {
-//        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
-//
-//        /* Case: select the first card in the item list, command with leading spaces and trailing spaces
-//         * -> selected
-//         */
-//        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased() + "   ";
-//        assertCommandSuccess(command, INDEX_FIRST_ITEM);
-//
-//        /* Case: select the last card in the item list -> selected */
-//        Index itemCount = getLastIndex(getModel());
-//        command = SelectCommand.COMMAND_WORD + " " + itemCount.getOneBased();
-//        assertCommandSuccess(command, itemCount);
-//
-//        /* Case: undo previous selection -> rejected */
-//        command = UndoCommand.COMMAND_WORD;
-//        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
-//        assertCommandFailure(command, expectedResultMessage);
-//
-//        /* Case: redo selecting last card in the list -> rejected */
-//        command = RedoCommand.COMMAND_WORD;
-//        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
-//        assertCommandFailure(command, expectedResultMessage);
-//
-//        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
-//
-//        /* Case: filtered item list, select index within bounds of inventory but out of bounds of item list
-//         * -> rejected
-//         */
-//        showItemsWithName(KEYWORD_MATCHING_SAMSUNG);
-//        int invalidIndex = getModel().getInventory().getItemList().size();
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DISPLAYED_INDEX);
-//
-//        /* Case: filtered item list, select index within bounds of inventory and item list -> selected */
-//        Index validIndex = Index.fromOneBased(1);
-//        assertTrue(validIndex.getZeroBased() < getModel().getFilteredItemList().size());
-//        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
-//        assertCommandSuccess(command, validIndex);
-//
-//        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
-//
-//        /* Case: invalid index (0) -> rejected */
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
-//                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-//
-//        /* Case: invalid index (-1) -> rejected */
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
-//                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-//
-//        /* Case: invalid index (size + 1) -> rejected */
-//        invalidIndex = getModel().getFilteredItemList().size() + 1;
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DISPLAYED_INDEX);
-//
-//        /* Case: invalid arguments (alphabets) -> rejected */
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-//                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-//
-//        /* Case: invalid arguments (extra argument) -> rejected */
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
-//                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-//
-//        /* Case: mixed case command word -> rejected */
-//        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
-//
-//        /* Case: select from empty inventory -> rejected */
-//        deleteAllItems();
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ITEM.getOneBased(),
-//                MESSAGE_INVALID_DISPLAYED_INDEX);
+        /* ------------------------ Perform import csv file operations -------------------------- */
+
+        // Case: valid input file
+        String path = TYPICAL_ITEMS_FILE.toAbsolutePath().toString();
+        String command = "   " + ImportCsvCommand.COMMAND_WORD_ITEMS + "  "
+                + PREFIX_FILEPATH + path + "   ";
+
+        Model expectedModel = getModel();
+        expectedModel.deleteItem(IPHONE);
+        assertCommandSuccessWithInformationDialog(command, expectedModel, path);
+
+        // Case: duplicate item file
+        path = DUPLICATE_ITEM_FILE.toAbsolutePath().toString();
+        command = "   " + ImportCsvCommand.COMMAND_WORD_ITEMS + "  "
+                + PREFIX_FILEPATH + path + "   ";
+        String expectedContentMessage = FILE_IMPORT_ERROR_DIALOG_CONTENT_MESSAGE + ":\n"
+                + new DataConversionException(new IllegalValueException(MESSAGE_DUPLICATE_ITEM));
+        assertCommandSuccessWithErrorDialog(command, expectedContentMessage, path);
+
+        // Case: invalid item file
+        path = INVALID_ITEM_FILE.toAbsolutePath().toString();
+        command = "   " + ImportCsvCommand.COMMAND_WORD_ITEMS + "  "
+                + PREFIX_FILEPATH + path + "   ";
+        expectedContentMessage = FILE_IMPORT_ERROR_DIALOG_CONTENT_MESSAGE + ":\n"
+                + new DataConversionException(new IllegalValueException(Sku.MESSAGE_SKU_CONSTRAINTS));
+        assertCommandSuccessWithErrorDialog(command, expectedContentMessage, path);
+
+        // Case: invalid file name
+        path = INVALID_NAME_FILE.toAbsolutePath().toString();
+        command = "   " + ImportCsvCommand.COMMAND_WORD_ITEMS + "  "
+                + PREFIX_FILEPATH + path + "   ";
+        String expectedResultMessage = String.format(ImportCsvCommand.MESSAGE_INVALID_CSV_FILEPATH, path);
+        assertCommandFailure(command, expectedResultMessage);
+
+        // Case: invalid prefix name
+        path = INVALID_NAME_FILE.toAbsolutePath().toString();
+        command = "   " + ImportCsvCommand.COMMAND_WORD_ITEMS + "  "
+                + PREFIX_NAME + path + "   ";
+        expectedResultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCsvCommand.MESSAGE_USAGE);
+        assertCommandFailure(command, expectedResultMessage);
+
     }
 
     /**
@@ -112,35 +86,69 @@ public class ImportCsvCommandSystemTest extends InventorySystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the internal message of executing the command.<br>
      * 4. {@code Storage} and {@code ItemListPanel} is correctly updated
-     * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
-     * 6. Status bar remains unchanged.<br>
+     * 5. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
      * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccessWithInformationDialog(String command, Index expectedSelectedCardIndex) {
-        Model expectedModel = getModel();
-        String expectedResultMessage = String.format(FILE_IMPORT_INFORMATION_DIALOG_CONTENT_MESSAGE);
-        int preExecutionSelectedCardIndex = getItemListPanel().getSelectedCardIndex();
+    private void assertCommandSuccessWithInformationDialog(String command, Model expectedModel, String path) {
+
+        String expectedResultMessage = String.format(ImportCsvCommand.MESSAGE_IMPORT);
 
         executeCommand(command);
+
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_INFORMATION_DIALOG_STAGE_TITLE));
 
         AlertDialogHandle alertDialog =
                 new AlertDialogHandle(guiRobot.getStage(FILE_OPS_INFORMATION_DIALOG_STAGE_TITLE));
         assertEquals(FILE_OPS_INFORMATION_DIALOG_HEADER_MESSAGE, alertDialog.getHeaderText());
         assertEquals(FILE_IMPORT_INFORMATION_DIALOG_CONTENT_MESSAGE, alertDialog.getContentText());
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
-            assertSelectedCardUnchanged();
-        } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        }
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
 
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarUnchangedExceptSyncStatus(false);
+
+        alertDialog.close();
+
+        expectedResultMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_ITEMS, path);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+    }
+
+    /**
+     * Executes {@code command} and asserts that the,<br>
+     * 1. Command box displays the input.<br>
+     * 2. Command box has the default style class.<br>
+     * 3. Result display box displays the internal message of executing the command.<br>
+     * 4. {@code Storage} and {@code ItemListPanel} is correctly updated
+     * 5. Status bar remains unchanged.<br>
+     * Verifications 1, 3 and 4 are performed by
+     * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
+     * @see InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccessWithErrorDialog(String command, String expectedContentMessage, String path) {
+        Model expectedModel = getModel();
+        String expectedResultMessage = String.format(ImportCsvCommand.MESSAGE_IMPORT);
+
+        executeCommand(command);
+
+        guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
+        AlertDialogHandle alertDialog =
+                new AlertDialogHandle(guiRobot.getStage(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
+        assertEquals(FILE_IMPORT_ERROR_DIALOG_HEADER_MESSAGE, alertDialog.getHeaderText());
+        assertEquals(expectedContentMessage, alertDialog.getContentText());
+
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+
+        alertDialog.close();
+
+        expectedResultMessage = String.format(ImportCsvCommand.MESSAGE_SUCCESS_ITEMS, path);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
     }
 
     /**
