@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.inventory.commons.exceptions.UnrecognizableDataException;
-import seedu.inventory.storage.CsvSerializableData;
+import seedu.inventory.storage.csv.CsvSerializableData;
 /**
  * Helps with reading from and writing to CSV files.
  */

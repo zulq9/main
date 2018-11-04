@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.inventory.logic.CommandHistory;
+import seedu.inventory.logic.commands.csv.ExportCsvCommand;
 import seedu.inventory.model.Model;
 import seedu.inventory.model.ModelManager;
 import seedu.inventory.model.SaleList;

@@ -42,6 +42,7 @@ import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.storage.csv.CsvReportingStorage;
 import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 import seedu.inventory.ui.testutil.EventsCollectorRule;
 

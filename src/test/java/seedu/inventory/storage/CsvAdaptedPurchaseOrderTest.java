@@ -2,7 +2,7 @@ package seedu.inventory.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.inventory.storage.CsvAdaptedPurchaseOrder.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.inventory.storage.csv.CsvAdaptedPurchaseOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.inventory.testutil.TypicalItems.LG;
 import static seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder.LGPO;
 
@@ -18,6 +18,7 @@ import seedu.inventory.model.item.Sku;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.purchaseorder.RequiredDate;
 import seedu.inventory.model.purchaseorder.Supplier;
+import seedu.inventory.storage.csv.CsvAdaptedPurchaseOrder;
 import seedu.inventory.testutil.Assert;
 import seedu.inventory.testutil.TypicalItems;
 
