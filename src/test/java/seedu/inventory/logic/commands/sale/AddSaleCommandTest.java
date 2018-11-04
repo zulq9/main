@@ -158,6 +158,11 @@ public class AddSaleCommandTest {
             requireNonNull(sale);
             salesAdded.add(sale);
         }
+
+        @Override
+        public void commitInventory() {
+            assert true;
+        }
     }
 
     /**
@@ -193,6 +198,11 @@ public class AddSaleCommandTest {
         public void addSale(Sale sale) {
             requireNonNull(sale);
             salesAdded.add(sale);
+        }
+
+        @Override
+        public void commitInventory() {
+            assert true;
         }
     }
 

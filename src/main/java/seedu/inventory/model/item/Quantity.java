@@ -42,11 +42,7 @@ public class Quantity {
         try {
             Integer value = Integer.parseInt(test);
 
-            if (value > Integer.MAX_VALUE || value < Integer.MIN_VALUE) {
-                return false;
-            } else {
-                return true;
-            }
+            return value <= Integer.MAX_VALUE && value >= Integer.MIN_VALUE;
         } catch (Exception e) {
             return false;
         }

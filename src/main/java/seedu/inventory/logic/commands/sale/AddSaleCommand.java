@@ -85,6 +85,8 @@ public class AddSaleCommand extends Command {
         model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
                 item.getImage(), item.getTags()));
 
+        model.commitInventory();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, saleId.toString(), item.getName()));
     }
 

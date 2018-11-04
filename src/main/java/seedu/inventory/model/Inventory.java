@@ -11,6 +11,8 @@ import seedu.inventory.model.item.Item;
 import seedu.inventory.model.item.UniqueItemList;
 import seedu.inventory.model.purchaseorder.NonUniquePurchaseOrderList;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.sale.Sale;
+import seedu.inventory.model.sale.UniqueSaleList;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.UniqueStaffList;
 
@@ -24,7 +26,7 @@ public class Inventory implements ReadOnlyInventory {
     private final UniqueItemList items = new UniqueItemList();
     private final NonUniquePurchaseOrderList purchaseOrders = new NonUniquePurchaseOrderList();
     private final UniqueStaffList staffs = new UniqueStaffList();
-
+    private final UniqueSaleList sales = new UniqueSaleList();
 
     public Inventory() {
     }
@@ -65,6 +67,15 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Resets the existing sale list of this {@code Inventory} with {@code newSaleList}.
+     */
+    public void resetSaleList(ReadOnlySaleList newSaleList) {
+        requireNonNull(newSaleList);
+
+        setSaleList(newSaleList.getSaleList());
+    }
+
+    /**
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */
@@ -86,6 +97,13 @@ public class Inventory implements ReadOnlyInventory {
      */
     public void setStaffs(List<Staff> staffs) {
         this.staffs.setStaffs(staffs);
+    }
+
+    /**
+     * Replaces the contents of the sale list with {@code saleLists}.
+     */
+    public void setSaleList(List<Sale> sales) {
+        this.sales.setSales(sales);
     }
 
 
@@ -305,6 +323,37 @@ public class Inventory implements ReadOnlyInventory {
         purchaseOrders.remove(key);
     }
 
+    //===================== sale methods =================================
+    /**
+     * Adds a sale to the inventory management system.
+     *
+     * @param sale the sale to be added
+     */
+    public void addSale(Sale sale) {
+        sales.add(sale);
+    }
+
+    /**
+     * Remove a sale from the inventory management system.
+     *
+     * @param sale the sale to be removed
+     */
+    public void removeSale(Sale sale) {
+        sales.remove((sale));
+    }
+
+    public String getNextSaleId() {
+       return sales.getNextSaleId();
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales.setSales(sales);
+    }
+
+    public ObservableList<Sale> getSaleList() {
+        return this.sales.asUnmodifiableObservableList();
+    }
+
     //===================== util methods =======================================================
 
     //===================== list overwrite operations ==============================
@@ -318,6 +367,7 @@ public class Inventory implements ReadOnlyInventory {
         setItems(newData.getItemList());
         setPurchaseOrders(newData.getPurchaseOrderList());
         setStaffs(newData.getStaffList());
+        setSaleList(newData.getSaleList());
     }
 
     /**
@@ -327,6 +377,15 @@ public class Inventory implements ReadOnlyInventory {
         requireNonNull(newStaffData);
 
         setStaffs(newStaffData.getStaffList());
+    }
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newSaleData}.
+     */
+    public void resetData(ReadOnlySaleList newSaleData) {
+        requireNonNull(newSaleData);
+
+        setSaleList(newSaleData.getSaleList());
     }
 
     @Override
@@ -347,7 +406,8 @@ public class Inventory implements ReadOnlyInventory {
     public String toString() {
         return items.asUnmodifiableObservableList().size() + " items\n"
                 + purchaseOrders.asUnmodifiableObservableList().size() + " purchase orders\n"
-                + staffs.asUnmodifiableObservableList().size() + " staffs";
+                + staffs.asUnmodifiableObservableList().size() + " staffs\n" +
+                + sales.asUnmodifiableObservableList().size() + " sale orders";
     }
 
     @Override
