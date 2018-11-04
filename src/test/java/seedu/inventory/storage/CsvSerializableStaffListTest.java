@@ -13,6 +13,8 @@ import org.junit.rules.ExpectedException;
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.commons.util.CsvUtil;
 import seedu.inventory.model.ReadOnlyStaffList;
+import seedu.inventory.storage.csv.CsvSerializableItemList;
+import seedu.inventory.storage.csv.CsvSerializableStaffList;
 import seedu.inventory.testutil.staff.TypicalStaffs;
 
 public class CsvSerializableStaffListTest {

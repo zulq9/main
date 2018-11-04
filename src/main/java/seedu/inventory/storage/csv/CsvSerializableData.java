@@ -1,4 +1,4 @@
-package seedu.inventory.storage;
+package seedu.inventory.storage.csv;
 
 import java.util.List;
 

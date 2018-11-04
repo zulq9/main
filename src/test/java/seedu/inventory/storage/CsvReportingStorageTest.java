@@ -34,6 +34,7 @@ import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.storage.csv.CsvReportingStorage;
 import seedu.inventory.testutil.purchaseorder.TypicalPurchaseOrder;
 
 public class CsvReportingStorageTest {

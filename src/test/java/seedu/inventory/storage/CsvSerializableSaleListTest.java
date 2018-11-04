@@ -20,6 +20,8 @@ import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.sale.Sale;
 import seedu.inventory.model.sale.SaleDate;
 import seedu.inventory.model.sale.SaleId;
+import seedu.inventory.storage.csv.CsvSerializableItemList;
+import seedu.inventory.storage.csv.CsvSerializableSaleList;
 import seedu.inventory.testutil.TypicalItems;
 
 public class CsvSerializableSaleListTest {

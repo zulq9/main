@@ -29,8 +29,6 @@ import seedu.inventory.model.ReadOnlyStaffList;
 import seedu.inventory.model.SaleList;
 import seedu.inventory.model.UserPrefs;
 import seedu.inventory.model.util.SampleDataUtil;
-
-import seedu.inventory.storage.CsvReportingStorage;
 import seedu.inventory.storage.InventoryStorage;
 import seedu.inventory.storage.JsonUserPrefsStorage;
 import seedu.inventory.storage.ReportingStorage;
@@ -40,6 +38,7 @@ import seedu.inventory.storage.StorageManager;
 import seedu.inventory.storage.UserPrefsStorage;
 import seedu.inventory.storage.XmlInventoryStorage;
 import seedu.inventory.storage.XmlSaleListStorage;
+import seedu.inventory.storage.csv.CsvReportingStorage;
 import seedu.inventory.ui.Ui;
 import seedu.inventory.ui.UiManager;
 

@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.inventory.commons.exceptions.IllegalValueException;
 import seedu.inventory.model.tag.Tag;
-
+import seedu.inventory.storage.csv.CsvAdaptedTag;
 
 
 public class CsvAdaptedTagTest {
