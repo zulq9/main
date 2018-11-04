@@ -13,9 +13,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "Password should only contain alphanumberic characters only and it should not be blank.";
+            "Password should only contain 8 - 16 alphanumberic characters only and it should not be blank.";
 
-    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*$";
+    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}]{8,16}$";
+    public static final String HASHED_PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}]{64}$";
 
     public final String password;
 
@@ -26,7 +27,7 @@ public class Password {
      */
     public Password(String password) {
         requireNonNull(password);
-        checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
+        checkArgument(isValidHashedPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
         this.password = password;
     }
 
@@ -49,6 +50,10 @@ public class Password {
 
     public static boolean isValidPassword(String password) {
         return password.matches(PASSWORD_VALIDATION_REGEX);
+    }
+
+    public static boolean isValidHashedPassword(String hashedPassword) {
+        return hashedPassword.matches(HASHED_PASSWORD_VALIDATION_REGEX);
     }
 
     @Override
