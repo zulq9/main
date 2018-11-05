@@ -366,16 +366,16 @@ The following two conditions must be met before.
 There are a few design considerations when creating a staff. Below will explain the various considerations and the
 choices made.
 
-===== Aspect: Where `addUser` executes
+===== Aspect: Where `add-staff` executes
 
-There are various places where `addUser` can be executed. The pros and cons for each option is shown below.
+There are various places where `add-staff` can be executed. The pros and cons for each option is shown below.
 
 . Executed at Logic +
 * Pros: Easy to implement +
-* Cons: Direct calling of `Model#addUser` will not be validated.
+* Cons: Direct calling of `Model#addStaff` will not be validated.
 . Executed at Model
 * Pros: Ensures that all entries are validated before sale can be created. +
-* Cons: `Model#addUser` will need to access staff list to perform validations.
+* Cons: `Model#addStaff` will need to access staff list to perform validations.
 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `Model#addUser` to read the inventory and perform validations.
