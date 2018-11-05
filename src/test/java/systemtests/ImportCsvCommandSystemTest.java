@@ -35,8 +35,9 @@ public class ImportCsvCommandSystemTest extends InventorySystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
+    //Because the logic of importing csv are quite same so I just test import csv items
     @Test
-    public void importCsvItem() {
+    public void importCsvItems() {
         /* ------------------------ Perform import csv file operations -------------------------- */
 
         // Case: valid input file
