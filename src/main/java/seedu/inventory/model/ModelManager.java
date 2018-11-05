@@ -35,7 +35,9 @@ import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
 import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowPurchaseOrderTableViewEvent;
 import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowStaffTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -152,6 +154,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void showStaffTableView() {
+        raise(new ShowStaffTableViewEvent());
+    }
+
+    @Override
+    public void showPurchaseOrderTableView() {
+        raise(new ShowPurchaseOrderTableViewEvent());
+    }
+
+    @Override
     public void exportItemList(Path filePath) {
         indicateAccessItem();
         showItemTableView();
@@ -183,24 +195,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void exportStaffList(Path filePath) {
         indicateAccessStaff();
+        showStaffTableView();
         raise(new StaffListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importStaffList(Path filePath) {
         indicateAccessStaff();
+        showStaffTableView();
         raise(new StaffListImportEvent(filePath));
     }
 
     @Override
     public void exportPurchaseOrderList(Path filePath) {
         indicatePurchaseOrder();
+        showPurchaseOrderTableView();
         raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importPurchaseOrderList(Path filePath) {
         indicatePurchaseOrder();
+        showPurchaseOrderTableView();
         raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
     }
 

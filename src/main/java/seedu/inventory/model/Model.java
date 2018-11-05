@@ -85,6 +85,16 @@ public interface Model {
     void showSaleTableView();
 
     /**
+     * Indicate to show staff table view
+     */
+    void showStaffTableView();
+
+    /**
+     * Indicate to show purchase order table view
+     */
+    void showPurchaseOrderTableView();
+
+    /**
      * Export the item list to the file path.
      *
      * @param filePath The path to export.

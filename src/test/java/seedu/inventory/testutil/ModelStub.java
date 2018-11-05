@@ -81,6 +81,21 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void showSaleTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showStaffTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showPurchaseOrderTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void exportItemList(Path filePath) {
         throw new AssertionError("This method should not be called.");
     }

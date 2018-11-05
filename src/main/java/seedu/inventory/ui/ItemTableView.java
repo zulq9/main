@@ -34,7 +34,6 @@ public class ItemTableView extends UiPart<Region> {
     public ItemTableView(ObservableList<Item> itemList) {
         super(FXML);
         setConnections(itemList);
-        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Item> itemList) {

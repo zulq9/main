@@ -23,7 +23,9 @@ import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowPurchaseOrderTableViewEvent;
 import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowStaffTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
@@ -48,6 +50,8 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private ItemTableView itemTableView;
     private SaleTableView saleTableView;
+    private StaffTableView staffTableView;
+    private PurchaseOrderTableView purchaseOrderTableView;
 
     private ItemListPanel itemListPanel;
     private PurchaseOrderListPanel purchaseOrderListPanel;
@@ -126,6 +130,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         itemTableView = new ItemTableView(logic.getFilteredItemList());
         saleTableView = new SaleTableView(logic.getObservableSaleList());
+        staffTableView = new StaffTableView(logic.getFilteredStaffList());
+        purchaseOrderTableView = new PurchaseOrderTableView(logic.getFilteredPurchaseOrderList());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
@@ -178,6 +184,16 @@ public class MainWindow extends UiPart<Stage> {
     private void setSaleTableView() {
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(saleTableView.getRoot());
+    }
+
+    private void setStaffTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(staffTableView.getRoot());
+    }
+
+    private void setPurchaseOrderTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(purchaseOrderTableView.getRoot());
     }
 
     private void setBrowserPanel() {
@@ -300,5 +316,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowSaleTableViewEvent(ShowSaleTableViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setSaleTableView();
+    }
+
+    @Subscribe
+    private void handleShowStaffTableViewEvent(ShowStaffTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setStaffTableView();
+    }
+
+    @Subscribe
+    private void handleShowPurchaseOrderTableViewEvent(ShowPurchaseOrderTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPurchaseOrderTableView();
     }
 }

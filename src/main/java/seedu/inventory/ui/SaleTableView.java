@@ -29,14 +29,14 @@ public class SaleTableView extends UiPart<Region> {
     public SaleTableView(ObservableList<Sale> saleList) {
         super(FXML);
         setConnections(saleList);
-        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Sale> saleList) {
         saleTableView.setItems(saleList);
         saleId.setCellValueFactory(sale -> new SimpleStringProperty(sale.getValue().getSaleId().toString()));
         saleSku.setCellValueFactory(sale -> new SimpleStringProperty(sale.getValue().getItem().getSku().value));
-        saleQuantity.setCellValueFactory(sale -> new SimpleStringProperty(sale.getValue().getSaleQuantity().toString()));
+        saleQuantity
+                .setCellValueFactory(sale -> new SimpleStringProperty(sale.getValue().getSaleQuantity().toString()));
         saleDate.setCellValueFactory(sale -> new SimpleStringProperty(sale.getValue().getSaleDate().toString()));
     }
 }
