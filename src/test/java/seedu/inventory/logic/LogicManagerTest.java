@@ -123,6 +123,14 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void maskPassword() {
+        String loginCommand = "login u/admin p/password";
+        String maskedPassword = logic.maskPassword(loginCommand);
+        String expectedMask = "login u/admin p/********";
+        assertEquals(expectedMask, maskedPassword);
+    }
+
+    @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredItemList().remove(0);

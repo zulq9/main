@@ -65,7 +65,7 @@ public class CsvAdaptedStaff {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Password.class.getSimpleName()));
         }
-        if (!Password.isValidPassword(this.password)) {
+        if (!Password.isValidHashedPassword(this.password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         final Password modelPassword = new Password(password);

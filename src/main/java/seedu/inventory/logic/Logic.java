@@ -67,4 +67,11 @@ public interface Logic {
      * @throws CommandException if the user has no permission to access the command
      */
     void checkIsValidRole(Command command) throws CommandException;
+
+    /**
+     * Returns a string which masked the actual password.
+     * @param commandText to check if there is any password constraint
+     * @return a fake string to cover password
+     */
+    String maskPassword(String commandText);
 }

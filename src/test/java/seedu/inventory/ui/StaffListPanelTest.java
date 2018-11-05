@@ -98,18 +98,18 @@ public class StaffListPanelTest extends GuiUnitTest {
         for (int i = 0; i < staffCount; i++) {
             builder.append("<staffs>\n");
             builder.append("<username>a" + i + "</username>\n");
-            builder.append("<password>12345678</password>\n");
+            builder.append("<password>EF797C8118F02DFB649607DD5D3F8C7623048C9C063D532CC95C5ED7A898A64F</password>\n");
             builder.append("<name>yao</name>\n");
             builder.append("<role>user</role>\n");
             builder.append("</staffs>");
         }
         builder.append("</staffList>\n");
 
-        Path mantStaffsFile = Paths.get(TEST_DATA_FOLDER + "manyStaffs.xml");
-        FileUtil.createFile(mantStaffsFile);
-        FileUtil.writeToFile(mantStaffsFile, builder.toString());
-        mantStaffsFile.toFile().deleteOnExit();
-        return mantStaffsFile;
+        Path manyStaffsFile = Paths.get(TEST_DATA_FOLDER + "manyStaffs.xml");
+        FileUtil.createFile(manyStaffsFile);
+        FileUtil.writeToFile(manyStaffsFile, builder.toString());
+        manyStaffsFile.toFile().deleteOnExit();
+        return manyStaffsFile;
     }
 
     /**

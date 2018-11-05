@@ -3,7 +3,7 @@
 
     <staffs>
         <username>darren96</username>
-        <password>singlenus</password>
+        <password>C4D63B637FB6185F5DCC3D5A98A119E09891DFFCB6713E68BA029C92A0FB9CFB</password>
         <name>Darren Ong Yun Kai</name>
         <role>manager</role>
     </staffs>
@@ -11,7 +11,7 @@
     <!-- Staff with same identity as Darren -->
     <staffs>
         <username>darren96</username>
-        <password>singlenus</password>
+        <password>C4D63B637FB6185F5DCC3D5A98A119E09891DFFCB6713E68BA029C92A0FB9CFB</password>
         <name>Darren Ong Yun Kai</name>
         <role>user</role>
     </staffs>

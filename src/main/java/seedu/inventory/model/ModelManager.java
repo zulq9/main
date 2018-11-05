@@ -33,6 +33,7 @@ import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
+import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -401,6 +402,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(toLogin);
 
         session = new UserSession(toLogin);
+        raise(new ToggleSidePanelVisibilityEvent(true));
     }
 
     @Override
@@ -419,6 +421,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void logoutUser() {
         session.logout();
         versionedInventory.reset();
+        raise(new ToggleSidePanelVisibilityEvent(false));
     }
 
     @Override

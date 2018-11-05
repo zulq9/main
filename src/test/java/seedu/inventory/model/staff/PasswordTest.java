@@ -30,11 +30,28 @@ public class PasswordTest {
         assertFalse(Password.isValidPassword(" "));
         assertFalse(Password.isValidPassword("*****"));
         assertFalse(Password.isValidPassword("john dddd"));
+        assertFalse(Password.isValidPassword("asdasdasdas11123123123"));
 
         // valid password
         assertTrue(Password.isValidPassword("johndddd"));
-        assertTrue(Password.isValidPassword("JohnDDD"));
+        assertTrue(Password.isValidPassword("JohnDDDD"));
         assertTrue(Password.isValidPassword("12341234"));
-        assertTrue(Password.isValidPassword("johnddddddamyth12341234"));
+        assertTrue(Password.isValidPassword("johnddddamyth"));
+    }
+
+    @Test
+    public void isValidHashedPassword() {
+        String hashedPassword = Password.hash("password");
+
+        // null
+        Assert.assertThrows(NullPointerException.class, () -> Password.isValidHashedPassword(null));
+
+        // invalid hash
+        assertFalse(Password.isValidHashedPassword(""));
+        assertFalse(Password.isValidHashedPassword(" "));
+        assertFalse(Password.isValidHashedPassword(hashedPassword.substring(0, 63)));
+
+        // valid hash
+        assertTrue(Password.isValidHashedPassword(hashedPassword));
     }
 }
