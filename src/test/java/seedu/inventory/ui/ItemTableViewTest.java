@@ -3,12 +3,12 @@ package seedu.inventory.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.inventory.testutil.TypicalItems.getTypicalItems;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.ItemTableViewHandle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.inventory.model.item.Item;
 
 public class ItemTableViewTest extends GuiUnitTest {

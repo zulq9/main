@@ -4,13 +4,13 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import seedu.inventory.model.item.Item;
 
 /**
- * Provides a handle for {@code ItemListPanel} containing the list of {@code ItemCard}.
+ * Provides a handle for {@code ItemTableView} containing the list of {@code Item}.
  */
 public class ItemTableViewHandle extends NodeHandle<Node> {
     public static final String ITEM_TABLE_VIEW_ID = "#itemTableView";
