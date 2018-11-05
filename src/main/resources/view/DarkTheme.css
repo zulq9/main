@@ -51,9 +51,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: derive(#1d1d1d, 20%);
+    -fx-control-inner-background: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -72,11 +72,18 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 18pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
+}
+
+.table-row-cell{
+    -fx-cell-size: 32px;
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {

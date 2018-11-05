@@ -20,7 +20,12 @@ import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
 import seedu.inventory.commons.events.model.AccessSaleEvent;
 import seedu.inventory.commons.events.model.AccessStaffEvent;
 import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
+import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
+import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowPurchaseOrderTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowStaffTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
@@ -43,6 +48,11 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private ItemTableView itemTableView;
+    private SaleTableView saleTableView;
+    private StaffTableView staffTableView;
+    private PurchaseOrderTableView purchaseOrderTableView;
+
     private ItemListPanel itemListPanel;
     private PurchaseOrderListPanel purchaseOrderListPanel;
     private SaleListPanel saleListPanel;
@@ -118,6 +128,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
+        itemTableView = new ItemTableView(logic.getFilteredItemList());
+        saleTableView = new SaleTableView(logic.getObservableSaleList());
+        staffTableView = new StaffTableView(logic.getFilteredStaffList());
+        purchaseOrderTableView = new PurchaseOrderTableView(logic.getFilteredPurchaseOrderList());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
@@ -152,7 +166,6 @@ public class MainWindow extends UiPart<Stage> {
         itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
     }
 
-
     private void setPanelStaff() {
         itemListPanelPlaceholder.getChildren().clear();
         itemListPanelPlaceholder.getChildren().add(staffCardListPanel.getRoot());
@@ -161,6 +174,31 @@ public class MainWindow extends UiPart<Stage> {
     private void setPanelSale() {
         itemListPanelPlaceholder.getChildren().clear();
         itemListPanelPlaceholder.getChildren().add(saleListPanel.getRoot());
+    }
+
+    private void setItemTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(itemTableView.getRoot());
+    }
+
+    private void setSaleTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(saleTableView.getRoot());
+    }
+
+    private void setStaffTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(staffTableView.getRoot());
+    }
+
+    private void setPurchaseOrderTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(purchaseOrderTableView.getRoot());
+    }
+
+    private void setBrowserPanel() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
     }
 
     void hide() {
@@ -260,5 +298,35 @@ public class MainWindow extends UiPart<Stage> {
         if (event.isVisible) {
             setPanelPerson();
         }
+    }
+
+    @Subscribe
+    private void handleShowBrowserPanelEvent(ShowBrowserPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setBrowserPanel();
+    }
+
+    @Subscribe
+    private void handleShowItemTableViewEvent(ShowItemTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setItemTableView();
+    }
+
+    @Subscribe
+    private void handleShowSaleTableViewEvent(ShowSaleTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setSaleTableView();
+    }
+
+    @Subscribe
+    private void handleShowStaffTableViewEvent(ShowStaffTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setStaffTableView();
+    }
+
+    @Subscribe
+    private void handleShowPurchaseOrderTableViewEvent(ShowPurchaseOrderTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setPurchaseOrderTableView();
     }
 }

@@ -74,6 +74,25 @@ public interface Model {
     <T> FilteredList<T> getAccessedList();
 
     //=========== Reporting API ========================================================
+    /**
+     * Indicate to show item table view
+     */
+    void showItemTableView();
+
+    /**
+     * Indicate to show sale table view
+     */
+    void showSaleTableView();
+
+    /**
+     * Indicate to show staff table view
+     */
+    void showStaffTableView();
+
+    /**
+     * Indicate to show purchase order table view
+     */
+    void showPurchaseOrderTableView();
 
     /**
      * Export the item list to the file path.
