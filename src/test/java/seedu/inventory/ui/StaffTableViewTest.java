@@ -2,12 +2,12 @@ package seedu.inventory.ui;
 
 import static org.junit.Assert.assertEquals;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.StaffTableViewHandle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.testutil.staff.TypicalStaffs;
 
