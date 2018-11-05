@@ -69,9 +69,29 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    //===================== Report ===============================
     @Override
     public <T> FilteredList<T> getAccessedList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    //===================== Report ===============================
+    @Override
+    public void showItemTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showSaleTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showStaffTableView() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void showPurchaseOrderTableView() {
         throw new AssertionError("This method should not be called.");
     }
 

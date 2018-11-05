@@ -17,10 +17,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.inventory.commons.events.model.AccessItemEvent;
-import seedu.inventory.commons.events.model.AccessPurchaseOrderEvent;
-import seedu.inventory.commons.events.model.AccessSaleEvent;
-import seedu.inventory.commons.events.model.AccessStaffEvent;
+import seedu.inventory.commons.events.model.ItemListExportEvent;
+import seedu.inventory.commons.events.model.ItemListImportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListExportEvent;
+import seedu.inventory.commons.events.model.PurchaseOrderListImportEvent;
+import seedu.inventory.commons.events.model.SaleListExportEvent;
+import seedu.inventory.commons.events.model.SaleListImportEvent;
+import seedu.inventory.commons.events.model.StaffListExportEvent;
+import seedu.inventory.commons.events.model.StaffListImportEvent;
 import seedu.inventory.model.item.NameContainsKeywordsPredicate;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.testutil.InventoryBuilder;
@@ -193,48 +197,48 @@ public class ModelManagerTest {
     @Test
     public void exportItemList() {
         modelManager.exportItemList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessItemEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ItemListExportEvent);
     }
 
     @Test
     public void importItemList() {
         modelManager.importItemList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessItemEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ItemListImportEvent);
     }
 
     @Test
     public void exportSaleList() {
         modelManager.exportSaleList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessSaleEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof SaleListExportEvent);
     }
 
     @Test
     public void importSaleList() {
         modelManager.importSaleList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessSaleEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof SaleListImportEvent);
     }
 
     @Test
     public void exportStaffList() {
         modelManager.exportStaffList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessStaffEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof StaffListExportEvent);
     }
 
     @Test
     public void importStaffList() {
         modelManager.importStaffList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessStaffEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof StaffListImportEvent);
     }
 
     @Test
     public void exportPurchaseOrderList() {
         modelManager.exportPurchaseOrderList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessPurchaseOrderEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof PurchaseOrderListExportEvent);
     }
 
     @Test
     public void importPurchaseOrderList() {
         modelManager.importPurchaseOrderList(Paths.get("dummy"));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AccessPurchaseOrderEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof PurchaseOrderListImportEvent);
     }
 }

@@ -1,0 +1,8 @@
+Item,,,,,
+name,price,quantity,sku,image,tags
+Google Pixel XL,1459.99,3,google-pixel-xl,docs/images/google.jpg,
+LG G7,1099,20,lg-g7,docs/images/lg.jpg,smartphone
+Samsung Note 9,1590,1000,samsung-note-9,docs/images/huawei.jpg,
+OnePlus 6,1234.56,10,oneplus-6,docs/images/oneplus.jpg,
+HTC U6,980,75,htc-u6,docs/images/htc.jpg,
+Samsung S9,1299.99,100,samsung-s9,docs/images/samsung.jpg,"samsung,smartphone"
