@@ -10,7 +10,8 @@ import java.nio.file.Paths;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import seedu.inventory.logic.commands.ExportCsvCommand;
+import seedu.inventory.logic.commands.csv.ExportCsvCommand;
+import seedu.inventory.logic.parser.csv.ExportCsvCommandParser;
 
 public class ExportCsvCommandParserTest {
     private ExportCsvCommandParser parser = new ExportCsvCommandParser();

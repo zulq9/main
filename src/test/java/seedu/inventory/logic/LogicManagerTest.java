@@ -19,6 +19,7 @@ import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.HelpCommand;
 import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.authentication.LoginCommand;
+import seedu.inventory.logic.commands.authentication.LogoutCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.commands.item.ListItemCommand;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
@@ -73,6 +74,19 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_invalidRole_failure() {
+        String deleteStaffCommand = "delete-staff 1";
+        assertCommandException(deleteStaffCommand, LogicManager.MESSAGE_NO_ACCESS);
+    }
+
+    @Test
+    public void execute_logoutCommand_historyCleared() {
+        String logoutCommand = LogoutCommand.COMMAND_WORD;
+        assertCommandSuccess(logoutCommand, LogoutCommand.MESSAGE_SUCCESS, model);
+        assertHistoryEmpty();
+    }
+
+    @Test
     public void isPublicCommand() {
         Staff staff = new StaffBuilder().build();
 
@@ -85,7 +99,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void isUserManagementCommand() {
+    public void isAdminCommand() {
         Staff staff = new StaffBuilder().build();
 
         assertFalse(logic.isAdminCommand(new HelpCommand()));
@@ -106,6 +120,14 @@ public class LogicManagerTest {
 
         assertFalse(logic.isPurchaseOrderApprovalCommand(new ListStaffCommand()));
         assertFalse(logic.isPurchaseOrderApprovalCommand(new ListItemCommand()));
+    }
+
+    @Test
+    public void maskPassword() {
+        String loginCommand = "login u/admin p/password";
+        String maskedPassword = logic.maskPassword(loginCommand);
+        String expectedMask = "login u/admin p/********";
+        assertEquals(expectedMask, maskedPassword);
     }
 
     @Test
@@ -190,6 +212,21 @@ public class LogicManagerTest {
             CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (ParseException | CommandException e) {
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
+        }
+    }
+
+    /**
+     * Asserts that the result display shows empty history upon the execution of
+     * {@code HistoryCommand}.
+     */
+    private void assertHistoryEmpty() {
+        try {
+            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
+            String expectedMessage = String.format(
+                    HistoryCommand.MESSAGE_NO_HISTORY);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);

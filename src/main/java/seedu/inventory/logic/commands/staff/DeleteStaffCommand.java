@@ -26,6 +26,7 @@ public class DeleteStaffCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_STAFF_SUCCESS = "Deleted Staff: %1$s";
+    public static final String MESSAGE_DELETE_SELF_FAILED = "You cannot delete yourself.";
 
     private final Index targetIndex;
 
@@ -43,6 +44,9 @@ public class DeleteStaffCommand extends Command {
         }
 
         Staff staffToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (staffToDelete.equals(model.getUser())) {
+            throw new CommandException(MESSAGE_DELETE_SELF_FAILED);
+        }
         model.deleteStaff(staffToDelete);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_STAFF_SUCCESS, staffToDelete));

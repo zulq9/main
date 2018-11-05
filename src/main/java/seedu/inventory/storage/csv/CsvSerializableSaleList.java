@@ -1,4 +1,4 @@
-package seedu.inventory.storage;
+package seedu.inventory.storage.csv;
 
 import static java.util.Objects.requireNonNull;
 

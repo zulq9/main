@@ -9,10 +9,9 @@ import static seedu.inventory.commons.util.AppUtil.checkArgument;
  */
 public class FilterPrice {
 
-
     public static final String MESSAGE_PRICE_CONSTRAINTS =
-            "Filter Price should only contain numbers and/or a decimal point, and it should be at least 1 digit long. "
-            + "Price can only contain a maximum of 8 digits before the decimal point, "
+            "Filter Price should only contain positive integers and/or a decimal point, and it should be at least "
+            + " 1 digit long. Price can only contain a maximum of 8 digits before the decimal point, "
             + "and 2 digits after the decimal point. A prefix of '<' or '>' is required to indicate what the "
             + "condition for filtering is.";
 

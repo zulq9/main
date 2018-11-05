@@ -11,7 +11,8 @@ public class Quantity {
 
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
-            "Quantity should only contain numbers, and it should not start with a 0";
+            "Quantity should be realistic and only contain positive numbers. Decimals or other characters are not"
+            + " allowed.";
     public static final String QUANTITY_VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 
@@ -23,7 +24,8 @@ public class Quantity {
     public Quantity(String quantity) {
         requireNonNull(quantity);
         checkArgument(isValidQuantity(quantity), MESSAGE_QUANTITY_CONSTRAINTS);
-        value = quantity;
+        checkArgument(isNotOverflowInteger(quantity), MESSAGE_QUANTITY_CONSTRAINTS);
+        value = quantity.replaceFirst("^0+(?!$)", "");
     }
 
     /**
@@ -31,6 +33,19 @@ public class Quantity {
      */
     public static boolean isValidQuantity(String test) {
         return test.matches(QUANTITY_VALIDATION_REGEX);
+    }
+
+    /**
+     * Prevent integer overflow caused by bad users.
+     */
+    public static boolean isNotOverflowInteger(String test) {
+        try {
+            Integer value = Integer.parseInt(test);
+
+            return value <= Integer.MAX_VALUE && value >= Integer.MIN_VALUE;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

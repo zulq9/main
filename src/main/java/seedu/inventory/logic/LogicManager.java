@@ -10,7 +10,10 @@ import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.ExitCommand;
 import seedu.inventory.logic.commands.HelpCommand;
+import seedu.inventory.logic.commands.HistoryCommand;
 import seedu.inventory.logic.commands.authentication.LoginCommand;
+import seedu.inventory.logic.commands.csv.ExportCsvCommand;
+import seedu.inventory.logic.commands.csv.ImportCsvCommand;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.logic.commands.purchaseorder.ApprovePurchaseOrderCommand;
 import seedu.inventory.logic.commands.purchaseorder.RejectPurchaseOrderCommand;
@@ -31,8 +34,8 @@ import seedu.inventory.model.staff.Staff;
  */
 public class LogicManager extends ComponentManager implements Logic {
 
-    private static final String MESSAGE_NO_ACCESS = "You have no permission to use this command.";
-    private static final String MESSAGE_NOT_LOGGED_IN = "You have not logged in.";
+    public static final String MESSAGE_NO_ACCESS = "You have no permission to use this command.";
+    public static final String MESSAGE_NOT_LOGGED_IN = "You have not logged in.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -48,7 +51,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        String commandLog = maskPassword(commandText);
+        logger.info("----------------[USER COMMAND][" + commandLog + "]");
         try {
             Command command = inventoryParser.parseCommand(commandText);
 
@@ -58,7 +62,11 @@ public class LogicManager extends ComponentManager implements Logic {
             checkIsValidRole(command);
             return command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (commandText.contains("logout")) {
+                history.clear();
+            } else {
+                history.add(commandText);
+            }
         }
     }
 
@@ -89,13 +97,15 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public boolean isPublicCommand(Command command) {
-        return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand;
+        return command instanceof HelpCommand || command instanceof LoginCommand || command instanceof ExitCommand
+                || command instanceof HistoryCommand;
     }
 
     @Override
     public boolean isAdminCommand(Command command) {
         return command instanceof AddStaffCommand || command instanceof EditStaffCommand
                 || command instanceof ListStaffCommand || command instanceof DeleteStaffCommand
+                || command instanceof ImportCsvCommand || command instanceof ExportCsvCommand
                 || command instanceof ClearCommand;
     }
 
@@ -115,5 +125,14 @@ public class LogicManager extends ComponentManager implements Logic {
         } else if (isPurchaseOrderApprovalCommand(command) && Staff.Role.admin.equals(role)) {
             throw new CommandException(MESSAGE_NO_ACCESS);
         }
+    }
+
+    @Override
+    public String maskPassword(String commandText) {
+        if (commandText.contains("login") || commandText.contains("change-password")
+                || commandText.contains("add-staff") || commandText.contains("edit-staff")) {
+            return commandText.replaceAll("p/[a-zA-Z-0-9]*", "p/********");
+        }
+        return commandText;
     }
 }

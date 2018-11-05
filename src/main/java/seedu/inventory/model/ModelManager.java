@@ -33,6 +33,7 @@ import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
+import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -89,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetSaleList(ReadOnlySaleList newSaleList) {
-        saleList.resetData(newSaleList);
+        versionedInventory.resetSaleList(newSaleList);
         indicateSaleListChanged();
     }
 
@@ -401,6 +402,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(toLogin);
 
         session = new UserSession(toLogin);
+        raise(new ToggleSidePanelVisibilityEvent(true));
     }
 
     @Override
@@ -419,6 +421,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void logoutUser() {
         session.logout();
         versionedInventory.reset();
+        raise(new ToggleSidePanelVisibilityEvent(false));
     }
 
     @Override
@@ -448,12 +451,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoInventory() {
         versionedInventory.undo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
     public void redoInventory() {
         versionedInventory.redo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
@@ -482,23 +487,23 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Sale ====================================================================================
     @Override
     public ReadOnlySaleList getSaleList() {
-        return saleList;
+        return versionedInventory;
     }
 
     @Override
     public ObservableList<Sale> getObservableSaleList() {
-        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+        return FXCollections.unmodifiableObservableList(versionedInventory.getSaleList());
     }
 
     @Override
     public void addSale(Sale sale) {
-        saleList.addSale(sale);
+        versionedInventory.addSale(sale);
         indicateSaleListChanged();
     }
 
     @Override
     public void deleteSale(Sale sale) {
-        saleList.removeSale(sale);
+        versionedInventory.removeSale(sale);
         indicateSaleListChanged();
     }
 
@@ -518,7 +523,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Raises an event to indicate the model has changed
      */
     private void indicateSaleListChanged() {
-        raise(new SaleListChangedEvent(saleList));
+        raise(new SaleListChangedEvent(versionedInventory));
     }
 
     @Override
