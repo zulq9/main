@@ -257,5 +257,8 @@ public class MainWindow extends UiPart<Stage> {
     private void handleToggleSidePanelVisibilityEvent(ToggleSidePanelVisibilityEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         itemListPanelPlaceholder.setVisible(event.isVisible);
+        if (event.isVisible) {
+            setPanelPerson();
+        }
     }
 }
