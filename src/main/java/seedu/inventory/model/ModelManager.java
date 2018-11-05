@@ -34,6 +34,7 @@ import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
+import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -140,51 +141,59 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Reporting  ===============================================================================
     @Override
+    public void showItemTableView() {
+        raise(new ShowItemTableViewEvent());
+    }
+
+    @Override
     public void exportItemList(Path filePath) {
-        raise(new ItemListExportEvent(versionedInventory, filePath));
         indicateAccessItem();
+        showItemTableView();
+        raise(new ItemListExportEvent(versionedInventory, filePath));
+
     }
 
     @Override
     public void importItemList(Path filePath) {
-        raise(new ItemListImportEvent(filePath));
         indicateAccessItem();
+        showItemTableView();
+        raise(new ItemListImportEvent(filePath));
     }
 
     @Override
     public void exportSaleList(Path filePath) {
-        raise(new SaleListExportEvent(saleList, filePath));
         indicateAccessSale();
+        raise(new SaleListExportEvent(saleList, filePath));
     }
 
     @Override
     public void importSaleList(Path filePath) {
-        raise(new SaleListImportEvent(versionedInventory, filePath));
         indicateAccessSale();
+        raise(new SaleListImportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void exportStaffList(Path filePath) {
-        raise(new StaffListExportEvent(versionedInventory, filePath));
         indicateAccessStaff();
+        raise(new StaffListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importStaffList(Path filePath) {
-        raise(new StaffListImportEvent(filePath));
         indicateAccessStaff();
+        raise(new StaffListImportEvent(filePath));
     }
 
     @Override
     public void exportPurchaseOrderList(Path filePath) {
-        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
         indicatePurchaseOrder();
+        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importPurchaseOrderList(Path filePath) {
-        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
         indicatePurchaseOrder();
+        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
     }
 
     //=========== Item  ====================================================================================

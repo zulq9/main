@@ -1,6 +1,5 @@
 package seedu.inventory.ui;
 
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -10,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 
-import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.storage.csv.CsvAdaptedTag;
 
@@ -19,7 +17,6 @@ import seedu.inventory.storage.csv.CsvAdaptedTag;
  */
 public class ItemTableView extends UiPart<Region> {
     private static final String FXML = "ItemTableView.fxml";
-    private final Logger logger = LogsCenter.getLogger(ItemTableView.class);
 
     @FXML
     private TableView<Item> itemTableView;

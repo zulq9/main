@@ -74,6 +74,10 @@ public interface Model {
     <T> FilteredList<T> getAccessedList();
 
     //=========== Reporting API ========================================================
+    /**
+     * Indicate to show item table view
+     */
+    void showItemTableView();
 
     /**
      * Export the item list to the file path.
