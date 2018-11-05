@@ -248,6 +248,19 @@ public abstract class InventorySystemTest {
     }
 
     /**
+     * Asserts that the entire status bar remains the same.
+     */
+    protected void assertStatusBarUnchangedExceptSyncStatus(boolean checkSyncStatus) {
+        if (checkSyncStatus) {
+            assertStatusBarUnchangedExceptSyncStatus();
+        } else {
+            StatusBarFooterHandle handle = getStatusBarFooter();
+            assertFalse(handle.isSaveLocationChanged());
+        }
+
+    }
+
+    /**
      * Asserts that only the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */
