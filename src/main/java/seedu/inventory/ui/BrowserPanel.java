@@ -23,6 +23,7 @@ import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
+import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
@@ -160,12 +161,14 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        raise(new ShowBrowserPanelEvent());
         loadItemPage(event.getNewSelection());
     }
 
     @Subscribe
     private void handlePurchaseOrderPanelSelectionChangedEvent(PurchaseOrderSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        raise(new ShowBrowserPanelEvent());
         loadPurchaseOrderPage(event.getNewSelection());
     }
 }
