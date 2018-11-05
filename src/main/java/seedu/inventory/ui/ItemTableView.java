@@ -40,7 +40,7 @@ public class ItemTableView extends UiPart<Region> {
     private void setConnections(ObservableList<Item> itemList) {
         itemTableView.setItems(itemList);
         name.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getName().fullName));
-        price.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getPrice().value));
+        price.setCellValueFactory(item -> new SimpleStringProperty("$" + item.getValue().getPrice().value));
         quantity.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getQuantity().value));
         sku.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getSku().value));
         tag.setCellValueFactory(item -> new SimpleStringProperty(CsvAdaptedTag

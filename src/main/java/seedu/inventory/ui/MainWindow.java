@@ -23,6 +23,7 @@ import seedu.inventory.commons.events.ui.ExitAppRequestEvent;
 import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
 import seedu.inventory.commons.events.ui.ShowHelpRequestEvent;
 import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.logic.Logic;
 import seedu.inventory.model.UserPrefs;
@@ -46,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private ItemTableView itemTableView;
+    private SaleTableView saleTableView;
 
     private ItemListPanel itemListPanel;
     private PurchaseOrderListPanel purchaseOrderListPanel;
@@ -123,6 +125,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         itemTableView = new ItemTableView(logic.getFilteredItemList());
+        saleTableView = new SaleTableView(logic.getObservableSaleList());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
@@ -170,6 +173,11 @@ public class MainWindow extends UiPart<Stage> {
     private void setItemTableView() {
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(itemTableView.getRoot());
+    }
+
+    private void setSaleTableView() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(saleTableView.getRoot());
     }
 
     private void setBrowserPanel() {
@@ -286,5 +294,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowItemTableViewEvent(ShowItemTableViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setItemTableView();
+    }
+
+    @Subscribe
+    private void handleShowSaleTableViewEvent(ShowSaleTableViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setSaleTableView();
     }
 }

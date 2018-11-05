@@ -35,6 +35,7 @@ import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
 import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
 import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
 import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
@@ -146,6 +147,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void showSaleTableView() {
+        raise(new ShowSaleTableViewEvent());
+    }
+
+    @Override
     public void exportItemList(Path filePath) {
         indicateAccessItem();
         showItemTableView();
@@ -163,12 +169,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void exportSaleList(Path filePath) {
         indicateAccessSale();
+        showSaleTableView();
         raise(new SaleListExportEvent(saleList, filePath));
     }
 
     @Override
     public void importSaleList(Path filePath) {
         indicateAccessSale();
+        showSaleTableView();
         raise(new SaleListImportEvent(versionedInventory, filePath));
     }
 

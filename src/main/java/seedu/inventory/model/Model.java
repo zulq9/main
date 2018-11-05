@@ -80,6 +80,11 @@ public interface Model {
     void showItemTableView();
 
     /**
+     * Indicate to show sale table view
+     */
+    void showSaleTableView();
+
+    /**
      * Export the item list to the file path.
      *
      * @param filePath The path to export.
