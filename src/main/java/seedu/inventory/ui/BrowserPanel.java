@@ -24,6 +24,7 @@ import seedu.inventory.commons.core.LogsCenter;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
+import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 
@@ -148,6 +149,7 @@ public class BrowserPanel extends UiPart<Region> {
                                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)
                 )
         );
+        setItemVisibility(false);
     }
 
     /**
@@ -170,5 +172,12 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         raise(new ShowBrowserPanelEvent());
         loadPurchaseOrderPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowDefaultPageEvent(ShowDefaultPageEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        raise(new ShowBrowserPanelEvent());
+        loadDefaultPage();
     }
 }
