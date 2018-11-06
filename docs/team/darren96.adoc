@@ -61,12 +61,8 @@ include::../UserGuide.adoc[tag=userManagement]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=authentication]
 include::../DeveloperGuide.adoc[tag=userCreation]
-include::../DeveloperGuide.adoc[tag=usecaseAuthentication]
-include::../DeveloperGuide.adoc[tag=usecaseUserManagement]
-include::../DeveloperGuide.adoc[tag=testcaseAuthentication]
-include::../DeveloperGuide.adoc[tag=testcaseUserManagement]
-
 
 == PROJECT: PeerNUS
 
