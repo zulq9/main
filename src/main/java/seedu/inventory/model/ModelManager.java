@@ -102,9 +102,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetStaffList(ReadOnlyStaffList newStaffList) {
         versionedInventory.resetStaffList(newStaffList);
-        if (!versionedInventory.hasStaff(getUser())) {
-            versionedInventory.addStaff(getUser());
-        }
         indicateInventoryChanged();
     }
 
@@ -579,7 +576,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     @Subscribe
     public void handleStaffListUpdateEvent(StaffListUpdateEvent event) {
-        resetStaffList(event.staffList);
+        StaffList staffList = new StaffList(event.staffList);
+        if (!staffList.hasStaff(getUser())) {
+            staffList.addStaff(getUser());
+        }
+        resetStaffList(staffList);
     }
 
     @Override
