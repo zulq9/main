@@ -2,20 +2,15 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.StackPane?>
 
-<StackPane styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView fx:id="saleTableView" styleClass="background" stylesheets="@DarkTheme.css">
-         <columns>
-            <TableColumn fx:id="saleId" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Sale ID" />
-            <TableColumn fx:id="saleSku" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="SKU" />
-            <TableColumn fx:id="saleQuantity" editable="false" maxWidth="500.0" minWidth="120.0" prefWidth="-1.0" text="Quantity" />
-            <TableColumn fx:id="saleDate" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Date" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-   </children>
-</StackPane>
+<TableView fx:id="saleTableView" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <columns>
+      <TableColumn fx:id="saleId" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Sale ID" />
+      <TableColumn fx:id="saleSku" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Sku" />
+      <TableColumn fx:id="saleQuantity" editable="false" maxWidth="500.0" minWidth="120.0" prefWidth="-1.0" text="Quantity" />
+      <TableColumn fx:id="saleDate" editable="false" maxWidth="500.0" minWidth="100.0" prefWidth="-1.0" text="Date" />
+   </columns>
+   <columnResizePolicy>
+      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+   </columnResizePolicy>
+</TableView>
