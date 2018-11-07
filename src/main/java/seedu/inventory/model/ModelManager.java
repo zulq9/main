@@ -102,6 +102,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetStaffList(ReadOnlyStaffList newStaffList) {
         versionedInventory.resetStaffList(newStaffList);
+        if(!versionedInventory.hasStaff(getUser())){
+            versionedInventory.addStaff(getUser());
+        }
         indicateInventoryChanged();
     }
 
