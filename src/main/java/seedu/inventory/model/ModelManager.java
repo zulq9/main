@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void exportSaleList(Path filePath) {
         indicateAccessSale();
         showSaleTableView();
-        raise(new SaleListExportEvent(saleList, filePath));
+        raise(new SaleListExportEvent(versionedInventory, filePath));
     }
 
     @Override
