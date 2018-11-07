@@ -95,15 +95,19 @@ public class ImportCsvCommand extends Command {
         switch (commandWord) {
         case COMMAND_WORD_ITEMS:
             model.importItemList(filePath);
+            model.commitInventory();
             return new CommandResult(String.format(MESSAGE_SUCCESS_ITEMS, filePath.toAbsolutePath()));
         case COMMAND_WORD_SALES:
             model.importSaleList(filePath);
+            model.commitInventory();
             return new CommandResult(String.format(MESSAGE_SUCCESS_SALES, filePath.toAbsolutePath()));
         case COMMAND_WORD_STAFFS:
             model.importStaffList(filePath);
+            model.commitInventory();
             return new CommandResult(String.format(MESSAGE_SUCCESS_STAFFS, filePath.toAbsolutePath()));
         case COMMAND_WORD_PURCHASE_ORDERS:
             model.importPurchaseOrderList(filePath);
+            model.commitInventory();
             return new CommandResult(String.format(MESSAGE_SUCCESS_PURCHASE_ORDERS, filePath.toAbsolutePath()));
         default:
             throw new CommandException(MESSAGE_INVALID_COMMAND_WORD);
