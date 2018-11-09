@@ -512,13 +512,11 @@ All authenticated users can manage sale orders on the system using the commands 
 
 ==== Creating a sale order : `add-sale`
 
-The `add-sale` command allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
+The `add-sale` command is only available to the Member group. It allows the user to add a new sale order into Inventory Manager. Adding a new sale order will deduct the
 item quantity automatically. User will need to ensure that the entered item SKU and sold quantity is valid.
 
-Entering an invalid SKU that cannot be found in Inventory Manager will result in an error shown on screen.
-Entering a quantity that is greater than the available item quantity will result in an error shown on screen too. +
-
-This command is available to *members* only. +
+If an invalid SKU or quantity is entered, Inventory Manager will display an error on screen. The screenshot below is an example of
+an error when an invalid SKU is entered.
 
 image::doc-add-sale-failed.png[width="790"]
 _Figure 4.7. Error shown on screen when creating a sale order with invalid SKU._
@@ -532,12 +530,11 @@ Example:
 
 ==== Deleting a sale order : `delete-sale`
 
-The `delete-sale` command allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
+The `delete-sale` command is only available to the Member group. It allows the user to delete a specific sale order in Inventory Manager. Deleting a sale order will restore
 the inventory quantity deducted automatically. User will need to ensure that the entered sale ID is valid.
 
-Entering an invalid sale ID that cannot be found in Inventory Manager will result in an error shown on screen. +
-
-This command is available to *members* only. +
+If a sale ID that cannot be found is entered, Inventory Manager will display an error on screen. The
+screenshot below is an example of an error when an invalid sale ID is entered.
 
 image::doc-delete-sale-failed.png[width="790"]
 _Figure 4.8. Error shown on screen when deleting a sale order that cannot be found._
@@ -551,8 +548,9 @@ Example:
 
 ==== Listing sale orders : `list-sale`
 
-The `list-sale` command allows the user to list all sale orders in Inventory Manager. +
-This command is available to *members* only. +
+The `list-sale` command is only available to the Member group. It allows the user to list all sale orders in Inventory Manager.
+
+The screenshot below shows the result after the `list-sale` command is entered.
 
 image::doc-list-sale.png[width="790"]
 _Figure 4.9. All sales in Inventory Manager listed on screen._
@@ -873,14 +871,14 @@ an Excel software.
 
 A graphical user interface (GUI) is an interface through which a user interacts with the software.
 
+*Member*
+
+This refers to the user role Admin, Staff and Manager.
+
 *SKU (Stock Keeping Unit)*
 
 A Stock Keeping Unit is a product identification code assigned to a product.
 
 *User*
 
-Refers to everyone that is using the application; Non-member and member(Admin, Staff and Manager).
-
-*Member*
-
-Refers to Admin, Staff and Manager.
+This refers to everyone that uses Inventory Manager, which includes the Members and non-logged in users.
