@@ -306,7 +306,7 @@ The following commands are mainly used for users to manage the items stored in t
 
 [NOTE]
 ====
-An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be unique.
+An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be *unique*.
 ====
 
 ==== Adding an item : `add-item`
@@ -330,9 +330,9 @@ This command is available to *members* only. +
 
 Format: `list-item`
 
-Upon entering the `list-item` command into the command box and pressing kbd:[Enter], a list of all items will appear as can be seen in the screenshot below.
+Upon entering the `list-item` command into the command box and pressing kbd:[Enter], a list of all items will appear as can be seen in the screenshot below:
 
-image::doc-list-item.png[width="790"]
+image::doc-list-item.png[width="500"]
 _Figure 4.5. All items in Inventory Manager listed on screen._
 
 ==== Listing all items with low quantities : `list-low-qty`
@@ -344,27 +344,33 @@ Format: `list-low-qty`
 
 [NOTE]
 ====
-An item is considered to have a `low quantity` if it has a quantity of 10 or less.
+- An item is considered to have a `low quantity` if it has a quantity of 10 or less.
+
+- An item that is on `low quantity` will have its quantity highlighted in red with a warning sign when selected.
 ====
 
 Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], a list of all items with quantities
-of 10 or less will appear as can be seen in the screenshot below.
+of 10 or less will appear.
 
 ==== Editing an item : `edit-item`
 
 The `edit-item` command edits an existing item in the Inventory Manager. +
-It also edits all the purchase orders that contains the existing item to the edited item if the sku is changed. +
 This command is available to *members* only. +
 
 Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
 
+[NOTE]
+====
+If the edited item has its SKU changed and it exists in a purchase order, the purchase order will also be edited accordingly based on the edited item's new SKU.
+====
+
 For the `edit-item` command, do take note of the following points:
 ****
 * Update the item at the specified `INDEX`. The index refers to the index number shown in the displayed inventory list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When updating tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
-* You can remove all the item's tags by typing `t/` without specifying any tags after it.
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When updating tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the item's tags by typing `t/` without specifying any tags after it
 ****
 
 Examples:
@@ -388,14 +394,14 @@ For the `find-item` command, do take note of the following points:
 ****
 * The search is case insensitive. e.g `iphone` will match `IPhone`
 * The order of the keywords does not matter. e.g. `X IPhone` will match `IPhone X`
-* Only the name of the item is searched.
+* Only the name of the item is searched
 * Only full words will be matched e.g. `phone` will not match `IPhone`
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
+* Items matching at least one keyword will be returned (i.e. an `OR` search). e.g. `Iphone 10` will return `IPhone X`, `Samsung 10`
 ****
 
-The following demonstrates entering the `find-item` command in the command box with the keyword `LG`, followed by kbd:[Enter].
+The following screenshot demonstrates entering the `find-item` command in the command box with the keyword `LG`, followed by kbd:[Enter]:
 
-image::doc-find-item.png[width="790"]
+image::doc-find-item.png[width="500"]
 _Figure 4.6. The item(s) searched for will be displayed on screen._
 
 Example:
@@ -415,14 +421,12 @@ Just like the `find-item` command, multiple keywords are allowed for the `find-i
 
 For the `find-item-sku` command, do take note of the following points:
 ****
-* Partial keywords will be matched e.g. `sn` will match items with SKUs `SN-1234` and `SN4321`
+* *Partial* keywords will be matched e.g. `SN` will match items with SKUs `SN-1234` and `SN4321`
 * The search is case insensitive. e.g `sn-1234` will match item(s) containing the SKU `SN-1234`
-* Only the SKU of the item is searched.
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `iphone sn` will return
+* Only the SKU of the item is searched
+* Items matching at least one keyword will be returned. e.g. `iphone sn` will return
 items with SKUs containing the SKUs `iphone-s9-9234`, `SN-1234`
 ****
-
-The following demonstrates entering the `find-item-sku` command in the command box with the keyword `lg-g7`, followed by kbd:[Enter].
 
 Example:
 
@@ -436,34 +440,44 @@ This command is available to *members* only. +
 
 Format: `filter-item [p/[<][>]PRICE] [q/[<][>]QUANTITY]`
 
+[TIP]
+You can combine both conditions or use only one condition to filter your items.
+
+
 For the `filter-item` command, do take note of the following points:
 ****
-* At least one of the optional fields must be provided.
-* `'<'` represents `less than or equals to` e.g. `q/<30` represents quantity less than or equals to 30
-* `'>'` represents `more than or equals to` e.g. `p/>500` represents price more than or equals to 500
-* For price, both whole numbers and decimals are allowed.
-* For quantity, only whole numbers are allowed.
+* At least one of the optional fields must be provided (i.e. either the `q/` field or `p/` field must be present)
+* `'<'` represents `less than or equals to`. e.g. `q/<30` represents quantity less than or equals to 30
+* `'>'` represents `more than or equals to`. e.g. `p/>500` represents price more than or equals to 500
+* For price, both whole numbers and decimals are allowed
+* For quantity, only whole numbers are allowed
 ****
 
-[TIP]
-You can combine both conditions or use only one condition to filter your products.
+The following screenshot demonstrates entering the `filter-item` command in the command box with the condition `q/>85` (i.e. quantity more than or equals to 85), followed by kbd:[Enter]:
 
-The following demonstrates entering the `filter-item` command in the command box with the condition `p/<100`, followed by kbd:[Enter].
+image::doc-filter-item.png[width="500"]
+_Figure 4.7. The item(s) filtered for based on the condition(s) set will be displayed on screen._
 
-Example:
+Examples:
 
 * `filter-item p/>900` +
 Returns `IPhone X` and `IPhone 10` which both have prices more than or equal to $900.
 * `filter-item q/<100` +
 Returns `LG G7` and `Samsung Note 9` which both have quantities less than or equal to 100.
+* `filter-item p/<800 q/<100` +
+Returns `Samsung Note 9` which has a price of less than or equals to $800, and a quantity of less than or equals to 100.
 
 ==== Deleting an item : `delete-item`
 
 The `delete-item` command deletes the specified item from the inventory. +
-It also deletes all purchase orders that contains the deleted item. +
 This command is available to *members* only. +
 
 Format: `delete-item INDEX`
+
+[NOTE]
+====
+All purchase orders containing the deleted item will be deleted as well.
+====
 
 For the `delete-item` command, do take note of the following points:
 ****
@@ -519,7 +533,7 @@ If an invalid SKU or quantity is entered, Inventory Manager will display an erro
 an error when an invalid SKU is entered.
 
 image::doc-add-sale-failed.png[width="790"]
-_Figure 4.7. Error shown on screen when creating a sale order with invalid SKU._
+_Figure 4.8. Error shown on screen when creating a sale order with invalid SKU._
 
 Format: `add-sale s/SKU q/QTY`
 
@@ -537,7 +551,7 @@ If a sale ID that cannot be found is entered, Inventory Manager will display an 
 screenshot below is an example of an error when an invalid sale ID is entered.
 
 image::doc-delete-sale-failed.png[width="790"]
-_Figure 4.8. Error shown on screen when deleting a sale order that cannot be found._
+_Figure 4.9. Error shown on screen when deleting a sale order that cannot be found._
 
 Format: `delete-sale SALE-ID`
 
@@ -553,7 +567,7 @@ The `list-sale` command is only available to the Member group. It allows the use
 The screenshot below shows the result after the `list-sale` command is entered.
 
 image::doc-list-sale.png[width="790"]
-_Figure 4.9. All sales in Inventory Manager listed on screen._
+_Figure 4.10. All sales in Inventory Manager listed on screen._
 
 Format: `list-sale`
 
@@ -574,7 +588,7 @@ The `list-po` command shows a list of all the purchase order. +
 This command is available to *members* only. +
 
 image::doc-list-po.png[width="790"]
-_Figure 4.10. All purchase orders in Inventory Manager listed on screen._
+_Figure 4.11. All purchase orders in Inventory Manager listed on screen._
 
 Format: `list-po`
 
@@ -614,7 +628,7 @@ Examples:
 Approves the first purchase order in the purchase order list.
 
 image::doc-delete-po.png[width="790"]
-_Figure 4.11. Approves the specified purchase order by the it's index in the list._
+_Figure 4.12. Approves the specified purchase order by the it's index in the list._
 
 ==== Rejecting a purchase order : `reject-po`
 
@@ -709,7 +723,7 @@ Format: `export-csv-sales f/FILEPATH`
 The `export-csv-items` command export the list of items in CSV format to the filepath given.
 
 image::doc-export-csv-item.png[width="790"]
-_Figure 4.12. Export successful prompt will be shown upon completion of export._
+_Figure 4.13. Export successful prompt will be shown upon completion of export._
 
 Format: `export-csv-items f/FILEPATH`
 
