@@ -113,6 +113,9 @@ public class XmlAdaptedItem {
         if (!Quantity.isValidQuantity(quantity)) {
             throw new IllegalValueException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
         }
+        if (!Quantity.isNotOverflowInteger(quantity)) {
+            throw new IllegalValueException(Quantity.MESSAGE_QUANTITY_CONSTRAINTS);
+        }
         final Quantity modelQuantity = new Quantity(quantity);
 
         if (sku == null) {
