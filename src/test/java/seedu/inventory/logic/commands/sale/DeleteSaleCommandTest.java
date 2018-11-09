@@ -167,6 +167,11 @@ public class DeleteSaleCommandTest {
         }
 
         @Override
+        public void commitInventory() {
+            assert true;
+        }
+
+        @Override
         public void deleteSale(Sale sale) {
             salesAdded.removeSale(sale);
         }

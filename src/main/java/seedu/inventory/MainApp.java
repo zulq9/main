@@ -139,6 +139,7 @@ public class MainApp extends Application {
             }
 
             readOnlySaleList = saleListOptional.orElse(new SaleList());
+            Inventory.class.cast(initialData).resetData(readOnlySaleList);
         } catch (DataConversionException e) {
             logger.warning("Data file for sale list not in the correct format."
                     + " Will be starting with an empty sale list");

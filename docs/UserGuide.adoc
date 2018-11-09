@@ -61,7 +61,7 @@ _Figure 3.2. The command box in Inventory Manager._
 A good start is entering the command *`help`* and pressing kbd:[Enter], it will open the help window.
 
 As a first time user, you can enter the command *`login u/admin p/password`* to login to the Inventory Manager as a
-as a super-admin.
+super-admin.
 This super-admin account is a default administrator account.
 
 Below are some other commands you can try after logging into the system:
@@ -192,10 +192,7 @@ The following commands are mainly used for admin to manage the users and for use
 
 ==== Login to the system : `login`
 The `login` command allows the user to login with the given username and password. +
-This command is available to *any user*. +
-
-image::doc-login.png[width="790"]
-_Figure 4.1. User is required to login before proceeding._
+This command is available to any user. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
@@ -204,14 +201,14 @@ Examples:
 * Login user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
+image::doc-login.png[width="500"]
+_Figure 4.1. User is required to login before proceeding._
+
 ==== Change user's password : `change-password`
 
 The `change-password` command updates a user password into the system with given new password. +
 If there are multiple inputs for the new password, then only the last input of the new password is accepted. +
 This command is available to *members* only. +
-
-image::doc-change-password.png[width="790"]
-_Figure 4.2. User attempting to change password._
 
 
 Format: `change-password p/NEW_PASSWORD`
@@ -221,10 +218,13 @@ Examples:
 * Change user's password with given new password as darrensinglenus. +
  `change-password p/darrensinglenus`.
 
+image::doc-change-password.png[width="500"]
+_Figure 4.2. User attempting to change password._
+
 ==== Logout from the system : `logout`
 
 The `logout` Logout the current users from the system. +
-This command is available to *members* only. +
+This command is available to members only. +
 
 Format: `logout`
 
@@ -243,7 +243,7 @@ Admin of the system manages the staffs who use this application.
 ==== Adding a user : `add-staff`
 
 The `add-staff` command adds a user into the system. +
-This command is available to *admins* only. +
+This command is available to admins only. +
 
 Format: `add-staff n/NAME u/USERNAME p/PASSWORD r/ROLE`
 
@@ -257,17 +257,17 @@ Examples:
 ==== Listing all the users : `list-staff`
 
 The `list-staff` command displays a list of existing users in the system. +
-This command is available to *admins* only. +
+This command is available to admins only. +
+
+Format: `list-staff`
 
 image::doc-list-user.png[width="790"]
 _Figure 4.3. All users in Inventory Manager listed on screen._
 
-Format: `list-staff`
-
 ==== Updating a user : `edit-staff`
 
 The `edit-staff` command updates a user information into the system with given username. +
-This command is available to *admins* only. +
+This command is available to admins only. +
 
 Format: `edit-staff INDEX [n/NAME] [u/USERNAME] [p/PASSWORD] [r/ROLE]`
 
@@ -276,19 +276,16 @@ Remark: `ROLE` can only be either `user`, `manager` or `admin`.
 Examples:
 
 * Edit staff with given id, 2 in the list. Change name to Yao Teng Xiong and role as admin. +
- `update-staff 2 n/Yao Teng Xiong r/admin`.
+ `edit-staff 2 n/Yao Teng Xiong r/admin`.
 
 ==== Deleting a user : `delete-staff`
 
 The `delete-staff` command deletes a user from the system with given index as shown in the list. +
-This command is available to *admins* only. +
+This command is available to admins only. +
 
 
 An error will be shown if the entered index is invalid.
-`edit-user 2 u/yaotx n/Yao Teng Xiong r/admin`.
-
-image::doc-delete-user-failed.png[width="790"]
-_Figure 4.4. Error shown if the deleted index is invalid._
+`delete-staff 999`.
 
 Format: `delete-staff INDEX`
 
@@ -296,6 +293,9 @@ Examples:
 
 * Delete user with given index as shown in the list. +
  `delete-staff 1`.
+
+image::doc-delete-user-failed.png[width="500" center="true"]
+_Figure 4.4. Error shown if the deleted index is invalid._
 
 // end::userManagement[]
 
@@ -700,7 +700,7 @@ All the command in this section is available to *admins* only. +
 * The parent directories will be created if they do not exist.
 ****
 
-===== Exporting list of sales to CSV: `export-csv-sales`
+===== Exporting sales report to CSV: `export-csv-sales`
 
 The `export-csv-sales` command export the sales report in CSV format to the filepath given.
 
@@ -747,7 +747,7 @@ Format: `export-im f/FILEPATH`
 * Original data in *Inventory Manager* will be overwritten.
 * Data in the CSV file must be recognizable by *Inventory Manager*.
 ****
-===== Importing list of sales from CSV: `import-csv-sales`
+===== Importing sales report from CSV: `import-csv-sales`
 
 The `import-csv-sales` command imports the sales report in CSV format from the filepath given.
 
@@ -846,14 +846,16 @@ The following table summarises commands available in Inventory Manager, along wi
 |`Delete Purchase Order`|  `delete-po` | `delete-po 1` | `Member`
 // Report
 4+| *Reports Management*
-|`Export List of Sales to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv` | `Admin`
+|`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv` | `Admin`
 |`Export List of Items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/C:/out/items.csv` | `Admin`
 |`Export List of Users to CSV` |`export-csv-staffs f/FILEPATH` |`export-csv-staffs f/C:/out/users.csv` | `Admin`
-|`Export List of Purchase Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv` | `Admin`
-|`Import List of Sales from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv` | `Admin`
+|`Export List of Sale Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv` | `Admin`
+|`Export Entire Data to .im File` |`export-im f/FILEPATH` |`export-im f/C:/out/data.im` | `Admin`
+|`Import Sales Report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv` | `Admin`
 |`Import List of Items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/C:/in/items.csv` | `Admin`
 |`Import List of Users from CSV`  |`import-csv-staffs f/FILEPATH` |`import-csv-staffs f/C:/in/users.csv` | `Admin`
-|`Import List of Purchase Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv` | `Admin`
+|`Import List of Sale Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv` | `Admin`
+|`Import Entire Data From .im File` |`import-im f/FILEPATH` |`import-im f/C:/in/data.im` | `Admin`
 |=====================================================================================================
 
 

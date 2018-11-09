@@ -339,49 +339,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::userCreation[]
-=== Users Creation
-
-Creating a user will have the staff's account created. Below will describe how this
-feature is implemented in Inventory Manager.
-
-==== Implementation
-
-The creation of user is handled by `AddStaffCommand`. The use of it will trigger `Model#addUser`,
-which will add the user into the Inventory Manager. However, for `AddStaffCommand#execute` to be successful,
-there are two conditions which needs to be met.
-
-===== Conditions
-
-The following two conditions must be met before.
-
-. Current user who are executing the command must be a user with admin role.
-. The staff with same identity which are username and password cannot exists in the staff list.
-
-`AddStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
-`CommandException` will be thrown and it will not call `Model#addStaff`.
-
-==== Design Consideration
-
-There are a few design considerations when creating a staff. Below will explain the various considerations and the
-choices made.
-
-===== Aspect: Where `addUser` executes
-
-There are various places where `addUser` can be executed. The pros and cons for each option is shown below.
-
-. Executed at Logic +
-* Pros: Easy to implement +
-* Cons: Direct calling of `Model#addUser` will not be validated.
-. Executed at Model
-* Pros: Ensures that all entries are validated before sale can be created. +
-* Cons: `Model#addUser` will need to access staff list to perform validations.
-
-Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
-`Model#addUser` to read the inventory and perform validations.
-
-// end::userCreation[]
-
 // tag::saleOrderCreation[]
 === Sale Order Creation
 
@@ -444,6 +401,92 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+// tag::authentication[]
+=== Authentication
+
+*Authentication is introduced in Inventory Management to *allow users to login to the system to perform their inventory
+management tasks*.
+
+Authentication component is to help the SMEs to strengthen their security on the data in the inventory manager. It is also
+to prevent any unidentified users to be able to access the application.
+
+==== Implementation
+
+===== Logic Component
+
+Authentication will be largely involved in the Logic Component. This is because logic component will identify whether a user of the
+application is authenticated and authorized to execute the commands.
+
+===== Model Component
+
+Authentication has a #UserSession stores in the Model Component of the system. This is due to this component has to be largely relied on
+when the commands are executed.
+
+The user session are represented by `staff` and `isLogin`.
+User session can only be created after the user executed the login command and authenticated his/her identity.
+Newly created user session object comes with a `isLogin` status with true which indicates the user is logged in.
+
+==== Design Considerations
+
+**Aspect:** Where `authenticateUser` is executed +
+There are various places where `authenticateUser` can be executed. The pros and cons for each option is shown below.
+
+**Alternative 1 (current choice):** Executed at Logic +
+**Pros:** Easy to implement. +
+**Cons:** Direct calling of `Model.authenticateUser()` will not be validated. +
+
+**Alternative 2:** Executed at Model +
+**Pros:** Ensures that all entries are validated before sale can be created. +
+**Cons:**`Model.authenticateUser()` will need to access inventory to perform validations..
+
+Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
+`Model.authenticateUser()` to read the inventory and perform validations.
+
+// end::authentication[]
+
+// tag::userCreation[]
+=== Users Creation
+
+Creating a user will have the staff's account created. Below will describe how this
+feature is implemented in Inventory Manager.
+
+==== Implementation
+
+The creation of user is handled by `AddStaffCommand`. The use of it will trigger `Model#addUser`,
+which will add the user into the Inventory Manager. However, for `AddStaffCommand#execute` to be successful,
+there are two conditions which needs to be met.
+
+===== Conditions
+
+The following two conditions must be met before.
+
+. Current user who are executing the command must be a user with admin role.
+. The staff with same identity which are username and password cannot exists in the staff list.
+
+`AddStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
+`CommandException` will be thrown and it will not call `Model#addStaff`.
+
+==== Design Consideration
+
+There are a few design considerations when creating a staff. Below will explain the various considerations and the
+choices made.
+
+===== Aspect: Where `add-staff` executes
+
+There are various places where `add-staff` can be executed. The pros and cons for each option is shown below.
+
+. Executed at Logic +
+* Pros: Easy to implement +
+* Cons: Direct calling of `Model#addStaff` will not be validated.
+. Executed at Model
+* Pros: Ensures that all entries are validated before sale can be created. +
+* Cons: `Model#addStaff` will need to access staff list to perform validations.
+
+Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
+`Model#addUser` to read the inventory and perform validations.
+
+// end::userCreation[]
 
 // tag::exportCsv[]
 === Export CSV mechanism

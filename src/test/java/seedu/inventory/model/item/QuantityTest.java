@@ -44,4 +44,20 @@ public class QuantityTest {
         assertTrue(Quantity.isValidQuantity("93121534"));
         assertTrue(Quantity.isValidQuantity("124293842033123")); // long quantities
     }
+
+    @Test
+    public void isNotOverflowInteger() {
+        // overflow
+        assertFalse(Quantity.isNotOverflowInteger("100000000000000000000000")); // empty string
+
+        // not overflow
+        assertTrue(Quantity.isValidQuantity("9")); // less than 3 numbers
+        assertTrue(Quantity.isValidQuantity("91")); // less than 3 numbers
+        assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
+        assertTrue(Quantity.isValidQuantity("9114")); // exactly 4 numbers
+        assertTrue(Quantity.isValidQuantity("91141")); // exactly 5 numbers
+        assertTrue(Quantity.isValidQuantity("623123")); // exactly 5 numbers
+        assertTrue(Quantity.isValidQuantity("93121534"));
+        assertTrue(Quantity.isValidQuantity("124293842033123")); // long quantities
+    }
 }

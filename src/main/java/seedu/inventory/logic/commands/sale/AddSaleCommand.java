@@ -32,6 +32,7 @@ public class AddSaleCommand extends Command {
             + PREFIX_QUANTITY + "QUANTITY";
     public static final String MESSAGE_ITEM_NOT_FOUND = "Sale creation failed. SKU %1$s not found.";
     public static final String MESSAGE_QUANTITY_INSUFFICIENT = "Quantity insufficient. Only %1$s available.";
+    public static final String MESSAGE_QUANTITY_INVALID = "Quantity must be greater than zero.";
     public static final String MESSAGE_SUCCESS = "New sale created, sale ID %1$s, item %2$s.";
 
     private final Sku sku;
@@ -68,6 +69,11 @@ public class AddSaleCommand extends Command {
             throw new CommandException(String.format(MESSAGE_QUANTITY_INSUFFICIENT, item.getQuantity()));
         }
 
+        // Check for zero quantity
+        if (Integer.parseInt(quantity.toString()) <= 0) {
+            throw new CommandException(MESSAGE_QUANTITY_INVALID);
+        }
+
         Sale sale = new Sale(saleId, item, quantity, saleDate);
 
         model.addSale(sale);
@@ -78,6 +84,8 @@ public class AddSaleCommand extends Command {
         // Deduct item quantity
         model.updateItem(item, new Item(item.getName(), item.getPrice(), newQuantity, item.getSku(),
                 item.getImage(), item.getTags()));
+
+        model.commitInventory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, saleId.toString(), item.getName()));
     }

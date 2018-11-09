@@ -33,6 +33,12 @@ import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
+import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
+import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowPurchaseOrderTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowSaleTableViewEvent;
+import seedu.inventory.commons.events.ui.ShowStaffTableViewEvent;
+import seedu.inventory.commons.events.ui.ToggleSidePanelVisibilityEvent;
 import seedu.inventory.model.item.Item;
 import seedu.inventory.model.purchaseorder.PurchaseOrder;
 import seedu.inventory.model.sale.Sale;
@@ -89,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetSaleList(ReadOnlySaleList newSaleList) {
-        saleList.resetData(newSaleList);
+        versionedInventory.resetSaleList(newSaleList);
         indicateSaleListChanged();
     }
 
@@ -138,51 +144,80 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Reporting  ===============================================================================
     @Override
+    public void showItemTableView() {
+        raise(new ShowItemTableViewEvent());
+    }
+
+    @Override
+    public void showSaleTableView() {
+        raise(new ShowSaleTableViewEvent());
+    }
+
+    @Override
+    public void showStaffTableView() {
+        raise(new ShowStaffTableViewEvent());
+    }
+
+    @Override
+    public void showPurchaseOrderTableView() {
+        raise(new ShowPurchaseOrderTableViewEvent());
+    }
+
+    @Override
     public void exportItemList(Path filePath) {
-        raise(new ItemListExportEvent(versionedInventory, filePath));
         indicateAccessItem();
+        showItemTableView();
+        raise(new ItemListExportEvent(versionedInventory, filePath));
+
     }
 
     @Override
     public void importItemList(Path filePath) {
-        raise(new ItemListImportEvent(filePath));
         indicateAccessItem();
+        showItemTableView();
+        raise(new ItemListImportEvent(filePath));
     }
 
     @Override
     public void exportSaleList(Path filePath) {
-        raise(new SaleListExportEvent(saleList, filePath));
         indicateAccessSale();
+        showSaleTableView();
+        raise(new SaleListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importSaleList(Path filePath) {
-        raise(new SaleListImportEvent(versionedInventory, filePath));
         indicateAccessSale();
+        showSaleTableView();
+        raise(new SaleListImportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void exportStaffList(Path filePath) {
-        raise(new StaffListExportEvent(versionedInventory, filePath));
         indicateAccessStaff();
+        showStaffTableView();
+        raise(new StaffListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importStaffList(Path filePath) {
-        raise(new StaffListImportEvent(filePath));
         indicateAccessStaff();
+        showStaffTableView();
+        raise(new StaffListImportEvent(filePath));
     }
 
     @Override
     public void exportPurchaseOrderList(Path filePath) {
-        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
         indicatePurchaseOrder();
+        showPurchaseOrderTableView();
+        raise(new PurchaseOrderListExportEvent(versionedInventory, filePath));
     }
 
     @Override
     public void importPurchaseOrderList(Path filePath) {
-        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
         indicatePurchaseOrder();
+        showPurchaseOrderTableView();
+        raise(new PurchaseOrderListImportEvent(versionedInventory, filePath));
     }
 
     //=========== Item  ====================================================================================
@@ -401,6 +436,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(toLogin);
 
         session = new UserSession(toLogin);
+        raise(new ToggleSidePanelVisibilityEvent(true));
     }
 
     @Override
@@ -419,6 +455,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void logoutUser() {
         session.logout();
         versionedInventory.reset();
+        raise(new ToggleSidePanelVisibilityEvent(false));
+        raise(new ShowDefaultPageEvent());
     }
 
     @Override
@@ -448,12 +486,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoInventory() {
         versionedInventory.undo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
     public void redoInventory() {
         versionedInventory.redo();
         indicateInventoryChanged();
+        indicateSaleListChanged();
     }
 
     @Override
@@ -482,23 +522,23 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Sale ====================================================================================
     @Override
     public ReadOnlySaleList getSaleList() {
-        return saleList;
+        return versionedInventory;
     }
 
     @Override
     public ObservableList<Sale> getObservableSaleList() {
-        return FXCollections.unmodifiableObservableList(saleList.getSaleList());
+        return FXCollections.unmodifiableObservableList(versionedInventory.getSaleList());
     }
 
     @Override
     public void addSale(Sale sale) {
-        saleList.addSale(sale);
+        versionedInventory.addSale(sale);
         indicateSaleListChanged();
     }
 
     @Override
     public void deleteSale(Sale sale) {
-        saleList.removeSale(sale);
+        versionedInventory.removeSale(sale);
         indicateSaleListChanged();
     }
 
@@ -518,7 +558,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Raises an event to indicate the model has changed
      */
     private void indicateSaleListChanged() {
-        raise(new SaleListChangedEvent(saleList));
+        raise(new SaleListChangedEvent(versionedInventory));
     }
 
     @Override
@@ -536,7 +576,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     @Subscribe
     public void handleStaffListUpdateEvent(StaffListUpdateEvent event) {
-        resetStaffList(event.staffList);
+        StaffList staffList = new StaffList(event.staffList);
+        if (!staffList.hasStaff(getUser())) {
+            staffList.addStaff(getUser());
+        }
+        resetStaffList(staffList);
     }
 
     @Override

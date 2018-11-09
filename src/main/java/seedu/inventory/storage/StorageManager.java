@@ -30,7 +30,10 @@ import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
+import seedu.inventory.commons.events.ui.NewResultAvailableEvent;
 import seedu.inventory.commons.exceptions.DataConversionException;
+import seedu.inventory.logic.commands.csv.ExportCsvCommand;
+import seedu.inventory.logic.commands.csv.ImportCsvCommand;
 import seedu.inventory.model.ReadOnlyInventory;
 import seedu.inventory.model.ReadOnlyItemList;
 import seedu.inventory.model.ReadOnlyPurchaseOrderList;
@@ -227,6 +230,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleItemListExportEvent(ItemListExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export item list to file"));
         try {
+            raise(new NewResultAvailableEvent(ExportCsvCommand.MESSAGE_EXPORT));
             exportItemList(event.data, event.filePath);
             raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
@@ -239,6 +243,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleItemListImportEvent(ItemListImportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import item list from file"));
         try {
+            raise(new NewResultAvailableEvent(ImportCsvCommand.MESSAGE_IMPORT));
             Optional<ReadOnlyItemList> itemList = importItemList(event.filePath);
             if (itemList.isPresent()) {
                 raise(new ItemListUpdateEvent(itemList.get()));
@@ -258,6 +263,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleSaleListExportEvent(SaleListExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export sale list to file"));
         try {
+            raise(new NewResultAvailableEvent(ExportCsvCommand.MESSAGE_EXPORT));
             exportSaleList(event.data, event.filePath);
             raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
@@ -270,6 +276,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleSaleListImportEvent(SaleListImportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import sale list from file"));
         try {
+            raise(new NewResultAvailableEvent(ImportCsvCommand.MESSAGE_IMPORT));
             Optional<ReadOnlySaleList> saleList = importSaleList(event.inventory, event.filePath);
             if (saleList.isPresent()) {
                 raise(new SaleListUpdateEvent(saleList.get()));
@@ -289,6 +296,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleStaffListExportEvent(StaffListExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export staff list to file"));
         try {
+            raise(new NewResultAvailableEvent(ExportCsvCommand.MESSAGE_EXPORT));
             exportStaffList(event.data, event.filePath);
             raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
@@ -301,6 +309,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleStaffListImportEvent(StaffListImportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import staff list from file"));
         try {
+            raise(new NewResultAvailableEvent(ImportCsvCommand.MESSAGE_IMPORT));
             Optional<ReadOnlyStaffList> staffList = importStaffList(event.filePath);
             if (staffList.isPresent()) {
                 raise(new StaffListUpdateEvent(staffList.get()));
@@ -320,6 +329,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handlePurchaseOrderListExportEvent(PurchaseOrderListExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Export purchase order list to file"));
         try {
+            raise(new NewResultAvailableEvent(ExportCsvCommand.MESSAGE_EXPORT));
             exportPurchaseOrderList(event.data, event.filePath);
             raise(new DataExportingSuccessEvent());
         } catch (IOException e) {
@@ -332,6 +342,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handlePurchaseOrderListImportEvent(PurchaseOrderListImportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Import purchase order list from file"));
         try {
+            raise(new NewResultAvailableEvent(ImportCsvCommand.MESSAGE_IMPORT));
             Optional<ReadOnlyPurchaseOrderList> purchaseOrderList =
                     importPurchaseOrderList(event.inventory, event.filePath);
             if (purchaseOrderList.isPresent()) {

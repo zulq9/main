@@ -41,7 +41,6 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-
         if (model.isUserLoggedIn()) {
             throw new CommandException(MESSAGE_USER_HAS_LOGGED_IN);
         }

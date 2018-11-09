@@ -6,8 +6,8 @@ import seedu.inventory.model.item.Item;
  * Unmodifiable view of an inventory
  */
 
-public interface ReadOnlyInventory extends ReadOnlyItemList, ReadOnlyPurchaseOrderList, ReadOnlyStaffList {
-
+public interface ReadOnlyInventory extends ReadOnlyItemList, ReadOnlyPurchaseOrderList, ReadOnlyStaffList,
+        ReadOnlySaleList {
 
     /**
      * Returns the specific item by Sku.
