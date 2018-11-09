@@ -166,9 +166,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete-item 1`.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `delete-item 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -220,7 +220,7 @@ link:{repoURL}/src/main/java/seedu/image/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteItemSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -338,6 +338,100 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+//tag::inventoryManagement[]
+=== Inventory Management
+
+*Inventory management* is introduced in Inventory manager as a core feature to allow users to easily manage items in their inventory list.
+
+An `Item` consists of `Name`, `Price`, `Quantity`, *unique* `SKU`, `Image Path`, and optional `Tags`.
+
+An item can only be successfully added into the inventory if the following criteria are met:
+
+- `Name` contains only *alphanumeric characters*
+- `Price` contains only *positive whole numbers* or *decimals*
+- `Quantity` contains only *positive whole numbers*
+- `SKU` is unique and contains only *alphanumeric characters* and the *dash '-'* or *underscore '_'* symbols
+- `Image Path` is a valid file path and the file must be a valid image (i.e. either *.png* or *.jpeg* format)
+
+==== Implementation
+
+===== Model Component
+
+Items are stored and maintained in the Model in a `UniqueItemList`, allowing only unique items to be stored in the inventory.
+
+.UML diagram showing a representation of UniqueItemList in Inventory Manager.
+image::UniqueItemList.png[width="500"]
+
+Individual items are represented by the `Item` object with attributes `Name`, `Price`, `Quantity`, `SKU`, `Image` and `Tag`.
+
+===== Storage Component
+
+Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files. An item is stored in an XML file in the following format:
+[source, xml]
+----
+<inventory>
+    <items>
+        <name>iPhone XR</name>
+        <price>1500.00</price>
+        <quantity>30</quantity>
+        <sku>apple-iphone-xr</sku>
+        <image>/images/iphone.jpg</image>
+        <tagged>apple</tagged>
+        <tagged>iphone</tagged>
+    </items>
+</inventory>
+----
+
+===== UI Component
+
+The main window contains a `ListPanel`, which can be used interchangeably to display any lists based on the command entered by the user.
+
+Inventory list is displayed in the `ListPanel` upon executing the `list-item` command, and
+individual items are represented using `ItemCard`. The items' attribute fields uses `Label`.
+
+An example of the `ItemCard` in Inventory Manager UI is shown in Figure 11 below:
+
+.Example of the an item card in Inventory Manager UI.
+image::ItemCard.png[width="300"]
+
+===== Logic Component
+
+The following commands were added and/or modified to handle inventory management operations:
+
+* `list-item` : List all items in the inventory
+* `add-item` : Add a unique item into the inventory
+* `delete-item` : Delete an existing item in the inventory
+* `edit-item` : Edit an existing item in the inventory
+
+Operations performed on items follow the sequence of operations as described below:
+
+. Command input is received by the UI component.
+. The command execution is handled by the Logic component.
+. The changes to data are effected by the Model component.
+. The new Inventory Manager data is saved by the Storage component.
+
+This sequence of events is summarized in the following sequence diagram:
+
+.A high level sequence diagram showing events triggered by the `delete-item` command.
+image::DeleteItemSdForLogic.png[width="500"]
+
+==== Design Considerations
+
+**Aspect:** Where `updateItem` is executed +
+There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
+
+**Alternative 1 (current choice):** Executed at Logic +
+**Pros:** Easy to implement. +
+**Cons:** Direct calling of `Model.updateItem()` will not be validated. +
+
+**Alternative 2:** Executed at Model +
+**Pros:** Ensures that all entries are validated before item can be edited. +
+**Cons:**`Model.updateItem()` will need to access inventory to perform validation.
+
+Based on the above consideration, the first option is chosen as it is easier to implement, and it does not require
+`Model.updateItem()` to read the inventory and perform validation.
+//end::inventoryManagement{}
 
 // tag::saleOrderCreation[]
 === Sale Order Creation
