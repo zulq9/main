@@ -356,7 +356,7 @@ An item can only be successfully added into the inventory if the following crite
 
 ==== Implementation
 
-===== Model Component
+===== Model component
 
 Items are stored and maintained in the Model in a `UniqueItemList`, allowing only unique items to be stored in the inventory.
 
@@ -365,7 +365,7 @@ image::UniqueItemList.png[width="500"]
 
 Individual items are represented by the `Item` object with attributes `Name`, `Price`, `Quantity`, `SKU`, `Image` and `Tag`.
 
-===== Storage Component
+===== Storage component
 
 Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files. An item is stored in an XML file in the following format:
 [source, xml]
@@ -383,7 +383,7 @@ Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files
 </inventory>
 ----
 
-===== UI Component
+===== UI component
 
 The main window contains a `ListPanel`, which can be used interchangeably to display any lists based on the command entered by the user.
 
@@ -395,7 +395,7 @@ An example of the `ItemCard` in Inventory Manager UI is shown in Figure 11 below
 .Example of the an item card in Inventory Manager UI.
 image::ItemCard.png[width="300"]
 
-===== Logic Component
+==== Logic component
 
 The following commands were added and/or modified to handle inventory management operations:
 
@@ -416,7 +416,7 @@ This sequence of events is summarized in the following sequence diagram:
 .A high level sequence diagram showing events triggered by the `delete-item` command.
 image::DeleteItemSdForLogic.png[width="500"]
 
-==== Design Considerations
+==== Design considerations
 
 **Aspect:** Where `updateItem` is executed +
 There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
@@ -431,6 +431,72 @@ There are various places where `updateItem` can be executed. The pros and cons f
 
 Based on the above consideration, the first option is chosen as it is easier to implement, and it does not require
 `Model.updateItem()` to read the inventory and perform validation.
+
+==== Implementation details for validation of fields
+
+===== SKU Field
+
+Since an item is considered unique based on its SKU, therefore, it is important to check and validate that the item
+has a unique SKU (i.e. no other items in the inventory has the same SKU as this item) before it is allowed to be added
+or edited in the inventory.
+
+Before an item is allowed to be added or edited, it is checked against every item in the inventory list. The first check
+compares if the `item` object is the same object as the other items in the inventory list. Then, it is followed by a second
+check to compare the item's SKU with the other items' SKUs in the inventory list. It is only allowed to be added or edited
+if it passes the checks.
+
+The following code snippet shows how the item is checked for uniqueness:
+[source, java]
+----
+/**
+ * Returns true if both items have the same SKU.
+ * This defines a weaker notion of equality between two items.
+ */
+public boolean isSameItem(Item otherItem) {
+    if (otherItem == this) {
+        return true;
+    }
+
+    return otherItem != null
+            && otherItem.getSku().equals(getSku());
+}
+----
+
+Inventory Manager supports images for items, and therefore, it is important to check and validate that the image supplied by the
+user is stored in a valid file path, and is a valid image file.
+
+Inventory Manager checks if the directory supplied by the user is a valid file path. Then, the file's mime-type will be verified to ensure that it is a valid image file.
+
+The following code snippet shows how the image field is checked and validated:
+[source, java]
+----
+/**
+ * Returns true if a given string is a valid image file.
+ */
+public static boolean isValidImage(String test) {
+    if (test.matches(IMAGE_VALIDATION_REGEX)) {
+        File file = new File(test);
+
+        if (file.exists()) {
+            try {
+                String mimeType = Files.probeContentType(file.toPath());
+
+                return (mimeType != null && mimeType.split("/")[0].equals("image"));
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                return false;
+            }
+        } else {
+            return (Image.class.getResource(test) != null && (test.endsWith("png") || test.endsWith("jpg")));
+        }
+    } else {
+        return false;
+    }
+}
+----
+
+
 //end::inventoryManagement{}
 
 // tag::saleOrderCreation[]
