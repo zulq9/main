@@ -5,8 +5,7 @@
 
 == PROJECT: Inventory Manager
 
----
-
+:sectnums:
 == Overview
 
 Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
