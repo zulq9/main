@@ -434,7 +434,7 @@ Based on the above consideration, the first option is chosen as it is easier to 
 
 ==== Implementation details for validation of fields
 
-===== SKU Field
+===== SKU field
 
 Since an item is considered unique based on its SKU, therefore, it is important to check and validate that the item
 has a unique SKU (i.e. no other items in the inventory has the same SKU as this item) before it is allowed to be added
@@ -461,6 +461,8 @@ public boolean isSameItem(Item otherItem) {
             && otherItem.getSku().equals(getSku());
 }
 ----
+
+===== Image field
 
 Inventory Manager supports images for items, and therefore, it is important to check and validate that the image supplied by the
 user is stored in a valid file path, and is a valid image file.
