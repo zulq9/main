@@ -9,11 +9,17 @@
 
 == Overview
 
-This portfolio aims to document my contributions as a developer to the Inventory Manager project.
+This portfolio aims to document my contributions as a developer to the Inventory Manager project. In addition, it
+showcases my ability to work in a development team using an advanced collaboration tool, GitHub. It also exhibits
+my ability to manage a project for a team.
 
-Inventory Manager is developed for Small to Medium Enterprises (SMEs) to tackle the chore of stock taking. Designed to be easy to use, Inventory Manager gives the user control over their business right from their keyboard.
+Inventory Manager was developed for Small to Medium Enterprises (SMEs) to tackle the
+chore of stock taking. Designed to be easy to use, Inventory Manager gives the user control over
+their business right from their keyboard.
 
-Inventory Manager comes with features to manage the shop inventory such as creating sale orders, purchase orders, generating reports and more. With user authentication built in, it gives SMEs greater control over users' access to the application too.
+Inventory Manager comes with features to manage the shop inventory such as creating sale orders,
+purchase orders, generating reports and more. With user authentication built in,
+it gives SMEs greater control over users' access to the application too.
 
 
 == Summary of contributions
@@ -30,13 +36,15 @@ Inventory Manager comes with features to manage the shop inventory such as creat
 
 ** Highlights: This feature requires interaction with the update item command in Inventory Manager and the ability to validate item quantity before a sale is allowed.
 
-* *Minor Enhancement*:
+* *Minor Enhancement*: Added support for undo / redo on sale orders
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=esmondtan[Reposense]]
 
 * *Other contributions*:
 
 ** Project Management:
+
+*** Managed release `v1.2.2` on GitHub [https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.2.2[GitHub]]
 
 ** Documentation:
 
@@ -47,7 +55,7 @@ Inventory Manager comes with features to manage the shop inventory such as creat
 
 ** Community:
 
-*** PRs Reviewed
+*** Reviewed Pull Requests [https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3AEsmondTan[GitHub]]
 
 == Contributions to the User Guide
 

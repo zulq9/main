@@ -56,7 +56,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Item> filteredItems;
     private final FilteredList<PurchaseOrder> filteredPurchaseOrder;
     private final FilteredList<Staff> filteredStaffs;
-    private final SaleList saleList;
     private UserSession session;
 
     /**
@@ -72,7 +71,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredItems = new FilteredList<>(versionedInventory.getItemList());
         filteredPurchaseOrder = new FilteredList<>(versionedInventory.getPurchaseOrderList());
         filteredStaffs = new FilteredList<>(versionedInventory.getStaffList());
-        this.saleList = new SaleList(readOnlySaleList);
         accessedList = filteredItems;
         session = new UserSession();
     }
