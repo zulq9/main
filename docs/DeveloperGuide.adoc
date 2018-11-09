@@ -367,7 +367,7 @@ For `AddSaleCommand#execute` to be successful, there are two conditions which ne
 
 The sequence diagram below shows the interactions inside the logic component for the `AddSaleCommand`.
 
-DIAGRAM HERE
+image::AddSaleCommandSequenceDiagram.png[width="1000"]
 
 ===== Storage
 
