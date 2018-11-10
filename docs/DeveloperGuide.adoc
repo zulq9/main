@@ -713,7 +713,7 @@ The following commands are added for User Management:
 * `delete-staff` : Delete a staff
 
 .UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width=:{img-width}:]
+image::EditStaffSDForLogic.png[width={img-width}]
 
 ===== Model Component
 
