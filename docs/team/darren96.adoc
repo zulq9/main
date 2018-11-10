@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 ifdef::env-github[]
 :img-width: 740
 endif::[]
@@ -9,7 +10,6 @@ ifndef::env-github[]
 :img-width: 450
 endif::[]
 
-:sectnums:
 == Overview
 
 This Personal Portfolio Page showcases what I have contributed in the project and the documentation for
