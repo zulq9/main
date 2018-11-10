@@ -721,9 +721,24 @@ Further details can be found in the sequence diagram of the next section.
 
 ===== Sequence Diagram
 Considering that all the `export` commands have similar sequence diagrams. So we will just show the sequence diagrams
-for `export-csv-items` command below to illustrate how the `export` commands work.
+for `export-csv-items` command to illustrate how the `export` commands work.
 
-image::ExportCsvItemCommandSequenceDiagram.png[width="1000"]
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `export-csv-items f/items.csv`.
+
+.Component interactions for `export-csv-items f/items.csv` command (part 1)
+image::SDforExportCsvItem.png[width="800"]
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the item list being
+exported and the alert window of the UI being popped up to reflect the success of exporting.
+
+.Component interactions for `export-csv-items f/items.csv` command (part 2)
+image::SDforExportCsvItemEventHandling.png[width="800"]
+
+The diagram below is the lower level sequence diagram for `export-csv-items f/items.csv` command inside `Logic` component.
+
+.Lower level sequence diagram for `export-csv-items f/items.csv` command inside `Logic` component
+image::ExportCsvItemCommandSequenceDiagram.png[width="900"]
 
 ==== Design Considerations
 
@@ -767,8 +782,8 @@ Google Pixel XL,1435.90,3,google-pixel-xl,/images/google.jpg,google
 ----
 
 The first two lines are headers to determine which kind of object is this csv file storing.
-Following lines are the details of the objects. Empty lines are not allowed. If a cell contains `,`, it must be surrounded
-by `"` `"` .
+Following lines are the details of the objects. Empty lines are not allowed. If a cell contains commas(`,`), it must be surrounded
+by double quotation marks(`"` `"`).
 
 The required format can be gotten by simply exporting each kind of objects first.
 // end::exportCsv[]

@@ -732,7 +732,7 @@ Example: `export-csv-items f/E:/out/items.csv`
 
 Following screenshot showcases what will happen when you enter the correct `export-csv-items` command:
 
-image::doc-export-csv-items.png[width="790"]
+image::doc-export-csv-items.png[width="700"]
 _Figure 4.13. Export successful prompt will be shown upon completion of export._
 
 ===== Exporting list of users to CSV: `export-csv-staffs`
@@ -789,7 +789,7 @@ Example: `import-csv-sales f/E:/in/sales.csv`
 
 Following screenshot showcases what will happen when you enter the correct `import-csv-sales` command:
 
-image::doc-import-csv-sales.png[width="790"]
+image::doc-import-csv-sales.png[width="700"]
 _Figure 4.13. Import successful prompt will be shown upon completion of import._
 
 ===== Importing list of items from CSV : `import-csv-items`
