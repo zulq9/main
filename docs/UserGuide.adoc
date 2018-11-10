@@ -600,7 +600,7 @@ The `add-po` command is only available to the Member group. +
 It allows the user to add a purchase order for an item based on it's sku. +
 The added purchase order comes with a default status of 'PENDING' as shown in the figure below.
 
-image::doc-add-po.png[width="300"]
+image::doc-add-po.png[width="250"]
 _Figure 4.12. A newly added purchase order that comes with a default 'PENDING' status._
 
 
@@ -619,7 +619,7 @@ Upon approving, the quantity stated in the purchase order will be added to the d
 
 The image below shows the result after the `approve-po 1` command is entered.
 
-image::doc-delete-po.png[width="250"]
+image::doc-delete-po.png[width="200"]
 _Figure 4.13. Approves the specified purchase order by the it's index in the list._
 
 

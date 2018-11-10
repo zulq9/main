@@ -814,7 +814,7 @@ Individual purchase orders are represented using PurchaseOrderCards that contain
 An example of the a purchase order card is shown in figure 13 below.
 
 .Example of the a purchase order card in Inventory Manager UI.
-image::PoCard.png[width="400"]
+image::PoCard.png[width="300"]
 
 ===== Logic Component
 
@@ -831,7 +831,7 @@ The following commands were added to handle the purchase order:
 The following diagram details the class relationship for the Purchase order Commands.
 
 .UML Diagram depicting the class relationship between command classes.
-image::PoCommand.png[width="350"]
+image::PoCommand.png[width="280"]
 
 Operations performed on purchase orders follow the sequence of operations described in the diagram below.
 
@@ -843,10 +843,10 @@ Operations performed on purchase orders follow the sequence of operations descri
 This sequence of events is summarized in the following sequence diagrams:
 
 .A high level sequence diagram showing events triggered by the `list-po` command.
-image::PoList.png[width="600"]
+image::PoList.png[width="550"]
 
 .A high level sequence diagram showing events triggered by the `add-po` command.
-image::PoAdd.png[width="600"]
+image::PoAdd.png[width="550"]
 
 ==== Design Considerations
 
