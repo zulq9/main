@@ -867,7 +867,7 @@ Based on the above pros and cons, the first option is chosen as it is easier to 
 ---
 
 **Aspect:** Implementation of purchase order storage +
-There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
+There are various design on how to integrate purchase order in the existing storage system. The pros and cons for each option is shown below.
 
 **Alternative 1 (current choice):** Stored in the same file as the item but with different xml tag +
 **Pros:** Eases the implementation by adding in relevant purchase order detail in the existing storage implementation. +
