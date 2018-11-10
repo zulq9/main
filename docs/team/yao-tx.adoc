@@ -6,26 +6,36 @@
 == PROJECT: Inventory Manager
 
 ---
+:sectnums:
 
 == Overview
 
-Inventory Manager is a desktop inventory management application designed specifically for Small to Medium Enterprises(SMEs) to manage their inventories.
-The user interacts with it using a CLI (Command-Line Interface), and it has a GUI (Graphical User Interface) developed with JavaFX. It is writeen in Java, and has about 10kLoC.
-It allows users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders, importing and exporting inventory lists and more.
+This portfolio represents my work as a software engineer and developer for the Inventory Manager project.
+It contains and documents my contributions to the project, and demonstrates my ability to work with others in a team.
+On top of that, it aims to showcase my ability as a competent developer with the necessary skills in project management.
 
-The main purpose of the application is to provide good inventory control for SMEs so that they are able to run an efficient business and make money in the process.
+The Inventory Manager project is an idea that my team and I came up with, to address the inventory management issues that
+Small to Medium Enterprises (SMEs) encounter in their daily business operations. The team consists of five team members:
+Darren, Wang Chao, Esmond, Zul and me. We have worked closely for more than three months on this project and it is a testament
+to our commitment, hard work and skills as developers.
 
-More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+The Inventory Manager is a desktop inventory management application that has to be interacted with using Command-Line
+Interface (CLI) with a keyboard. It is written in Java using the Model-View-Controller (MVC) architecture.
 
-== Summary of contributions
+The main purpose of the Inventory Manager is to provide good inventory control for SMEs with user access control at
+a low cost. It allows users to perform multiple inventory management tasks such as filtering items, checking on items with
+low stock, generating reports, creating purchase orders and more.
+
+
+== Summary of Contributions
 
 * *Major enhancement*: Inventory Management of the Inventory Manager App
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yao-tx[Reposense]]
 
 * *Other contributions*:
 
-** Minor Enhancements:
+** Minor Enhancement:
 *** Add/Delete/Edit items in inventory
 *** Search for items via name or SKU
 *** Image support for items
@@ -36,21 +46,24 @@ More importantly, it is optimized for those who prefer to work with a Command Li
 ** Project Management:
 *** Transformed and modified the Address Book into the current Inventory Manager
 *** Developed the inventory management portion of the application
-*** Managed releases `v1.2.1` (1 release) on GitHub
+*** Managed release `v1.2.1` on GitHub [https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/1.2.1[Release 1.2.1]]
 
 ** Others:
-*** Storage
+*** Model component
 
-** Enhancements to existing features:
+** Enhancement to existing features:
 *** Added image support for items
 *** Modified the browser panel for displaying of items
 *** Allowed searching of items via SKU which does not require full word matching
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added and formatted the Item Management portion of the User Guide
+*** Did cosmetic tweaks to existing contents of the User Guide
+*** Improved the Design section of the Developer Guide
 
 ** Community:
 *** Reviewed and commented on Pull Requests made by teammates
+*** Reviewed Pull Requests [https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+reviewed-by%3Ayao-tx+is%3Aclosed[GitHub]]
 
 ** Tools:
 
@@ -69,7 +82,7 @@ include::../UserGuide.adoc[tag=inventoryManagement]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=usecaseInventoryManagement]
+include::../DeveloperGuide.adoc[tag=inventoryManagement]
 
 ---
 
