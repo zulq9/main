@@ -589,7 +589,7 @@ It allows the user to list all purchase orders in Inventory Manager. +
 
 The screenshot below shows the result after the `list-po` command is entered.
 
-image::doc-list-po.png[width="790"]
+image::doc-list-po.png[width="400"]
 _Figure 4.11. All purchase orders in Inventory Manager listed on screen._
 
 Format: `list-po`
@@ -619,7 +619,7 @@ Upon approving, the quantity stated in the purchase order will be added to the d
 
 The image below shows the result after the `approve-po 1` command is entered.
 
-image::doc-delete-po.png[width="200"]
+image::doc-delete-po.png[width="180"]
 _Figure 4.13. Approves the specified purchase order by the it's index in the list._
 
 
