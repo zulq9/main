@@ -279,7 +279,7 @@ Step 1. The user launches the application for the first time. The `VersionedInve
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete-item 5` command to delete the 5th item in Inventory Manager. The `delete` command calls `Model#commitInventory()`, causing the modified state of Inventory Manager after the `delete 5` command executes to be saved in the `InventoryStateList`, and the `currentStatePointer` is shifted to the newly inserted Inventory Manager state.
+Step 2. The user executes `delete-item 5` command to delete the 5th item in Inventory Manager. The `delete` command calls `Model#commitInventory()`, causing the modified state of Inventory Manager after the `delete-item 5` command executes to be saved in the `InventoryStateList`, and the `currentStatePointer` is shifted to the newly inserted Inventory Manager state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -684,10 +684,10 @@ Based on the above pros and cons, the first option is chosen as it is easier to 
 // tag::exportCsv[]
 === Export CSV mechanism
 
-In order to enable users to have further analysis on the data in *Inventory Manager*,
-we support several `export` commands to export the data in *Inventory Manager* to CSV files.
-We are using `ExportCsvItemsCommand`, `ExportCsvSalesCommand`, `ExportCsvOrdersCommand`, `ExportCsvUsersCommand`
- to support exporting of *Inventory Manager* data through CSV files.
+In order to enable users to have further analysis of the data in *Inventory Manager*,
+we support several `export-csv` commands to export the data in *Inventory Manager* to CSV files.
+We are using `export-csv-items`, `export-csv-sales`, `export-csv-staffs`, `export-csv-orders`
+to support exporting of *Inventory Manager* data through CSV files.
 
 In the following sections, we will focus on how these commands depend on the `Model` and `Storage` component
 to retrieve external data and where to validate the given file path.
@@ -697,60 +697,94 @@ to retrieve external data and where to validate the given file path.
 ===== Data Access
 
 In order to achieve their tasks, all `export` commands require direct access to the data and output to the
-external environment. Unlike other command, these commands are highly depend on the `Storage` component.
-However, if we only directly set an `Storage` for the command and manipulate on the `Storage` in `export` command,
+external environment. Unlike other commands, these commands highly depend on the `Storage` component.
+However, if we only directly set a `Storage` for the command and manipulate on the `Storage` in `export` command,
 we also need `Storage` component to directly access the data in `Model` component which will violate
 Single Responsibility Principle.
 
 So we decide to use the same method as other command use to export data. When executing the `export` commands,
 a `DataExportEvent` will be raised in the `EventsCenter` through `Model` component. Since `Logic` directly has
-`Model` as one field, it will not violate Single Responsibility Principle. Then, the handler function in `Storage`
+`Model` as one field, it will not violate the Single Responsibility Principle. Then, the handler function in `Storage`
 component will catch this `DataExportingEvent` and export data to the external environment.
 
 ===== File Path Validation
-
 File paths, as required by `export` commands, need to be validated during the execution of the commands.
-However, where to implement it can be decided. It can be implement in `CommandParser` or `Command`
+However, where to implement it can be decided. It can be implemented in `CommandParser` or `Command`
 or even in `Storage`.
 
 In our implementation, we choose to validate the file path during the execution of `export` Command. A static method
 in `FileUtil` will be called to test whether the given file path is valid when executing the command. In doing so,
 we are able to make sure that the path parameter passed to `Model` component and `Storage` component is a valid
 file path. Also, it is easier for the implementation of command feedback to the users.
-Further details can be found in the sequence diagram of next section.
+Further details can be found in the sequence diagram of the next section.
 
 ===== Sequence Diagram
 Considering that all the `export` commands have similar sequence diagrams. So we will just show the sequence diagrams
-for `ExportCsvItemsCommand` to illustrate how the `export` commands work.
+for `export-csv-items` command to illustrate how the `export` commands work.
 
-image::ExportCsvItemCommandSequenceDiagram.png[width="1000"]
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `export-csv-items f/items.csv`.
+
+.Component interactions for `export-csv-items f/items.csv` command (part 1)
+image::SDforExportCsvItem.png[width="800"]
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the item list being
+exported and the alert window of the UI being popped up to reflect the success of exporting.
+
+.Component interactions for `export-csv-items f/items.csv` command (part 2)
+image::SDforExportCsvItemEventHandling.png[width="800"]
+
+The diagram below is the lower level sequence diagram for `export-csv-items f/items.csv` command inside `Logic` component.
+
+.Lower level sequence diagram for `export-csv-items f/items.csv` command inside `Logic` component
+image::ExportCsvItemCommandSequenceDiagram.png[width="900"]
 
 ==== Design Considerations
 
 ===== Aspect: How `export` commands interact with `Storage` Component and `Logic` Component
-* **Alternative 1 (current choice):** Raise a `DataExportEvent` in the `EventsCenter` through `Model` and handle it
+* **Alternative 1 (current choice):** Raises a `DataExportEvent` in the `EventsCenter` through `Model` and handles it
 in `Storage`. +
-** Pros: Avoid direct access of `Storage` from `export` commands. Does not violate Single Responsibility Principle. +
-** Cons: Need a middle Component to achieve the goal. An additional event need to be raised +
+** Pros: Avoids direct access of `Storage` from `export` commands. Does not violate the Single Responsibility Principle. +
+** Cons: Needs a middle Component to achieve the goal. Needs to raise an additional event. +
 * **Alternative 2:** Couples `Command` with `Storage` +
 ** Pros: Provides direct access to `Storage` for commands that is highly depend it. +
-** Cons: `Storage` will also need directly access of data in `Model` component which will violate
-Single Responsibility Principle. +
+** Cons: Needs directly access of data in `Model` component for `Storage` which will violate
+the Single Responsibility Principle. +
 
 ===== Aspect: Location for Implementation of File Path Validation and Location to Check File Path Validation +
-* **Alternative 1 (current choice):** Implement in `FileUtil` and check in `export` command. +
+* **Alternative 1 (current choice):** Implements in `FileUtil` and checks in `export` command. +
 ** Pros: It's sure that the path passed to `Model` component and `Storage` component is a valid file path.
-Easier implementation of command feedback. File Validation is reusable in other component. +
-** Cons: File Validation need to interact with `Commons` component.
-due to the saving of the address book. +
-* **Alternative 2:** Implement in `CommandParser` and check in `CommandParser` command. +
-** Pros: No need to interact with other component. +
+The implementation of command feedback is easier. File Validation is reusable in other component. +
+** Cons: File Validation needs to interact with `Commons` component.
+* **Alternative 2:** Implements in `CommandParser` and checks in `CommandParser` class. +
+** Pros: There is no need to interact with other component. +
 ** Cons: File Validation is not reusable in other component. +
-* **Alternative 3:** Implement in `Storage` and check in `Storage`. +
-** Pros: No need to interact with other component. File Validation is reusable in other method of `Storage`. +
-** Cons: The path passed to `Storage` component may not be valid. More difficult implementation of command feedback.
-Need to raise an additional event for invalid file path. +
+* **Alternative 3:** Implements in `Storage` and checks in `Storage`. +
+** Pros: There is no need to interact with other component. File Validation is reusable in other method of `Storage`. +
+** Cons: The path passed to `Storage` component may not be valid. The implementation of command feedback is more difficult.
+`Storage` needs to raise an additional event for invalid file path. +
 
+==== Csv File Recognizing
+Since Csv file do not have standardized format for storing objects. So we designed a format that need to be followed when
+importing csv files. If the process of importing fails due to unrecognizable failure, do check the file to import meets the
+requirement.
+
+An example of recognizable csv file storing the items is reproduced below: (Opened with a Plain Text Editor,not Excel)
+----
+Item,,,,,
+name,price,quantity,sku,image,tags
+iPhone XR,1500.00,30,apple-iphone-xr,/images/iphone.jpg,"apple,iphone"
+LG G7,1250.50,90,lg-g7,/images/lg.jpg,"smartphone,lg"
+Samsung S9,1499.99,14,samsung-s9,/images/samsung.jpg,"samsung,smartphone"
+HTC U6 ,999.00,88,htc-u6,/images/htc.jpg,"samsung,phablet"
+Google Pixel XL,1435.90,3,google-pixel-xl,/images/google.jpg,google
+----
+
+The first two lines are headers to determine which kind of object is this csv file storing.
+Following lines are the details of the objects. Empty lines are not allowed. If a cell contains commas(`,`), it must be surrounded
+by double quotation marks(`"` `"`).
+
+The required format can be gotten by simply exporting each kind of objects first.
 // end::exportCsv[]
 
 // tag::purchaseOrderManagement[]

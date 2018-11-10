@@ -705,109 +705,149 @@ Deletes the 5th purchase order in the inventory.
 
 // end::purchaseOrderManagement[]
 
-// tag::exportimport[]
-=== Reports Management
+// tag::exportcsv[]
+=== Reporting Module
 The following commands are mainly used to export and import data for report analysis. +
-All the command in this section is available to *admins* only. +
+All the commands in this section are available to *admin* only. +
 
 ==== Exporting data to CSV: `export-csv`
 ****
-* Export the data to the file specified by `FILEPATH`.
+* This command exports the data to the file specified by `FILEPATH`.
 * `FILEPATH` must end with an extension of `.csv`.
 * `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
 * Existing data file at `FILEPATH` will be overwritten.
 * The parent directories will be created if they do not exist.
+* A table view of the exported data will appear.
+* CSV files can be opened and edited by Excel.
 ****
 
 ===== Exporting sales report to CSV: `export-csv-sales`
 
-The `export-csv-sales` command export the sales report in CSV format to the filepath given.
+The `export-csv-sales` command exports the sales report in CSV format to the file path given.
 
 Format: `export-csv-sales f/FILEPATH`
 
+Example: `export-csv-sales f/E:/out/sales.csv`
+
 ===== Exporting list of items to CSV : `export-csv-items`
 
-The `export-csv-items` command export the list of items in CSV format to the filepath given.
-
-image::doc-export-csv-item.png[width="790"]
-_Figure 4.13. Export successful prompt will be shown upon completion of export._
+The `export-csv-items` command exports the list of items in CSV format to the file path given.
 
 Format: `export-csv-items f/FILEPATH`
 
+Example: `export-csv-items f/E:/out/items.csv`
+
+Following screenshot showcases what will happen when you enter the correct `export-csv-items` command:
+
+image::doc-export-csv-items.png[width="700"]
+_Figure 4.13. Export successful prompt will be shown upon completion of export._
+
 ===== Exporting list of users to CSV: `export-csv-staffs`
 
-The `export-csv-staffs` command export the list of users in CSV format to the filepath given.
+The `export-csv-staffs` command exports the list of users in CSV format to the file path given.
 
 Format: `export-csv-staffs f/FILEPATH`
 
+Example: `export-csv-staffs f/E:/out/staffs.csv`
+
 ===== Exporting list of purchase orders to CSV: `export-csv-orders`
 
-The `export-csv-orders` command export the list of purchase orders in CSV format to the filepath given.
+The `export-csv-orders` command exports the list of purchase orders in CSV format to the filepath given.
 
 Format: `export-csv-orders f/FILEPATH`
 
+Example: `export-csv-orders f/E:/out/orders.csv`
+// end::exportcsv[]
+
 ==== Exporting entire data to .im file: `export-im`
-(coming in v2.0) +
-The `export-im` command export the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+(coming in v2.0)
+
+The `export-im` command exports the entire data to the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications. +
+
 Format: `export-im f/FILEPATH`
+
+Example: `export-im f/E:/out/data.im`
+
 ****
-* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* The .im is a format that the *Inventory Manager* uses to transfer the entire data.
 * `FILEPATH` must end with an extension of `.im`.
 * `FILEPATH` can be a relative path and the data will be exported to a location relative to the *Inventory Manager* installation directory.
 * Existing data file at `FILEPATH` will be overwritten.
 * The parent directories will be created if they do not exist.
 ****
 
+// tag::importcsv[]
 ==== Importing data from CSV: `import-csv`
 ****
-* Imports the data from the file specified by `FILEPATH`.
+* This command imports the data from the file specified by `FILEPATH`.
 * `FILEPATH` must end with an extension of `.csv`.
 * `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
 * Original data in *Inventory Manager* will be overwritten.
-* Data in the CSV file must be recognizable by *Inventory Manager*.
+* Data in the CSV file must be *recognizable* by *Inventory Manager*.
 ****
+
 ===== Importing sales report from CSV: `import-csv-sales`
 
-The `import-csv-sales` command imports the sales report in CSV format from the filepath given.
+The `import-csv-sales` command imports the sales report in CSV format from the file path given.
 
 Format: `import-csv-sales f/FILEPATH`
 
+Example: `import-csv-sales f/E:/in/sales.csv`
+
+Following screenshot showcases what will happen when you enter the correct `import-csv-sales` command:
+
+image::doc-import-csv-sales.png[width="700"]
+_Figure 4.13. Import successful prompt will be shown upon completion of import._
+
 ===== Importing list of items from CSV : `import-csv-items`
 
-The `import-csv-items` command imports the list of items in CSV format from the filepath given.
+The `import-csv-items` command imports the list of items in CSV format from the file path given.
 
 Format: `import-csv-items f/FILEPATH`
 
+Example: `import-csv-items f/E:/in/items.csv`
+
 ===== Importing list of users from CSV: `import-csv-staffs`
 
-The `import-csv-staffs` command imports the list of users in CSV format from the filepath given.
+The `import-csv-staffs` command imports the list of users in CSV format from the file path given.
 
 Format: `import-csv-staffs f/FILEPATH`
 
+Example: `import-csv-staffs f/E:/in/staffs.csv`
+
 ===== Importing list of purchase orders from CSV: `import-csv-orders`
 
-The `import-csv-orders` command imports the list of purchase orders in CSV format from the filepath given.
+The `import-csv-orders` command imports the list of purchase orders in CSV format from the file path given.
 
 Format: `import-csv-orders f/FILEPATH`
 
+Example: `import-csv-orders f/E:/in/orders.csv`
+
+// end::importcsv[]
+
 ==== Importing entire data from .im file: `import-im`
-(coming in v2.0) +
+(coming in v2.0)
+
 The `import-im` command imports the entire data from the .im file specified by `FILEPATH` to quickly transfer the data between two *Inventory Manager* applications.
 
 Format: `import-im f/FILEPATH`
+
+Example: `import-im f/E:/in/data.im`
+
 ****
-* The .im is a format that the *Inventory Manager* use to tranfer the entire data.
+* The .im is a format that the *Inventory Manager* uses to transfer the entire data.
 * `FILEPATH` must end with an extension of `.im`.
 * `FILEPATH` can be a relative path and the data will be imported from a location relative to the *Inventory Manager* installation directory.
 * Original data in *Inventory Manager* will be overwritten.
-* Data in the .im file must be recognizable by *Inventory Manager*.
+* Data in the .im file must be *recognizable* by *Inventory Manager*.
 ****
-// end::exportimport[]
 
 == FAQ
 
 *Q*: _How do I transfer my data to another Computer ?_ +
-*A*: Install Inventory Manager in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder.
+*A*: Install Inventory Manager in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Inventory Manager folder. +
+*A*: Export the data in your current Inventory Manager first. Then, install the Inventory Manager in the other computer
+and import the data back.
 
 *Q*: _How do I save my data ?_ +
 *A*: There is no need to save manually because the state of the database is saved in the hard disk automatically after any command that changes the data.
@@ -865,16 +905,16 @@ The following table summarises commands available in Inventory Manager, along wi
 |`Delete Purchase Order`|  `delete-po` | `delete-po 1` | `Member`
 // Report
 4+| *Reports Management*
-|`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/C:/out/sales.csv` | `Admin`
-|`Export List of Items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/C:/out/items.csv` | `Admin`
-|`Export List of Users to CSV` |`export-csv-staffs f/FILEPATH` |`export-csv-staffs f/C:/out/users.csv` | `Admin`
-|`Export List of Sale Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/C:/out/orders.csv` | `Admin`
-|`Export Entire Data to .im File` |`export-im f/FILEPATH` |`export-im f/C:/out/data.im` | `Admin`
-|`Import Sales Report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/C:/in/sales.csv` | `Admin`
-|`Import List of Items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/C:/in/items.csv` | `Admin`
-|`Import List of Users from CSV`  |`import-csv-staffs f/FILEPATH` |`import-csv-staffs f/C:/in/users.csv` | `Admin`
-|`Import List of Sale Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/C:/in/orders.csv` | `Admin`
-|`Import Entire Data From .im File` |`import-im f/FILEPATH` |`import-im f/C:/in/data.im` | `Admin`
+|`Export Sales Report to CSV` |`export-csv-sales f/FILEPATH` |`export-csv-sales f/E:/out/sales.csv` | `Admin`
+|`Export List of Items to CSV` |`export-csv-items f/FILEPATH` |`export-csv-items f/E:/out/items.csv` | `Admin`
+|`Export List of Users to CSV` |`export-csv-staffs f/FILEPATH` |`export-csv-staffs f/E:/out/staffs.csv` | `Admin`
+|`Export List of Purchase Orders to CSV` |`export-csv-orders f/FILEPATH` |`export-csv-orders f/E:/out/orders.csv` | `Admin`
+|`Export Entire Data to .im File` |`export-im f/FILEPATH` |`export-im f/E:/out/data.im` | `Admin`
+|`Import Sales Report from CSV` |`import-csv-sales f/FILEPATH` |`import-csv-sales f/E:/in/sales.csv` | `Admin`
+|`Import List of Items from CSV` |`import-csv-items f/FILEPATH` |`import-csv-items f/E:/in/items.csv` | `Admin`
+|`Import List of Users from CSV`  |`import-csv-staffs f/FILEPATH` |`import-csv-staffs f/E:/in/staffs.csv` | `Admin`
+|`Import List of Purchase Orders from CSV`  |`import-csv-orders f/FILEPATH` |`import-csv-orders f/E:/in/orders.csv` | `Admin`
+|`Import Entire Data From .im File` |`import-im f/FILEPATH` |`import-im f/E:/in/data.im` | `Admin`
 |=====================================================================================================
 
 
