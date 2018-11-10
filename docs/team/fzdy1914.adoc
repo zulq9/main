@@ -10,7 +10,7 @@
 
 This portfolio aims to showcases my ability to work in a software development team. It also documents
 my contribution to the project of our team, the *Inventory Manager*. There are mainly two part of my contributions,
- code and documentations.
+ codes and documentations.
 
 *Inventory Manager* is for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
@@ -53,7 +53,7 @@ and from the outer system.
 (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/191[#191])
 
 ** Community:
-*** Reviewed Pull Requests [https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Afzdy1914[Pull Requests]]
+*** Reviewed Pull Requests of my teammates[https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Afzdy1914[Pull Requests]]
 *** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+Piconso[Issues]]
 
 == Contributions to the User Guide
