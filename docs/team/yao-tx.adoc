@@ -12,18 +12,18 @@
 
 This portfolio represents my work as a software engineer and developer for the Inventory Manager project.
 It contains and documents my contributions to the project, and demonstrates my ability to work with others in a team.
-On top of that, it aims to showcase my ability as a competent developer with the necessary skills in project management.
+On top of that, it aims to showcase my ability as a competent developer equipped with the necessary skills in project management.
 
 The Inventory Manager project is an idea that my team and I came up with, to address the inventory management issues that
 Small to Medium Enterprises (SMEs) encounter in their daily business operations. The team consists of five team members:
-Darren, Wang Chao, Esmond, Zul and me. We have worked closely for more than three months on this project and it is a testament
+Darren, Wang Chao, Esmond, Zul and me. We have worked closely together for more than three months on this project and it is a testament
 to our commitment, hard work and skills as developers.
 
 The Inventory Manager is a desktop inventory management application that has to be interacted with using Command-Line
 Interface (CLI) with a keyboard. It is written in Java using the Model-View-Controller (MVC) architecture.
 
 The main purpose of the Inventory Manager is to provide good inventory control for SMEs with user access control at
-a low cost. It allows users to perform multiple inventory management tasks such as filtering items, checking on items with
+a low cost. It allows verified users to perform varying inventory management tasks such as filtering items, checking on items with
 low stock, generating reports, creating purchase orders and more.
 
 
@@ -82,7 +82,7 @@ include::../UserGuide.adoc[tag=inventoryManagement]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=inventoryManagement]
+include::../DeveloperGuide.adoc[tag=pppInventoryManagement]
 
 ---
 
