@@ -2156,7 +2156,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::testcaseUserManagement[]
 
 === Inventory Management
-
+. Deleting a item while all items are listed
 .. Prerequisites: List all items using the `list-item` command. Multiple items in the list.
 .. Test case: `delete-item 1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
