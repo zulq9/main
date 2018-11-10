@@ -678,10 +678,8 @@ For the `edit-po` command, do take note of the following points:
 * The command can only be applied to purchase order with 'PENDING' status
 ****
 
-Examples:
+Example:
 
-* `edit-po 2 q/100` +
-Updates the quantity of the 3rd purchase order to `100`.
 * `edit-po 1 q/999 d/2018-12-12` +
 Updates the quantity and required date of the 1st purchase order to `999` and `2018-12-12` respectively.
 
