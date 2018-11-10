@@ -8,32 +8,49 @@
 :sectnums:
 == Overview
 
-Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
+This portfolio aims to showcases my ability to work in a software development team. It also documents
+my contribution to the project of our team, the *Inventory Manager*. There are mainly two part of my contributions,
+ code and documentations.
+
+*Inventory Manager* is for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
 who prefer to work with a Command Line Interface (CLI) while still having the benefits of
-a Graphical User Interface (GUI). It will allow various users to perform multiple inventory
-management tasks such as creating sales, generating reports, creating purchase orders
-and more. The user interacts with it using a CLI, and it has a GUI created
-with JavaFX. It is written in Java, and has about 10 kLoC.
+a Graphical User Interface (GUI). It has mainly three core features, including item management,
+sales management and reporting module. It also has two other special features including
+user authentication and purchase order management.
+
+For *Inventory Manager*, I have designed and implemented the reporting module of the product.
+It mainly provides the users with the ability to export and import the data of  *Inventory Manager* to
+and from the outer system.
 
 == Summary of contributions
 
+|===
+|_Below is a summary of the contributions I have made to the *Inventory Manager*._
+|===
+
 * *Major enhancement*: Reporting Module of Inventory Manager.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Autolock of Inventory Manager
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=fzdy1914[Reposense]]
 
 * *Other contributions*:
 
-** Minor enhancements:
-*** Autolock of Inventory Manager
 ** Project management:
-*** Call for meetings for the project.
-** Documentation:
-*** Did some change to existing contents of the User Guide: https://github.com[#14]
-** Community:
-** Tools:
-*** Be in charge of JavaFX and UI
+*** Called for several meetings for the project.
+*** Managed release `v1.3.1` on GitHub [https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.3.1[GitHub]]
 
+** Documentation:
+*** Added the section on Reporting Modules to the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
+*** Added the use cases of Reporting Modules to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
+*** Added the implementation of Export Command to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/77[#77])
+*** Edited the existing implementation of undo/redo feature in the Developer Guide
+(Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/191[#191])
+
+** Community:
+*** Reviewed Pull Requests [https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Afzdy1914[Pull Requests]]
+*** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+Piconso[Issues]]
 
 == Contributions to the User Guide
 
@@ -50,8 +67,6 @@ include::../UserGuide.adoc[tag=exportimport]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=usecaseexportimport]
 
 include::../DeveloperGuide.adoc[tag=exportCsv]
 
