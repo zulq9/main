@@ -12,10 +12,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
-:width: 740
+:img-width: 740
 endif::[]
 ifndef::env-github[]
-:width: 450
+:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -649,7 +649,7 @@ The following commands are added for Authentication:
 * `logout` : Logout a staff and clears all the command history
 
 .UML diagram shows how login is executed and works at the logic component.
-image::LoginSDForLogic.png[width=width]
+image::LoginSDForLogic.png[width={img-width}]
 
 ===== Model Component
 
@@ -659,7 +659,7 @@ largely relied on when the commands are executed.
 Newly created user session object comes with a `Staff` object to store current user's information.
 
 .UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
-image::AuthenticationModelComponentClassDiagram.png[width=width]
+image::AuthenticationModelComponentClassDiagram.png[width={img-width}]
 
 // end::authentication[]
 
@@ -713,21 +713,21 @@ The following commands are added for User Management:
 * `delete-staff` : Delete a staff
 
 .UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width=width]
+image::EditStaffSDForLogic.png[width=:{img-width}:]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
 .UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
-image::StaffModelComponentClassDiagram.png[width=width]
+image::StaffModelComponentClassDiagram.png[width={img-width}]
 
 ===== Storage Component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
 .UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
-image::StaffStorageComponentClassDiagram.png[width=width]
+image::StaffStorageComponentClassDiagram.png[width={img-width}]
 
 An example staff stored in this format is reproduced below:
 
