@@ -339,7 +339,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-//tag::inventoryManagement[]
+// tag::pppInventoryManagement[]
 === Inventory Management
 
 *Inventory management* is introduced in Inventory manager as a core feature to allow users to easily manage items in their inventory list.
@@ -498,8 +498,7 @@ public static boolean isValidImage(String test) {
 }
 ----
 
-
-//end::inventoryManagement{}
+// end::pppInventoryManagement[]
 
 // tag::saleOrderCreation[]
 === Sale Order Creation
