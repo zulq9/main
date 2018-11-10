@@ -11,6 +11,10 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:img-width: 790
+endif::[]
+ifndef::env-github[]
+:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -200,7 +204,7 @@ Examples:
 * Login user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
-image::doc-login.png[width="500"]
+image::doc-login.png[width={img-width}]
 _Figure 4.1. User is required to login before proceeding._
 
 ==== Change user's password : `change-password`
@@ -215,7 +219,7 @@ Examples:
 * Change user's password with given new password as darrensinglenus. +
  `change-password p/darrensinglenus`.
 
-image::doc-change-password.png[width="500"]
+image::doc-change-password.png[width={img-width}]
 _Figure 4.2. User attempting to change password._
 
 ==== Logout from the system : `logout`
@@ -259,7 +263,7 @@ This command is available to admins only. +
 
 Format: `list-staff`
 
-image::doc-list-user.png[width="500"]
+image::doc-list-user.png[width={img-width}]
 _Figure 4.3. All users in Inventory Manager listed on screen._
 
 ==== Updating a user : `edit-staff`
@@ -285,7 +289,7 @@ This command is available to admins only. +
 An error will be shown if the entered index is invalid.
 `delete-staff 999`.
 
-image::doc-delete-user-failed.png[width="500"]
+image::doc-delete-user-failed.png[width={img-width}]
 _Figure 4.4. Error shown if the deleted index is invalid._
 
 Format: `delete-staff INDEX`

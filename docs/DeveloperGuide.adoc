@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
-:img-width: 740
+:img-width: 790
 endif::[]
 ifndef::env-github[]
 :img-width: 450
