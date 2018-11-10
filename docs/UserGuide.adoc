@@ -698,7 +698,7 @@ Deletes the 5th purchase order in the inventory.
 
 // end::purchaseOrderManagement[]
 
-// tag::exportimport[]
+// tag::exportcsv[]
 === Reporting Module
 The following commands are mainly used to export and import data for report analysis. +
 All the commands in this section are available to *admin* only. +
@@ -750,6 +750,7 @@ The `export-csv-orders` command exports the list of purchase orders in CSV forma
 Format: `export-csv-orders f/FILEPATH`
 
 Example: `export-csv-orders f/E:/out/orders.csv`
+// end::exportcsv[]
 
 ==== Exporting entire data to .im file: `export-im`
 (coming in v2.0)
@@ -768,6 +769,7 @@ Example: `export-im f/E:/out/data.im`
 * The parent directories will be created if they do not exist.
 ****
 
+// tag::importcsv[]
 ==== Importing data from CSV: `import-csv`
 ****
 * This command imports the data from the file specified by `FILEPATH`.
@@ -814,6 +816,8 @@ Format: `import-csv-orders f/FILEPATH`
 
 Example: `import-csv-orders f/E:/in/orders.csv`
 
+// end::importcsv[]
+
 ==== Importing entire data from .im file: `import-im`
 (coming in v2.0)
 
@@ -830,7 +834,6 @@ Example: `import-im f/E:/in/data.im`
 * Original data in *Inventory Manager* will be overwritten.
 * Data in the .im file must be *recognizable* by *Inventory Manager*.
 ****
-// end::exportimport[]
 
 == FAQ
 

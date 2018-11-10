@@ -31,6 +31,12 @@ and from the outer system.
 
 * *Major enhancement*: Added the *Reporting Module* of *Inventory Manager*.
 
+** What it does: This feature allows the user to to export and import data for report analysis.
+
+** Justification: This feature is critical for *Inventory Manager*. Without this feature, users will not be able to have further analysis of the data using other applications.
+
+** Highlights: The file format that this feature support is CSV file, which can be interacted directly with *Excel*.
+
 * *Minor enhancement*:
 
 ** Improved the structure of existing Model and Storage Component.
@@ -62,7 +68,9 @@ and from the outer system.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=exportimport]
+include::../UserGuide.adoc[tag=exportcsv]
+
+include::../UserGuide.adoc[tag=importcsv]
 
 == Contributions to the Developer Guide
 
