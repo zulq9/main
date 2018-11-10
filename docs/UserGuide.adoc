@@ -259,7 +259,7 @@ This command is available to admins only. +
 
 Format: `list-staff`
 
-image::doc-list-user.png[width="790"]
+image::doc-list-user.png[width="500"]
 _Figure 4.3. All users in Inventory Manager listed on screen._
 
 ==== Updating a user : `edit-staff`
@@ -285,7 +285,7 @@ This command is available to admins only. +
 An error will be shown if the entered index is invalid.
 `delete-staff 999`.
 
-image::doc-delete-user-failed.png[width="790"]
+image::doc-delete-user-failed.png[width="500"]
 _Figure 4.4. Error shown if the deleted index is invalid._
 
 Format: `delete-staff INDEX`
