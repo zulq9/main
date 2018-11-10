@@ -2,21 +2,20 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: Inventory Manager
-
----
+:sectnums:
 
 == Overview
 
-Inventory Manager aims to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). Designed to be easy
+Hello! My name is Zul and I'm a student at National University of Singapore (NUS). My future hope is to be a good developer.
+To start off my software developer path, i took part in this strenuous 2 month of developing a project called Inventory Manager.
+This portfolio provides you with information about various contributions that I have done for the project. This project is a small sample of the multiple talents
+that I have that will contribute to my future employment.
+
+Inventory Manager is an inventory management solution aims to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). Designed to be easy
 to use, Inventory Manager gives you control over your business right from your keyboard.
 
 Inventory Manager allows various users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders and more.
 With user authentication put in place, it gives SMEs greater control over users' access to the application too.
-
-The user interacts with it using a Command Line Interface (CLI) through the Graphical User Interface (GUI) created
-with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -42,13 +41,16 @@ Deleting and editing an item must now update the relevant purchase orders as wel
 
 ** Documentation:
 
-*** Updated the user guides of Purchase Order Management component in Inventory Manager [#99]
-*** Updated the developer guides of Purchase Order Management component in Inventory Manager [#99]
-*** Updated the team's about us page [#99]
+*** Updated the user guides of Purchase Order Management component in Inventory Manager (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the developer guides of Purchase Order Management component in Inventory Manager (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the team's about us page (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the storage and Ui class diagram in develop guide (https://github.com/CS2103-AY1819S1-W14-4/main/pull/208[#208])
+
+
 
 ** Community:
 
-*** Reviewed pull requests
+*** Reviewed project done by other group and suggested improvements based on the bugs found. (https://github.com/CS2103-AY1819S1-W17-1/main/issues/249)[W17-1 Issue #249])
 
 == Contributions to the User Guide
 
@@ -66,15 +68,6 @@ include::../UserGuide.adoc[tag=purchaseOrderManagement]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=useCasePurchaseOrder]
 include::../DeveloperGuide.adoc[tag=purchaseOrderManagement]
-
-
-== PROJECT: SynchroNUS
-
-|===
-| This project is the project I did during the summer holiday for SOC Orbital Programme.
-|===
-
 
 ---
