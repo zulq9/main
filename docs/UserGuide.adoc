@@ -476,7 +476,7 @@ Format: `delete-item INDEX`
 
 [NOTE]
 ====
-All purchase orders containing the deleted item will be deleted as well.
+All sale orders and purchase orders containing the deleted item will be deleted as well.
 ====
 
 For the `delete-item` command, do take note of the following points:
@@ -532,7 +532,7 @@ item quantity automatically. User will need to ensure that the entered item SKU 
 If an invalid SKU or quantity is entered, Inventory Manager will display an error on screen. The screenshot below is an example of
 an error when an invalid SKU is entered.
 
-image::doc-add-sale-failed.png[width="790"]
+image::doc-add-sale-failed.png[width="500"]
 _Figure 4.8. Error shown on screen when creating a sale order with invalid SKU._
 
 Format: `add-sale s/SKU q/QTY`
@@ -550,7 +550,7 @@ the inventory quantity deducted automatically. User will need to ensure that the
 If a sale ID that cannot be found is entered, Inventory Manager will display an error on screen. The
 screenshot below is an example of an error when an invalid sale ID is entered.
 
-image::doc-delete-sale-failed.png[width="790"]
+image::doc-delete-sale-failed.png[width="500"]
 _Figure 4.9. Error shown on screen when deleting a sale order that cannot be found._
 
 Format: `delete-sale SALE-ID`
@@ -564,9 +564,9 @@ Example:
 
 The `list-sale` command is only available to the Member group. It allows the user to list all sale orders in Inventory Manager.
 
-The screenshot below shows the result after the `list-sale` command is entered.
+The screenshot below shows the result after the `list-sale` command has been entered.
 
-image::doc-list-sale.png[width="790"]
+image::doc-list-sale.png[width="500"]
 _Figure 4.10. All sales in Inventory Manager listed on screen._
 
 Format: `list-sale`

@@ -6,17 +6,15 @@
 
 == Overview
 
-This portfolio aims to document my contributions as a developer to the Inventory Manager project. In addition, it
-showcases my ability to work in a development team using an advanced collaboration tool, GitHub. It also exhibits
-my ability to manage a project for a team.
+Inventory Manager was developed to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). It is designed
+to be easy to use and it gives business owners control over their business right from their keyboard.
 
-Inventory Manager was developed for Small to Medium Enterprises (SMEs) to tackle the
-chore of stock taking. Designed to be easy to use, Inventory Manager gives the user control over
-their business right from their keyboard.
+This portfolio aims to highlight my contributions as a developer to the Inventory Manager project. In addition,
+it demonstrates my ability to work with and manage a project team. Given only a short span of three months to develop
+Inventory Manager, I have written both user and developer documentation for the project too. This showcases not only my
+technical skills, but also my ability to work under pressure and competency in non-technical writing.
 
-Inventory Manager comes with features to manage the shop inventory such as creating sale orders,
-purchase orders, generating reports and more. With user authentication built in,
-it gives SMEs greater control over users' access to the application too.
+My contributions as a developer to the project is further elaborated below.
 
 
 == Summary of contributions
