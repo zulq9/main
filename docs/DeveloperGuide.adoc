@@ -768,24 +768,26 @@ Newly added purchase order comes with a default `PENDING` status which subsequen
 ===== Model Component
 
 Purchase orders are maintained in the Model in a NonUniquePurchaseOrderList, allowing non unique purchase order among the stored individual purchase orders.
+The UML diagram is as shown in the figure below.
 
 .UML diagram showing representation of NonUniquePurchaseOrderList in Inventory Manager.
-image::ComingSoon.png[width="200"]
+image::PoModel1.png[width="800"]
 
 Individual purchase order are represented by the `PurchaseOrder` object with attributes `Sku`, `Quantity`, `RequiredDate` and `Supplier`. The class relationship is shown
 in Figure 11 below.
 
 .UML diagram showing representation of Purchase Order in Inventory Manager.
-image::ComingSoon.png[width="200"]
+image::PoModel2.png[width="370"]
 
 ===== Storage Component
 
-Purchase orders are stored in `XmlAdaptedPurchaseOrder` objects, which maintain a class relationship as shown in this diagram.
+Purchase orders are stored in `XmlAdaptedPurchaseOrder` objects, which maintain a class relationship as shown in the diagram below:
 
-.PurchaseOrder objects are saved using XmlAdaptedJPurchaseOrder objects as shown above.
-image::ComingSoon.png[width="200"]
+.PurchaseOrder objects are saved using XmlAdaptedPurchaseOrder objects as shown above.
+image::PoStorage.png[width="900"]
 
-An example purchase order stored in this format is reproduced below:
+To save the XmlAdaptedPurchaseOrder objects created, it is stored in a plain text file following the XML format. +
+An example purchase order stored in XML format is reproduced below:
 
 [source:xml]
 ----
@@ -801,12 +803,18 @@ An example purchase order stored in this format is reproduced below:
 ===== UI Component
 
 The main window contains a ListPanel, which is interchangeable to display any list based on the command entered.
+The diagram below shows how purchase order panel is integrated in the Ui class diagram.
+
+.Example of the a purchase order card in Inventory Manager UI.
+image::PoUi.png[width="500"]
+
+
 Purchase order list is shown in the ListPanel upon executing `list-po`.
 Individual purchase orders are represented using PurchaseOrderCards that contains the attributes fields using Labels and flowPanes.
 An example of the a purchase order card is shown in figure 13 below.
 
 .Example of the a purchase order card in Inventory Manager UI.
-image::ComingSoon.png[width="200"]
+image::PoCard.png[width="400"]
 
 ===== Logic Component
 
@@ -823,7 +831,7 @@ The following commands were added to handle the purchase order:
 The following diagram details the class relationship for the Purchase order Commands.
 
 .UML Diagram depicting the class relationship between command classes.
-image::ComingSoon.png[width="200"]
+image::PoCommand.png[width="350"]
 
 Operations performed on purchase orders follow the sequence of operations described in the diagram below.
 
@@ -832,26 +840,44 @@ Operations performed on purchase orders follow the sequence of operations descri
 . The changes to data are effected by the Model component.
 . The new Inventory Manager data is saved by the Storage component.
 
-This sequence of events is summarized in the following sequence diagram.
+This sequence of events is summarized in the following sequence diagrams:
+
+.A high level sequence diagram showing events triggered by the `list-po` command.
+image::PoList.png[width="600"]
 
 .A high level sequence diagram showing events triggered by the `add-po` command.
-image::ComingSoon.png[width="200"]
+image::PoAdd.png[width="600"]
 
 ==== Design Considerations
 
-**Aspect:** Where `updateItem` is executed +
-There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
+**Aspect:** Implementation of purchase order commands that requires the item to be updated.  +
+Commands such as `approve-po` will update the item quantity upon approval. Consequently, there are various places where
+`updateItem` can be executed. The pros and cons for each option is shown below.
 
 **Alternative 1 (current choice):** Executed at Logic +
-**Pros:** Easy to implement. +
-**Cons:** Direct calling of `Model.approvePurchaseOrder()` will not be validated. +
+**Pros:** Allows the user to get the item list from the model directly; less hassle. +
+**Cons:** Complicates the test cases as everything is done in one method. +
 
 **Alternative 2:** Executed at Model +
-**Pros:** Ensures that all entries are validated before sale can be created. +
-**Cons:**`Model.approvePurchaseOrder()` will need to access inventory to perform validations..
+**Pros:** Allows the user to call the item directly from the list that is stored in the model. +
+**Cons:** Requires additional method in the model which in turns requires to update 4 relevant model files.
 
-Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
-`Model.approvePurchaseOrder()` to read the inventory and perform validations.
+Based on the above pros and cons, the first option is chosen as it is easier to implement and only requires 1 logic file to be edited.
+
+---
+
+**Aspect:** Implementation of purchase order storage +
+There are various places where `updateItem` can be executed. The pros and cons for each option is shown below.
+
+**Alternative 1 (current choice):** Stored in the same file as the item but with different xml tag +
+**Pros:** Eases the implementation by adding in relevant purchase order detail in the existing storage implementation. +
+**Cons:** Disorganizes the storage file as all the different data is clunked together +
+
+**Alternative 2:** Created a whole new standalone storage for purchase order +
+**Pros:** Organizes the data separately into it's own file. +
+**Cons:** Requires a lot of work, additional files and test cases.
+
+Based on the above pros and cons, the first option is chosen as it is easier to implement, requires lesser test case and more efficient work load.
 
 // end::purchaseOrderManagement[]
 

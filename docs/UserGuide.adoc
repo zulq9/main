@@ -584,8 +584,10 @@ The following commands are used to manage purchase order.
 
 ==== Listing all purchase order : `list-po`
 
-The `list-po` command shows a list of all the purchase order. +
-This command is available to *members* only. +
+The `list-po` command is only available to the Member group. +
+It allows the user to list all purchase orders in Inventory Manager. +
+
+The screenshot below shows the result after the `list-po` command is entered.
 
 image::doc-list-po.png[width="790"]
 _Figure 4.11. All purchase orders in Inventory Manager listed on screen._
@@ -594,22 +596,32 @@ Format: `list-po`
 
 ==== Adding a purchase order : `add-po`
 
-The `add-po` command adds a purchase order for an item based on it's sku. +
-The default status of the added purchase order is 'PENDING'
-This command is available to *members* only. +
+The `add-po` command is only available to the Member group. +
+It allows the user to add a purchase order for an item based on it's sku. +
+The added purchase order comes with a default status of 'PENDING' as shown in the figure below.
+
+image::doc-add-po.png[width="300"]
+_Figure 4.12. A newly added purchase order that comes with a default 'PENDING' status._
+
 
 Format: `add-po s/SKU_NUMBER q/QUANTITY d/REQUIRED_DATE sp/SUPPLIER`
 
-Example:
+Examples:
 
 * `add-po s/apple-iphone-xr q/1000 d/2018-12-12 sp/Apple Inc`
 * `add-po s/samsung-s9 q/12 d/2101-12-12 sp/Samsung`
 
 ==== Approving a purchase order : `approve-po`
 
-The `approve-po` command approves the specified purchase order from the purchase order list. +
+The `approve-po` command is only available to the Manager. +
+It allows the manager to approve the specified purchase order from the purchase order list. +
 Upon approving, the quantity stated in the purchase order will be added to the designated item. +
-This command is available to *manager* and *admin* only. +
+
+The image below shows the result after the `approve-po 1` command is entered.
+
+image::doc-delete-po.png[width="250"]
+_Figure 4.13. Approves the specified purchase order by the it's index in the list._
+
 
 Format: `approve-po INDEX`
 
@@ -621,19 +633,16 @@ For the `approve-po` command, do take note of the following points:
 * The command can only be applied to purchase order with 'PENDING' status
 ****
 
-Examples:
+Example:
 
 * `list-po` +
 `approve-po 1` +
 Approves the first purchase order in the purchase order list.
 
-image::doc-delete-po.png[width="790"]
-_Figure 4.12. Approves the specified purchase order by the it's index in the list._
-
 ==== Rejecting a purchase order : `reject-po`
 
-The `reject-po` command rejects the specified purchase order from the purchase order list. +
-This command is available to the *manager* and *admin* only.
+The `reject-po` command is only available to the Manager. +
+It allows the user to reject the specified purchase order from the purchase order list. +
 
 Format: `reject-po INDEX`
 
@@ -645,7 +654,7 @@ For the `reject-po` command, do take note of the following points:
 * The command can only be applied to purchase order with 'PENDING' status
 ****
 
-Examples:
+Example:
 
 * `list-po` +
 `reject-po 1` +
@@ -653,8 +662,8 @@ Rejects the first purchase order in the purchase order list.
 
 ==== Editing a purchase order : `edit-po`
 
-The `edit-po` command edits an existing purchase order in the Inventory Manager. +
-This command is available to *members* only. +
+The `edit-po` command is only available to the Member group. +
+It allows member to edit an existing purchase order in the Inventory Manager. +
 
 Format: `edit-po INDEX [q/QUANTITY] [d/REQUIRED_DATE] [sp/SUPPLIER]`
 
@@ -678,8 +687,8 @@ Updates the quantity and required date of the 1st purchase order to `999` and `2
 
 ==== Deleting a purchase order : `delete-po`
 
-The `delete-po` command deletes the specified purchase order from the purchase order list. +
-This command is available to *members* only. +
+The `delete-po` command is only available to the Member group. +
+It allows the user to delete the specified purchase order from the purchase order list. +
 
 Format: `delete-po INDEX`
 
@@ -690,7 +699,7 @@ For the `delete-po` command, do take note of the following points:
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+Example:
 
 * `list-po` +
 `delete-po 5` +
