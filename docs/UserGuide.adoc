@@ -188,11 +188,10 @@ Inventory Manager data are saved in the hard disk automatically after any comman
 === Authentication
 Users authenticate their identities prior to using other functions of the applications.
 
-The following commands are mainly used for admin to manage the users and for users login.
+The following commands are only available to any members except `login` which can be executed by any user. +
 
 ==== Login to the system : `login`
 The `login` command allows the user to login with the given username and password. +
-This command is available to any user. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
@@ -208,8 +207,6 @@ _Figure 4.1. User is required to login before proceeding._
 
 The `change-password` command updates a user password into the system with given new password. +
 If there are multiple inputs for the new password, then only the last input of the new password is accepted. +
-This command is available to *members* only. +
-
 
 Format: `change-password p/NEW_PASSWORD`
 
@@ -224,7 +221,6 @@ _Figure 4.2. User attempting to change password._
 ==== Logout from the system : `logout`
 
 The `logout` Logout the current users from the system. +
-This command is available to members only. +
 
 Format: `logout`
 
@@ -239,6 +235,8 @@ Examples:
 === User Management
 
 Admin of the system manages the staffs who use this application.
+
+The following commands are only accessible to the admin to manage the users.
 
 ==== Adding a user : `add-staff`
 
@@ -287,15 +285,15 @@ This command is available to admins only. +
 An error will be shown if the entered index is invalid.
 `delete-staff 999`.
 
+image::doc-delete-user-failed.png[width="790"]
+_Figure 4.4. Error shown if the deleted index is invalid._
+
 Format: `delete-staff INDEX`
 
 Examples:
 
 * Delete user with given index as shown in the list. +
  `delete-staff 1`.
-
-image::doc-delete-user-failed.png[width="500" center="true"]
-_Figure 4.4. Error shown if the deleted index is invalid._
 
 // end::userManagement[]
 

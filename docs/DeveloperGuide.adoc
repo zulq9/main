@@ -679,6 +679,27 @@ There are various places where `add-staff` can be executed. The pros and cons fo
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `Model#addUser` to read the inventory and perform validations.
 
+===== Storage Component
+
+Staffs are stored in `XmlAdaptedStaff` objects, which maintain a class relationship as shown in this diagram.
+
+.Staff objects are saved using XmlAdaptedStaff objects as shown above.
+image::ComingSoon.png[width="200"]
+
+An example staff stored in this format is reproduced below:
+
+[source,xml]
+----
+<staffs>
+                <username>johndoe</username>
+                <password>5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</password>
+                <name>2018-12-12</name>
+                <role>user</role>
+</staffs>
+----
+
+Remark: Passwords are stored in hashed format using SHA-256 encoding.
+
 // end::userCreation[]
 
 // tag::exportCsv[]
@@ -693,6 +714,10 @@ In the following sections, we will focus on how these commands depend on the `Mo
 to retrieve external data and where to validate the given file path.
 
 ==== Implementation
+
+===== Authentication
+
+To enable
 
 ===== Data Access
 
@@ -787,7 +812,7 @@ image::ComingSoon.png[width="200"]
 
 An example purchase order stored in this format is reproduced below:
 
-[source:xml]
+[source,xml]
 ----
 <purchaseOrders>
                 <sku>apple-iphone-xr</sku>
