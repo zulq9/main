@@ -19,7 +19,7 @@ a Graphical User Interface (GUI). It has mainly three core features, including i
 sales management and reporting module. It also has two other special features including
 user authentication and purchase order management.
 
-For *Inventory Manager*, I have designed and implemented the reporting module of the product.
+For *Inventory Manager*, I have designed and implemented the *Reporting Module* of the product.
 It mainly provides the users with the ability to export and import the data of  *Inventory Manager* to
 and from the outer system.
 
@@ -29,9 +29,13 @@ and from the outer system.
 |_Below is a summary of the contributions I have made to the *Inventory Manager*._
 |===
 
-* *Major enhancement*: Reporting Module of Inventory Manager.
+* *Major enhancement*: Added the *Reporting Module* of *Inventory Manager*.
 
-* *Minor enhancement*: Autolock of Inventory Manager
+* *Minor enhancement*:
+
+** Improved the structure of existing Model and Storage Component.
+** Added the table views of different elements in the *Inventory Manager*.
+** Added support for undo/redo feature for the *Reporting Module*.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=fzdy1914[Reposense]]
 
@@ -42,8 +46,8 @@ and from the outer system.
 *** Managed release `v1.3.1` on GitHub [https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.3.1[GitHub]]
 
 ** Documentation:
-*** Added the section on Reporting Modules to the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
-*** Added the use cases of Reporting Modules to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
+*** Added the section on *Reporting Module* to the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
+*** Added the use cases of *Reporting Module* to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/18[#18])
 *** Added the implementation of Export Command to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/77[#77])
 *** Edited the existing implementation of undo/redo feature in the Developer Guide
 (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/191[#191])
@@ -54,13 +58,11 @@ and from the outer system.
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=exportimport]
-
 
 == Contributions to the Developer Guide
 
