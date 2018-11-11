@@ -300,7 +300,7 @@ Examples:
 // tag::inventoryManagement[]
 === Inventory Management
 
-The following commands are mainly used for users to manage the items stored in the inventory.
+The following commands are mainly used for you to manage the items stored in the inventory.
 
 [NOTE]
 ====
@@ -315,7 +315,7 @@ This command is available to *members* only. +
 Format: `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
 
 [TIP]
-An item can have any number of tags (including 0)
+An item can have any number of tags (including 0). Therefore, you can add as many tags as you want to the item.
 
 Example:
 
@@ -323,19 +323,20 @@ Example:
 
 ==== Listing all items : `list-item`
 
-The `list-item` command shows a list of all items in the inventory manager. +
+The `list-item` command shows you a list of all items in the inventory manager. +
 This command is available to *members* only. +
 
 Format: `list-item`
 
-Upon entering the `list-item` command into the command box and pressing kbd:[Enter], a list of all items will appear as can be seen in the screenshot below:
+Upon entering the `list-item` command into the command box and pressing kbd:[Enter], you should see a list of all items appearing
+in the left side panel as can be seen in the screenshot below:
 
 image::doc-list-item.png[width="500"]
 _Figure 4.5. All items in Inventory Manager listed on screen._
 
 ==== Listing all items with low quantities : `list-low-qty`
 
-The `list-low-qty` command shows a list of all items in the inventory manager that have low quantities. +
+The `list-low-qty` command shows you a list of all items in the inventory manager that have low quantities. +
 This command is available to *members* only. +
 
 Format: `list-low-qty`
@@ -347,12 +348,12 @@ Format: `list-low-qty`
 - An item that is on `low quantity` will have its quantity highlighted in red with a warning sign when selected.
 ====
 
-Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], a list of all items with quantities
-of 10 or less will appear.
+Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], you should see a list of all items with
+quantities of 10 or less appearing in the left side panel similar to the `list-item` command.
 
 ==== Editing an item : `edit-item`
 
-The `edit-item` command edits an existing item in the Inventory Manager. +
+The `edit-item` command allows you to edit an existing item in the Inventory Manager. +
 This command is available to *members* only. +
 
 Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
@@ -380,7 +381,7 @@ Updates the image location and quantity of the 1st item to `docs/images/iphone.j
 
 ==== Locating items by name : `find-item`
 
-The `find-item` command finds items that have names containing any of the given keywords. +
+The `find-item` command allows you to find items that have names containing any of the given keywords. +
 This command is available to *members* only. +
 
 Format: `find-item KEYWORD [MORE_KEYWORDS]`
@@ -409,7 +410,7 @@ Returns `IPhone X` and `IPhone 10`
 
 ==== Locating items by SKU : `find-item-sku`
 
-The `find-item-sku` command finds items that have SKUs containing any of the given keywords. +
+The `find-item-sku` command allows you to find items that have SKUs containing any of the given keywords. +
 This command is available to *members* only. +
 
 Format: `find-item-sku KEYWORD [MORE_KEYWORDS]`
@@ -433,13 +434,13 @@ Returns `IPhone X` and `IPhone 10`, which contains the SKUs `iphone-x` and `ipho
 
 ==== Filtering items by price and/or quantity : `filter-item`
 
-The `filter-item` command filters items that have prices and/or quantities within the conditions set in the keywords. +
+The `filter-item` command allows you to filter items that have prices and/or quantities within the conditions set in the keywords. +
 This command is available to *members* only. +
 
 Format: `filter-item [p/[<][>]PRICE] [q/[<][>]QUANTITY]`
 
 [TIP]
-You can combine both conditions or use only one condition to filter your items.
+To narrow down the scope, you can combine both conditions or use only one condition to filter your items.
 
 
 For the `filter-item` command, do take note of the following points:
@@ -460,14 +461,12 @@ Examples:
 
 * `filter-item p/>900` +
 Returns `IPhone X` and `IPhone 10` which both have prices more than or equal to $900.
-* `filter-item q/<100` +
-Returns `LG G7` and `Samsung Note 9` which both have quantities less than or equal to 100.
 * `filter-item p/<800 q/<100` +
 Returns `Samsung Note 9` which has a price of less than or equals to $800, and a quantity of less than or equals to 100.
 
 ==== Deleting an item : `delete-item`
 
-The `delete-item` command deletes the specified item from the inventory. +
+The `delete-item` command allows you to delete the specified item from the inventory. +
 This command is available to *members* only. +
 
 Format: `delete-item INDEX`
@@ -495,7 +494,7 @@ Deletes the 1st item in the results of the `find-item` command.
 
 ==== Selecting an item : `select`
 
-The `select` command selects an item identified by the index number used in the displayed inventory list. +
+The `select` command allows you to select an item identified by the index number used in the displayed inventory list. +
 This command is available to *members* only. +
 
 Format: `select INDEX`
