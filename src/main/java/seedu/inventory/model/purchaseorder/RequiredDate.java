@@ -56,7 +56,11 @@ public class RequiredDate {
      * Returns true if a given string is a valid pending date.
      */
     public static boolean isValidDatePending(String date) {
-        isValidDate(date);
+
+        if (!isValidDate(date)) {
+            return false;
+        }
+
         Date tempDate;
 
         try {
