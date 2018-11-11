@@ -57,8 +57,9 @@ public class ExportCsvCommandSystemTest extends InventorySystemTest {
      * 1. Command box displays the input.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the internal message of executing the command.<br>
-     * 4. {@code Storage} and {@code ItemListPanel} is correctly updated
+     * 4. {@code Storage} and {@code ItemListPanel} is correctly updated.<br>
      * 5. Status bar remains unchanged.<br>
+     * 6. Browser panel displays the {@code ItemTableView} correctly.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code InventorySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
@@ -83,11 +84,13 @@ public class ExportCsvCommandSystemTest extends InventorySystemTest {
 
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
+        assertShowItemTableView(expectedModel);
 
         alertDialog.close();
 
         expectedResultMessage = String.format(ExportCsvCommand.MESSAGE_SUCCESS_ITEMS, path);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertShowItemTableView(expectedModel);
     }
 
     /**
