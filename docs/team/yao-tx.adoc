@@ -51,7 +51,6 @@ of the inventory without the need for manual recording of stock.
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
