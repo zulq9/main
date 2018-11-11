@@ -2224,9 +2224,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::testcaseUserManagement[]
 
 === Inventory Management
-
 . Deleting a item while all items are listed
-
 .. Prerequisites: List all items using the `list-item` command. Multiple items in the list.
 .. Test case: `delete-item 1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
@@ -2255,3 +2253,53 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No sale is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-sale`, `delete-sale ABC` +
    Expected: Similar to previous.
+
+// tag::testcasePoManagement[]
+=== Purchase Order Management
+
+. Listing all purchase orders
+.. Prerequisites: User must be logged in
+.. Test case: `list-po` +
+   Expected: Purchase orders will be listed at the panel on the left of the UI.
+
+. Adding a purchase order
+.. Prerequisites: User must be logged, item sku must exist in the inventory manager, required date must be beyond the current date
+and the quantity must be valid.
+.. Test case: `add-po s/apple-iphone-xr q/1000 d/2018-12-12 sp/Apple Inc` +
+   Expected: Purchase order will be added into the system. Details of the added purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add-po s/` +
+   Expected: No purchase order is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add-po commands to try: `add-po`, `add-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Editing a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list and purchase order status must be in 'PENDING' status.
+.. Test case: `edit-po 2 q/1000` +
+   Expected: Edited purchase order will replace the existing purchase order in the system. Details of the edited purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-po asd sd/` +
+   Expected: No purchase order is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect edit-po commands to try: `edit-po`, `edit-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Deleting a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list.
+.. Test case: `delete-po 2` +
+   Expected: Purchase order at index 2 will be deleted. Details of the deleted purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-po asd` +
+   Expected: No purchase order is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete-po commands to try: `delete-po`, `delete-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Approving a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list and purchase order status must be in 'PENDING' status.
+.. Test case: `approve-po 2` +
+   Expected: Purchase order at index 2 will be approved. Details of the approved purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `approve-po asd sd/` +
+   Expected: No purchase order is approved. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect approve-po commands to try: `approve-po`, `approve-po ,,,`_ +
+   Expected: Similar to previous.
+
+// end::testcasePoManagement[]
+
+_{ more test cases ... }_
+
