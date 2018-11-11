@@ -306,6 +306,7 @@ The following commands are mainly used for you to manage the items stored in you
 ====
 An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be *unique*.
 ====
+
 // end::pppInventoryManagement1[]
 
 ==== Adding an item : `add-item`
@@ -405,11 +406,6 @@ The following screenshot demonstrates entering the `find-item` command in the co
 image::doc-find-item.png[width="450"]
 _Figure 4.6. The item(s) searched for will be displayed on screen._
 
-Example:
-
-* `find-item iphone` +
-Returns `IPhone X` and `IPhone 10`
-
 ==== Locating items by SKU : `find-item-sku`
 
 The `find-item-sku` command allows you to find items that have SKUs containing any of the given keywords. +
@@ -434,8 +430,6 @@ Example:
 * `find-item-sku iphone` +
 Returns `IPhone X` and `IPhone 10`, which contains the SKUs `iphone-x` and `iphone-10` respectively.
 
-// end::pppInventoryManagement2[]
-
 ==== Filtering items by price and/or quantity : `filter-item`
 
 The `filter-item` command allows you to filter items that have prices and/or quantities within the conditions set in the keywords. +
@@ -445,7 +439,6 @@ Format: `filter-item [p/[<][>]PRICE] [q/[<][>]QUANTITY]`
 
 [TIP]
 To narrow down the scope, you can combine both conditions or use only one condition to filter your items.
-
 
 For the `filter-item` command, do take note of the following points:
 ****
@@ -462,6 +455,8 @@ Examples:
 Returns `IPhone X` and `IPhone 10` which both have prices more than or equal to $900.
 * `filter-item p/<800 q/<100` +
 Returns `Samsung Note 9` which has a price of less than or equals to $800, and a quantity of less than or equals to 100.
+
+// end::pppInventoryManagement2[]
 
 ==== Deleting an item : `delete-item`
 

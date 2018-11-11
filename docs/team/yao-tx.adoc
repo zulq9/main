@@ -51,7 +51,6 @@ of the inventory without the need for manual recording of stock.
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -62,7 +61,7 @@ include::../UserGuide.adoc[tag=pppInventoryManagement2]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=pppInventoryManagement]
