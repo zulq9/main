@@ -87,7 +87,7 @@ public class EditPurchaseOrderCommandTest {
         String expectedMessage = String.format(EditPurchaseOrderCommand.MESSAGE_EDIT_PO_SUCCESS, editedPo);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs(), new SaleList());
-        expectedModel.updatePurchaseOrder(lastPo, editedPo);
+        expectedModel.updatePurchaseOrder(indexLastPo.getZeroBased(), editedPo);
         expectedModel.commitInventory();
 
         assertCommandSuccess(editPoCommand, model, commandHistory, expectedMessage, expectedModel);
