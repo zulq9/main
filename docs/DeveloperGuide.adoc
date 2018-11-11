@@ -344,7 +344,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 *Inventory management* is introduced in Inventory manager as a core feature to allow users to easily manage items in their inventory list.
 
-An `Item` consists of `Name`, `Price`, `Quantity`, *unique* `SKU`, `Image Path`, and optional `Tags`.
+An `Item` consists of `Name`, `Price`, `Quantity`, *unique* `SKU`, `Image Path`, and optional `Tags`. An `item` is considered unique based on its `SKU`.
 
 An item can only be successfully added into the inventory if the following criteria are met:
 
@@ -354,9 +354,7 @@ An item can only be successfully added into the inventory if the following crite
 - `SKU` is unique and contains only *alphanumeric characters* and the *dash '-'* or *underscore '_'* symbols
 - `Image Path` is a valid file path and the file must be a valid image (i.e. either *.png* or *.jpeg* format)
 
-==== Implementation
-
-===== Model component
+==== Model component
 
 Items are stored and maintained in the Model in a `UniqueItemList`, allowing only unique items to be stored in the inventory.
 
@@ -365,7 +363,7 @@ image::UniqueItemList.png[width="500"]
 
 Individual items are represented by the `Item` object with attributes `Name`, `Price`, `Quantity`, `SKU`, `Image` and `Tag`.
 
-===== Storage component
+==== Storage component
 
 Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files. An item is stored in an XML file in the following format:
 [source, xml]
@@ -377,8 +375,6 @@ Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files
         <quantity>30</quantity>
         <sku>apple-iphone-xr</sku>
         <image>/images/iphone.jpg</image>
-        <tagged>apple</tagged>
-        <tagged>iphone</tagged>
     </items>
 </inventory>
 ----
@@ -400,6 +396,9 @@ image::ItemCard.PNG[width="300"]
 The following commands were added and/or modified to handle inventory management operations:
 
 * `list-item` : List all items in the inventory
+* `list-low-qty` : List all items with quantities less than or equal to 10 in the inventory
+* `find-item-sku` : Search for items based on SKU
+* `filter-item` : Filter items based on quantity and/or price
 * `add-item` : Add a unique item into the inventory
 * `delete-item` : Delete an existing item in the inventory
 * `edit-item` : Edit an existing item in the inventory
@@ -436,14 +435,11 @@ Based on the above consideration, the first option is chosen as it is easier to 
 
 ===== SKU field
 
-Since an item is considered unique based on its SKU, therefore, it is important to check and validate that the item
-has a unique SKU (i.e. no other items in the inventory has the same SKU as this item) before it is allowed to be added
-or edited in the inventory.
+Since an item is considered unique based on its SKU, it is important to validate that an item has a unique SKU before it is
+allowed to be added or edited in the inventory.
 
-Before an item is allowed to be added or edited, it is checked against every item in the inventory list. The first check
-compares if the `item` object is the same object as the other items in the inventory list. Then, it is followed by a second
-check to compare the item's SKU with the other items' SKUs in the inventory list. It is only allowed to be added or edited
-if it passes the checks.
+Before an item is allowed to be added or edited, it is checked against every item in the inventory list. There are two checks
+to verify if two items are the same: 1. comparing the two items against every field, and 2. comparing only SKU.
 
 The following code snippet shows how the item is checked for uniqueness:
 [source, java]
@@ -460,8 +456,8 @@ public boolean isSameItem(Item otherItem) {
 
 ===== Image field
 
-Inventory Manager supports images for items, and therefore, it is important to check and validate that the image supplied by the
-user is stored in a valid file path, and is a valid image file.
+Inventory Manager supports images for items, therefore, it is important to validate that images supplied by users are stored
+in a valid file path, and that the image is a valid image file.
 
 Inventory Manager checks if the directory supplied by the user is a valid file path. Then, the file's mime-type will be verified to ensure that it is a valid image file.
 
