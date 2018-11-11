@@ -103,9 +103,9 @@ public class RejectPurchaseOrderCommandTest {
         }
 
         @Override
-        public void rejectPurchaseOrder(PurchaseOrder purchaseOrder) {
+        public void rejectPurchaseOrder(int target, PurchaseOrder purchaseOrder) {
             requireNonNull(purchaseOrder);
-            inventory.rejectPurchaseOrder(purchaseOrder);
+            inventory.rejectPurchaseOrder(target, purchaseOrder);
         }
 
         @Override

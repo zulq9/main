@@ -49,6 +49,22 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
      * The purchase order identity of {@code editedPo} must not be the same as another
      * existing purchase order in the list.
      */
+    public void setPurchaseOrder(int index, PurchaseOrder editedPo) {
+        requireNonNull(editedPo);
+
+        if (index == -1 || index >= internalList.size()) {
+            throw new PurchaseOrderNotFoundException();
+        }
+
+        internalList.set(index, editedPo);
+    }
+
+    /**
+     * Replaces the purchase order {@code target} in the list with {@code editedPo}.
+     * {@code target} must exist in the list.
+     * The purchase order identity of {@code editedPo} must not be the same as another
+     * existing purchase order in the list.
+     */
     public void setPurchaseOrder(PurchaseOrder target, PurchaseOrder editedPo) {
         requireAllNonNull(target, editedPo);
 
@@ -64,11 +80,12 @@ public class NonUniquePurchaseOrderList implements Iterable<PurchaseOrder> {
      * Removes the equivalent purchase order from the list.
      * The purchase order must exist in the list.
      */
-    public void remove(PurchaseOrder toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+    public void remove(int index) {
+
+        if (index == -1 || index >= internalList.size()) {
             throw new PurchaseOrderNotFoundException();
         }
+        internalList.remove(index);
     }
 
     /**

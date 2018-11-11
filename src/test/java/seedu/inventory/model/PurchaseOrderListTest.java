@@ -62,7 +62,7 @@ public class PurchaseOrderListTest {
     public void removePurchaseOrder() {
         purchaseOrderList.addPurchaseOrder(IPHONEPO);
         assertTrue(purchaseOrderList.hasPurchaseOrder(IPHONEPO));
-        purchaseOrderList.removePurchaseOrder(IPHONEPO);
+        purchaseOrderList.removePurchaseOrder(0);
         assertFalse(purchaseOrderList.hasPurchaseOrder(IPHONEPO));
     }
 }

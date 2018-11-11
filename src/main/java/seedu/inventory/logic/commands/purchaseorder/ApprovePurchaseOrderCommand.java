@@ -51,7 +51,7 @@ public class ApprovePurchaseOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_SELECT_PENDING);
         }
 
-        model.approvePurchaseOrder(purchaseOrderToApprove);
+        model.approvePurchaseOrder(targetIndex.getZeroBased(), purchaseOrderToApprove);
 
         Item item = model.getInventory().getItemBySku(purchaseOrderToApprove.getSku().value);
         int newIntQuantity = Integer.parseInt(item.getQuantity().toString())

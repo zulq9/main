@@ -76,7 +76,7 @@ public class EditPurchaseOrderCommand extends Command {
 
         PurchaseOrder editedPurchaseOrder = createEditedPo(purchaseOrderToEdit, editPoDescriptor);
 
-        model.updatePurchaseOrder(purchaseOrderToEdit, editedPurchaseOrder);
+        model.updatePurchaseOrder(index.getZeroBased(), editedPurchaseOrder);
         model.updateFilteredPurchaseOrderList(PREDICATE_SHOW_ALL_PURCHASE_ORDER);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_EDIT_PO_SUCCESS, editedPurchaseOrder));

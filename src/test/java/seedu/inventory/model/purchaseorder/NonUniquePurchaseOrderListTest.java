@@ -75,19 +75,19 @@ public class NonUniquePurchaseOrderListTest {
     @Test
     public void remove_nullPurchaseOrder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        nonUniquePoList.remove((PurchaseOrder) null);
+        nonUniquePoList.remove(null);
     }
 
     @Test
     public void remove_purchaseOrderDoesNotExist_throwsPurchaseOrderNotFoundException() {
         thrown.expect(PurchaseOrderNotFoundException.class);
-        nonUniquePoList.remove(LGPO);
+        nonUniquePoList.remove(4);
     }
 
     @Test
     public void remove_existingPurchaseOrder_removesPurchaseOrder() {
         nonUniquePoList.add(LGPO);
-        nonUniquePoList.remove(LGPO);
+        nonUniquePoList.remove(0);
         NonUniquePurchaseOrderList expectedNonUniquePoList = new NonUniquePurchaseOrderList();
         assertEquals(expectedNonUniquePoList, nonUniquePoList);
     }

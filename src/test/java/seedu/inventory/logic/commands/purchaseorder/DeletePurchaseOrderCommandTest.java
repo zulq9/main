@@ -39,7 +39,7 @@ public class DeletePurchaseOrderCommandTest {
                 purchaseOrderToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
-        expectedModel.deletePurchaseOrder(purchaseOrderToDelete);
+        expectedModel.deletePurchaseOrder(INDEX_FIRST_ITEM.getZeroBased());
         expectedModel.commitInventory();
 
         assertCommandSuccess(deletePurchaseOrderCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -59,7 +59,7 @@ public class DeletePurchaseOrderCommandTest {
         PurchaseOrder purchaseOrderToDelete = model.getFilteredPurchaseOrderList().get(INDEX_FIRST_ITEM.getZeroBased());
         DeletePurchaseOrderCommand deletePurchaseOrderCommand = new DeletePurchaseOrderCommand(INDEX_FIRST_ITEM);
         Model expectedModel = new ModelManager(model.getInventory(), new UserPrefs(), new SaleList());
-        expectedModel.deletePurchaseOrder(purchaseOrderToDelete);
+        expectedModel.deletePurchaseOrder(INDEX_FIRST_ITEM.getZeroBased());
         expectedModel.commitInventory();
 
         // delete -> first PurchaseOrder deleted
