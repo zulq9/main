@@ -12,10 +12,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
-:img-width: 790
-endif::[]
-ifndef::env-github[]
-:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -652,7 +648,7 @@ The following commands are added for Authentication:
 * `logout` : Logout a staff and clears all the command history
 
 .UML diagram shows how login is executed and works at the logic component.
-image::LoginSDForLogic.png[width={img-width}]
+image::LoginSDForLogic.png[width="790"]
 
 ===== Model Component
 
@@ -662,7 +658,7 @@ largely relied on when the commands are executed.
 Newly created user session object comes with a `Staff` object to store current user's information.
 
 .UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
-image::AuthenticationModelComponentClassDiagram.png[width={img-width}]
+image::AuthenticationModelComponentClassDiagram.png[width="790"]
 
 // end::authentication[]
 
@@ -710,27 +706,28 @@ Based on the above pros and cons, the first option is chosen as it is easier to 
 ===== Logic Component
 
 The following commands are added for User Management:
+
 * `add-staff` : Add a staff
 * `list-staff` : List all staffs
 * `edit-po` : Edit a staff
 * `delete-staff` : Delete a staff
 
 .UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width={img-width}]
+image::EditStaffSDForLogic.png[width="790"]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
 .UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
-image::StaffModelComponentClassDiagram.png[width={img-width}]
+image::StaffModelComponentClassDiagram.png[width="790"]
 
 ===== Storage Component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
 .UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
-image::StaffStorageComponentClassDiagram.png[width={img-width}]
+image::StaffStorageComponentClassDiagram.png[width="790"]
 
 An example staff stored in this format is reproduced below:
 

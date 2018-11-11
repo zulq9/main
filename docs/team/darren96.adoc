@@ -3,12 +3,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :sectnums:
-ifdef::env-github[]
-:img-width: 740
-endif::[]
-ifndef::env-github[]
-:img-width: 450
-endif::[]
 
 == Overview
 
@@ -27,8 +21,7 @@ to authenticate and authorize users to manage the inventory.
 == Summary of contributions
 
 * *Major enhancement*:
-** Created user authentication feature
-** Created user management features
+** Created authentication and user management feature
 
 * *Code contributed*:
 ** https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=darren96&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional Code]

@@ -14,7 +14,7 @@ ifdef::env-github[]
 :img-width: 790
 endif::[]
 ifndef::env-github[]
-:img-width: 450
+:img-width: 400
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
