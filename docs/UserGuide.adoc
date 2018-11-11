@@ -301,19 +301,20 @@ Examples:
 
 // end::userManagement[]
 
-// tag::inventoryManagement[]
+// tag::pppInventoryManagement1[]
 === Inventory Management
 
-The following commands are mainly used for you to manage the items stored in the inventory.
+The following commands are mainly used for you to manage the items stored in your inventory.
 
 [NOTE]
 ====
 An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be *unique*.
 ====
+// end::pppInventoryManagement1[]
 
 ==== Adding an item : `add-item`
 
-The `add-item` command adds an item to the inventory manager. +
+The `add-item` command allows you to add an item to the inventory manager. +
 This command is available to *members* only. +
 
 Format: `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
@@ -335,9 +336,10 @@ Format: `list-item`
 Upon entering the `list-item` command into the command box and pressing kbd:[Enter], you should see a list of all items appearing
 in the left side panel as can be seen in the screenshot below:
 
-image::doc-list-item.png[width="500"]
+image::doc-list-item.png[width="450"]
 _Figure 4.5. All items in Inventory Manager listed on screen._
 
+// tag::pppInventoryManagement2[]
 ==== Listing all items with low quantities : `list-low-qty`
 
 The `list-low-qty` command shows you a list of all items in the inventory manager that have low quantities. +
@@ -404,7 +406,7 @@ For the `find-item` command, do take note of the following points:
 
 The following screenshot demonstrates entering the `find-item` command in the command box with the keyword `LG`, followed by kbd:[Enter]:
 
-image::doc-find-item.png[width="500"]
+image::doc-find-item.png[width="450"]
 _Figure 4.6. The item(s) searched for will be displayed on screen._
 
 Example:
@@ -436,6 +438,8 @@ Example:
 * `find-item-sku iphone` +
 Returns `IPhone X` and `IPhone 10`, which contains the SKUs `iphone-x` and `iphone-10` respectively.
 
+// end::pppInventoryManagement2[]
+
 ==== Filtering items by price and/or quantity : `filter-item`
 
 The `filter-item` command allows you to filter items that have prices and/or quantities within the conditions set in the keywords. +
@@ -455,11 +459,6 @@ For the `filter-item` command, do take note of the following points:
 * For price, both whole numbers and decimals are allowed
 * For quantity, only whole numbers are allowed
 ****
-
-The following screenshot demonstrates entering the `filter-item` command in the command box with the condition `q/>85` (i.e. quantity more than or equals to 85), followed by kbd:[Enter]:
-
-image::doc-filter-item.png[width="500"]
-_Figure 4.7. The item(s) filtered for based on the condition(s) set will be displayed on screen._
 
 Examples:
 
@@ -518,7 +517,6 @@ Selects the 2nd item in the inventory.
 * `find-item IPhone X` +
 `select 1` +
 Selects the 1st item in the results of the `find-item` command.
-// end::inventoryManagement[]
 
 // tag::salesManagement[]
 === Sale Orders Management
@@ -534,7 +532,7 @@ If an invalid SKU or quantity is entered, Inventory Manager will display an erro
 an error when an invalid SKU is entered.
 
 image::doc-add-sale-failed.png[width="500"]
-_Figure 4.8. Error shown on screen when creating a sale order with invalid SKU._
+_Figure 4.7. Error shown on screen when creating a sale order with invalid SKU._
 
 Format: `add-sale s/SKU q/QTY`
 
@@ -552,7 +550,7 @@ If a sale ID that cannot be found is entered, Inventory Manager will display an 
 screenshot below is an example of an error when an invalid sale ID is entered.
 
 image::doc-delete-sale-failed.png[width="500"]
-_Figure 4.9. Error shown on screen when deleting a sale order that cannot be found._
+_Figure 4.8. Error shown on screen when deleting a sale order that cannot be found._
 
 Format: `delete-sale SALE-ID`
 
@@ -568,7 +566,7 @@ The `list-sale` command is only available to the Member group. It allows the use
 The screenshot below shows the result after the `list-sale` command has been entered.
 
 image::doc-list-sale.png[width="500"]
-_Figure 4.10. All sales in Inventory Manager listed on screen._
+_Figure 4.9. All sales in Inventory Manager listed on screen._
 
 Format: `list-sale`
 
@@ -591,7 +589,7 @@ It allows the user to list all purchase orders in Inventory Manager. +
 The screenshot below shows the result after the `list-po` command is entered.
 
 image::doc-list-po.png[width="400"]
-_Figure 4.11. All purchase orders in Inventory Manager listed on screen._
+_Figure 4.10. All purchase orders in Inventory Manager listed on screen._
 
 Format: `list-po`
 
@@ -602,7 +600,7 @@ It allows the user to add a purchase order for an item based on it's sku. +
 The added purchase order comes with a default status of 'PENDING' as shown in the figure below.
 
 image::doc-add-po.png[width="250"]
-_Figure 4.12. A newly added purchase order that comes with a default 'PENDING' status._
+_Figure 4.11. A newly added purchase order that comes with a default 'PENDING' status._
 
 
 Format: `add-po s/SKU_NUMBER q/QUANTITY d/REQUIRED_DATE sp/SUPPLIER`
@@ -621,7 +619,7 @@ Upon approving, the quantity stated in the purchase order will be added to the d
 The image below shows the result after the `approve-po 1` command is entered.
 
 image::doc-delete-po.png[width="180"]
-_Figure 4.13. Approves the specified purchase order by the it's index in the list._
+_Figure 4.12. Approves the specified purchase order by the it's index in the list._
 
 
 Format: `approve-po INDEX`
