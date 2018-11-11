@@ -48,4 +48,8 @@ public class MainWindowHandle extends StageHandle {
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
     }
+
+    public ItemTableViewHandle getItemTableView() {
+        return new ItemTableViewHandle(getChildNode(ItemTableViewHandle.ITEM_TABLE_VIEW_ID));
+    }
 }
