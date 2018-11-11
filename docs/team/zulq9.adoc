@@ -17,7 +17,7 @@ to use, Inventory Manager gives you control over your business right from your k
 Inventory Manager allows various users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders and more.
 With user authentication put in place, it gives SMEs greater control over users' access to the application too.
 
-== Summary of contributions
+== Summary of Contributions
 
 * *Major Enhancement*: Added the *Purchase Orders Management* Feature
 
