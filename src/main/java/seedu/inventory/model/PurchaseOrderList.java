@@ -84,7 +84,7 @@ public class PurchaseOrderList implements ReadOnlyPurchaseOrderList {
      * Removes {@code key} from this {@code PurchaseOrderList}.
      * {@code key} must exist in the purchase order list.
      */
-    public void removePurchaseOrder(PurchaseOrder key) {
+    public void removePurchaseOrder(int key) {
         purchaseOrders.remove(key);
     }
 

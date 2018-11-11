@@ -12,10 +12,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
-:img-width: 790
-endif::[]
-ifndef::env-github[]
-:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -594,8 +590,8 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::authentication[]
 === Authentication
 
-Authentication is introduced in Inventory Management to allow users to login to the system to perform their inventory
-management tasks. This is to prevent unauthorized users from accessing the system.
+Authentication is introduced in Inventory Manager which allows users to authenticate themselves to perform their inventory
+management tasks. This is to prevent any unauthorized users from accessing the system.
 
 ==== Implementation
 
@@ -606,8 +602,8 @@ there are two conditions which needs to be met.
 ===== Conditions
 
 The following two conditions must be met before executing:
-. Current user who are executing the command must be providing correct username and password.
-. The index of the staff must be a valid number and existing in the staff list shown.
+. Current user who are executing the command must be providing valid username and password.
+. The user must have an account exists in the system.
 
 `LoginCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
 `CommandException` will be thrown and it will not call `Model#authenticateUser`.
@@ -627,7 +623,7 @@ There are various places where `authenticateUser` can be executed. The pros and 
 
 **Alternative 2:** Executed as an Event +
 **Pros:** Able to be used by any component of the application. +
-**Cons:** `AuthenticateUserEvent.execute()` will need to access inventory to perform validations.
+**Cons:** `AuthenticateUserEvent.execute()` will need to access the staff list to perform validations.
 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `AuthenticateUserEvent.execute()` to read the inventory and perform validations.
@@ -640,8 +636,8 @@ The following commands are added for Authentication:
 * `change-password` : Changes the current user's password
 * `logout` : Logout a staff and clears all the command history
 
-.UML diagram shows how login is executed and works at the logic component.
-image::LoginSDForLogic.png[width={img-width}]
+.This UML diagram shows how login is executed and works at the logic component.
+image::LoginSDForLogic.png[width="790"]
 
 ===== Model Component
 
@@ -650,8 +646,8 @@ largely relied on when the commands are executed.
 
 Newly created user session object comes with a `Staff` object to store current user's information.
 
-.UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
-image::AuthenticationModelComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
+image::AuthenticationModelComponentClassDiagram.png[width="790"]
 
 // end::authentication[]
 
@@ -699,29 +695,30 @@ Based on the above pros and cons, the first option is chosen as it is easier to 
 ===== Logic Component
 
 The following commands are added for User Management:
+
 * `add-staff` : Add a staff
 * `list-staff` : List all staffs
 * `edit-po` : Edit a staff
 * `delete-staff` : Delete a staff
 
-.UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width={img-width}]
+.This UML diagram shows how `edit-staff` is executed and works at the logic component.
+image::EditStaffSDForLogic.png[width="790"]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
-.UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
-image::StaffModelComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
+image::StaffModelComponentClassDiagram.png[width="790"]
 
 ===== Storage Component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
-.UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
-image::StaffStorageComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
+image::StaffStorageComponentClassDiagram.png[width="790"]
 
-An example staff stored in this format is reproduced below:
+An example staff stored in XML format is reproduced below:
 
 [source,xml]
 ----
