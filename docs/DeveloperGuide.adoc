@@ -12,6 +12,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
+:img-width: 790
+endif::[]
+ifndef::env-github[]
+:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -601,88 +605,149 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::authentication[]
 === Authentication
 
-*Authentication is introduced in Inventory Management to *allow users to login to the system to perform their inventory
-management tasks*.
-
-Authentication component is to help the SMEs to strengthen their security on the data in the inventory manager. It is also
-to prevent any unidentified users to be able to access the application.
+Authentication is introduced in Inventory Management to allow users to login to the system to perform their inventory
+management tasks. This is to prevent unauthorized users from accessing the system.
 
 ==== Implementation
 
-===== Logic Component
+The authentication of user is handled by `LoginCommand`. The use of it will trigger `Model#authenticateUser`,
+which will authenticate the user in the Inventory Manager. However, for `LoginCommand#execute` to be successful,
+there are two conditions which needs to be met.
 
-Authentication will be largely involved in the Logic Component. This is because logic component will identify whether a user of the
-application is authenticated and authorized to execute the commands.
+===== Conditions
 
-===== Model Component
+The following two conditions must be met before executing:
+. Current user who are executing the command must be providing correct username and password.
+. The index of the staff must be a valid number and existing in the staff list shown.
 
-Authentication has a #UserSession stores in the Model Component of the system. This is due to this component has to be largely relied on
-when the commands are executed.
+`LoginCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
+`CommandException` will be thrown and it will not call `Model#authenticateUser`.
 
-The user session are represented by `staff` and `isLogin`.
-User session can only be created after the user executed the login command and authenticated his/her identity.
-Newly created user session object comes with a `isLogin` status with true which indicates the user is logged in.
+==== Design Consideration
 
-==== Design Considerations
+There are a few design considerations when authenticating a staff. Below will explain the various considerations and the
+choices made.
 
-**Aspect:** Where `authenticateUser` is executed +
+===== Aspect: Where `login` executes
+
 There are various places where `authenticateUser` can be executed. The pros and cons for each option is shown below.
 
 **Alternative 1 (current choice):** Executed at Logic +
 **Pros:** Easy to implement. +
 **Cons:** Direct calling of `Model.authenticateUser()` will not be validated. +
 
-**Alternative 2:** Executed at Model +
-**Pros:** Ensures that all entries are validated before sale can be created. +
-**Cons:**`Model.authenticateUser()` will need to access inventory to perform validations..
+**Alternative 2:** Executed as an Event +
+**Pros:** Able to be used by any component of the application. +
+**Cons:** `AuthenticateUserEvent.execute()` will need to access inventory to perform validations.
 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
-`Model.authenticateUser()` to read the inventory and perform validations.
+`AuthenticateUserEvent.execute()` to read the inventory and perform validations.
+
+===== Logic Component
+
+The following commands are added for Authentication:
+
+* `login` : Authenticates a staff
+* `change-password` : Changes the current user's password
+* `logout` : Logout a staff and clears all the command history
+
+.UML diagram shows how login is executed and works at the logic component.
+image::LoginSDForLogic.png[width={img-width}]
+
+===== Model Component
+
+Authentication has a `UserSession` stores in the Model Component of the system. This is due to this component has to be
+largely relied on when the commands are executed.
+
+Newly created user session object comes with a `Staff` object to store current user's information.
+
+.UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
+image::AuthenticationModelComponentClassDiagram.png[width={img-width}]
 
 // end::authentication[]
 
-// tag::userCreation[]
-=== Users Creation
+// tag::userManagement[]
+=== User Management
 
-Creating a user will have the staff's account created. Below will describe how this
+Editing a user will have the staff's account information updated. Below will describe how this
 feature is implemented in Inventory Manager.
 
 ==== Implementation
 
-The creation of user is handled by `AddStaffCommand`. The use of it will trigger `Model#addUser`,
-which will add the user into the Inventory Manager. However, for `AddStaffCommand#execute` to be successful,
+The update of user is handled by `EditStaffCommand`. The use of it will trigger `Model#updateStaff`,
+which will edit the user in the Inventory Manager. However, for `EditStaffCommand#execute` to be successful,
 there are two conditions which needs to be met.
 
 ===== Conditions
 
-The following two conditions must be met before.
-
+The following two conditions must be met before:
 . Current user who are executing the command must be a user with admin role.
-. The staff with same identity which are username and password cannot exists in the staff list.
+. The index of the staff must be a valid number and existing in the staff list shown.
 
-`AddStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
-`CommandException` will be thrown and it will not call `Model#addStaff`.
+`EditStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
+`CommandException` will be thrown and it will not call `Model#updateStaff`.
 
 ==== Design Consideration
 
-There are a few design considerations when creating a staff. Below will explain the various considerations and the
+There are a few design considerations when editing a staff. Below will explain the various considerations and the
 choices made.
 
-===== Aspect: Where `add-staff` executes
+===== Aspect: Where `edit-staff` executes
 
-There are various places where `add-staff` can be executed. The pros and cons for each option is shown below.
+There are various places where `edit-staff` can be executed. The pros and cons for each option is shown below.
 
 . Executed at Logic +
 * Pros: Easy to implement +
-* Cons: Direct calling of `Model#addStaff` will not be validated.
-. Executed at Model
-* Pros: Ensures that all entries are validated before sale can be created. +
-* Cons: `Model#addStaff` will need to access staff list to perform validations.
+* Cons: Direct calling of `Model#editStaff` will not be validated.
+
+. Executed at Model +
+* Pros: Ensures that all entries are validated before staff can be updated. +
+* Cons: `Model#editStaff` will need to access staff list to perform validations.
 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
-`Model#addUser` to read the inventory and perform validations.
+`Model#editStaff` to read the inventory and perform validations.
 
-// end::userCreation[]
+===== Logic Component
+
+The following commands are added for User Management:
+* `add-staff` : Add a staff
+* `list-staff` : List all staffs
+* `edit-po` : Edit a staff
+* `delete-staff` : Delete a staff
+
+.UML diagram shows how `edit-staff` is executed and works at the logic component.
+image::EditStaffSDForLogic.png[width={img-width}]
+
+===== Model Component
+
+Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
+
+.UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
+image::StaffModelComponentClassDiagram.png[width={img-width}]
+
+===== Storage Component
+
+Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
+
+.UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
+image::StaffStorageComponentClassDiagram.png[width={img-width}]
+
+An example staff stored in this format is reproduced below:
+
+[source,xml]
+----
+<staffs>
+    <username>johndoe</username>
+    <password>5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</password>
+    <name>John Doe</name>
+    <role>user</role>
+</staffs>
+----
+
+[NOTE]
+Passwords are stored in hashed format using SHA-256 encoding.
+
+// end::userManagement[]
 
 // tag::exportCsv[]
 === Export CSV mechanism
@@ -826,7 +891,7 @@ image::PoStorage.png[width="900"]
 To save the XmlAdaptedPurchaseOrder objects created, it is stored in a plain text file following the XML format. +
 An example purchase order stored in XML format is reproduced below:
 
-[source:xml]
+[source,xml]
 ----
 <purchaseOrders>
                 <sku>apple-iphone-xr</sku>
@@ -2053,6 +2118,9 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Acronyms
 
+[[UML]] UML::
+UML stands for Unified Modeling Language which is used to specify, visualize, construct and document the behavior of a software.
+
 [[mss]] MSS::
 MSS stands for Main Success Scenario where it describes the shortest and most straightforward interaction by which the post-conditions can be achieved
 
@@ -2098,9 +2166,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: User must be logged in and the new password must be different from the old password.
 .. Test case: `change-password p/newpassword` +
-   Expected: User will be logged in and granted access on using other functions of the application.
-.. Test case: `change-password p/newpassword` +
-   Expected: User will be prompted to fill in a new password.
+   Expected: User's password will be updated and need to login using the new password in the next session.
+.. Test case: `change-password p/passworddd p/newpassword` +
+   Expected: `newpassword` will be used as the new password.
 .. Test case: `change-password p/` +
    Expected: User will be prompted to fill in the empty password field.
 .. Test case: `change-password` +
