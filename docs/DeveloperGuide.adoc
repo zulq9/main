@@ -2298,5 +2298,18 @@ and the quantity must be valid.
 
 // end::testcasePoManagement[]
 
+=== Reporting Module
+
+. Export the item list to csv file
+.. Prerequisites: User must be logged in as an `admin`
+.. Test case: `export-csv-items f/items.csv` +
+   Expected: The item list is exported successfully to items.csv in the installed directory.
+.. Test case: `export-csv-items n/items.csv` +
+   Expected: The item list is not exported due to invalid prefix. Error details shown in the feedback.
+.. Test case: `export-csv-items f/items.xml` +
+   Expected: The item list is not exported due to invalid file format. Error details shown in the feedback.
+
+
+
 _{ more test cases ... }_
 
