@@ -3,9 +3,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Inventory Manager
-
----
 :sectnums:
 
 == Overview
@@ -16,12 +13,11 @@ On top of that, it aims to showcase my ability as a competent developer equipped
 
 The Inventory Manager project aims to address the inventory management issues that Small to Medium Enterprises (SMEs) encounter
 in their daily business operations. It is managed and developed by a team of five members who worked closely together for
-more than three months on this project. It is a testament to our commitment, hard work and skills as developers.
+more than three months on this project.
 
 The Inventory Manager is a desktop inventory management application that has to be interacted with using Command-Line
-Interface (CLI) with a keyboard. It is written in Java using the Model-View-Controller (MVC) architecture. It allows verified
-users to perform varying inventory management tasks such as filtering items, checking items on low stock, generating reports,
-creating purchase orders and many more.
+Interface (CLI) with a keyboard. It allows verified users to perform varying inventory management tasks such as filtering items,
+checking items on low stock, generating reports, creating purchase orders and many more.
 
 == Summary of Contributions
 
@@ -55,17 +51,17 @@ of the inventory without the need for manual recording of stock.
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=inventoryManagement]
+include::../UserGuide.adoc[tag=pppInventoryManagement1]
+include::../UserGuide.adoc[tag=pppInventoryManagement2]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=pppInventoryManagement]
