@@ -15,8 +15,8 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 a Graphical User Interface (GUI).
 
 In this Inventory Manager, I have designed and implemented the authentication component and
-user management component. These two components provides the inventory manager on the ability
-to authenticate and authorize users to manage the inventory.
+user management component. These two components provide the ability to the inventory manager to authenticate and
+authorize users to manage the inventory.
 
 == Summary of Contributions
 
@@ -31,7 +31,7 @@ to authenticate and authorize users to manage the inventory.
 ** https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Adarren96[Pull Requests Reviewed]
 
 * *Project Management*:
-*** Setup a release for v1.1
+*** Setup a release for https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.1[v1.1]
 
 * *Enhancements to Existing Features*:
 *** Enabled `undo` and `redo` commands to be executed for the user management component
@@ -39,9 +39,9 @@ to authenticate and authorize users to manage the inventory.
 *** Masked up the password which will be shown in the log file
 
 * *Documentation*:
-*** Updated the user guides of Authentication and User Management components of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[#211]
-*** Updated the developer guides of Authentication and User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[#211]
-*** Updated my personal portfolio https://cs2103-ay1819s1-w14-4.github.io/main/team/darren96.html[#211]
+*** Updated the user guides of Authentication and User Management components of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[(#211)]
+*** Updated the developer guides of Authentication and User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[(#211)]
+*** Updated my personal portfolio https://cs2103-ay1819s1-w14-4.github.io/main/team/darren96.html[(#211)]
 
 * *Tools*:
 *** Created an organization for team on Github
@@ -52,7 +52,7 @@ to authenticate and authorize users to manage the inventory.
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag=accountsManagement]
+include::../UserGuide.adoc[tag=authentication]
 include::../UserGuide.adoc[tag=userManagement]
 
 == Contributions to the Developer Guide
