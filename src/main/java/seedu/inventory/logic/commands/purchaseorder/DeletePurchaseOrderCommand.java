@@ -44,7 +44,7 @@ public class DeletePurchaseOrderCommand extends Command {
         }
 
         PurchaseOrder purchaseOrderToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePurchaseOrder(purchaseOrderToDelete);
+        model.deletePurchaseOrder(targetIndex.getZeroBased());
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_ORDER_SUCCESS, purchaseOrderToDelete));
     }
