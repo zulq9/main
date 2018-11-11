@@ -30,20 +30,20 @@ to authenticate and authorize users to manage the inventory.
 ** https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+author%3Adarren96[Pull Requests Made]
 ** https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Adarren96[Pull Requests Reviewed]
 
-** Project management:
+* *Project management*:
 *** Setup a release for v1.1
 
-** Enhancements to existing features:
+* *Enhancements to existing features*:
 *** Enable `undo` and `redo` commands to be executed for the user management component
 *** Enhancement on command history of the user to be cleared once user logout
 *** Mask user entered password in the log file
 
-** Documentation:
+* *Documentation*:
 *** Update the user guides of User Management and Authentication components of Inventory Manager https://cs2103-ay1819s1-w14-4.github.io/main/UserGuide.html[#22]
 *** Update the developer guides of User Management component of Inventory Manager https://cs2103-ay1819s1-w14-4.github.io/main/UserGuide.html[#22]
 *** Update my personal portfolio https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
 
-** Tools:
+* *Tools*:
 *** Created an organization for team on Github
 *** Integrated a Github plugin (TravisCI) to the team repo
 
