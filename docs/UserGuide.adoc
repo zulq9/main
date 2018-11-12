@@ -607,12 +607,6 @@ The `approve-po` command is only available to the Manager. +
 It allows the manager to approve the specified purchase order from the purchase order list. +
 Upon approving, the quantity stated in the purchase order will be added to the designated item. +
 
-The image below shows the result after the `approve-po 1` command is entered.
-
-image::doc-delete-po.png[width="180"]
-_Figure 4.12. Approves the specified purchase order by the it's index in the list._
-
-
 Format: `approve-po INDEX`
 
 For the `approve-po` command, do take note of the following points:
