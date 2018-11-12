@@ -198,8 +198,8 @@ Format: `login u/USERNAME p/PASSWORD`
 Examples: Login the user with username as admin and password as password. +
 `login u/admin p/password`
 
+.The user is required to login before proceeding.
 image::doc-login.png[width="790"]
-_Figure 4.1. The user is required to login before proceeding._
 
 ==== Change user's password : `change-password`
 
@@ -215,8 +215,8 @@ Examples:
 * Change user's password with multiple given new passwords as nussoccat. Only the final input will be accepted. +
  `change-password p/password p/nussoccat`.
 
+.A user attempting to change the password.
 image::doc-change-password.png[width="790"]
-_Figure 4.2. A user attempting to change the password._
 
 ==== Logout from the system : `logout`
 
@@ -254,8 +254,8 @@ The `list-staff` command displays a list of existing users in the system. +
 
 Format: `list-staff`
 
+.All users in Inventory Manager listed on the screen.
 image::doc-list-user.png[width="790"]
-_Figure 4.3. All users in Inventory Manager listed on the screen._
 
 ==== Update a user : `edit-staff`
 
@@ -286,8 +286,8 @@ Examples:
 * Delete a user with an invalid index. +
 `delete-staff 999`.
 
+.The error is shown if the deleted index is invalid.
 image::doc-delete-user-failed.png[width="790"]
-_Figure 4.4. The error is shown if the deleted index is invalid._
 
 // end::userManagement[]
 
