@@ -33,6 +33,7 @@ import seedu.inventory.commons.events.storage.ItemListUpdateEvent;
 import seedu.inventory.commons.events.storage.PurchaseOrderListUpdateEvent;
 import seedu.inventory.commons.events.storage.SaleListUpdateEvent;
 import seedu.inventory.commons.events.storage.StaffListUpdateEvent;
+import seedu.inventory.commons.events.ui.ClearBrowserPanelEvent;
 import seedu.inventory.commons.events.ui.ShowDefaultPageEvent;
 import seedu.inventory.commons.events.ui.ShowItemTableViewEvent;
 import seedu.inventory.commons.events.ui.ShowPurchaseOrderTableViewEvent;
@@ -231,6 +232,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         accessedList = filteredItems;
         indicateAccessItem();
+        raise(new ClearBrowserPanelEvent());
     }
 
     @Override
@@ -238,6 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredItemList(PREDICATE_SHOW_ALL_LOW_QUANTITY);
         accessedList = filteredItems;
         indicateAccessItem();
+        raise(new ClearBrowserPanelEvent());
     }
 
     @Override

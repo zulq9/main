@@ -21,6 +21,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.inventory.MainApp;
 import seedu.inventory.commons.core.LogsCenter;
+import seedu.inventory.commons.events.ui.ClearBrowserPanelEvent;
 import seedu.inventory.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.PurchaseOrderSelectionChangedEvent;
 import seedu.inventory.commons.events.ui.ShowBrowserPanelEvent;
@@ -153,6 +154,13 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Clears the browser panel to show up as empty.
+     */
+    private void clearBrowserPanel() {
+        setItemVisibility(false);
+    }
+
+    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -179,5 +187,12 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         raise(new ShowBrowserPanelEvent());
         loadDefaultPage();
+    }
+
+    @Subscribe
+    private void handleClearBrowserPanelEvent(ClearBrowserPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        raise(new ShowBrowserPanelEvent());
+        clearBrowserPanel();
     }
 }
