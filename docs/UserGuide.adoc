@@ -781,7 +781,7 @@ Example: `import-csv-sales f/E:/in/sales.csv`
 Following screenshot showcases what will happen when you enter the correct `import-csv-sales` command:
 
 image::doc-import-csv-sales.png[width="700"]
-_Figure 4.13. Import successful prompt will be shown upon completion of import._
+_Figure 4.14. Import successful prompt will be shown upon completion of import._
 
 ===== Importing list of items from CSV : `import-csv-items`
 
