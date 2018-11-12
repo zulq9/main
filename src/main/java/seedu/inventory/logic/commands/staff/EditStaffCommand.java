@@ -80,6 +80,12 @@ public class EditStaffCommand extends Command {
         }
 
         model.updateStaff(staffToEdit, editedStaff);
+        Staff currentUser = model.getUser();
+
+        if (staffToEdit.isSameStaff(currentUser)) {
+            model.updateUserSession(editedStaff);
+        }
+
         model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_EDIT_STAFF_SUCCESS, editedStaff));

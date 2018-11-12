@@ -197,7 +197,7 @@ The `login` command allows the user to login with given username and password. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
-Examples: Login the user with username as admin and password as password. +
+Example: Login the user with username as admin and password as password. +
 `login u/admin p/password`
 
 .The user is required to login before proceeding.
@@ -217,6 +217,8 @@ Examples:
 
 * Change user's password with multiple new passwords provided. Only the final input, which is nussoccat, will be accepted. +
  `change-password p/password p/nussoccat`.
+
+The image below shows a user entering the `change-password`.
 
 .A user attempting to change the password.
 image::doc-change-password.png[width="790"]
@@ -257,6 +259,8 @@ The `list-staff` command displays a list of existing users in the system. +
 
 Format: `list-staff`
 
+The image below shows the application displayed a list of staff.
+
 .All users in Inventory Manager listed on the screen.
 image::doc-list-user.png[width="790"]
 
@@ -286,7 +290,7 @@ Examples:
 * Delete a user with given index as shown in the list. +
  `delete-staff 1`.
 
-* Delete a user with an invalid index. +
+* Delete a user with an invalid index. The image below shows an expected output. +
 `delete-staff 999`.
 
 .The error is shown if the provided index is invalid.
