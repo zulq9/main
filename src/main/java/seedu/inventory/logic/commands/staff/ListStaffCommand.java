@@ -14,7 +14,7 @@ public class ListStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "list-staff";
 
-    public static final String MESSAGE_SUCCESS = "Listed all staffs";
+    public static final String MESSAGE_SUCCESS = "Listed all the staffs";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

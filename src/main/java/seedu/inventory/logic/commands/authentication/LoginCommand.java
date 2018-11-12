@@ -45,11 +45,12 @@ public class LoginCommand extends Command {
             throw new CommandException(MESSAGE_USER_HAS_LOGGED_IN);
         }
 
-        if (!model.hasStaff(toLogin)) {
+        Staff staff = model.retrieveStaff(toLogin);
+
+        if (staff == null) {
             throw new CommandException(MESSAGE_FAILED);
         }
 
-        Staff staff = model.retrieveStaff(toLogin);
         model.authenticateUser(staff);
         return new CommandResult(String.format(MESSAGE_SUCCESS, staff.getStaffName()));
     }

@@ -31,7 +31,7 @@ public class EditStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-staff";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the detail of the staff identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the staff identified "
             + "by the index number used in the displayed staff list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -43,14 +43,16 @@ public class EditStaffCommand extends Command {
             + PREFIX_USERNAME + "johnd "
             + PREFIX_ROLE + "user";
 
-    public static final String MESSAGE_EDIT_STAFF_SUCCESS = "Edited Item: %1$s";
+    public static final String MESSAGE_EDIT_STAFF_SUCCESS = "Edited Staff: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the inventory manager";
+    public static final String MESSAGE_DUPLICATE_STAFF = "This username already exists in the inventory manager";
 
     private final Index index;
     private final EditStaffDescriptor editStaffDescriptor;
 
     /**
+     * Constructs the edit staff command with the required inputs.
+     *
      * @param index of the staff in the filtered staff list to edit
      * @param editStaffDescriptor details to edit the staff with
      */
@@ -73,7 +75,7 @@ public class EditStaffCommand extends Command {
         Staff staffToEdit = lastShownList.get(index.getZeroBased());
         Staff editedStaff = createEditedStaff(staffToEdit, editStaffDescriptor);
 
-        if (!staffToEdit.isSameStaff(editedStaff) && model.hasStaff(editedStaff)) {
+        if (!staffToEdit.isSameStaff(editedStaff) && model.hasUsername(editedStaff)) {
             throw new CommandException(MESSAGE_DUPLICATE_STAFF);
         }
 
