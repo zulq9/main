@@ -299,6 +299,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial inventory st
 
 The following sequence diagram shows how the undo operation works:
 
+.A high level sequence diagram showing events triggered by the undo command.
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoInventory()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the inventory to that state.
@@ -306,7 +307,8 @@ The `redo` command does the opposite -- it calls `Model#redoInventory()`, which 
 [NOTE]
 If the `currentStatePointer` is at index `inventoryStateList.size() - 1`, pointing to the latest inventory state, then there is no undone inventory state to restore. The `redo` command uses `Model#canRedoAInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list-item`. Commands that do not modify Inventory Manager, such as `list-item`, will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list-item`. Commands that do not modify Inventory Manager, such as `list-item`,
+will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
@@ -316,6 +318,7 @@ image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.State diagram when a user executes a command
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
@@ -359,7 +362,7 @@ An item can only be successfully added into the inventory if the following crite
 Items are stored and maintained in the Model in a `UniqueItemList`, allowing only unique items to be stored in the inventory.
 
 .UML diagram showing a representation of UniqueItemList in Inventory Manager.
-image::UniqueItemList.png[width="500"]
+image::UniqueItemList.png[width="650"]
 
 Individual items are represented by the `Item` object with attributes `Name`, `Price`, `Quantity`, `SKU`, `Image` and `Tag`.
 
@@ -389,7 +392,7 @@ individual items are represented using `ItemCard`. The items' attribute fields u
 An example of the `ItemCard` in Inventory Manager UI is shown in Figure 11 below:
 
 .Example of the an item card in Inventory Manager UI.
-image::ItemCard.PNG[width="300"]
+image::ItemCard.PNG[width="400"]
 
 ==== Logic component
 
@@ -413,7 +416,7 @@ Operations performed on items follow the sequence of operations as described bel
 This sequence of events is summarized in the following sequence diagram:
 
 .A high level sequence diagram showing events triggered by the `delete-item` command.
-image::DeleteItemSdForLogic.png[width="500"]
+image::DeleteItemSdForLogic.png[width="800"]
 
 ==== Design considerations
 
@@ -519,8 +522,8 @@ For `AddSaleCommand#execute` to be successful, there are two conditions which ne
 
 The sequence diagram below shows the interactions inside the logic component for the `AddSaleCommand`.
 
-image::AddSaleCommandSequenceDiagram.png[width="600"]
-_Figure X: Sequence diagram for the add sale command._
+.Sequence diagram for the add sale command.
+image::AddSaleCommandSequenceDiagram.png[width="800"]
 
 ===== Storage
 
@@ -638,7 +641,7 @@ The following commands are added for Authentication:
 * `logout` : Logout a staff and clears all the command history
 
 .This UML diagram shows how login is executed and works at the logic component.
-image::LoginSDForLogic.png[width="790"]
+image::LoginSDForLogic.png[width="800"]
 
 ===== Model Component
 
@@ -648,7 +651,7 @@ largely relied on when the commands are executed.
 Newly created user session object comes with a `Staff` object to store the current user's information.
 
 .This UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
-image::AuthenticationModelComponentClassDiagram.png[width="790"]
+image::AuthenticationModelComponentClassDiagram.png[width="800"]
 
 // end::authentication[]
 
@@ -704,21 +707,21 @@ The following commands are added for User Management:
 * `delete-staff` : Delete a staff
 
 .This UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width="790"]
+image::EditStaffSDForLogic.png[width="800"]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
 .This UML diagram shows the representation of Staff and UniqueStaffList in Inventory Manager.
-image::StaffModelComponentClassDiagram.png[width="790"]
+image::StaffModelComponentClassDiagram.png[width="800"]
 
 ===== Storage Component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
 .This UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
-image::StaffStorageComponentClassDiagram.png[width="790"]
+image::StaffStorageComponentClassDiagram.png[width="800"]
 
 An example staff stored in XML format is reproduced below:
 
@@ -867,7 +870,7 @@ Individual purchase order are represented by the `PurchaseOrder` object with att
 in Figure 11 below.
 
 .UML diagram showing representation of Purchase Order in Inventory Manager.
-image::PoModel2.png[width="370"]
+image::PoModel2.png[width="450"]
 
 ===== Storage Component
 
@@ -892,19 +895,15 @@ An example purchase order stored in XML format is reproduced below:
 
 ===== UI Component
 
-The main window contains a ListPanel, which is interchangeable to display any list based on the command entered.
+The main window contains a ListPanel, which is interchangeable to display any list based on the
+command entered. Purchase order list is shown in the ListPanel upon executing `list-po`.
+Individual purchase orders are represented using PurchaseOrderCards that contains the
+attributes fields using labels and flowPanes. +
+
 The diagram below shows how purchase order panel is integrated in the Ui class diagram.
 
 .Example of the a purchase order card in Inventory Manager UI.
-image::PoUi.png[width="500"]
-
-
-Purchase order list is shown in the ListPanel upon executing `list-po`.
-Individual purchase orders are represented using PurchaseOrderCards that contains the attributes fields using Labels and flowPanes.
-An example of the a purchase order card is shown in figure 13 below.
-
-.Example of the a purchase order card in Inventory Manager UI.
-image::PoCard.png[width="300"]
+image::PoUi.png[width="650"]
 
 ===== Logic Component
 
@@ -921,7 +920,7 @@ The following commands were added to handle the purchase order:
 The following diagram details the class relationship for the Purchase order Commands.
 
 .UML Diagram depicting the class relationship between command classes.
-image::PoCommand.png[width="280"]
+image::PoCommand.png[width="350"]
 
 Operations performed on purchase orders follow the sequence of operations described in the diagram below.
 
@@ -933,10 +932,10 @@ Operations performed on purchase orders follow the sequence of operations descri
 This sequence of events is summarized in the following sequence diagrams:
 
 .A high level sequence diagram showing events triggered by the `list-po` command.
-image::PoList.png[width="550"]
+image::PoList.png[width="800"]
 
 .A high level sequence diagram showing events triggered by the `add-po` command.
-image::PoAdd.png[width="550"]
+image::PoAdd.png[width="800"]
 
 ==== Design Considerations
 
@@ -1478,7 +1477,8 @@ staff and inventory without a need to invest a huge sum in complicated and expen
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="7%,<9%,<25%,<30%",options="header",]
+.List of user stories
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |login through CLI |use the features of the app
@@ -2340,5 +2340,5 @@ and the quantity must be valid.
 
 
 
-_{ more test cases ... }_
+
 
