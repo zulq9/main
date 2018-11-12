@@ -50,7 +50,7 @@ Deleting and editing an item must now update the relevant purchase orders as wel
 
 ** Community:
 
-*** Reviewed project done by other group and suggested improvements based on the bugs found. (W17-1 Issue https://github.com/CS2103-AY1819S1-W17-1/main/issues/249)[#249])
+*** Reviewed project done by other group and suggested improvements based on the bugs found. (W17-1 Issue https://github.com/CS2103-AY1819S1-W17-1/main/issues/249[#249])
 
 == Contributions to the User Guide
 
