@@ -212,7 +212,7 @@ Examples:
 * Change user's password with a given new password as darrensinglenus. +
  `change-password p/darrensinglenus`.
 
-* Change user's password with multiple given new passwords as nussoccat. Only the final input will be accepted. +
+* Change user's password with multiple new passwords provided. Only the final input, which is nussoccat, will be accepted. +
  `change-password p/password p/nussoccat`.
 
 .A user attempting to change the password.
@@ -286,7 +286,7 @@ Examples:
 * Delete a user with an invalid index. +
 `delete-staff 999`.
 
-.The error is shown if the deleted index is invalid.
+.The error is shown if the provided index is invalid.
 image::doc-delete-user-failed.png[width="790"]
 
 // end::userManagement[]
