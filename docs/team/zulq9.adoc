@@ -33,7 +33,7 @@ Deleting and editing an item must now update the relevant purchase orders as wel
 
 * *Minor Enhancement*: Rearranged the command box to the bottom of the Inventory Manager User Interface
 ** Justification: Provides a more user friendly visual for the user.
-* *Other contributions*:
+* *Other Contributions*:
 
 ** Project Management:
 *** Maintained issue tracker, milestone, pull request approval and merger.
@@ -41,16 +41,16 @@ Deleting and editing an item must now update the relevant purchase orders as wel
 
 ** Documentation:
 
-*** Updated the user guides of Purchase Order Management component in Inventory Manager (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
-*** Updated the developer guides of Purchase Order Management component in Inventory Manager (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
-*** Updated the team's about us page (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
-*** Updated the storage and Ui class diagram in develop guide (https://github.com/CS2103-AY1819S1-W14-4/main/pull/208[#208])
+*** Updated the user guides of Purchase Order Management component in Inventory Manager (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the developer guides of Purchase Order Management component in Inventory Manager (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the team's about us page (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/150[#150])
+*** Updated the storage and Ui class diagram in develop guide (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/208[#208])
 
 
 
 ** Community:
 
-*** Reviewed project done by other group and suggested improvements based on the bugs found. (https://github.com/CS2103-AY1819S1-W17-1/main/issues/249)[W17-1 Issue #249])
+*** Reviewed project done by other group and suggested improvements based on the bugs found. (W17-1 Issue https://github.com/CS2103-AY1819S1-W17-1/main/issues/249)[#249])
 
 == Contributions to the User Guide
 

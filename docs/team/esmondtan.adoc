@@ -17,7 +17,7 @@ technical skills, but also my ability to work under pressure and competency in n
 My contributions as a developer to the project is further elaborated below.
 
 
-== Summary of contributions
+== Summary of Contributions
 
 |===
 |_Below is a summary of the contributions I have made to the project._
@@ -33,24 +33,25 @@ My contributions as a developer to the project is further elaborated below.
 
 * *Minor Enhancement*: Added support for undo / redo on sale orders
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=esmondtan[Reposense]]
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=esmondtan[Reposense]
 
 * *Other contributions*:
 
 ** Project Management:
 
-*** Managed release `v1.2.2` on GitHub [https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.2.2[GitHub]]
+*** Managed release `v1.2.2` on GitHub (https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.2.2[GitHub])
 
 ** Documentation:
 
-*** Updated the introduction of the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
-*** Added the section on Sale Orders Management to the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Updated the introduction of the User Guide (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Added the section on Sale Orders Management to the User Guide (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
 *** Updated various sections of the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
-*** Added the section on Sale Order Creation to the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
+*** Added the section on Sale Order Creation to the Developer Guide (Pull request https://github.com/CS2103-AY1819S1-W14-4/main/pull/93[#93])
 
 ** Community:
 
-*** Reviewed Pull Requests [https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3AEsmondTan[GitHub]]
+*** Reviewed pull requests (https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3AEsmondTan[GitHub])
+*** Reviewed W16-1 project and reported bugs (Issue https://github.com/CS2103-AY1819S1-W16-1/main/issues/148[#148])
 
 == Contributions to the User Guide
 
