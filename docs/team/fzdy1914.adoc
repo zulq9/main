@@ -60,7 +60,7 @@ and from the outer system.
 
 ** Community:
 *** Reviewed Pull Requests of my teammates[https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Afzdy1914[Pull Requests]]
-*** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+Piconso[Issues]]
+*** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclose+Piconso[Issues]]
 
 == Contributions to the User Guide
 
