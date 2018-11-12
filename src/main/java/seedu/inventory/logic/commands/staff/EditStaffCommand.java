@@ -19,6 +19,7 @@ import seedu.inventory.logic.commands.Command;
 import seedu.inventory.logic.commands.CommandResult;
 import seedu.inventory.logic.commands.exceptions.CommandException;
 import seedu.inventory.model.Model;
+import seedu.inventory.model.UserSession;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;
@@ -80,6 +81,12 @@ public class EditStaffCommand extends Command {
         }
 
         model.updateStaff(staffToEdit, editedStaff);
+        Staff currentUser = model.getUser();
+
+        if (staffToEdit.isSameStaff(currentUser)) {
+            model.updateUserSession(editedStaff);
+        }
+
         model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_EDIT_STAFF_SUCCESS, editedStaff));
