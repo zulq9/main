@@ -18,7 +18,7 @@ endif::[]
 By: `Team W14-4`      Since: `August 2018`      Licence: `MIT`
 
 // tag::settingUp[]
-== Setting up
+== Setting Up
 
 The steps for developers to setup Inventory Manager locally is described below.
 
@@ -261,7 +261,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag:: undoredo[]
 === Undo/Redo feature
-==== Current Implementation
+==== Current implementation
 
 The undo/redo mechanism is facilitated by `VersionedInventory`.
 It extends `Inventory` with an undo/redo history, stored internally as an `inventoryStateList` and `currentStatePointer`.
@@ -321,7 +321,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 .State diagram when a user executes a command
 image::UndoRedoActivityDiagram.png[width="650"]
 
-==== Design Considerations
+==== Design considerations
 
 ===== Aspect: How undo & redo executes
 
@@ -343,7 +343,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::pppInventoryManagement[]
-=== Inventory Management
+=== Inventory management
 
 *Inventory management* is introduced in Inventory manager as a core feature to allow users to easily manage items in their inventory list.
 
@@ -382,7 +382,7 @@ Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files
 </inventory>
 ----
 
-===== UI component
+==== UI component
 
 The main window contains a `ListPanel`, which can be used interchangeably to display any lists based on the command entered by the user.
 
@@ -493,7 +493,7 @@ public static boolean isValidImage(String test) {
 // end::pppInventoryManagement[]
 
 // tag::saleOrderCreation[]
-=== Sale Order Creation
+=== Sale order creation
 
 The sale order creation command was developed to allow users to easily deduct item quantity from the inventory.
 
@@ -549,7 +549,7 @@ which is further explained below.
 
 On starting Inventory Manager, the XML file will be loaded, and each sale will be validated for corruption before being loaded into memory.
 
-==== Design Consideration
+==== Design consideration
 
 There are a few design considerations when creating a sale order. Below will explain the various considerations and the
 choices made.
@@ -578,7 +578,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
-*Logging Levels*
+*Logging levels*
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
@@ -612,7 +612,7 @@ The following two conditions must be met before executing:
 `LoginCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
 `CommandException` will be thrown and it will not call `Model#authenticateUser`.
 
-==== Design Consideration
+==== Design consideration
 
 There are a few design considerations when authenticating a staff. Below will explain the various considerations and the
 choices made.
@@ -632,7 +632,7 @@ There are various places where `authenticateUser` can be executed. The pros and 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `AuthenticateUserEvent.execute()` to read the inventory and perform validations.
 
-===== Logic Component
+===== Logic component
 
 The following commands are added for Authentication:
 
@@ -645,7 +645,7 @@ The sequence diagram below shows how login is executed at the logic component.
 .This UML diagram shows how login is executed and works at the logic component.
 image::LoginSDForLogic.png[width="800"]
 
-===== Model Component
+===== Model component
 
 Authentication has a `UserSession` object stores in the Model Component of the system. This is due to this component has to be
 largely relied on when the commands are executed.
@@ -660,7 +660,7 @@ image::AuthenticationModelComponentClassDiagram.png[width="800"]
 // end::authentication[]
 
 // tag::userManagement[]
-=== User Management
+=== User management
 
 Editing a user will have the staff's account information updated. Below will describe how this
 feature is implemented in the Inventory Manager.
@@ -681,7 +681,7 @@ The following two conditions must be met before:
 `EditStaffCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
 `CommandException` will be thrown and it will not call `Model#updateStaff`.
 
-==== Design Consideration
+==== Design consideration
 
 There are a few design considerations when editing a staff. Below will explain the various considerations and the
 choices made.
@@ -701,7 +701,7 @@ There are various places where `edit-staff` can be executed. The pros and cons o
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `Model#editStaff` to read the inventory and perform validations.
 
-===== Logic Component
+===== Logic component
 
 The following commands are added for User Management:
 
@@ -715,7 +715,7 @@ The sequence diagram below shows how `edit-staff` is executed at the logic compo
 .This UML diagram shows how `edit-staff` is executed and works at the logic component.
 image::EditStaffSDForLogic.png[width="800"]
 
-===== Model Component
+===== Model component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
@@ -724,7 +724,7 @@ The class diagram shows the relationship of the objects involved in the user man
 .This UML diagram shows the representation of Staff and UniqueStaffList in Inventory Manager.
 image::StaffModelComponentClassDiagram.png[width="800"]
 
-===== Storage Component
+===== Storage component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
@@ -761,7 +761,7 @@ to retrieve external data and where to validate the given file path.
 
 ==== Implementation
 
-===== Data Access
+===== Data access
 
 In order to achieve their tasks, all `export` commands require direct access to the data and output to the
 external environment. Unlike other commands, these commands highly depend on the `Storage` component.
@@ -774,7 +774,7 @@ a `DataExportEvent` will be raised in the `EventsCenter` through `Model` compone
 `Model` as one field, it will not violate the Single Responsibility Principle. Then, the handler function in `Storage`
 component will catch this `DataExportingEvent` and export data to the external environment.
 
-===== File Path Validation
+===== File path validation
 File paths, as required by `export` commands, need to be validated during the execution of the commands.
 However, where to implement it can be decided. It can be implemented in `CommandParser` or `Command`
 or even in `Storage`.
@@ -785,7 +785,7 @@ we are able to make sure that the path parameter passed to `Model` component and
 file path. Also, it is easier for the implementation of command feedback to the users.
 Further details can be found in the sequence diagram of the next section.
 
-===== Sequence Diagram
+===== Sequence diagram
 Considering that all the `export` commands have similar sequence diagrams. So we will just show the sequence diagrams
 for `export-csv-items` command to illustrate how the `export` commands work.
 
@@ -806,9 +806,9 @@ The diagram below is the lower level sequence diagram for `export-csv-items f/it
 .Lower level sequence diagram for `export-csv-items f/items.csv` command inside `Logic` component
 image::ExportCsvItemCommandSequenceDiagram.png[width="900"]
 
-==== Design Considerations
+==== Design considerations
 
-===== Aspect: How `export` commands interact with `Storage` Component and `Logic` Component
+===== Aspect: How `export` commands interact with `Storage` component and `Logic` component
 * **Alternative 1 (current choice):** Raises a `DataExportEvent` in the `EventsCenter` through `Model` and handles it
 in `Storage`. +
 ** Pros: Avoids direct access of `Storage` from `export` commands. Does not violate the Single Responsibility Principle. +
@@ -818,7 +818,7 @@ in `Storage`. +
 ** Cons: Needs directly access of data in `Model` component for `Storage` which will violate
 the Single Responsibility Principle. +
 
-===== Aspect: Location for Implementation of File Path Validation and Location to Check File Path Validation +
+===== Aspect: Location for implementation of file path validation and location to check file path validation +
 * **Alternative 1 (current choice):** Implements in `FileUtil` and checks in `export` command. +
 ** Pros: It's sure that the path passed to `Model` component and `Storage` component is a valid file path.
 The implementation of command feedback is easier. File Validation is reusable in other component. +
@@ -831,7 +831,7 @@ The implementation of command feedback is easier. File Validation is reusable in
 ** Cons: The path passed to `Storage` component may not be valid. The implementation of command feedback is more difficult.
 `Storage` needs to raise an additional event for invalid file path. +
 
-==== Csv File Recognizing
+==== CSV file recognizing
 Since Csv file do not have standardized format for storing objects. So we designed a format that need to be followed when
 importing csv files. If the process of importing fails due to unrecognizable failure, do check the file to import meets the
 requirement.
@@ -855,7 +855,7 @@ The required format can be gotten by simply exporting each kind of objects first
 // end::exportCsv[]
 
 // tag::purchaseOrderManagement[]
-=== Purchase Order Management
+=== Purchase order management
 
 *Purchase order management* is introduced in Inventory manager to *allow user to restock item easily and manage the purchase order details efficiently.*
 
@@ -866,7 +866,7 @@ Newly added purchase order comes with a default `PENDING` status which subsequen
 
 ==== Implementation
 
-===== Model Component
+===== Model component
 
 Purchase orders are maintained in the Model in a NonUniquePurchaseOrderList, allowing non unique purchase order among the stored individual purchase orders.
 The UML diagram is as shown in the figure below.
@@ -880,7 +880,7 @@ in Figure 11 below.
 .UML diagram showing representation of Purchase Order in Inventory Manager.
 image::PoModel2.png[width="450"]
 
-===== Storage Component
+===== Storage component
 
 Purchase orders are stored in `XmlAdaptedPurchaseOrder` objects, which maintain a class relationship as shown in the diagram below:
 
@@ -901,7 +901,7 @@ An example purchase order stored in XML format is reproduced below:
 </purchaseOrders>
 ----
 
-===== UI Component
+===== UI component
 
 The main window contains a ListPanel, which is interchangeable to display any list based on the
 command entered. Purchase order list is shown in the ListPanel upon executing `list-po`.
@@ -913,7 +913,7 @@ The diagram below shows how purchase order panel is integrated in the Ui class d
 .Example of the a purchase order card in Inventory Manager UI.
 image::PoUi.png[width="650"]
 
-===== Logic Component
+===== Logic component
 
 The following commands were added to handle the purchase order:
 
@@ -945,7 +945,7 @@ image::PoList.png[width="800"]
 .A high level sequence diagram showing events triggered by the `add-po` command.
 image::PoAdd.png[width="800"]
 
-==== Design Considerations
+==== Design considerations
 
 **Aspect:** Implementation of purchase order commands that requires the item to be updated.  +
 Commands such as `approve-po` will update the item quantity upon approval. Consequently, there are various places where
@@ -987,7 +987,7 @@ We chose asciidoc over Markdown because asciidoc provides more flexibility in fo
 
 
 
-=== Editing Documentation
+=== Editing documentation
 
 We use IntelliJ to edit the documentation. The documentation can be rendered and previewed on IntelliJ.
 
@@ -995,14 +995,14 @@ We use IntelliJ to edit the documentation. The documentation can be rendered and
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 We use Travis as an automation tool to deploy the documentation to Github Page.
 
 [TIP]
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -1017,7 +1017,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Changing Site-wide Documentation Settings
+=== Changing site-wide documentation settings
 
 We specify project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] in link:{repoURL}/build.gradle[`build.gradle`] file which affects how all documentation files within this project are rendered.
 
@@ -1047,7 +1047,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Specifying Per-file Documentation Settings
+=== Specifying per-file documentation settings
 
 We specify the file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] in each `.adoc` file which affects how the file is rendered.
 
@@ -1075,7 +1075,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Modifying Site Template
+=== Modifying site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -1100,10 +1100,10 @@ Testing the software will provide a better user experience for the users. Below 
 
 Below describe the two types of tests available.
 
-.  *GUI Tests* - These are tests involving the GUI. They include the below.
+.  *GUI tests* - These are tests involving the GUI. They include the below.
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.inventory.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include the below.
+.  *Non-GUI tests* - These are tests not involving the GUI. They include the below.
 ..  _Unit tests_ targeting the lowest level methods / classes. +
 e.g. `seedu.inventory.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
@@ -1111,7 +1111,7 @@ e.g. `seedu.inventory.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.inventory.logic.LogicManagerTest`
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -1136,7 +1136,7 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run the tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`).
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 
 Below is a common error faced during testing.
 
@@ -1150,30 +1150,30 @@ Below is a common error faced during testing.
 
 This part will guide you through on the approach of integration we used.
 
-=== Build Automation
+=== Build automation
 
 We use https://gradle.org[Gradle] as our build automation tool to automate the build process.
 
 [TIP]
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects.
 [TIP]
 See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged.
 [TIP]
 See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -1182,7 +1182,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Inventory Manager depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
@@ -1357,7 +1357,7 @@ Edits the remark for the first item to `Likes to drink coffee.`
 * `remark 1 r/` +
 Removes the remark for the first item.
 
-==== Step-by-step Instructions
+==== Step-by-step instructions
 
 ===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
 Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
@@ -1462,7 +1462,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 . Update `RemarkCommandTest` to test that the `execute()` logic works.
 
-==== Full Solution
+==== Full solution
 
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
@@ -1552,7 +1552,7 @@ Below are various use cases for the System.
 
 // tag::usecaseInventoryManagement[]
 [discrete]
-=== Use case: Add Item
+=== Use case: Add item
 
 *MSS*
 
@@ -1593,7 +1593,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Edit Item
+=== Use case: Edit item
 
 *MSS*
 
@@ -1619,7 +1619,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete Item
+=== Use case: Delete item
 
 *MSS*
 
@@ -1647,7 +1647,7 @@ Use case resumes at step 2.
 
 // tag::usecaseUserManagement[]
 [discrete]
-=== Use case: Add User
+=== Use case: Add user
 
 *MSS*
 
@@ -1688,7 +1688,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Edit User
+=== Use case: Edit user
 
 *MSS*
 
@@ -1714,7 +1714,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete User
+=== Use case: Delete user
 
 *MSS*
 
@@ -1800,7 +1800,7 @@ Use case resumes at step 1.
 
 // tag::useCasePurchaseOrder[]
 [discrete]
-=== Use case: Add Purchase order
+=== Use case: Add purchase order
 
 *MSS*
 
@@ -1836,7 +1836,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Approve Purchase order
+=== Use case: Approve purchase order
 
 *MSS*
 
@@ -1880,7 +1880,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Reject Purchase order
+=== Use case: Reject purchase order
 
 *MSS*
 
@@ -1924,7 +1924,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Edit Purchase order
+=== Use case: Edit purchase order
 
 *MSS*
 
@@ -1967,7 +1967,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete Purchase order
+=== Use case: Delete purchase order
 
 *MSS*
 
@@ -2005,7 +2005,7 @@ Use case resumes at step 2.
 
 // tag::useCaseSaleOrder[]
 [discrete]
-=== Use case: Create Sale Order
+=== Use case: Create sale order
 
 *MSS*
 
@@ -2039,7 +2039,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Delete Sale Order
+=== Use case: Delete sale order
 *MSS*
 
 1. User request to list sale orders.
@@ -2134,7 +2134,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -2161,7 +2161,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `login` , `login u/ p/password` +
    Expected: Similar to previous.
 
-. Change Password
+. Change password
 
 .. Prerequisites: User must be logged in and the new password must be different from the old password.
 .. Test case: `change-password p/newpassword` +
@@ -2182,7 +2182,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::testcaseAuthentication[]
 
 // tag::testcaseUserManagement[]
-=== User Management
+=== User management
 
 . Adding a user
 
@@ -2223,7 +2223,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::testcaseUserManagement[]
 
 // tag::testcaseInventoryManagement[]
-=== Inventory Management
+=== Inventory management
 . Adding an item
 
 .. Pre-requisites: The item to be added must not have the same SKU as another existing item in the inventory and must be logged in.
@@ -2266,9 +2266,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete-item`, `delete-item x` (where x is larger than the list size)
 // end::testcaseInventoryManagement[]
 
-=== Sale Management
+=== Sale management
 
-. Adding a Sale
+. Adding a sale
 
 .. Prerequisites: The sale to be added must be for an existing item.
 .. Test case: `add-sale q/lg-g7 q/10` +
@@ -2278,7 +2278,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect add-staff commands to try: `add-sale`, `add-sale abc` +
    Expected: Similar to previous.
 
-. Deleting a Sale
+. Deleting a sale
 
 .. Prerequisites: The sale ID provided must be the sale ID as shown when the sale is listed.
 .. Test case: `delete-sale 1` +
@@ -2289,7 +2289,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 // tag::testcasePoManagement[]
-=== Purchase Order Management
+=== Purchase order management
 
 . Listing all purchase orders
 .. Prerequisites: User must be logged in
@@ -2335,7 +2335,7 @@ and the quantity must be valid.
 
 // end::testcasePoManagement[]
 
-=== Reporting Module
+=== Reporting module
 
 . Export the item list to csv file
 .. Prerequisites: User must be logged in as an `admin`
