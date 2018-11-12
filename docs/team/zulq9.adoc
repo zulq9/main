@@ -21,7 +21,7 @@ With user authentication put in place, it gives SMEs greater control over users'
 
 * *Major Enhancement*: Added the *Purchase Orders Management* Feature
 
-** What it does: Allows the user to generate purchase order in the application.
+** What it does: This feature allows the user to generate purchase order in the application.
 When a purchase order is approved by the manager, Inventory Manager will automatically update the stocks in the inventory.
 
 ** Justification: This feature *allows user to restock item easily and manage the purchase order details efficiently*.
@@ -32,7 +32,7 @@ It is also tied with user management as only manager can approve/reject a purcha
 Deleting and editing an item must now update the relevant purchase orders as well.
 
 * *Minor Enhancement*: Rearranged the command box to the bottom of the Inventory Manager User Interface
-** Justification: Provides a more user friendly visual for the user.
+** Justification: This enhancement provides a more user friendly visual for the user.
 * *Other Contributions*:
 
 ** Project Management:
