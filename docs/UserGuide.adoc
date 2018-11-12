@@ -190,14 +190,14 @@ Users authenticate their identities prior using any other functions of the appli
 
 The following commands are only available to any members except `login` which can be executed by any user. +
 
-==== Login to the system : `login`
+==== Log in to the system : `login`
 The `login` command allows the user to login with given username and password. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
 Examples:
 
-* Login user with username as zulq9 and password as zulsenpai. +
+* Login the user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
 image::doc-login.png[width="790"]
@@ -216,7 +216,7 @@ Examples:
  `change-password p/darrensinglenus`.
 
 image::doc-change-password.png[width="790"]
-_Figure 4.2. User attempting to change password._
+_Figure 4.2. A user attempting to change the password._
 
 ==== Logout from the system : `logout`
 
@@ -260,11 +260,11 @@ This command is available to admins only. +
 Format: `list-staff`
 
 image::doc-list-user.png[width="790"]
-_Figure 4.3. All users in Inventory Manager listed on screen._
+_Figure 4.3. All users in Inventory Manager listed on the screen._
 
 ==== Updating a user : `edit-staff`
 
-The `edit-staff` command updates a user information into the system with given username. +
+The `edit-staff` command updates a user information into the system with the given username. +
 This command is available to admins only. +
 
 Format: `edit-staff INDEX [n/NAME] [u/USERNAME] [p/PASSWORD] [r/ROLE]`
@@ -278,7 +278,7 @@ Examples:
 
 ==== Deleting a user : `delete-staff`
 
-The `delete-staff` command deletes a user from the system with given index as shown in the list. +
+The `delete-staff` command deletes a user from the system with the given index as shown in the list. +
 This command is available to admins only. +
 
 
@@ -286,7 +286,7 @@ An error will be shown if the entered index is invalid.
 `delete-staff 999`.
 
 image::doc-delete-user-failed.png[width="790"]
-_Figure 4.4. Error shown if the deleted index is invalid._
+_Figure 4.4. The error is shown if the deleted index is invalid._
 
 Format: `delete-staff INDEX`
 

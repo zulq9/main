@@ -6,8 +6,8 @@
 
 == Overview
 
-This Personal Portfolio Page showcases what I have contributed in the project and the documentation for
-each contributions.
+This Personal Portfolio Page showcases what I have contributed to the project and the documentation for
+each contribution.
 
 Inventory manager is for Small to Medium Enterprises (SMEs) who prefer to use a
 desktop app to manage their shop inventory. More importantly, it is optimized for those
@@ -20,8 +20,7 @@ authorize users to manage the inventory.
 
 == Summary of Contributions
 
-* *Major Enhancement*:
-** Created authentication and user management feature
+* *Major Enhancement*: Created authentication and user management feature
 
 * *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=darren96&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional Code]
 
