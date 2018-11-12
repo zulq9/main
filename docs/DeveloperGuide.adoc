@@ -637,6 +637,8 @@ The following commands are added for Authentication:
 * `change-password` : Changes the current user's password
 * `logout` : Logout a staff and clears all the command history
 
+The sequence diagram below shows how login is executed at the logic component.
+
 .This UML diagram shows how login is executed and works at the logic component.
 image::LoginSDForLogic.png[width="790"]
 
@@ -646,6 +648,8 @@ Authentication has a `UserSession` object stores in the Model Component of the s
 largely relied on when the commands are executed.
 
 Newly created user session object comes with a `Staff` object to store the current user's information.
+
+The class diagram below shows the relationship between each object used in authentication feature.
 
 .This UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
 image::AuthenticationModelComponentClassDiagram.png[width="790"]
@@ -703,12 +707,16 @@ The following commands are added for User Management:
 * `edit-staff` : Edit a staff
 * `delete-staff` : Delete a staff
 
+The sequence diagram below shows how `edit-staff` is executed at the logic component.
+
 .This UML diagram shows how `edit-staff` is executed and works at the logic component.
 image::EditStaffSDForLogic.png[width="790"]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
+
+The class diagram shows the relationship of the objects involved in the user management feature.
 
 .This UML diagram shows the representation of Staff and UniqueStaffList in Inventory Manager.
 image::StaffModelComponentClassDiagram.png[width="790"]
