@@ -23,7 +23,7 @@ For *Inventory Manager*, I have designed and implemented the *Reporting Module* 
 It mainly provides the users with the ability to export and import the data of  *Inventory Manager* to
 and from the outer system.
 
-== Summary of contributions
+== Summary of Contributions
 
 |===
 |_Below is a summary of the contributions I have made to the *Inventory Manager*._
