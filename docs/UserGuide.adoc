@@ -195,25 +195,25 @@ The `login` command allows the user to login with given username and password. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
-Examples:
-
-* Login the user with username as zulq9 and password as zulsenpai. +
-`login u/zulq9 p/zulsenpai`
+Examples: Login the user with username as admin and password as password. +
+`login u/admin p/password`
 
 image::doc-login.png[width="790"]
-_Figure 4.1. User is required to login before proceeding._
+_Figure 4.1. The user is required to login before proceeding._
 
 ==== Change user's password : `change-password`
 
 The `change-password` command updates the user's password in the system with a given new password. +
-If there are multiple inputs for the new password field, then only the last input of the new password is accepted. +
 
 Format: `change-password p/NEW_PASSWORD`
 
 Examples:
 
-* Change user's password with given new password as darrensinglenus. +
+* Change user's password with a given new password as darrensinglenus. +
  `change-password p/darrensinglenus`.
+
+* Change user's password with multiple given new passwords as nussoccat. Only the final input will be accepted. +
+ `change-password p/password p/nussoccat`.
 
 image::doc-change-password.png[width="790"]
 _Figure 4.2. A user attempting to change the password._
@@ -224,11 +224,6 @@ The `logout` command signs out the current users from the system and removes all
 
 Format: `logout`
 
-Examples:
-
-* Logout from the current session. +
-`logout`
-
 // end::authentication[]
 
 // tag::userManagement[]
@@ -238,10 +233,9 @@ Admin of the system manages the staffs who use this application.
 
 The following commands are only accessible to the admin to manage the users.
 
-==== Adding a user : `add-staff`
+==== Add a user : `add-staff`
 
 The `add-staff` command adds a user into the system. +
-This command is available to admins only. +
 
 Format: `add-staff n/NAME u/USERNAME p/PASSWORD r/ROLE`
 
@@ -249,23 +243,23 @@ Remark: `ROLE` can only be either `user`, `manager` or `admin`.
 
 Examples:
 
-* Add staff with username as yaotx, password as yaotxfanboi, name as Yao TengXiong and role as manager. +
- `add-staff u/yaotx p/yaotxfanboi n/Yao TengXiong r/manager`.
+* Add staff with username as johnd, password as johndoe1, name as John Doe and role as manager. +
+ `add-staff u/johnd p/johndoe1 n/John Doe r/manager`.
+* Add staff with username as damith, password as softengn, name as Damith Rajapakse and role as user. +
+`add-staff u/damith p/softengn n/Damith Rajapakse r/user`.
 
-==== Listing all the users : `list-staff`
+==== List all the users : `list-staff`
 
 The `list-staff` command displays a list of existing users in the system. +
-This command is available to admins only. +
 
 Format: `list-staff`
 
 image::doc-list-user.png[width="790"]
 _Figure 4.3. All users in Inventory Manager listed on the screen._
 
-==== Updating a user : `edit-staff`
+==== Update a user : `edit-staff`
 
 The `edit-staff` command updates a user information into the system with the given username. +
-This command is available to admins only. +
 
 Format: `edit-staff INDEX [n/NAME] [u/USERNAME] [p/PASSWORD] [r/ROLE]`
 
@@ -273,27 +267,27 @@ Remark: `ROLE` can only be either `user`, `manager` or `admin`.
 
 Examples:
 
-* Edit staff with given id, 2 in the list. Change name to Yao Teng Xiong and role as admin. +
- `edit-staff 2 n/Yao Teng Xiong r/admin`.
+* Edit staff with given id, 3 in the list. Change name to Yao Teng Xiong and role as admin. +
+ `edit-staff 3 n/Yao Teng Xiong r/admin`.
+* Edit staff with given id, 2 in the list. Change username to zulq8 and password as meowmeowzul. +
+ `edit-staff 2 u/zulq8 p/meowmeowzul`.
 
-==== Deleting a user : `delete-staff`
+==== Delete a user : `delete-staff`
 
 The `delete-staff` command deletes a user from the system with the given index as shown in the list. +
-This command is available to admins only. +
-
-
-An error will be shown if the entered index is invalid.
-`delete-staff 999`.
-
-image::doc-delete-user-failed.png[width="790"]
-_Figure 4.4. The error is shown if the deleted index is invalid._
 
 Format: `delete-staff INDEX`
 
 Examples:
 
-* Delete user with given index as shown in the list. +
+* Delete a user with given index as shown in the list. +
  `delete-staff 1`.
+
+* Delete a user with an invalid index. +
+`delete-staff 999`.
+
+image::doc-delete-user-failed.png[width="790"]
+_Figure 4.4. The error is shown if the deleted index is invalid._
 
 // end::userManagement[]
 

@@ -32,7 +32,7 @@ authorize users to manage the inventory.
 
 * *Enhancements to Existing Features*:
 *** Enabled `undo` and `redo` commands to be executed for the user management component
-*** Cleared command history of the user once user is logged out
+*** Cleared command history of the user once the user is logged out
 *** Masked up the password which will be shown in the log file
 
 * *Documentation*:
@@ -41,7 +41,7 @@ authorize users to manage the inventory.
 *** Updated my personal portfolio https://cs2103-ay1819s1-w14-4.github.io/main/team/darren96.html[(#211)]
 
 * *Tools*:
-*** Created an organization for team on Github
+*** Created an organization for the team on Github
 *** Integrated a Github plugin (TravisCI) to the team repo
 
 == Contributions to the User Guide

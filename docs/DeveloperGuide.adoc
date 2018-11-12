@@ -603,7 +603,7 @@ there are two conditions which need to be met.
 
 The following two conditions must be met before executing:
 
-. Current user who is executing the command must be providing a valid username and password.
+. The current user who is executing the command must be providing a valid username and password.
 . The user must have an account exists in the system.
 
 `LoginCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
@@ -616,7 +616,7 @@ choices made.
 
 ===== Aspect: Where `login` executes
 
-There are various places where `authenticateUser` can be executed. The pros and cons of each option is shown below.
+There are various places where `authenticateUser` can be executed. The pros and cons of each option are shown below.
 
 **Alternative 1 (current choice):** Executed at Logic +
 **Pros:** Easy to implement. +
@@ -642,10 +642,10 @@ image::LoginSDForLogic.png[width="790"]
 
 ===== Model Component
 
-Authentication has a `UserSession` stores in the Model Component of the system. This is due to this component has to be
+Authentication has a `UserSession` object stores in the Model Component of the system. This is due to this component has to be
 largely relied on when the commands are executed.
 
-Newly created user session object comes with a `Staff` object to store current user's information.
+Newly created user session object comes with a `Staff` object to store the current user's information.
 
 .This UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
 image::AuthenticationModelComponentClassDiagram.png[width="790"]
@@ -681,7 +681,7 @@ choices made.
 
 ===== Aspect: Where `edit-staff` executes
 
-There are various places where `edit-staff` can be executed. The pros and cons of each option is shown below.
+There are various places where `edit-staff` can be executed. The pros and cons of each option are shown below.
 
 . Executed at Logic +
 * Pros: Easy to implement +
