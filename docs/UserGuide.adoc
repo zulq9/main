@@ -614,7 +614,7 @@ For the `approve-po` command, do take note of the following points:
 * Approves the purchase order at the specified `INDEX`.
 * The index refers to the index number shown in the displayed inventory list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The command can only be applied to purchase order with 'PENDING' status
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:
@@ -626,7 +626,7 @@ Approves the first purchase order in the purchase order list.
 ==== Rejecting a purchase order : `reject-po`
 
 The `reject-po` command is only available to the Manager. +
-It allows the user to reject the specified purchase order from the purchase order list. +
+It allows the manager to reject the specified purchase order from the purchase order list. +
 
 Format: `reject-po INDEX`
 
@@ -635,7 +635,7 @@ For the `reject-po` command, do take note of the following points:
 * Rejects the purchase order at the specified `INDEX`.
 * The index refers to the index number shown in the displayed inventory list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The command can only be applied to purchase order with 'PENDING' status
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:
@@ -647,7 +647,7 @@ Rejects the first purchase order in the purchase order list.
 ==== Editing a purchase order : `edit-po`
 
 The `edit-po` command is only available to the Member group. +
-It allows member to edit an existing purchase order in the Inventory Manager. +
+It allows the user to edit the specified purchase order from the purchase order list. +
 
 Format: `edit-po INDEX [q/QUANTITY] [d/REQUIRED_DATE] [sp/SUPPLIER]`
 
@@ -658,8 +658,8 @@ For the `edit-po` command, do take note of the following points:
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* _SKU_ of the item in the purchase order list is uneditable
-* The command can only be applied to purchase order with 'PENDING' status
+* Item's _SKU_ in the purchase order list is uneditable.
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:

@@ -7,15 +7,15 @@
 == Overview
 
 Hello! My name is Zul and I'm a student at National University of Singapore (NUS). My future hope is to be a good developer.
-To start off my software developer path, i took part in this strenuous 2 month of developing a project called Inventory Manager.
+To start off my software developer path, I have developed a desktop application called Inventory Manager as part of an NUS Software Engineering module project.
 This portfolio provides you with information about various contributions that I have done for the project. This project is a small sample of the multiple talents
 that I have that will contribute to my future employment.
 
 Inventory Manager is an inventory management solution aims to tackle the chore of stock taking for Small to Medium Enterprises (SMEs). Designed to be easy
-to use, Inventory Manager gives you control over your business right from your keyboard.
+to use, Inventory Manager gives the users control over their business right from their keyboard.
 
-Inventory Manager allows various users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders and more.
-With user authentication put in place, it gives SMEs greater control over users' access to the application too.
+Inventory Manager also allows users to perform multiple inventory management tasks such as creating sales, generating reports, creating purchase orders and more.
+With user authentication put in place, it gives SMEs greater control over users' access to the application as well.
 
 == Summary of Contributions
 
