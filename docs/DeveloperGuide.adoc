@@ -299,6 +299,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial inventory st
 
 The following sequence diagram shows how the undo operation works:
 
+.A high level sequence diagram showing events triggered by the undo command.
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redoInventory()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the inventory to that state.
@@ -306,7 +307,8 @@ The `redo` command does the opposite -- it calls `Model#redoInventory()`, which 
 [NOTE]
 If the `currentStatePointer` is at index `inventoryStateList.size() - 1`, pointing to the latest inventory state, then there is no undone inventory state to restore. The `redo` command uses `Model#canRedoAInventory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list-item`. Commands that do not modify Inventory Manager, such as `list-item`, will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list-item`. Commands that do not modify Inventory Manager, such as `list-item`,
+will usually not call `Model#commitInventory()`, `Model#undoInventory()` or `Model#redoInventory()`. Thus, the `inventoryStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
@@ -316,6 +318,7 @@ image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.State diagram when a user executes a command
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
@@ -519,8 +522,8 @@ For `AddSaleCommand#execute` to be successful, there are two conditions which ne
 
 The sequence diagram below shows the interactions inside the logic component for the `AddSaleCommand`.
 
+.Sequence diagram for the add sale command.
 image::AddSaleCommandSequenceDiagram.png[width="800"]
-_Figure X: Sequence diagram for the add sale command._
 
 ===== Storage
 
@@ -1472,7 +1475,8 @@ staff and inventory without a need to invest a huge sum in complicated and expen
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="7%,<9%,<25%,<30%",options="header",]
+.List of user stories
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |login through CLI |use the features of the app

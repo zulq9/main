@@ -848,6 +848,7 @@ and import the data back.
 The following table summarises commands available in Inventory Manager, along with examples:
 
 [width="100%",cols="20%,<30%,<35%,<15%",options="header",]
+.Command summary
 |=====================================================================================================
 |Command | Format | Example | Available for
 4+| *General*
