@@ -35,6 +35,14 @@ public class UniqueStaffList implements Iterable<Staff> {
     }
 
     /**
+     * Returns true if the list contains an equivalent staff as the given argument.
+     */
+    public boolean containsUsername(Staff toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameUsername);
+    }
+
+    /**
      * Adds a staff to the list.
      * @param toAdd A staff to add into the list.
      */

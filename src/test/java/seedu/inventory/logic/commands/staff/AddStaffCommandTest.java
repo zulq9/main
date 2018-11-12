@@ -99,6 +99,12 @@ public class AddStaffCommandTest {
             requireNonNull(staff);
             return this.staff.isSameStaff(staff);
         }
+
+        @Override
+        public boolean hasUsername(Staff staff) {
+            requireNonNull(staff);
+            return staff.isSameUsername(staff);
+        }
     }
 
     /**
@@ -111,6 +117,12 @@ public class AddStaffCommandTest {
         public boolean hasStaff(Staff staff) {
             requireNonNull(staff);
             return staffsAdded.stream().anyMatch(staff::isSameStaff);
+        }
+
+        @Override
+        public boolean hasUsername(Staff staff) {
+            requireNonNull(staff);
+            return staffsAdded.stream().anyMatch(staff::isSameUsername);
         }
 
         @Override

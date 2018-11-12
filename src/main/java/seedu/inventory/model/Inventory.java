@@ -157,6 +157,16 @@ public class Inventory implements ReadOnlyInventory {
     }
 
     /**
+     * Returns true if a staff with the same username as {@code staff} exists in the inventory.
+     *
+     * @return true if staff found
+     */
+    public boolean hasUsername(Staff staff) {
+        requireNonNull(staff);
+        return staffs.containsUsername(staff);
+    }
+
+    /**
      * Adds a staff to the inventory management system.
      *
      * @param s the staff to be added

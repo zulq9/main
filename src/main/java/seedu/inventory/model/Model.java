@@ -274,6 +274,13 @@ public interface Model {
     boolean hasStaff(Staff staff);
 
     /**
+     * Returns true if a staff with the same username as {@code item} exists in the staff list.
+     *
+     * @param staff the staff to be checked
+     */
+    boolean hasUsername(Staff staff);
+
+    /**
      * Deletes the given staff.
      * The staff must exist in the staff list.
      *
