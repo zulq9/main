@@ -81,6 +81,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_DARREN = "Darren";
     public static final String VALID_USERNAME_DARREN = "darren96";
     public static final String VALID_PASSWORD_DARREN = "darrennnn";
+    public static final String VALID_USERNAME_USER = "user";
 
     public static final String USERNAME_DESC_ZUL = " " + PREFIX_USERNAME + VALID_USERNAME_ZUL;
     public static final String NAME_DESC_ZUL = " " + PREFIX_NAME + VALID_NAME_ZUL;
@@ -245,7 +246,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPurchaseOrder(Model model) {
         PurchaseOrder firstPo = model.getFilteredPurchaseOrderList().get(0);
-        model.deletePurchaseOrder(firstPo);
+        model.deletePurchaseOrder(0);
         model.commitInventory();
     }
 

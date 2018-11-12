@@ -306,7 +306,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deletePurchaseOrder(PurchaseOrder target) {
+    public void deletePurchaseOrder(int target) {
         versionedInventory.removePurchaseOrder(target);
         indicateInventoryChanged();
     }
@@ -317,8 +317,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
-        requireAllNonNull(target, editedPurchaseOrder);
+    public void updatePurchaseOrder(int target, PurchaseOrder editedPurchaseOrder) {
+        requireNonNull(editedPurchaseOrder);
         versionedInventory.updatePurchaseOrder(target, editedPurchaseOrder);
         indicateInventoryChanged();
     }
@@ -331,14 +331,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void approvePurchaseOrder(PurchaseOrder target) {
-        versionedInventory.approvePurchaseOrder(target);
+    public void approvePurchaseOrder(int target, PurchaseOrder targetPo) {
+        versionedInventory.approvePurchaseOrder(target, targetPo);
         indicateInventoryChanged();
     }
 
     @Override
-    public void rejectPurchaseOrder(PurchaseOrder target) {
-        versionedInventory.rejectPurchaseOrder(target);
+    public void rejectPurchaseOrder(int target, PurchaseOrder targetPo) {
+        versionedInventory.rejectPurchaseOrder(target, targetPo);
         indicateInventoryChanged();
     }
 
@@ -347,6 +347,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasStaff(Staff staff) {
         requireNonNull(staff);
         return versionedInventory.hasStaff(staff);
+    }
+
+    @Override
+    public boolean hasUsername(Staff staff) {
+        requireNonNull(staff);
+        return versionedInventory.hasUsername(staff);
     }
 
     @Override

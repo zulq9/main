@@ -135,7 +135,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasPurchaseOrder(IPHONEPO));
         modelManager.addPurchaseOrder(IPHONEPO);
         assertTrue(modelManager.hasPurchaseOrder(IPHONEPO));
-        modelManager.deletePurchaseOrder(IPHONEPO);
+        modelManager.deletePurchaseOrder(0);
         assertFalse(modelManager.hasPurchaseOrder(IPHONEPO));
 
         modelManager.addPurchaseOrder(IPHONEPO);

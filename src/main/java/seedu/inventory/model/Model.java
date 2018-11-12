@@ -214,7 +214,7 @@ public interface Model {
      * Deletes the given purchase order.
      * The purchase order must exist in the inventory.
      */
-    void deletePurchaseOrder(PurchaseOrder target);
+    void deletePurchaseOrder(int target);
 
     /**
      * Deletes all purchase orders given the item.
@@ -232,7 +232,7 @@ public interface Model {
      * Replaces the given purchaseorder {@code target} with {@code editedPurchaseOrder}.
      * {@code target} must exist in the inventory.
      */
-    void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder);
+    void updatePurchaseOrder(int target, PurchaseOrder editedPurchaseOrder);
 
     /**
      * Replaces all purchase order sku in the list with {@code editedItem} sku.
@@ -243,13 +243,13 @@ public interface Model {
      * Approves the given purchaseorder {@code target} and add the quantity to the item.
      * {@code target} must exist in the inventory.
      */
-    void approvePurchaseOrder(PurchaseOrder target);
+    void approvePurchaseOrder(int target, PurchaseOrder targetPo);
 
     /**
      * Rejects the given purchaseorder {@code target}.
      * {@code target} must exist in the inventory.
      */
-    void rejectPurchaseOrder(PurchaseOrder target);
+    void rejectPurchaseOrder(int target, PurchaseOrder targetPo);
 
     /**
      * Returns an unmodifiable view of the filtered purchase order list
@@ -272,6 +272,13 @@ public interface Model {
      * @param staff the staff to be checked
      */
     boolean hasStaff(Staff staff);
+
+    /**
+     * Returns true if a staff with the same username as {@code item} exists in the staff list.
+     *
+     * @param staff the staff to be checked
+     */
+    boolean hasUsername(Staff staff);
 
     /**
      * Deletes the given staff.

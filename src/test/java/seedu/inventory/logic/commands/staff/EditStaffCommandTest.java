@@ -7,6 +7,7 @@ import static seedu.inventory.logic.commands.CommandTestUtil.DESC_DARREN;
 import static seedu.inventory.logic.commands.CommandTestUtil.DESC_ZUL;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_NAME_DARREN;
 import static seedu.inventory.logic.commands.CommandTestUtil.VALID_PASSWORD_DARREN;
+import static seedu.inventory.logic.commands.CommandTestUtil.VALID_USERNAME_USER;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.inventory.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.inventory.logic.commands.CommandTestUtil.showStaffAtIndex;
@@ -62,10 +63,11 @@ public class EditStaffCommandTest {
         Staff lastStaff = model.getFilteredStaffList().get(indexLastStaff.getZeroBased());
 
         StaffBuilder staffInList = new StaffBuilder(lastStaff);
-        Staff editedStaff = staffInList.withName(VALID_NAME_DARREN).withPassword(VALID_PASSWORD_DARREN).build();
-
-        EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_DARREN)
+        Staff editedStaff = staffInList.withUsername(VALID_USERNAME_USER).withName(VALID_NAME_DARREN)
                 .withPassword(VALID_PASSWORD_DARREN).build();
+
+        EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withUsername(VALID_USERNAME_USER)
+                .withName(VALID_NAME_DARREN).withPassword(VALID_PASSWORD_DARREN).build();
         EditStaffCommand editStaffCommand = new EditStaffCommand(indexLastStaff, descriptor);
 
         String expectedMessage = String.format(EditStaffCommand.MESSAGE_EDIT_STAFF_SUCCESS, editedStaff);
