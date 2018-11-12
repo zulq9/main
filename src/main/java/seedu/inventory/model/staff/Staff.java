@@ -71,8 +71,22 @@ public class Staff {
     }
 
     /**
-     * Returns true if both staffs of the same staffName and username have
+     * Returns true if both staffs of the same username have
      * at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two staffs.
+     */
+    public boolean isSameUsername(Staff otherStaff) {
+        if (otherStaff == this) {
+            return true;
+        }
+
+        return otherStaff != null
+                && otherStaff.getUsername().equals(getUsername());
+    }
+
+    /**
+     * Returns true if both staffs of the same password and username
+     * is the same.
      * This defines a weaker notion of equality between two staffs.
      */
     public boolean isSameStaff(Staff otherStaff) {

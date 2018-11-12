@@ -33,7 +33,7 @@ public class AddStaffCommand extends Command {
             + PREFIX_ROLE + "user";
 
     public static final String MESSAGE_SUCCESS = "New staff added: %1s";
-    public static final String MESSAGE_DUPLICATE_USER = "This user already exists in the system.";
+    public static final String MESSAGE_DUPLICATE_USER = "This username already exists in the system.";
 
     private final Staff toAdd;
 
@@ -49,7 +49,7 @@ public class AddStaffCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasStaff(toAdd)) {
+        if (model.hasUsername(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_USER);
         }
 

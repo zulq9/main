@@ -350,6 +350,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasUsername(Staff staff) {
+        requireNonNull(staff);
+        return versionedInventory.hasUsername(staff);
+    }
+
+    @Override
     public void deleteStaff(Staff target) {
         requireNonNull(target);
         versionedInventory.removeStaff(target);

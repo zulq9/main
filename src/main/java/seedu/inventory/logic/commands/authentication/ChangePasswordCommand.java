@@ -29,7 +29,8 @@ public class ChangePasswordCommand extends Command {
             + PREFIX_PASSWORD + "12345678";
 
     public static final String MESSAGE_SUCCESS = "You have successfully changed your password.";
-    public static final String MESSAGE_FAILED = "Please enter a new password.";
+    public static final String MESSAGE_FAILED = "Please enter a new password "
+            + "which is differ from your current password.";
     public static final String MESSAGE_USER_NOT_LOGGED_IN = "Please login to change your password.";
 
     private final Password toChange;

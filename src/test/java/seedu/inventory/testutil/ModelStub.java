@@ -277,6 +277,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasUsername(Staff staff) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addStaff(Staff staff) {
         throw new AssertionError("This method should not be called.");
     }
