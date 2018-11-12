@@ -13,6 +13,9 @@ import seedu.inventory.model.item.Name;
 import seedu.inventory.model.item.Price;
 import seedu.inventory.model.item.Quantity;
 import seedu.inventory.model.item.Sku;
+import seedu.inventory.model.purchaseorder.PurchaseOrder;
+import seedu.inventory.model.purchaseorder.RequiredDate;
+import seedu.inventory.model.purchaseorder.Supplier;
 import seedu.inventory.model.staff.Password;
 import seedu.inventory.model.staff.Staff;
 import seedu.inventory.model.staff.StaffName;
@@ -46,11 +49,27 @@ public class SampleDataUtil {
         };
     }
 
+    public static PurchaseOrder[] getSamplePurchaseOrders() {
+        return new PurchaseOrder[] {
+            new PurchaseOrder(new Sku("lg-g7"), new Quantity("28"), new RequiredDate("2017-12-06"),
+                        new Supplier("LG Corporation"), PurchaseOrder.Status.APPROVED),
+            new PurchaseOrder(new Sku("samsung-s9"), new Quantity("369"), new RequiredDate("2018-12-06"),
+                        new Supplier("Samsung Corporation"), PurchaseOrder.Status.REJECTED),
+            new PurchaseOrder(new Sku("apple-iphone-xr"), new Quantity("10"), new RequiredDate("2019-11-06"),
+                        new Supplier("Apple Inc."), PurchaseOrder.Status.PENDING),
+        };
+    }
+
     public static ReadOnlyInventory getSampleInventory() {
         Inventory sampleInventory = new Inventory();
         for (Item sampleItem : getSampleItems()) {
             sampleInventory.addItem(sampleItem);
         }
+
+        for (PurchaseOrder samplePurchaseOrder : getSamplePurchaseOrders()) {
+            sampleInventory.addPurchaseOrder(samplePurchaseOrder);
+        }
+
         return sampleInventory;
     }
 

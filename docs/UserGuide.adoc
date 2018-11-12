@@ -601,12 +601,6 @@ The `approve-po` command is only available to the Manager. +
 It allows the manager to approve the specified purchase order from the purchase order list. +
 Upon approving, the quantity stated in the purchase order will be added to the designated item. +
 
-The image below shows the result after the `approve-po 1` command is entered.
-
-image::doc-delete-po.png[width="180"]
-_Figure 4.12. Approves the specified purchase order by the it's index in the list._
-
-
 Format: `approve-po INDEX`
 
 For the `approve-po` command, do take note of the following points:
@@ -614,7 +608,7 @@ For the `approve-po` command, do take note of the following points:
 * Approves the purchase order at the specified `INDEX`.
 * The index refers to the index number shown in the displayed inventory list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The command can only be applied to purchase order with 'PENDING' status
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:
@@ -626,7 +620,7 @@ Approves the first purchase order in the purchase order list.
 ==== Rejecting a purchase order : `reject-po`
 
 The `reject-po` command is only available to the Manager. +
-It allows the user to reject the specified purchase order from the purchase order list. +
+It allows the manager to reject the specified purchase order from the purchase order list. +
 
 Format: `reject-po INDEX`
 
@@ -635,7 +629,7 @@ For the `reject-po` command, do take note of the following points:
 * Rejects the purchase order at the specified `INDEX`.
 * The index refers to the index number shown in the displayed inventory list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The command can only be applied to purchase order with 'PENDING' status
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:
@@ -647,7 +641,7 @@ Rejects the first purchase order in the purchase order list.
 ==== Editing a purchase order : `edit-po`
 
 The `edit-po` command is only available to the Member group. +
-It allows member to edit an existing purchase order in the Inventory Manager. +
+It allows the user to edit the specified purchase order from the purchase order list. +
 
 Format: `edit-po INDEX [q/QUANTITY] [d/REQUIRED_DATE] [sp/SUPPLIER]`
 
@@ -658,8 +652,8 @@ For the `edit-po` command, do take note of the following points:
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* _SKU_ of the item in the purchase order list is uneditable
-* The command can only be applied to purchase order with 'PENDING' status
+* Item's _SKU_ in the purchase order list is uneditable.
+* The command can only be applied to purchase order with 'PENDING' status.
 ****
 
 Example:
@@ -883,8 +877,8 @@ The following table summarises commands available in Inventory Manager, along wi
 4+| *Purchase Orders Management*
 |`List all Purchase Orders`|  `list-po` |  `list-po` | `Member`
 |`Add Purchase Order`| `add-po` | `add-po s/apple-iphone-xr q/1000 d/12-12-2018 sp/Apple Inc.` | `Member`
-|`Approve Purchase Order`|  `approve-po` | `approve-po 2` | `Manager/Admin`
-|`Reject Purchase Order`|  `reject-po` | `reject-po 3` | `Manager/Admin`
+|`Approve Purchase Order`|  `approve-po` | `approve-po 2` | `Manager`
+|`Reject Purchase Order`|  `reject-po` | `reject-po 3` | `Manager`
 |`Edit Purchase Order`|  `edit-po` | `edit-po 3 q/100` | `Member`
 |`Delete Purchase Order`|  `delete-po` | `delete-po 1` | `Member`
 // Report
