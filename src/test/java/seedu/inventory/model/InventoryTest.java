@@ -205,7 +205,7 @@ public class InventoryTest {
         assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
         inventory.addPurchaseOrder(IPHONEPO);
         assertTrue(inventory.hasPurchaseOrder(IPHONEPO));
-        inventory.removePurchaseOrder(IPHONEPO);
+        inventory.removePurchaseOrder(0);
         assertFalse(inventory.hasPurchaseOrder(IPHONEPO));
     }
 

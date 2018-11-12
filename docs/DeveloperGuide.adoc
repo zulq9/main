@@ -12,10 +12,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
-:img-width: 740
-endif::[]
-ifndef::env-github[]
-:img-width: 450
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-4/main
 
@@ -348,7 +344,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 *Inventory management* is introduced in Inventory manager as a core feature to allow users to easily manage items in their inventory list.
 
-An `Item` consists of `Name`, `Price`, `Quantity`, *unique* `SKU`, `Image Path`, and optional `Tags`.
+An `Item` consists of `Name`, `Price`, `Quantity`, *unique* `SKU`, `Image Path`, and optional `Tags`. An `item` is considered unique based on its `SKU`.
 
 An item can only be successfully added into the inventory if the following criteria are met:
 
@@ -358,9 +354,7 @@ An item can only be successfully added into the inventory if the following crite
 - `SKU` is unique and contains only *alphanumeric characters* and the *dash '-'* or *underscore '_'* symbols
 - `Image Path` is a valid file path and the file must be a valid image (i.e. either *.png* or *.jpeg* format)
 
-==== Implementation
-
-===== Model component
+==== Model component
 
 Items are stored and maintained in the Model in a `UniqueItemList`, allowing only unique items to be stored in the inventory.
 
@@ -369,7 +363,7 @@ image::UniqueItemList.png[width="500"]
 
 Individual items are represented by the `Item` object with attributes `Name`, `Price`, `Quantity`, `SKU`, `Image` and `Tag`.
 
-===== Storage component
+==== Storage component
 
 Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files. An item is stored in an XML file in the following format:
 [source, xml]
@@ -381,8 +375,6 @@ Items are stored in `XmlAdaptedItem` objects, and physically stored in XML files
         <quantity>30</quantity>
         <sku>apple-iphone-xr</sku>
         <image>/images/iphone.jpg</image>
-        <tagged>apple</tagged>
-        <tagged>iphone</tagged>
     </items>
 </inventory>
 ----
@@ -404,6 +396,9 @@ image::ItemCard.PNG[width="300"]
 The following commands were added and/or modified to handle inventory management operations:
 
 * `list-item` : List all items in the inventory
+* `list-low-qty` : List all items with quantities less than or equal to 10 in the inventory
+* `find-item-sku` : Search for items based on SKU
+* `filter-item` : Filter items based on quantity and/or price
 * `add-item` : Add a unique item into the inventory
 * `delete-item` : Delete an existing item in the inventory
 * `edit-item` : Edit an existing item in the inventory
@@ -440,22 +435,15 @@ Based on the above consideration, the first option is chosen as it is easier to 
 
 ===== SKU field
 
-Since an item is considered unique based on its SKU, therefore, it is important to check and validate that the item
-has a unique SKU (i.e. no other items in the inventory has the same SKU as this item) before it is allowed to be added
-or edited in the inventory.
+Since an item is considered unique based on its SKU, it is important to validate that an item has a unique SKU before it is
+allowed to be added or edited in the inventory.
 
-Before an item is allowed to be added or edited, it is checked against every item in the inventory list. The first check
-compares if the `item` object is the same object as the other items in the inventory list. Then, it is followed by a second
-check to compare the item's SKU with the other items' SKUs in the inventory list. It is only allowed to be added or edited
-if it passes the checks.
+Before an item is allowed to be added or edited, it is checked against every item in the inventory list. There are two checks
+to verify if two items are the same: 1. comparing the two items against every field, and 2. comparing only SKU.
 
 The following code snippet shows how the item is checked for uniqueness:
 [source, java]
 ----
-/**
- * Returns true if both items have the same SKU.
- * This defines a weaker notion of equality between two items.
- */
 public boolean isSameItem(Item otherItem) {
     if (otherItem == this) {
         return true;
@@ -468,17 +456,14 @@ public boolean isSameItem(Item otherItem) {
 
 ===== Image field
 
-Inventory Manager supports images for items, and therefore, it is important to check and validate that the image supplied by the
-user is stored in a valid file path, and is a valid image file.
+Inventory Manager supports images for items, therefore, it is important to validate that images supplied by users are stored
+in a valid file path, and that the image is a valid image file.
 
 Inventory Manager checks if the directory supplied by the user is a valid file path. Then, the file's mime-type will be verified to ensure that it is a valid image file.
 
-The following code snippet shows how the image field is checked and validated:
+The following code snippet shows how the image URL is checked and validated:
 [source, java]
 ----
-/**
- * Returns true if a given string is a valid image file.
- */
 public static boolean isValidImage(String test) {
     if (test.matches(IMAGE_VALIDATION_REGEX)) {
         File file = new File(test);
@@ -605,8 +590,8 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::authentication[]
 === Authentication
 
-Authentication is introduced in Inventory Management to allow users to login to the system to perform their inventory
-management tasks. This is to prevent unauthorized users from accessing the system.
+Authentication is introduced in Inventory Manager which allows users to authenticate themselves to perform their inventory
+management tasks. This is to prevent any unauthorized users from accessing the system.
 
 ==== Implementation
 
@@ -617,8 +602,8 @@ there are two conditions which needs to be met.
 ===== Conditions
 
 The following two conditions must be met before executing:
-. Current user who are executing the command must be providing correct username and password.
-. The index of the staff must be a valid number and existing in the staff list shown.
+. Current user who are executing the command must be providing valid username and password.
+. The user must have an account exists in the system.
 
 `LoginCommand#execute` will perform the validation before proceeding. If any of the above validation fails,
 `CommandException` will be thrown and it will not call `Model#authenticateUser`.
@@ -638,7 +623,7 @@ There are various places where `authenticateUser` can be executed. The pros and 
 
 **Alternative 2:** Executed as an Event +
 **Pros:** Able to be used by any component of the application. +
-**Cons:** `AuthenticateUserEvent.execute()` will need to access inventory to perform validations.
+**Cons:** `AuthenticateUserEvent.execute()` will need to access the staff list to perform validations.
 
 Based on the above pros and cons, the first option is chosen as it is easier to implement, and it does not require
 `AuthenticateUserEvent.execute()` to read the inventory and perform validations.
@@ -651,8 +636,8 @@ The following commands are added for Authentication:
 * `change-password` : Changes the current user's password
 * `logout` : Logout a staff and clears all the command history
 
-.UML diagram shows how login is executed and works at the logic component.
-image::LoginSDForLogic.png[width={img-width}]
+.This UML diagram shows how login is executed and works at the logic component.
+image::LoginSDForLogic.png[width="790"]
 
 ===== Model Component
 
@@ -661,8 +646,8 @@ largely relied on when the commands are executed.
 
 Newly created user session object comes with a `Staff` object to store current user's information.
 
-.UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
-image::AuthenticationModelComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows the UserSession object stores a Staff object and is stored in ModelManager.
+image::AuthenticationModelComponentClassDiagram.png[width="790"]
 
 // end::authentication[]
 
@@ -710,29 +695,30 @@ Based on the above pros and cons, the first option is chosen as it is easier to 
 ===== Logic Component
 
 The following commands are added for User Management:
+
 * `add-staff` : Add a staff
 * `list-staff` : List all staffs
 * `edit-po` : Edit a staff
 * `delete-staff` : Delete a staff
 
-.UML diagram shows how `edit-staff` is executed and works at the logic component.
-image::EditStaffSDForLogic.png[width=:{img-width}:]
+.This UML diagram shows how `edit-staff` is executed and works at the logic component.
+image::EditStaffSDForLogic.png[width="790"]
 
 ===== Model Component
 
 Staffs are managed in the Model as a UniqueStaffList which disallows duplicated staff to be added.
 
-.UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
-image::StaffModelComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows representation of Staff and UniqueStaffList in Inventory Manager.
+image::StaffModelComponentClassDiagram.png[width="790"]
 
 ===== Storage Component
 
 Staffs are stored as `XmlAdaptedStaff` objects in `XMLSerializableStaffList`, which maintain a class relationship as shown in this diagram.
 
-.UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
-image::StaffStorageComponentClassDiagram.png[width={img-width}]
+.This UML diagram shows Staff objects are saved using XmlAdaptedStaff objects into a XMLSerializableStaffList as shown above.
+image::StaffStorageComponentClassDiagram.png[width="790"]
 
-An example staff stored in this format is reproduced below:
+An example staff stored in XML format is reproduced below:
 
 [source,xml]
 ----
@@ -2118,6 +2104,9 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Acronyms
 
+[[SKU]] SKU::
+SKU stands for Stock Keeping Unit. It is a product and service identification code for a store or product.
+
 [[UML]] UML::
 UML stands for Unified Modeling Language which is used to specify, visualize, construct and document the behavior of a software.
 
@@ -2125,7 +2114,7 @@ UML stands for Unified Modeling Language which is used to specify, visualize, co
 MSS stands for Main Success Scenario where it describes the shortest and most straightforward interaction by which the post-conditions can be achieved
 
 [[po]] PO::
-PO stands for purchase order
+PO stands for purchase order.
 
 [appendix]
 == Instructions for Manual Testing
@@ -2223,9 +2212,41 @@ These instructions only provide a starting point for testers to work on; testers
 
 // end::testcaseUserManagement[]
 
+// tag::testcaseInventoryManagement[]
 === Inventory Management
+. Adding an item
 
-. Deleting a item while all items are listed
+.. Pre-requisites: The item to be added must not have the same SKU as another existing item in the inventory and must be logged in.
+.. Test case: `add-item n/iPhone XR p/1500.00 q/70 s/apple-iphone-xr i/iphone.jpg` +
+   Expected: Item will be added into the inventory. Details of the added item shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add-item n/` +
+   Expected: No item is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add-item commands to try: `add-item`, `add-item ,,,`_ +
+   Expected: Similar to previous.
+
+. Listing all the items
+
+.. Prerequisites: Must be logged in.
+.. Test case: `list-item` +
+  Expected: All items will be listed at the panel on the left of the UI.
+
+. Listing all the items that are low on stock
+
+.. Prerequisites: Must be logged in.
+.. Test case: `list-low-qty` +
+  Expected: All items thath as quantities equal or less than 10 will be listed at the panel on the left of the UI.
+
+. Editing an item
+
+.. Prerequisites: The item to be edited must be an existing entry in the inventory list
+.. Test case: `edit-item 1 n/iPhone XS Midnight Blue` +
+  Expected: Edited item will replace the existing item in the system. Details of the edited item shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-item n/` +
+  Expected: No item is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect edit-item commands to try: `edit-item`, `edit-item ,,,`_ +
+  Expected: Similar to previous.
+
+. Deleting an item while all items are listed
 
 .. Prerequisites: List all items using the `list-item` command. Multiple items in the list.
 .. Test case: `delete-item 1` +
@@ -2233,6 +2254,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete-item 0` +
    Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-item`, `delete-item x` (where x is larger than the list size)
+// end::testcaseInventoryManagement[]
 
 === Sale Management
 
@@ -2255,3 +2277,66 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No sale is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-sale`, `delete-sale ABC` +
    Expected: Similar to previous.
+
+// tag::testcasePoManagement[]
+=== Purchase Order Management
+
+. Listing all purchase orders
+.. Prerequisites: User must be logged in
+.. Test case: `list-po` +
+   Expected: Purchase orders will be listed at the panel on the left of the UI.
+
+. Adding a purchase order
+.. Prerequisites: User must be logged, item sku must exist in the inventory manager, required date must be beyond the current date
+and the quantity must be valid.
+.. Test case: `add-po s/apple-iphone-xr q/1000 d/2018-12-12 sp/Apple Inc` +
+   Expected: Purchase order will be added into the system. Details of the added purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add-po s/` +
+   Expected: No purchase order is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add-po commands to try: `add-po`, `add-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Editing a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list and purchase order status must be in 'PENDING' status.
+.. Test case: `edit-po 2 q/1000` +
+   Expected: Edited purchase order will replace the existing purchase order in the system. Details of the edited purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-po asd sd/` +
+   Expected: No purchase order is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect edit-po commands to try: `edit-po`, `edit-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Deleting a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list.
+.. Test case: `delete-po 2` +
+   Expected: Purchase order at index 2 will be deleted. Details of the deleted purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-po asd` +
+   Expected: No purchase order is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete-po commands to try: `delete-po`, `delete-po ,,,`_ +
+   Expected: Similar to previous.
+
+. Approving a purchase order
+.. Prerequisites: User must be logged, purchase order index must exist in the list and purchase order status must be in 'PENDING' status.
+.. Test case: `approve-po 2` +
+   Expected: Purchase order at index 2 will be approved. Details of the approved purchase order is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `approve-po asd sd/` +
+   Expected: No purchase order is approved. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect approve-po commands to try: `approve-po`, `approve-po ,,,`_ +
+   Expected: Similar to previous.
+
+// end::testcasePoManagement[]
+
+=== Reporting Module
+
+. Export the item list to csv file
+.. Prerequisites: User must be logged in as an `admin`
+.. Test case: `export-csv-items f/items.csv` +
+   Expected: The item list is exported successfully to items.csv in the installed directory.
+.. Test case: `export-csv-items n/items.csv` +
+   Expected: The item list is not exported due to invalid prefix. Error details shown in the feedback.
+.. Test case: `export-csv-items f/items.xml` +
+   Expected: The item list is not exported due to invalid file format. Error details shown in the feedback.
+
+
+
+_{ more test cases ... }_
+

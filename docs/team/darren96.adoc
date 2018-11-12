@@ -2,8 +2,8 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
 :sectnums:
+
 == Overview
 
 This Personal Portfolio Page showcases what I have contributed in the project and the documentation for
@@ -15,46 +15,44 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 a Graphical User Interface (GUI).
 
 In this Inventory Manager, I have designed and implemented the authentication component and
-user management component. This two components provides the inventory manager on the ability
-to authenticate and authorize users to manage the inventory.
+user management component. These two components provide the ability to the inventory manager to authenticate and
+authorize users to manage the inventory.
 
-== Summary of contributions
+== Summary of Contributions
 
-* *Major enhancement*:
-** Created user authentication feature
-** Created user management features
+* *Major Enhancement*:
+** Created authentication and user management feature
 
-* *Code contributed*:
+* *Code Contributed*:
 ** https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=darren96&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Functional Code]
 
 * *Other contributions*:
 ** https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+author%3Adarren96[Pull Requests Made]
 ** https://github.com/CS2103-AY1819S1-W14-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Adarren96[Pull Requests Reviewed]
 
-** Project management:
-*** Setup a release for v1.1
+* *Project Management*:
+*** Setup a release for https://github.com/CS2103-AY1819S1-W14-4/main/releases/tag/v1.1[v1.1]
 
-** Enhancements to existing features:
-*** Enable `undo` and `redo` commands to be executed for the user management component
-*** Enhancement on command history of the user to be cleared once user logout
-*** Mask user entered password in the log file
+* *Enhancements to Existing Features*:
+*** Enabled `undo` and `redo` commands to be executed for the user management component
+*** Cleared command history of the user once user is logged out
+*** Masked up the password which will be shown in the log file
 
-** Documentation:
-*** Update the user guides of User Management and Authentication components of Inventory Manager https://cs2103-ay1819s1-w14-4.github.io/main/UserGuide.html[#22]
-*** Update the developer guides of User Management component of Inventory Manager https://cs2103-ay1819s1-w14-4.github.io/main/UserGuide.html[#22]
-*** Update my personal portfolio https://github.com/CS2103-AY1819S1-W14-4/main/pull/22[#22]
+* *Documentation*:
+*** Updated the user guides of Authentication and User Management components of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[(#211)]
+*** Updated the developer guides of Authentication and User Management component of Inventory Manager https://github.com/CS2103-AY1819S1-W14-4/main/pull/211[(#211)]
+*** Updated my personal portfolio https://cs2103-ay1819s1-w14-4.github.io/main/team/darren96.html[(#211)]
 
-** Tools:
+* *Tools*:
 *** Created an organization for team on Github
 *** Integrated a Github plugin (TravisCI) to the team repo
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag=accountsManagement]
+include::../UserGuide.adoc[tag=authentication]
 include::../UserGuide.adoc[tag=userManagement]
 
 == Contributions to the Developer Guide

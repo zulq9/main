@@ -256,7 +256,7 @@ public class Inventory implements ReadOnlyInventory {
      * Replaces the given purchase order {@code target} in the list with {@code editedPurchaseOrder}.
      * {@code target} must exist in the purchase order list.
      */
-    public void updatePurchaseOrder(PurchaseOrder target, PurchaseOrder editedPurchaseOrder) {
+    public void updatePurchaseOrder(int target, PurchaseOrder editedPurchaseOrder) {
         requireNonNull(editedPurchaseOrder);
 
         purchaseOrders.setPurchaseOrder(target, editedPurchaseOrder);
@@ -289,13 +289,13 @@ public class Inventory implements ReadOnlyInventory {
      * Approves the given purchaseorder {@code target} and updates the status.
      * {@code target} must exist in the purchase order list.
      */
-    public void approvePurchaseOrder(PurchaseOrder target) {
+    public void approvePurchaseOrder(int target, PurchaseOrder targetPo) {
         requireNonNull(target);
         PurchaseOrder approvedPo = new PurchaseOrder(
-                target.getSku(),
-                target.getQuantity(),
-                target.getReqDate(),
-                target.getSupplier(),
+                targetPo.getSku(),
+                targetPo.getQuantity(),
+                targetPo.getReqDate(),
+                targetPo.getSupplier(),
                 PurchaseOrder.Status.APPROVED);
 
         purchaseOrders.setPurchaseOrder(target, approvedPo);
@@ -305,13 +305,13 @@ public class Inventory implements ReadOnlyInventory {
      * Rejects the given purchaseorder {@code target} and updates the status.
      * {@code target} must exist in the purchase order list.
      */
-    public void rejectPurchaseOrder(PurchaseOrder target) {
+    public void rejectPurchaseOrder(int target, PurchaseOrder targetPo) {
         requireNonNull(target);
         PurchaseOrder rejectedPo = new PurchaseOrder(
-                target.getSku(),
-                target.getQuantity(),
-                target.getReqDate(),
-                target.getSupplier(),
+                targetPo.getSku(),
+                targetPo.getQuantity(),
+                targetPo.getReqDate(),
+                targetPo.getSupplier(),
                 PurchaseOrder.Status.REJECTED);
 
         purchaseOrders.setPurchaseOrder(target, rejectedPo);
@@ -321,7 +321,7 @@ public class Inventory implements ReadOnlyInventory {
      * Removes {@code key} from this {@code Inventory}.
      * {@code key} must exist in the purchase order list.
      */
-    public void removePurchaseOrder(PurchaseOrder key) {
+    public void removePurchaseOrder(int key) {
         purchaseOrders.remove(key);
     }
 

@@ -103,9 +103,9 @@ public class ApprovePurchaseOrderCommandTest {
         }
 
         @Override
-        public void approvePurchaseOrder(PurchaseOrder purchaseOrder) {
+        public void approvePurchaseOrder(int target, PurchaseOrder purchaseOrder) {
             requireNonNull(purchaseOrder);
-            inventory.approvePurchaseOrder(purchaseOrder);
+            inventory.approvePurchaseOrder(target, purchaseOrder);
         }
 
         @Override

@@ -184,14 +184,14 @@ Format: `exit`
 
 Inventory Manager data are saved in the hard disk automatically after any command that changes the data. No action is required to manually save the data.
 
-// tag::accountsManagement[]
+// tag::authentication[]
 === Authentication
-Users authenticate their identities prior to using other functions of the applications.
+Users authenticate their identities prior using any other functions of the applications.
 
 The following commands are only available to any members except `login` which can be executed by any user. +
 
 ==== Login to the system : `login`
-The `login` command allows the user to login with the given username and password. +
+The `login` command allows the user to login with given username and password. +
 
 Format: `login u/USERNAME p/PASSWORD`
 
@@ -200,13 +200,13 @@ Examples:
 * Login user with username as zulq9 and password as zulsenpai. +
 `login u/zulq9 p/zulsenpai`
 
-image::doc-login.png[width="500"]
+image::doc-login.png[width="790"]
 _Figure 4.1. User is required to login before proceeding._
 
 ==== Change user's password : `change-password`
 
-The `change-password` command updates a user password into the system with given new password. +
-If there are multiple inputs for the new password, then only the last input of the new password is accepted. +
+The `change-password` command updates the user's password in the system with a given new password. +
+If there are multiple inputs for the new password field, then only the last input of the new password is accepted. +
 
 Format: `change-password p/NEW_PASSWORD`
 
@@ -215,12 +215,12 @@ Examples:
 * Change user's password with given new password as darrensinglenus. +
  `change-password p/darrensinglenus`.
 
-image::doc-change-password.png[width="500"]
+image::doc-change-password.png[width="790"]
 _Figure 4.2. User attempting to change password._
 
 ==== Logout from the system : `logout`
 
-The `logout` Logout the current users from the system. +
+The `logout` command signs out the current users from the system and removes all the commands history. +
 
 Format: `logout`
 
@@ -229,7 +229,7 @@ Examples:
 * Logout from the current session. +
 `logout`
 
-// end::accountsManagement[]
+// end::authentication[]
 
 // tag::userManagement[]
 === User Management
@@ -259,7 +259,7 @@ This command is available to admins only. +
 
 Format: `list-staff`
 
-image::doc-list-user.png[width="500"]
+image::doc-list-user.png[width="790"]
 _Figure 4.3. All users in Inventory Manager listed on screen._
 
 ==== Updating a user : `edit-staff`
@@ -285,7 +285,7 @@ This command is available to admins only. +
 An error will be shown if the entered index is invalid.
 `delete-staff 999`.
 
-image::doc-delete-user-failed.png[width="500"]
+image::doc-delete-user-failed.png[width="790"]
 _Figure 4.4. Error shown if the deleted index is invalid._
 
 Format: `delete-staff INDEX`
@@ -297,25 +297,27 @@ Examples:
 
 // end::userManagement[]
 
-// tag::inventoryManagement[]
+// tag::pppInventoryManagement1[]
 === Inventory Management
 
-The following commands are mainly used for users to manage the items stored in the inventory.
+The following commands are mainly used for you to manage the items stored in your inventory.
 
 [NOTE]
 ====
 An item's uniqueness is based on its SKU. It can have the same name and other attributes but its SKU must be *unique*.
 ====
 
+// end::pppInventoryManagement1[]
+
 ==== Adding an item : `add-item`
 
-The `add-item` command adds an item to the inventory manager. +
+The `add-item` command allows you to add an item to the inventory manager. +
 This command is available to *members* only. +
 
 Format: `add-item n/NAME p/PRICE q/QUANTITY s/SKU i/IMAGE_LOCATION [t/TAG]...`
 
 [TIP]
-An item can have any number of tags (including 0)
+An item can have any number of tags (including 0). Therefore, you can add as many tags as you want to the item.
 
 Example:
 
@@ -323,19 +325,21 @@ Example:
 
 ==== Listing all items : `list-item`
 
-The `list-item` command shows a list of all items in the inventory manager. +
+The `list-item` command shows you a list of all items in the inventory manager. +
 This command is available to *members* only. +
 
 Format: `list-item`
 
-Upon entering the `list-item` command into the command box and pressing kbd:[Enter], a list of all items will appear as can be seen in the screenshot below:
+Upon entering the `list-item` command into the command box and pressing kbd:[Enter], you should see a list of all items appearing
+in the left side panel as can be seen in the screenshot below:
 
-image::doc-list-item.png[width="500"]
+image::doc-list-item.png[width="450"]
 _Figure 4.5. All items in Inventory Manager listed on screen._
 
+// tag::pppInventoryManagement2[]
 ==== Listing all items with low quantities : `list-low-qty`
 
-The `list-low-qty` command shows a list of all items in the inventory manager that have low quantities. +
+The `list-low-qty` command shows you a list of all items in the inventory manager that have low quantities. +
 This command is available to *members* only. +
 
 Format: `list-low-qty`
@@ -347,12 +351,12 @@ Format: `list-low-qty`
 - An item that is on `low quantity` will have its quantity highlighted in red with a warning sign when selected.
 ====
 
-Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], a list of all items with quantities
-of 10 or less will appear.
+Upon entering the `list-low-qty` command into the command box and pressing kbd:[Enter], you should see a list of all items with
+quantities of 10 or less appearing in the left side panel similar to the `list-item` command.
 
 ==== Editing an item : `edit-item`
 
-The `edit-item` command edits an existing item in the Inventory Manager. +
+The `edit-item` command allows you to edit an existing item in the Inventory Manager. +
 This command is available to *members* only. +
 
 Format: `edit-item INDEX [n/NAME] [p/PRICE] [q/QUANTITY] [s/SKU] [i/IMAGE_LOCATION] [t/TAG]...`
@@ -380,7 +384,7 @@ Updates the image location and quantity of the 1st item to `docs/images/iphone.j
 
 ==== Locating items by name : `find-item`
 
-The `find-item` command finds items that have names containing any of the given keywords. +
+The `find-item` command allows you to find items that have names containing any of the given keywords. +
 This command is available to *members* only. +
 
 Format: `find-item KEYWORD [MORE_KEYWORDS]`
@@ -399,17 +403,12 @@ For the `find-item` command, do take note of the following points:
 
 The following screenshot demonstrates entering the `find-item` command in the command box with the keyword `LG`, followed by kbd:[Enter]:
 
-image::doc-find-item.png[width="500"]
+image::doc-find-item.png[width="450"]
 _Figure 4.6. The item(s) searched for will be displayed on screen._
-
-Example:
-
-* `find-item iphone` +
-Returns `IPhone X` and `IPhone 10`
 
 ==== Locating items by SKU : `find-item-sku`
 
-The `find-item-sku` command finds items that have SKUs containing any of the given keywords. +
+The `find-item-sku` command allows you to find items that have SKUs containing any of the given keywords. +
 This command is available to *members* only. +
 
 Format: `find-item-sku KEYWORD [MORE_KEYWORDS]`
@@ -433,14 +432,13 @@ Returns `IPhone X` and `IPhone 10`, which contains the SKUs `iphone-x` and `ipho
 
 ==== Filtering items by price and/or quantity : `filter-item`
 
-The `filter-item` command filters items that have prices and/or quantities within the conditions set in the keywords. +
+The `filter-item` command allows you to filter items that have prices and/or quantities within the conditions set in the keywords. +
 This command is available to *members* only. +
 
 Format: `filter-item [p/[<][>]PRICE] [q/[<][>]QUANTITY]`
 
 [TIP]
-You can combine both conditions or use only one condition to filter your items.
-
+To narrow down the scope, you can combine both conditions or use only one condition to filter your items.
 
 For the `filter-item` command, do take note of the following points:
 ****
@@ -451,23 +449,18 @@ For the `filter-item` command, do take note of the following points:
 * For quantity, only whole numbers are allowed
 ****
 
-The following screenshot demonstrates entering the `filter-item` command in the command box with the condition `q/>85` (i.e. quantity more than or equals to 85), followed by kbd:[Enter]:
-
-image::doc-filter-item.png[width="500"]
-_Figure 4.7. The item(s) filtered for based on the condition(s) set will be displayed on screen._
-
 Examples:
 
 * `filter-item p/>900` +
 Returns `IPhone X` and `IPhone 10` which both have prices more than or equal to $900.
-* `filter-item q/<100` +
-Returns `LG G7` and `Samsung Note 9` which both have quantities less than or equal to 100.
 * `filter-item p/<800 q/<100` +
 Returns `Samsung Note 9` which has a price of less than or equals to $800, and a quantity of less than or equals to 100.
 
+// end::pppInventoryManagement2[]
+
 ==== Deleting an item : `delete-item`
 
-The `delete-item` command deletes the specified item from the inventory. +
+The `delete-item` command allows you to delete the specified item from the inventory. +
 This command is available to *members* only. +
 
 Format: `delete-item INDEX`
@@ -495,7 +488,7 @@ Deletes the 1st item in the results of the `find-item` command.
 
 ==== Selecting an item : `select`
 
-The `select` command selects an item identified by the index number used in the displayed inventory list. +
+The `select` command allows you to select an item identified by the index number used in the displayed inventory list. +
 This command is available to *members* only. +
 
 Format: `select INDEX`
@@ -515,7 +508,6 @@ Selects the 2nd item in the inventory.
 * `find-item IPhone X` +
 `select 1` +
 Selects the 1st item in the results of the `find-item` command.
-// end::inventoryManagement[]
 
 // tag::salesManagement[]
 === Sale Orders Management
@@ -531,7 +523,7 @@ If an invalid SKU or quantity is entered, Inventory Manager will display an erro
 an error when an invalid SKU is entered.
 
 image::doc-add-sale-failed.png[width="500"]
-_Figure 4.8. Error shown on screen when creating a sale order with invalid SKU._
+_Figure 4.7. Error shown on screen when creating a sale order with invalid SKU._
 
 Format: `add-sale s/SKU q/QTY`
 
@@ -549,7 +541,7 @@ If a sale ID that cannot be found is entered, Inventory Manager will display an 
 screenshot below is an example of an error when an invalid sale ID is entered.
 
 image::doc-delete-sale-failed.png[width="500"]
-_Figure 4.9. Error shown on screen when deleting a sale order that cannot be found._
+_Figure 4.8. Error shown on screen when deleting a sale order that cannot be found._
 
 Format: `delete-sale SALE-ID`
 
@@ -565,7 +557,7 @@ The `list-sale` command is only available to the Member group. It allows the use
 The screenshot below shows the result after the `list-sale` command has been entered.
 
 image::doc-list-sale.png[width="500"]
-_Figure 4.10. All sales in Inventory Manager listed on screen._
+_Figure 4.9. All sales in Inventory Manager listed on screen._
 
 Format: `list-sale`
 
@@ -588,7 +580,7 @@ It allows the user to list all purchase orders in Inventory Manager. +
 The screenshot below shows the result after the `list-po` command is entered.
 
 image::doc-list-po.png[width="400"]
-_Figure 4.11. All purchase orders in Inventory Manager listed on screen._
+_Figure 4.10. All purchase orders in Inventory Manager listed on screen._
 
 Format: `list-po`
 
@@ -599,7 +591,7 @@ It allows the user to add a purchase order for an item based on it's sku. +
 The added purchase order comes with a default status of 'PENDING' as shown in the figure below.
 
 image::doc-add-po.png[width="250"]
-_Figure 4.12. A newly added purchase order that comes with a default 'PENDING' status._
+_Figure 4.11. A newly added purchase order that comes with a default 'PENDING' status._
 
 
 Format: `add-po s/SKU_NUMBER q/QUANTITY d/REQUIRED_DATE sp/SUPPLIER`
@@ -618,7 +610,7 @@ Upon approving, the quantity stated in the purchase order will be added to the d
 The image below shows the result after the `approve-po 1` command is entered.
 
 image::doc-delete-po.png[width="180"]
-_Figure 4.13. Approves the specified purchase order by the it's index in the list._
+_Figure 4.12. Approves the specified purchase order by the it's index in the list._
 
 
 Format: `approve-po INDEX`

@@ -246,7 +246,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPurchaseOrder(Model model) {
         PurchaseOrder firstPo = model.getFilteredPurchaseOrderList().get(0);
-        model.deletePurchaseOrder(firstPo);
+        model.deletePurchaseOrder(0);
         model.commitInventory();
     }
 

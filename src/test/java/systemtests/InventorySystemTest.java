@@ -22,6 +22,7 @@ import org.junit.ClassRule;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.ItemListPanelHandle;
+import guitests.guihandles.ItemTableViewHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
@@ -111,6 +112,10 @@ public abstract class InventorySystemTest {
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
+    }
+
+    public ItemTableViewHandle getItemTableView() {
+        return mainWindowHandle.getItemTableView();
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -290,5 +295,13 @@ public abstract class InventorySystemTest {
      */
     protected Model getModel() {
         return testApp.getModel();
+    }
+
+    /**
+     * Asserts that the item table view is showing the correct model.
+     */
+    protected void assertShowItemTableView(Model expectedModel) {
+        ItemTableViewHandle handle = getItemTableView();
+        assertEquals(handle.getItemList(), expectedModel.getFilteredItemList());
     }
 }

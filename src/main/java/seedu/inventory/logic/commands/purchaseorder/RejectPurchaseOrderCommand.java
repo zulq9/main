@@ -49,7 +49,7 @@ public class RejectPurchaseOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_SELECT_PENDING);
         }
 
-        model.rejectPurchaseOrder(purchaseOrderToReject);
+        model.rejectPurchaseOrder(targetIndex.getZeroBased(), purchaseOrderToReject);
         model.commitInventory();
         return new CommandResult(String.format(MESSAGE_REJECT_PURCHASE_ORDER_SUCCESS, purchaseOrderToReject));
     }
