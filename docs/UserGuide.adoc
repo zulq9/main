@@ -889,8 +889,8 @@ The following table summarises commands available in Inventory Manager, along wi
 4+| *Purchase Orders Management*
 |`List all Purchase Orders`|  `list-po` |  `list-po` | `Member`
 |`Add Purchase Order`| `add-po` | `add-po s/apple-iphone-xr q/1000 d/12-12-2018 sp/Apple Inc.` | `Member`
-|`Approve Purchase Order`|  `approve-po` | `approve-po 2` | `Manager/Admin`
-|`Reject Purchase Order`|  `reject-po` | `reject-po 3` | `Manager/Admin`
+|`Approve Purchase Order`|  `approve-po` | `approve-po 2` | `Manager`
+|`Reject Purchase Order`|  `reject-po` | `reject-po 3` | `Manager`
 |`Edit Purchase Order`|  `edit-po` | `edit-po 3 q/100` | `Member`
 |`Delete Purchase Order`|  `delete-po` | `delete-po 1` | `Member`
 // Report
